@@ -67,3 +67,27 @@ public function destroy(int $id)      // deletar
 - `camelCase` para métodos e variáveis
 - `snake_case` para colunas de banco e arquivos
 - `UPPER_SNAKE_CASE` para constantes
+
+## Formatação e legibilidade (preservar; não “normalizar”)
+
+Ao editar qualquer arquivo, **o diff deve mudar só o necessário** para a tarefa. É proibido “limpar” ou padronizar estilo de propósito.
+
+**Não remover nem evitar:**
+
+- **Alinhamento com espaços** em atribuições consecutivas (`=` na mesma coluna).
+- **Alinhamento** de `=>` em arrays quando o trecho já usa esse padrão.
+- **Estrutura de `if` com chaves e quebra de linha** para `continue` / `return` antecipado. Não trocar por `if ($x) continue;` ou `if ($x) return $y;` na mesma linha quando o arquivo usa bloco com chaves.
+
+**Não executar** Pint, Prettier ou format-on-save em arquivos tocados **só** para reformatar, a menos que o usuário peça.
+
+**Exemplo (atribuições alinhadas — manter o “ANTES”, não impor o “DEPOIS”):**
+
+```php
+// Manter quando já existir no arquivo:
+$tipo1     = 'ruim';
+$mensagem1 = "Atenção: você está com {$percentual}%, abaixo da meta…";
+
+// Evitar introduzir por hábito:
+$tipo1 = 'ruim';
+$mensagem1 = "Atenção: você está com {$percentual}%, abaixo da meta…";
+```
