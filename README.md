@@ -11,9 +11,6 @@ Esse repositório não é mais um "guia de boas práticas para stack X", e sim u
 ### 🏗️ `/boilerplate-laravel`
 Workflow típico com **SRP**: modelo, queries, services (web e API), helpers, migration e specs. Exemplo de domínio: **Carro**.
 
-### 🏗️ `/boilerplate-python`
-Mesmo desenho arquitetural em **Python** (SQLAlchemy 2, PEP 8): queries, services web/API, helpers, SQL de migration e specs. Exemplo: **Carro**.
-
 ### ⚙️ `.cursor/`
 Regras de contexto para o Cursor (raiz do repositório e, em cada boilerplate, regras adicionais).
 
