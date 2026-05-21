@@ -105,11 +105,8 @@ Exemplos (JSON ilustrativo):
 
 ## 🚀 Como usar?
 
-1. Abra o boilerplate da sua stack (`boilerplate-laravel` ou `boilerplate-python`).
-2. Leia o spec da feature em `docs/features/<nome>/specs.md` quando existir.
-3. Copie ou adapte pastas e convenções para o seu projeto; mantenha queries finas e services como ponto de orquestração.
-
-**🐍 Python:** detalhes de instalação e ambiente em `boilerplate-python/README.md`.
+1. Leia as regras e convenções.
+2. Adapte/crie/refatore novas pastas e convenções de acordo com seus gostos pessoais ;)
 
 ---
 
@@ -119,6 +116,5 @@ Para prompts sobre uma **feature** ou recurso concreto, a IA (e qualquer dev) de
 
 - Estrutura sugerida: `docs/features/<nome-da-feature>/specs.md` (ou `spec.md`, conforme o projeto).
 - **Exemplo (carro — Laravel):** `boilerplate-laravel/docs/features/carro/specs.md`
-- **Exemplo (carro — Python):** `boilerplate-python/docs/features/carro/specs.md`
 
 Isso reduz ambiguidade e mantém implementações alinhadas ao que o repositório já definiu.
