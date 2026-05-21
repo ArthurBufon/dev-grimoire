@@ -78,14 +78,26 @@ Depois: você pede feature → brainstorming → plano → você valida → impl
 
 ---
 
-## 🛠️ Stack do Projeto
+## 📜 User Rules (globais)
 
-| Tecnologia | Versão |
+**Recomendado:** configurar **User Rules** globais no Cursor. Elas valem em **todos os projetos** e alinham o agente às convenções da equipe (nomenclatura em português, retorno padronizado, arquitetura por stack) sem repetir contexto a cada chat.
+
+**Onde configurar:** **Cursor Settings → Rules, Skills, Subagent → aba User**
+
+**Fonte dos arquivos:** [`.cursor/user-rules/`](../user-rules/) — guia completo em [`README.md`](../user-rules/README.md)
+
+| Arquivo | Quando colar na aba User |
 |---|---|
-| Laravel | latest |
-| Inertia.js | latest |
-| React + TypeScript | latest |
-| Tailwind CSS | latest |
-| Docker (Laravel Sail) | latest |
-| WSL2 (Ubuntu) | — |
-| Node (nvm) | v24.15.0 |
+| [`geral.md`](../user-rules/geral.md) | **Sempre** — princípios, Git, segurança |
+| [`php.md`](../user-rules/php.md) | Projetos PHP / Laravel |
+| [`javascript.md`](../user-rules/javascript.md) | Projetos JS / React |
+| [`flutter.md`](../user-rules/flutter.md) | Projetos Flutter / Dart |
+
+**Ordem sugerida:** `geral.md` primeiro; depois só a regra da stack do repo em que você está.
+
+```
+Antes:  cada projeto “reinventa” estilo e padrões no prompt ❌
+Depois: agent já sabe retorno `{ sucesso, dados, erros }`, estrutura e commits ✅
+```
+
+> 💡 **User vs Project:** User Rules são globais; regras em `.cursor/rules/` ou `AGENTS.md` valem só no repositório atual. Use as duas camadas quando o projeto tiver convenções extras.

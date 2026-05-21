@@ -8,13 +8,21 @@ Esse repositório não é mais um "guia de boas práticas para stack X", e sim u
 
 ## 📁 Conteúdo
 
-### 🏗️ `/boilerplate-laravel`
+### 🏗️ `boilerplates/laravel`
 Workflow típico com **SRP**: modelo, queries, services (web e API), helpers, migration e specs. Exemplo de domínio: **Carro**.
 
 ### ⚙️ `.cursor/`
-Regras de contexto para o Cursor (raiz do repositório e, em cada boilerplate, regras adicionais).
+Configuração e contexto para o Cursor neste repositório:
 
-O padrão **queries + services** e a nomenclatura REST dos métodos podem ser replicados em outras stacks; aqui estão **duas implementações de referência** (PHP/Laravel e Python).
+| Pasta / arquivo | Função |
+|-----------------|--------|
+| [`user-rules/`](.cursor/user-rules/) | Regras **globais** (PHP, JS, Flutter, geral) — copiar para **Settings → Rules, Skills, Subagent → User** |
+| [`user-rules/README.md`](.cursor/user-rules/README.md) | Guia de como ativar as User Rules em qualquer projeto |
+| [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md) | Setup completo: MCPs, Superpowers e User Rules |
+
+Em cada boilerplate há regras adicionais (ex.: [`boilerplates/laravel/.cursor/rules`](boilerplates/laravel/.cursor/rules)) — escopo **só daquele projeto**.
+
+O padrão **queries + services** e a nomenclatura REST dos métodos podem ser replicados em outras stacks; a referência atual é **PHP/Laravel**.
 
 ---
 
@@ -36,9 +44,12 @@ Com o **avanço da IA** no desenvolvimento, ficou ainda mais importante:
 
 - **📋 Documentar processos** — menos ambiguidade nas respostas
 - **🏛️ Padronizar estruturas** — prompts e código gerado mais consistentes
+- **📜 User Rules globais** — convenções fixas no Cursor (retorno `sucesso`/`dados`/`erros`, nomenclatura, arquitetura por stack) em **todos os projetos**
 - **🎯 Usar SDD (Specification-Driven Development)** — definir regras e limites antes de implementar, alinhado a `docs/features/`
 
 Uma base bem documentada e padronizada permite que **você e a IA trabalhem juntos de forma mais eficiente e previsível**.
+
+**Recomendado no Cursor:** configurar as [User Rules globais](.cursor/user-rules/README.md) a partir dos arquivos em `.cursor/user-rules/` e, para MCPs e fluxo agentico, seguir o [tutorial de setup](.cursor/tutorial-setup/tutorial.md).
 
 ---
 
@@ -49,7 +60,7 @@ Uma base bem documentada e padronizada permite que **você e a IA trabalhem junt
 Camada de **acesso a dados** e consultas **simples, reutilizáveis** entre services (evolução prática do *Repository*, com foco em queries por recurso).
 
 - 📁 Um módulo ou namespace por recurso  
-- 💡 Exemplos: `Queries/Carro/` (Laravel) · `app/queries/carro/` (Python)
+- 💡 Exemplo: `app/Queries/Carro/` no boilerplate Laravel
 
 **Vantagem:** consultas centralizadas e fáceis de manter.
 
@@ -105,8 +116,11 @@ Exemplos (JSON ilustrativo):
 
 ## 🚀 Como usar?
 
-1. Leia as regras e convenções.
-2. Adapte/crie/refatore novas pastas e convenções de acordo com seus gostos pessoais ;)
+1. Leia as regras e convenções deste repositório.
+2. **Cursor (global):** copie o conteúdo de [`.cursor/user-rules/`](.cursor/user-rules/) para **Settings → Rules, Skills, Subagent → aba User** (`geral.md` sempre; depois `php.md`, `javascript.md` ou `flutter.md` conforme a stack). Detalhes em [`user-rules/README.md`](.cursor/user-rules/README.md).
+3. **Cursor (setup opcional):** MCPs, plugin Superpowers e visão geral em [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md).
+4. **Projeto Laravel:** explore [`boilerplates/laravel`](boilerplates/laravel) e o spec em [`docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md).
+5. Adapte/crie/refatore pastas e convenções de acordo com seus gostos pessoais ;)
 
 ---
 
@@ -115,6 +129,6 @@ Exemplos (JSON ilustrativo):
 Para prompts sobre uma **feature** ou recurso concreto, a IA (e qualquer dev) deve **consultar primeiro o spec**: domínio, arquivos tocados, formato de retorno e extensões previstas.
 
 - Estrutura sugerida: `docs/features/<nome-da-feature>/specs.md` (ou `spec.md`, conforme o projeto).
-- **Exemplo (carro — Laravel):** `boilerplate-laravel/docs/features/carro/specs.md`
+- **Exemplo (carro — Laravel):** [`boilerplates/laravel/docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md)
 
 Isso reduz ambiguidade e mantém implementações alinhadas ao que o repositório já definiu.
