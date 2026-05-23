@@ -19,6 +19,8 @@
 - Analisar o problema antes de implementar — nunca pular direto para código
 - Investigar causa raiz antes de aplicar correção
 - Quebrar problemas complexos em passos menores antes de executar
+## Contexto
+- Sempre analisar /docs/*, tentando localizar a feature referente a pergunta solicitada
 ## Git
 - Commits em português, imperativo: "Adiciona", "Corrige", "Remove", "Refatora"
 - Nunca commitar: `.env`, credenciais, arquivos de build, logs
