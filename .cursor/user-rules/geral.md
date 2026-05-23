@@ -19,8 +19,10 @@
 - Analisar o problema antes de implementar — nunca pular direto para código
 - Investigar causa raiz antes de aplicar correção
 - Quebrar problemas complexos em passos menores antes de executar
-## Contexto
-- Sempre analisar /docs/*, tentando localizar a feature referente a pergunta solicitada
+## Contexto/Docs
+- Docs é um diretório que nos permite definir SPECS e contexto de alto nível sobre features. Ele é um facilitador para humanos e IAs entenderem o código, sem precisar acessar a codebase diretamente.
+- Sempre analisar /docs/*, tentando localizar o contexto completo da feature referente
+- Ao fazer atualizações, é crucial atualizar o docs/*/specs.md respectivo do arquivo.
 ## Git
 - Commits em português, imperativo: "Adiciona", "Corrige", "Remove", "Refatora"
 - Nunca commitar: `.env`, credenciais, arquivos de build, logs
