@@ -17,21 +17,19 @@ Este repositório segue a mesma lógica: reúne padrões de projeto, configuraç
 
 ## 📁 Conteúdo
 
-### 🖥 `boilerplates/laravel`
+### 📁 `guias/`
+Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
+
+### 📁 `boilerplates/laravel`
 Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**.
 
-### ⚙️ `.cursor/`
+### 📁 `.cursor/`
 
 | Pasta / arquivo | Função |
 |---|---|
 | [`user-rules/`](.cursor/user-rules/) | Regras globais (PHP, JS, Flutter, geral) — copiar para **Settings → Rules → User** |
 | [`user-rules/README.md`](.cursor/user-rules/README.md) | Como ativar as User Rules em qualquer projeto |
 | [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md) | Setup completo: MCPs, Superpowers e User Rules |
-
-Cada boilerplate tem regras adicionais com escopo local (ex.: [`boilerplates/laravel/.cursor/rules`](boilerplates/laravel/.cursor/rules)).
-
-### 🗺 `guias/`
-Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
 
 ---
 
