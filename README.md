@@ -30,8 +30,8 @@ Workflow com SRP: modelo, queries, services (web e API), helpers, migration e sp
 
 Cada boilerplate tem regras adicionais com escopo local (ex.: [`boilerplates/laravel/.cursor/rules`](boilerplates/laravel/.cursor/rules)).
 
-### 🪄 `prompts/`
-Prompts prontos para uso com IA — refatoração, specs, revisão de código, geração de boilerplate. Agnósticos de stack.
+### 🗺 `guias/`
+Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
 
 ---
 
