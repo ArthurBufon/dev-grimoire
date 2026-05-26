@@ -17,7 +17,7 @@ Este repositório segue a mesma lógica: reúne padrões de projeto, configuraç
 
 ## 📁 Conteúdo
 
-### 🏗️ `boilerplates/laravel`
+### 🖥 `boilerplates/laravel`
 Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**.
 
 ### ⚙️ `.cursor/`
