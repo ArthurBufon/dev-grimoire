@@ -1,134 +1,98 @@
-# 📚 Design Patterns
+# 🔮 dev-grimoire
 
-Repositório de **padrões de projeto**, exemplos práticos e estruturas de referência para desenvolvimento. O conteúdo reflete preferências usadas **profissionalmente (por mim)** em projetos corporativos e freelance, com foco em organização, SRP e contratos previsíveis.  
-  
-Esse repositório não é mais um "guia de boas práticas para stack X", e sim um agregado de preferências **pessoais** que visam melhor organização estrutural
+> Começou como um repositório de design patterns e boilerplate Laravel.
+> Evoluiu para algo mais amplo: um grimório pessoal de preferências, convenções e ferramentas para desenvolvimento assistido por IA em 2026.
+>
+> Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
+
+---
+
+## O que é isso?
+
+Um grimório é um livro de feitiços e conhecimento acumulado — pessoal, opinativo, construído com o tempo.
+
+Este repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, boilerplates e convenções que uso no dia a dia. Nada aqui é neutro ou consensual. É o que funciona **pra mim**, em projetos reais.
 
 ---
 
 ## 📁 Conteúdo
 
 ### 🏗️ `boilerplates/laravel`
-Workflow típico com **SRP**: modelo, queries, services (web e API), helpers, migration e specs. Exemplo de domínio: **Carro**.
+Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**.
 
 ### ⚙️ `.cursor/`
-Configuração e contexto para o Cursor neste repositório:
 
 | Pasta / arquivo | Função |
-|-----------------|--------|
-| [`user-rules/`](.cursor/user-rules/) | Regras **globais** (PHP, JS, Flutter, geral) — copiar para **Settings → Rules, Skills, Subagent → User** |
-| [`user-rules/README.md`](.cursor/user-rules/README.md) | Guia de como ativar as User Rules em qualquer projeto |
+|---|---|
+| [`user-rules/`](.cursor/user-rules/) | Regras globais (PHP, JS, Flutter, geral) — copiar para **Settings → Rules → User** |
+| [`user-rules/README.md`](.cursor/user-rules/README.md) | Como ativar as User Rules em qualquer projeto |
 | [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md) | Setup completo: MCPs, Superpowers e User Rules |
 
-Em cada boilerplate há regras adicionais (ex.: [`boilerplates/laravel/.cursor/rules`](boilerplates/laravel/.cursor/rules)) — escopo **só daquele projeto**.
+Cada boilerplate tem regras adicionais com escopo local (ex.: [`boilerplates/laravel/.cursor/rules`](boilerplates/laravel/.cursor/rules)).
 
-O padrão **queries + services** e a nomenclatura REST dos métodos podem ser replicados em outras stacks; a referência atual é **PHP/Laravel**.
-
----
-
-## 🎯 Para quê serve?
-
-Este repositório é uma **coleção de referências** para:
-
-- ✅ Entender padrões de projeto na prática
-- ✅ Consultar estruturas recomendadas
-- ✅ Seguir boas práticas de arquitetura
-- ✅ Manter código mais organizado e escalável
-- ✅ Gerar boilerplate seguindo padrões estruturados e validados
+### 🪄 `prompts/`
+Prompts prontos para uso com IA — refatoração, specs, revisão de código, geração de boilerplate. Agnósticos de stack.
 
 ---
 
-## 🤖 Por que documentar e padronizar?
+## 🎯 Pilares
 
-Com o **avanço da IA** no desenvolvimento, ficou ainda mais importante:
+**SRP em tudo** — cada arquivo, função e serviço tem um único motivo de mudar.
 
-- **📋 Documentar processos** — menos ambiguidade nas respostas
-- **🏛️ Padronizar estruturas** — prompts e código gerado mais consistentes
-- **📜 User Rules globais** — convenções fixas no Cursor (retorno `sucesso`/`dados`/`erros`, nomenclatura, arquitetura por stack) em **todos os projetos**
-- **🎯 Usar SDD (Specification-Driven Development)** — definir regras e limites antes de implementar, alinhado a `docs/features/`
+**Queries + Services** — separação clara entre acesso a dados e lógica de caso de uso. Nomenclatura REST nos métodos (`index`, `show`, `store`, `update`, `destroy`) replicável em qualquer stack.
 
-Uma base bem documentada e padronizada permite que **você e a IA trabalhem juntos de forma mais eficiente e previsível**.
-
-**Recomendado no Cursor:** configurar as [User Rules globais](.cursor/user-rules/README.md) a partir dos arquivos em `.cursor/user-rules/` e, para MCPs e fluxo agentico, seguir o [tutorial de setup](.cursor/tutorial-setup/tutorial.md).
-
----
-
-## 📚 Conceitos principais
-
-### 🔍 **Queries**
-
-Camada de **acesso a dados** e consultas **simples, reutilizáveis** entre services (evolução prática do *Repository*, com foco em queries por recurso).
-
-- 📁 Um módulo ou namespace por recurso  
-- 💡 Exemplo: `app/Queries/Carro/` no boilerplate Laravel
-
-**Vantagem:** consultas centralizadas e fáceis de manter.
-
----
-
-### ⚙️ **Services**
-
-Camada de **orquestração e regras** do recurso: transações, formatação antes de persistir, integração com filas/logs, etc. Métodos comuns espelham o CRUD REST: `index`, `show`, `store`, `update`, `destroy`.
-
-**Vantagem:** separação clara entre dados (queries) e lógica de caso de uso (services **orquestram** o fluxo).
-
----
-
-## 🎬 Padrão REST nos nomes dos métodos
-
-Nomenclatura alinhada aos **resource controllers** do Laravel, reutilizada nos boilerplates em **outras linguagens** para manter o mesmo vocabulário.
-
-| Método | Operação HTTP típica | Descrição |
-|--------|----------------------|-----------|
-| **INDEX** | `GET /recursos` | Lista recursos |
-| **SHOW** | `GET /recursos/{id}` | Um recurso |
-| **STORE** | `POST /recursos` | Cria |
-| **UPDATE** | `PUT` / `PATCH /recursos/{id}` | Atualiza |
-| **DESTROY** | `DELETE /recursos/{id}` | Remove |
-
-**OBS:** no endpoint, o recurso costuma ir no **plural** (ex.: `/carros/{id}`). Esses nomes também aparecem em **queries** e **services**.
-
-**Vantagem:** padrão fácil de manter e de transferir entre projetos e linguagens.
-
----
-
-## 🎬 Retorno padronizado (`sucesso` / `dados` / `erros`)
-
-Além dos dados, os fluxos retornam um **envelope** com estado da operação e mensagens — útil na camada HTTP, em jobs e em testes.
-
-Exemplos (JSON ilustrativo):
-
+**Retorno padronizado** — envelope consistente em todos os fluxos:
 ```json
-{"sucesso": true, "dados": {"lista": []}, "erros": []}
+{ "sucesso": true,  "dados": {},  "erros": [] }
+{ "sucesso": false, "dados": {}, "erros": ["mensagem"] }
 ```
 
-```json
-{"sucesso": true, "dados": {"quantidade_registros": 2}, "erros": []}
-```
+**Docs como contexto para IA** — specs em `docs/features/<feature>/specs.md` reduzem ambiguidade e tornam o código gerado mais previsível.
 
-```json
-{"sucesso": false, "dados": {}, "erros": ["Erro ao realizar consulta"]}
-```
-
-**Vantagem:** o chamador sabe explicitamente se houve falha e quais mensagens reportar, sem depender só de exceções ou de “dado vazio”.
+**SDD (Specification-Driven Development)** — define regras e fronteiras antes de implementar.
 
 ---
 
-## 🚀 Como usar?
+## 🤖 Por que padronizar em 2026?
 
-1. Leia as regras e convenções deste repositório.
-2. **Cursor (global):** copie o conteúdo de [`.cursor/user-rules/`](.cursor/user-rules/) para **Settings → Rules, Skills, Subagent → aba User** (`geral.md` sempre; depois `php.md`, `javascript.md` ou `flutter.md` conforme a stack). Detalhes em [`user-rules/README.md`](.cursor/user-rules/README.md).
-3. **Cursor (setup opcional):** MCPs, plugin Superpowers e visão geral em [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md).
-4. **Projeto Laravel:** explore [`boilerplates/laravel`](boilerplates/laravel) e o spec em [`docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md).
-5. Adapte/crie/refatore pastas e convenções de acordo com seus gostos pessoais ;)
+Com IA gerando e refatorando código o tempo todo, uma base bem definida importa mais do que nunca:
+
+- Prompts produzem resultados consistentes quando a arquitetura é previsível
+- User Rules globais no Cursor fixam convenções em todos os projetos automaticamente
+- Specs em `/docs` funcionam como memória de contexto para agentes
 
 ---
 
-## 🤖 Documentação em `/docs` (contexto para IA)
+## 🚀 Como usar
 
-Para prompts sobre uma **feature** ou recurso concreto, a IA (e qualquer dev) deve **consultar primeiro o spec**: domínio, arquivos tocados, formato de retorno e extensões previstas.
+1. Leia as convenções deste repositório
+2. **Cursor (global):** copie `.cursor/user-rules/` para **Settings → Rules → User** (`geral.md` sempre; depois a regra da sua stack)
+3. **Cursor (setup):** MCPs e fluxo agêntico em [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md)
+4. **Laravel:** explore [`boilerplates/laravel`](boilerplates/laravel) e o spec em [`docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md)
+5. Adapte ao seu gosto — é um grimório, não uma lei
 
-- Estrutura sugerida: `docs/features/<nome-da-feature>/specs.md` (ou `spec.md`, conforme o projeto).
-- **Exemplo (carro — Laravel):** [`boilerplates/laravel/docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md)
+---
 
-Isso reduz ambiguidade e mantém implementações alinhadas ao que o repositório já definiu.
+## 📚 Referência rápida
+
+### Padrão de nomenclatura REST
+ 
+Services e queries **devem seguir essa nomenclatura ao máximo**. Desvie apenas quando a operação for genuinamente específica e não se encaixar em nenhum dos cinco verbos — e mesmo assim, prefira compor (`indexAtivos`, `showComRelacoes`) antes de inventar um nome novo.
+ 
+| Método | HTTP | Descrição |
+|---|---|---|
+| `index` | `GET /recursos` | Lista |
+| `show` | `GET /recursos/{id}` | Um registro |
+| `store` | `POST /recursos` | Cria |
+| `update` | `PUT/PATCH /recursos/{id}` | Atualiza |
+| `destroy` | `DELETE /recursos/{id}` | Remove |
+ 
+> Se você está criando um método chamado `buscar`, `listar`, `salvar` ou `deletar` — quase certamente é um dos cinco acima com outro nome.
+
+### Princípios que guiam tudo aqui
+
+```
+SRP  → um motivo de mudar por unidade
+OCP  → aberto para extensão, fechado para modificação
+DIP  → dependa de abstrações, não implementações
+```
