@@ -1,4 +1,4 @@
-# 🖥️ SSH no Windows Terminal — Hostgator Hospedagem Compartilhada
+# 🖥️ SSH no Windows Terminal — Hostgator Hospedagem Compartilhada (PLINK + PUTTY)
 
 > Guia rápido para conectar o Windows Terminal via SSH em hospedagem compartilhada Hostgator usando chave `.ppk` e PuTTY/Plink — sem digitar senha toda vez.
 
