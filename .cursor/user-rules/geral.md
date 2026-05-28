@@ -47,6 +47,7 @@
 - Sempre manter a mesma ordem
 - Evitar imports desnecessários (remover não utilizados)
 - Priorizar clareza sobre "menos linhas"
+- Planos gerados NUNCA devem ficar no diretório /docs ou em qualquer lugar do projeto. Devem ser arquivo temporários, usados somente para referência de implementação.
 ---
 ### Exemplo
 ```php
