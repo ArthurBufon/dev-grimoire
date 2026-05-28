@@ -1,6 +1,6 @@
-# 🖥️ SSH Nativo no Windows Terminal — Hostgator Hospedagem Compartilhada
+# 🖥️ SSH Nativo no Windows Terminal — Conectar a Qualquer Servidor Linux
 
-> Guia rápido para conectar o Windows Terminal via SSH nativo do Windows em hospedagem compartilhada Hostgator — sem PuTTY, sem Plink, sem digitar senha toda vez.
+> Guia rápido para conectar o Windows Terminal via SSH nativo do Windows a qualquer servidor Linux — sem PuTTY, sem Plink, sem digitar senha toda vez.
 
 ---
 
@@ -8,13 +8,13 @@
 
 | Item | Onde encontrar |
 |---|---|
-| 👤 **Usuário cPanel** | Topo do painel cPanel (ex: `usuario123`) |
-| 🌐 **IP do servidor** | cPanel → Informações do servidor |
-| 🔌 **Porta SSH** | `2222` (padrão Hostgator) |
-| 🗝️ **Chave privada OpenSSH** | Arquivo sem extensão ou `.pem` (ex: `hostgator_aguia`) |
+| 👤 **Usuário do servidor** | Fornecido pelo provedor (ex: `ubuntu`, `root`, `usuario`) |
+| 🌐 **IP ou hostname** | Painel do provedor ou e-mail de boas-vindas |
+| 🔌 **Porta SSH** | Padrão é `22` — alguns provedores usam outra (ex: `2222`) |
+| 🗝️ **Chave privada OpenSSH** | Arquivo sem extensão, `.pem` ou `.key` |
 | 💻 **Windows 10/11** | SSH nativo já vem instalado |
 
-> ⚠️ **Formato da chave:** use a chave no formato OpenSSH (arquivo sem extensão, `.pem` ou similar). Se você só tiver `.ppk`, converta pelo **PuTTYgen** → Load → Conversions → **Export OpenSSH key**.
+> ⚠️ **Formato da chave:** use a chave no formato OpenSSH (arquivo sem extensão, `.pem` ou `.key`). Se você só tiver `.ppk`, converta pelo **PuTTYgen** → Load → Conversions → **Export OpenSSH key**.
 
 ---
 
@@ -41,11 +41,11 @@ Set-Service ssh-agent -StartupType Automatic
 Start-Service ssh-agent
 ```
 
-✅ O agente agora inicia automaticamente com o Windows.
+✅ O agente agora inicia automaticamente com o Windows. Não precisa repetir isso.
 
 ---
 
-### 3️⃣ Adicionar sua chave ao ssh-agent
+### 3️⃣ Carregar sua chave no ssh-agent
 
 De volta ao terminal **normal** (não Admin), rode:
 
@@ -53,15 +53,28 @@ De volta ao terminal **normal** (não Admin), rode:
 ssh-add "C:/Users/SEU_USUARIO/.ssh/sua_chave"
 ```
 
-Digite a passphrase **uma única vez** — ela fica salva em memória. Nas próximas conexões, o agente fornece a chave automaticamente. 🙌
+Digite a passphrase **uma única vez** — ela fica salva em memória até você reiniciar o PC. 🙌
 
-Verifique se a chave foi adicionada:
+Verifique se a chave foi adicionada com sucesso:
 
 ```powershell
 ssh-add -l
 ```
 
 ✅ Deve aparecer o fingerprint da sua chave.
+
+> ⚠️ **Se reiniciar o PC:** o agente perde as chaves da memória. Basta rodar o `ssh-add` novamente antes de conectar — só pede a passphrase, nada mais.
+
+---
+
+### 🔄 Fluxo completo resumido
+
+```
+1. ssh-add → carrega a chave na memória (uma vez por sessão)
+2. ssh     → conecta direto, sem pedir nada
+```
+
+Toda vez que ligar o PC, rode o `ssh-add` uma vez antes de conectar. Depois disso, todas as conexões do dia funcionam sem pedir senha.
 
 ---
 
@@ -70,10 +83,10 @@ ssh-add -l
 Antes de criar o perfil, teste a conexão manualmente:
 
 ```powershell
-ssh -i "C:/Users/SEU_USUARIO/.ssh/sua_chave" usuario@IP_DO_SERVIDOR -p 2222 -t "cd /home/usuario/public_html && bash -l"
+ssh -i "C:/Users/SEU_USUARIO/.ssh/sua_chave" usuario@IP_DO_SERVIDOR -p PORTA -t "cd /caminho/desejado && bash -l"
 ```
 
-✅ Se entrar direto pedindo só a passphrase (ou sem pedir nada com o agente ativo), está funcionando!
+✅ Se entrar direto sem pedir nada, está tudo funcionando!
 
 ---
 
@@ -84,7 +97,7 @@ Abra as configurações do Windows Terminal com `Ctrl + ,` → clique em **Abrir
 ```jsonc
 {
     "closeOnExit": "automatic",
-    "commandline": "ssh -i \"C:/Users/SEU_USUARIO/.ssh/sua_chave\" usuario@IP_DO_SERVIDOR -p 2222 -t \"cd /home/usuario/public_html && bash -l\"",
+    "commandline": "ssh -i \"C:/Users/SEU_USUARIO/.ssh/sua_chave\" usuario@IP_DO_SERVIDOR -p PORTA -t \"cd /caminho/desejado && bash -l\"",
     "hidden": false,
     "historySize": 9001,
     "icon": "✨",
@@ -101,9 +114,10 @@ Abra as configurações do Windows Terminal com `Ctrl + ,` → clique em **Abrir
 |---|---|
 | `SEU_USUARIO` | Seu usuário do Windows |
 | `sua_chave` | Nome do arquivo da sua chave OpenSSH |
-| `usuario` | Seu usuário cPanel |
-| `IP_DO_SERVIDOR` | IP do seu servidor |
-| `/home/usuario/public_html` | Diretório que deseja abrir ao conectar |
+| `usuario` | Usuário do servidor Linux (ex: `ubuntu`, `root`) |
+| `IP_DO_SERVIDOR` | IP ou hostname do servidor |
+| `PORTA` | Porta SSH do servidor (padrão: `22`) |
+| `/caminho/desejado` | Diretório que deseja abrir ao conectar |
 
 ---
 
@@ -111,10 +125,21 @@ Abra as configurações do Windows Terminal com `Ctrl + ,` → clique em **Abrir
 
 Clique no perfil no Windows Terminal.
 
-- 🟢 **ssh-agent rodando com a chave** → conecta direto, sem pedir nada
-- 🟡 **ssh-agent sem a chave** → pede a passphrase uma vez
+- 🟢 **ssh-agent com chave carregada** → conecta direto, sem pedir nada
+- 🟡 **Após reiniciar o PC** → rode `ssh-add` uma vez, depois conecta direto
 
 **Ctrl+C, Ctrl+Z e todos os atalhos funcionam normalmente.** ✅
+
+---
+
+## 📋 Referência rápida — Comandos essenciais
+
+| Comando | O que faz |
+|---|---|
+| `ssh-add "C:/caminho/sua_chave"` | Carrega a chave na memória — roda uma vez por sessão |
+| `ssh-add -l` | Lista as chaves atualmente carregadas no agente |
+| `Get-Service ssh-agent` | Verifica se o agente está rodando (`Running` = ok) |
+| `ssh -i "chave" usuario@ip -p PORTA` | Conecta ao servidor usando a chave especificada |
 
 ---
 
@@ -124,10 +149,10 @@ Clique no perfil no Windows Terminal.
 |---|---|---|
 | `No such file or directory` | Caminho da chave errado | Verifique com `Get-ChildItem "C:\Users\SEU_USUARIO\.ssh\"` |
 | `Too many authentication failures` | SSH tentando várias chaves | Adicione `-o IdentitiesOnly=yes` ao comando |
-| Pede senha do cPanel após passphrase | Chave pública não está no servidor | Adicione a chave pública no cPanel → SSH Access → Manage SSH Keys |
-| `Too many logins` — conexão fechada | Muitas tentativas seguidas | Aguarde 2-3 minutos e tente novamente |
-| Pede passphrase toda vez | ssh-agent não está rodando | Verifique com `Get-Service ssh-agent` — deve estar `Running` |
-| `Bad passphrase` no ssh-add | Passphrase incorreta | Tente novamente com a senha correta da chave RSA |
+| Pede senha do servidor após passphrase | Chave pública não está autorizada no servidor | Adicione o conteúdo de `sua_chave.pub` ao `~/.ssh/authorized_keys` no servidor |
+| `Too many logins` — conexão fechada | Muitas tentativas seguidas | Aguarde alguns minutos e tente novamente |
+| Pede passphrase toda vez | ssh-agent não está rodando ou chave não carregada | Rode `Get-Service ssh-agent` e depois `ssh-add` |
+| `Bad passphrase` no ssh-add | Passphrase incorreta | Tente novamente com a senha correta da chave |
 | Chave não aceita (formato errado) | Chave no formato `.ppk`, não OpenSSH | Converta com PuTTYgen: Load → Conversions → Export OpenSSH key |
-| Ctrl+C fecha a conexão | Problema do Plink, não do SSH nativo | ✅ Com SSH nativo isso não acontece |
-| Texto quebrando linha | Problema do Plink, não do SSH nativo | ✅ Com SSH nativo isso não acontece |
+| `Connection refused` | Porta errada ou SSH não habilitado | Confirme a porta com o provedor e tente `22` ou `2222` |
+| `Permission denied (publickey)` | Chave não autorizada no servidor | Verifique o `~/.ssh/authorized_keys` no servidor |
