@@ -1,131 +1,94 @@
-# 🐞 Guia Básico: Fluxo para Resolução de Bugs
-
-Este guia define um fluxo simples e confiável para tratar bugs de forma consistente, evitando soluções apressadas e retrabalho.
-entender → planejar → executar
-
----
+# 🐞 Fluxo Simples para Resolver Bugs
 
 ## 🎯 Objetivo
 
-Garantir que cada bug seja:
+Resolver bugs com segurança, sem criar novos problemas.
 
-- Bem compreendido
-- Corretamente diagnosticado
-- Resolvido com segurança
-- Sem introduzir novos problemas
+Fluxo:
+**entender → analisar → planejar → corrigir → testar**
 
 ---
 
-## 🔄 Fluxo Padrão
-
-### 1. Entendimento do Problema
-
-Antes de qualquer ação:
-
-- Leia o contexto completo (handoff, erro, relato)
-- Entenda o comportamento esperado
-- Compare com o comportamento atual
-
-> ❗ Nunca comece implementando diretamente
-
----
-
-### 2. Análise e Diagnóstico
-
-- Identifique onde o comportamento começa a divergir
-- Liste possíveis causas (hipóteses)
-- Valide cada hipótese com base no código e contexto
-
-Se necessário:
-
-- Leia logs
-- Verifique fluxo de dados
-- Analise dependências
-
----
-
-### 3. Validação do Handoff
-
-Se houver handoff:
-
-- Não assuma que está 100% correto
-- Confirme se o diagnóstico faz sentido
-- Questione inconsistências
-
----
-
-## 🧠 Handoff Handling
-
-- Always analyze and validate handoff instructions before implementing  
-- Do not assume the proposed solution is correct  
-- Identify risks and edge cases before coding  
-
----
-
-### 4. Planejamento da Correção
+## 1. Entender o problema
 
 Antes de codar:
 
-- Defina uma abordagem clara
-- Prefira mudanças pequenas e isoladas
-- Evite refactors desnecessários
+* Leia o erro, handoff ou relato
+* Entenda o comportamento esperado
+* Compare com o comportamento atual
+
+> Não saia implementando direto.
 
 ---
 
-### 5. Implementação
+## 2. Analisar a causa
 
-- Implemente em etapas
-- Evite mudanças amplas de uma vez
-- Prefira editar código existente ao invés de criar novos arquivos
+* Descubra onde o fluxo quebra
+* Liste possíveis causas
+* Valide no código antes de concluir
 
----
+Se precisar:
 
-### 6. Validação
-
-Após implementar:
-
-- Verifique se o bug foi realmente corrigido
-- Teste cenários relacionados
-- Avalie possíveis efeitos colaterais
+* Veja logs
+* Confira dados e dependências
+* Revise o fluxo completo
 
 ---
 
-### 7. Revisão Final
+## 3. Validar o handoff
 
-- A solução está consistente com a arquitetura?
-- Existe risco de regressão?
-- O código está claro e simples?
+Se existir handoff:
 
----
-
-## ⚠️ Princípios Importantes
-
-- Diagnóstico > Correção rápida  
-- Clareza > Velocidade  
-- Simplicidade > Complexidade  
-- Correção localizada > Mudança global  
+* Não assuma que está correto
+* Confirme o diagnóstico
+* Questione inconsistências
 
 ---
 
-## ✅ Resumo
+## 4. Planejar a correção
 
-Fluxo ideal:
+Antes de alterar código:
+
+* Defina uma solução simples
+* Prefira mudanças pequenas
+* Evite refactors desnecessários
+
+---
+
+## 5. Implementar
+
+* Faça mudanças em etapas
+* Evite alterações grandes de uma vez
+* Prefira ajustar código existente
+
+---
+
+## 6. Testar
+
+Depois da correção:
+
+* Verifique se o bug foi resolvido
+* Teste cenários relacionados
+* Confira possíveis efeitos colaterais
+
+---
+
+## ✅ Princípios
+
+* Diagnóstico antes da correção
+* Clareza antes da velocidade
+* Simplicidade antes da complexidade
+* Mudanças pequenas antes de mudanças globais
+
+---
+
+## 📌 Resumo
 
 1. Entender
 2. Analisar
 3. Validar
 4. Planejar
-5. Implementar
+5. Corrigir
 6. Testar
 
----
-
-Seguir esse processo reduz drasticamente:
-- retrabalho
-- bugs ocultos
-- soluções frágeis
-
-E aumenta:
-- previsibilidade
-- qualidade
-- confiança no código
+Seguir esse fluxo reduz retrabalho, regressões e soluções frágeis.
