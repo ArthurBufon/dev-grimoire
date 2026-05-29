@@ -1,70 +1,165 @@
 # User Rule — Geral
+
 ## Princípios de Desenvolvimento
-- Melhores práticas de 2026: código idiomático, tipagem forte, sem padrões obsoletos
-- KISS é inegociável — código simples e legível é manutenção simples
-- Alterações mínimas e localizadas — não refatorar o que não foi pedido
-- Nunca criar arquivos, classes ou abstrações desnecessárias
+
+* Seguir melhores práticas atuais (2026)
+* Código idiomático, tipado e legível
+* KISS é inegociável
+* Preferir soluções simples e previsíveis
+* Fazer alterações mínimas e localizadas
+* Nunca refatorar fora do escopo solicitado
+* Nunca criar abstrações, arquivos ou camadas sem necessidade real
+* Priorizar reutilização do código existente antes de criar novos componentes
+
+---
+
+## Processo de Execução
+
+Antes de implementar:
+
+1. Entender o problema
+2. Investigar causa raiz
+3. Validar hipóteses no código
+4. Planejar abordagem
+5. Implementar em etapas pequenas
+6. Validar resultado e possíveis impactos
+
+Regras:
+
+* Nunca sair codando imediatamente
+* Nunca assumir que o handoff está correto
+* Quebrar problemas complexos em etapas menores
+* Explicar riscos relevantes antes de alterações amplas
+* Preferir edição de código existente ao invés de recriar estruturas
+
+---
+
 ## Nomenclatura
-- Funções, métodos e classes sempre em português, salvo instrução contrária
-- Diretórios, namespaces e classes nunca contêm verbos
-  - ❌ `/Services/Carro/Andar.php/js`
-  - ✅ `/Services/Carro/Service/Acao/Service.php/js` (método `andar` dentro da classe)
-- Ao criar arquivo novo, seguir estrutura e nomenclatura dos existentes no projeto
-- Services e Queries devem ter o nome do arquivo SOMENTE `Service.php` / `Queries.php` — o contexto fica no diretório do namespace
-  - ❌ `App/Services/Pedido/FinalizacaoService.php`
-  - ✅ `App/Services/Pedido/Finalizacao/Service.php`
-  - ❌ `resources/js/Queries/Pedido/CancelamentoQueries.tsx`
-  - ✅ `resources/js/Queries/Pedido/Cancelamento/Queries.tsx`
-## Comportamento
-- Analisar o problema antes de implementar — nunca pular direto para código
-- Investigar causa raiz antes de aplicar correção
-- Quebrar problemas complexos em passos menores antes de executar
-## Contexto/Docs
-- Docs é um diretório que nos permite definir SPECS e contexto de alto nível sobre features. Ele é um facilitador para humanos e IAs entenderem o código, sem precisar acessar a codebase diretamente.
-- Sempre analisar /docs/*, tentando localizar o contexto completo da feature referente
-- Ao fazer atualizações, é crucial atualizar o docs/*/specs.md respectivo do arquivo.
-## Git
-- Commits em português, imperativo: "Adiciona", "Corrige", "Remove", "Refatora"
-- Nunca commitar: `.env`, credenciais, arquivos de build, logs
-## Segurança
-- Nunca expor credenciais, tokens ou senhas no código
-- Variáveis sensíveis sempre em `.env`
-- Nunca logar dados sensíveis (senhas, tokens, documentos pessoais)
-## Imports Globais
-### Organização de Imports
-- Todo import deve ser **agrupado por categoria lógica**, nunca misturado
-- As categorias devem ser separadas por **comentários explícitos**
-- A ordem dos grupos deve ser **consistente em todo o projeto**
+
+* Funções, métodos e classes em português, salvo instrução contrária
+* Ao criar novos arquivos, seguir o padrão já existente no projeto
+
+### Regras de diretório e namespace
+
+* Diretórios e namespaces nunca devem conter verbos
+
+#### Exemplos
+
+* ❌ `/Services/Carro/Andar`
+* ✅ `/Services/Carro/Acao`
+
 ---
-### Ordem padrão dos grupos
-1. **Utils / Helpers / Libs / Outros**
-2. **Queries**
-3. **Services**
+
+## Services e Queries
+
+O nome do arquivo deve representar apenas o tipo.
+
+### Exemplos
+
+* ❌ `FinalizacaoService.php`
+
+* ✅ `Service.php`
+
+* ❌ `CancelamentoQueries.tsx`
+
+* ✅ `Queries.tsx`
+
+O contexto deve estar no namespace/diretório.
+
+### Exemplos
+
+* ✅ `App/Services/Pedido/Finalizacao/Service.php`
+* ✅ `resources/js/Queries/Pedido/Cancelamento/Queries.tsx`
+
 ---
+
+## Contexto e Docs
+
+* Sempre analisar `/docs/*` antes de implementar
+* Localizar o contexto completo da feature antes de alterar código
+* Atualizações relevantes devem refletir no `docs/*/specs.md`
+
 ### Regras
-- Nunca misturar categorias no mesmo bloco
-- Nunca importar de forma desorganizada ou "conforme necessidade"
-- Sempre manter a mesma ordem
-- Evitar imports desnecessários (remover não utilizados)
-- Priorizar clareza sobre "menos linhas"
-- Planos gerados NUNCA devem ficar no diretório /docs ou em qualquer lugar do projeto. Devem ser arquivo temporários, usados somente para referência de implementação.
+
+* Docs servem como contexto de negócio e arquitetura
+* Não usar `/docs` para planos temporários
+* Planos de implementação devem ser temporários e fora do projeto
+
 ---
-### Exemplo
+
+## Git
+
+### Commits
+
+* Commits em português
+* Sempre no imperativo
+
+#### Exemplos
+
+* `Adiciona`
+* `Corrige`
+* `Remove`
+* `Refatora`
+
+### Nunca commitar
+
+* `.env`
+* credenciais
+* tokens
+* arquivos de build
+* logs
+
+---
+
+## Segurança
+
+* Nunca expor credenciais no código
+* Variáveis sensíveis sempre em `.env`
+* Nunca logar:
+
+  * senhas
+  * tokens
+  * documentos pessoais
+  * dados sensíveis
+
+---
+
+## Organização de Imports
+
+Todo import deve ser agrupado por categoria lógica.
+
+### Regras
+
+* Nunca misturar categorias
+* Sempre manter ordem consistente
+* Remover imports não utilizados
+* Priorizar clareza sobre quantidade de linhas
+
+---
+
+## Ordem padrão dos imports
+
 ```php
 // LIBS EXTERNAS
-use Illuminate\Support\Collection;
+
 // QUERIES
-use App\Queries\User\Queries as UserQueries;
+
 // SERVICES
-use App\Services\LinkService;
-use App\Services\ServerService;
-use App\Services\Empresa\EmpresaService;
-use App\Services\Catalogo\CatalogoService;
-use App\Services\Catalogo\Sacola\Service as SacolaService;
+
 // REPOSITORIES
-use App\Repositories\UserRepository;
+
 // UTILS
-use App\Utils\DateHelper;
+
 // MODELS
-use App\Models\User;
 ```
+
+---
+
+## Regras Gerais
+
+* Não alterar padrões arquiteturais sem necessidade
+* Não adicionar dependências sem justificativa
+* Não criar "helpers genéricos" prematuramente
+* Não mover arquivos sem motivo claro
+* Evitar efeitos colaterais fora do escopo da tarefa
+* Em caso de dúvida, preferir a solução mais simples
