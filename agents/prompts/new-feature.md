@@ -51,7 +51,26 @@ Pergunte sobre:
 
 ---
 
-### ETAPA 3 — Implementação
+### ETAPA 3 — Plano de implementação (temporário)
+
+Antes de implementar, crie o arquivo temporário:
+
+```
+/docs/features/{nome-da-feature}/.plan.md
+```
+
+Este arquivo existe **apenas durante a implementação** como rascunho de trabalho. Documente nele:
+
+- Lista de arquivos a criar ou modificar
+- Ordem de implementação
+- Decisões técnicas relevantes que ainda precisam ser tomadas
+- Riscos ou pontos de atenção identificados na codebase
+
+> ⚠️ **Este arquivo é descartável.** Ao final da implementação ele deve ser **deletado obrigatoriamente**. Seu conteúdo útil será absorvido pelo `specs.md`. Manter arquivos de planejamento no repositório gera ruído e lixo a longo prazo.
+
+---
+
+### ETAPA 4 — Implementação
 
 Implemente a feature seguindo **obrigatoriamente** as regras abaixo:
 
@@ -84,9 +103,19 @@ Implemente a feature seguindo **obrigatoriamente** as regras abaixo:
 
 ---
 
-### ETAPA 4 — Geração obrigatória de documentação
+### ETAPA 5 — Geração obrigatória de documentação e limpeza
 
-Após a implementação, **obrigatoriamente** crie o arquivo:
+Execute **obrigatoriamente** as duas ações abaixo, nesta ordem, **somente quando a implementação estiver 100% concluída** — todos os arquivos criados, todos os testes passando, nenhum TODO pendente:
+
+> ⚠️ **Regra:** `specs.md` nunca deve ser gerado parcialmente ou antecipado. Documentação prematura registra intenção, não realidade. Gere apenas o que foi de fato implementado.
+
+**1. Delete o arquivo de planejamento temporário:**
+
+```
+/docs/features/{nome-da-feature}/.plan.md
+```
+
+**2. Crie a documentação definitiva da feature:**
 
 ```
 /docs/features/{nome-da-feature}/specs.md
@@ -124,5 +153,5 @@ Lista de novas libs, serviços ou configurações adicionadas (se houver).
 ### Resumo do fluxo
 
 ```
-Ler codebase → Tirar dúvidas → Implementar seguindo padrões → Gerar /docs/features/{feature}/specs.md
+Ler codebase → Tirar dúvidas → Criar .plan.md → Implementar → Deletar .plan.md → Gerar /docs/features/{feature}/specs.md
 ```
