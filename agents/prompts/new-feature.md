@@ -61,11 +61,21 @@ O ciclo de vida da branch é **100% local**:
 
 ```
 git checkout -b feature/{nome-da-feature}   # cria local
-→ implementa e valida
+→ implementa
+→ 🛑 PAUSA — aguarda aprovação do programador
 → git checkout main
 → git merge feature/{nome-da-feature}       # merge local
 → git push origin main                      # sobe apenas a main
 → git branch -d feature/{nome-da-feature}  # deleta a branch local
+```
+
+> 🛑 **Regra inegociável:** a IA **nunca executa merge nem push de forma autônoma**. Após a implementação, a IA deve **pausar e notificar o programador** para que ele revise e valide 100% das alterações. O merge e o push para `origin main` só acontecem mediante **aprovação explícita do programador** no chat.
+
+A mensagem de pausa deve ser objetiva, por exemplo:
+
+```
+✅ Implementação concluída. Aguardando sua revisão antes de prosseguir.
+Confirme com "aprovado" ou aponte os ajustes necessários.
 ```
 
 Não abra Pull Requests, não faça `push` da branch de feature, não a deixe existir após o merge. Ela é um recurso temporário de trabalho, não um artefato do projeto.
@@ -174,5 +184,5 @@ Lista de novas libs, serviços ou configurações adicionadas (se houver).
 ### Resumo do fluxo
 
 ```
-Ler codebase → Tirar dúvidas → Criar branch local → Criar .plan.md → Implementar → Merge main → Deletar branch → Deletar .plan.md → Gerar /docs/features/{feature}/specs.md → Push main
+Ler codebase → Tirar dúvidas → Criar branch local → Criar .plan.md → Implementar → 🛑 Aguardar aprovação → Merge main → Deletar branch → Deletar .plan.md → Gerar /docs/features/{feature}/specs.md → Push main
 ```
