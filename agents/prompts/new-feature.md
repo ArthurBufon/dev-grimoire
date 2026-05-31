@@ -51,7 +51,28 @@ Pergunte sobre:
 
 ---
 
-### ETAPA 3 — Plano de implementação (temporário)
+### ETAPA 3 — Gestão de branch
+
+A criação de branches locais para implementação da feature é **permitida e encorajada**, mas com uma regra absoluta:
+
+> ⛔ **A branch de feature NUNCA deve ser publicada no repositório remoto (push).**
+
+O ciclo de vida da branch é **100% local**:
+
+```
+git checkout -b feature/{nome-da-feature}   # cria local
+→ implementa e valida
+→ git checkout main
+→ git merge feature/{nome-da-feature}       # merge local
+→ git push origin main                      # sobe apenas a main
+→ git branch -d feature/{nome-da-feature}  # deleta a branch local
+```
+
+Não abra Pull Requests, não faça `push` da branch de feature, não a deixe existir após o merge. Ela é um recurso temporário de trabalho, não um artefato do projeto.
+
+---
+
+### ETAPA 4 — Plano de implementação (temporário)
 
 Antes de implementar, crie o arquivo temporário:
 
@@ -70,7 +91,7 @@ Este arquivo existe **apenas durante a implementação** como rascunho de trabal
 
 ---
 
-### ETAPA 4 — Implementação
+### ETAPA 5 — Implementação
 
 Implemente a feature seguindo **obrigatoriamente** as regras abaixo:
 
@@ -103,7 +124,7 @@ Implemente a feature seguindo **obrigatoriamente** as regras abaixo:
 
 ---
 
-### ETAPA 5 — Geração obrigatória de documentação e limpeza
+### ETAPA 6 — Geração obrigatória de documentação e limpeza
 
 Execute **obrigatoriamente** as duas ações abaixo, nesta ordem, **somente quando a implementação estiver 100% concluída** — todos os arquivos criados, todos os testes passando, nenhum TODO pendente:
 
@@ -153,5 +174,5 @@ Lista de novas libs, serviços ou configurações adicionadas (se houver).
 ### Resumo do fluxo
 
 ```
-Ler codebase → Tirar dúvidas → Criar .plan.md → Implementar → Deletar .plan.md → Gerar /docs/features/{feature}/specs.md
+Ler codebase → Tirar dúvidas → Criar branch local → Criar .plan.md → Implementar → Merge main → Deletar branch → Deletar .plan.md → Gerar /docs/features/{feature}/specs.md → Push main
 ```
