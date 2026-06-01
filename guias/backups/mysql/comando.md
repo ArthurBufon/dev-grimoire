@@ -13,9 +13,9 @@ mysqldump \
   --routines --triggers --events \
   --default-character-set=utf8mb4 \
   -h localhost \
-  -u aguiae38_aguia_web \
-  -p'FrIP%R*CNC?h' \
-  aguiae38_aguia_web \
+  -u user_db \
+  -p'senha_db' \
+  nome_db \
   > backup_producao_${TIMESTAMP}.sql && \
 echo "✅ Dump gerado: backup_producao_${TIMESTAMP}.sql ($(du -sh backup_producao_${TIMESTAMP}.sql | cut -f1))"
 ```
