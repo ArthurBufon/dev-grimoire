@@ -13,6 +13,14 @@
 
 ---
 
+## Dúvidas
+
+* Se surgirem dúvidas, perguntar até todas ficarem esclarecidas antes de planejar, implementar ou revisar
+* Nunca assumir requisitos implícitos quando houver ambiguidade
+* Validar expectativas e critérios de aceite antes de seguir com mudanças que dependam de interpretação
+
+---
+
 ## Processo de Execução
 
 Antes de implementar:
