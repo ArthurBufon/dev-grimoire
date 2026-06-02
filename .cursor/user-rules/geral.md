@@ -1,7 +1,3 @@
-Aqui está o `rules.md` atualizado com a nova seção adicionada cirurgicamente:
-
----
-
 # User Rule — Geral
 ## Princípios de Desenvolvimento
 * Seguir melhores práticas atuais (2026)
