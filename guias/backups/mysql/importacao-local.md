@@ -1,3 +1,5 @@
+Substituí todas as referências específicas do projeto por `[nome-projeto]` e generalizei os caminhos/nomes de backup:
+
 # Importação do Banco de Dados — Produção → Local (Docker/WSL2)
 
 Passo a passo para baixar o dump de produção e importar no container Docker rodando no WSL2, usando as mesmas credenciais do `.env` de produção.
@@ -6,9 +8,9 @@ Passo a passo para baixar o dump de produção e importar no container Docker ro
 
 ## Pré-requisitos
 
-- Docker Desktop rodando com WSL2 habilitado
-- Repositório do projeto Laravel clonado localmente
-- Container do banco de dados em execução (`docker compose up -d`)
+* Docker Desktop rodando com WSL2 habilitado
+* Repositório do projeto Laravel clonado localmente
+* Container do banco de dados em execução (`docker compose up -d`)
 
 ---
 
@@ -21,7 +23,7 @@ Mais rápido e prático, sem necessidade de instalar nada além do PuTTY (já di
 No **Windows Terminal** ou **PowerShell**:
 
 ```powershell
-scp -i "C:\Users\SEU_USUARIO\.ssh\sua_chave" infusc45@108.179.241.250:/home/infusc45/public_html/MAXIRECIBO_WEB_GIT/backup_maxirecibo_*.sql C:\Users\SEU_USUARIO\Downloads\
+scp -i "C:\Users\SEU_USUARIO\.ssh\sua_chave" usuario@servidor:/caminho/do/projeto/backup_[nome-projeto]_*.sql C:\Users\SEU_USUARIO\Downloads\
 ```
 
 Na primeira conexão, confirme o fingerprint digitando `yes`. Se a chave tiver passphrase, ela será solicitada.
@@ -34,10 +36,12 @@ Na primeira conexão, confirme o fingerprint digitando `yes`. Se a chave tiver p
 
 1. Abra o **FileZilla** e conecte ao servidor de produção via SFTP
 2. No painel **remoto** (direita), navegue até a raiz do projeto:
+
    ```
-   /home/infusc45/public_html/MAXIRECIBO_WEB_GIT/
+   /caminho/do/projeto/
    ```
 3. No painel **local** (esquerda), navegue até:
+
    ```
    C:\Users\SEU_USUARIO\Downloads\
    ```
@@ -73,7 +77,7 @@ mkdir -p /tmp/mysql-backups
 O disco `C:\` do Windows é acessível dentro do WSL2 em `/mnt/c/`. Copie o arquivo direto da pasta Downloads:
 
 ```bash
-cp /mnt/c/Users/SEU_USUARIO/Downloads/backup_maxirecibo_*.sql /tmp/mysql-backups/
+cp /mnt/c/Users/SEU_USUARIO/Downloads/backup_[nome-projeto]_*.sql /tmp/mysql-backups/
 ```
 
 > Substitua `SEU_USUARIO` pelo seu usuário Windows, ex: `/mnt/c/Users/arthur/Downloads/`
@@ -91,7 +95,7 @@ ls -lh /tmp/mysql-backups/
 Navegue até a raiz do projeto Laravel local e exporte as variáveis do `.env`:
 
 ```bash
-cd ~/projetos/maxi-recibo   # ajuste para o caminho do seu repositório
+cd ~/projetos/[nome-projeto]   # ajuste para o caminho do seu repositório
 
 export DB_HOST=$(grep ^DB_HOST .env | cut -d '=' -f2-)
 export DB_PORT=$(grep ^DB_PORT .env | cut -d '=' -f2-)
@@ -113,7 +117,7 @@ echo "Host: $DB_HOST | Banco: $DB_DATABASE | Usuário: $DB_USERNAME"
 ## Passo 6 — Copiar o .sql para dentro do container
 
 ```bash
-docker compose cp /tmp/mysql-backups/backup_maxirecibo_*.sql mysql:/tmp/backup.sql
+docker compose cp /tmp/mysql-backups/backup_[nome-projeto]_*.sql mysql:/tmp/backup.sql
 ```
 
 ---
@@ -155,13 +159,13 @@ docker compose exec mysql rm /tmp/backup.sql
 Remova da pasta temporária do WSL2:
 
 ```bash
-rm /tmp/mysql-backups/backup_maxirecibo_*.sql
+rm /tmp/mysql-backups/backup_[nome-projeto]_*.sql
 ```
 
 Remova da pasta Downloads do Windows:
 
 ```bash
-rm /mnt/c/Users/SEU_USUARIO/Downloads/backup_maxirecibo_*.sql
+rm /mnt/c/Users/SEU_USUARIO/Downloads/backup_[nome-projeto]_*.sql
 ```
 
 Limpe as variáveis de ambiente da sessão:
@@ -176,13 +180,13 @@ unset DB_HOST DB_PORT DB_DATABASE DB_USERNAME DB_PASSWORD
 
 ```bash
 # 1. [Windows Terminal] Baixar via SCP
-scp -i "C:\Users\SEU_USUARIO\.ssh\sua_chave" infusc45@108.179.241.250:/home/infusc45/public_html/MAXIRECIBO_WEB_GIT/backup_maxirecibo_*.sql C:\Users\SEU_USUARIO\Downloads\
+scp -i "C:\Users\SEU_USUARIO\.ssh\sua_chave" usuario@servidor:/caminho/do/projeto/backup_[nome-projeto]_*.sql C:\Users\SEU_USUARIO\Downloads\
 
 # 2. [WSL2] Criar pasta temporária (apenas na primeira vez)
 mkdir -p /tmp/mysql-backups
 
 # 3. [WSL2] Copiar do Downloads Windows para WSL2
-cp /mnt/c/Users/SEU_USUARIO/Downloads/backup_maxirecibo_*.sql /tmp/mysql-backups/
+cp /mnt/c/Users/SEU_USUARIO/Downloads/backup_[nome-projeto]_*.sql /tmp/mysql-backups/
 
 # 4. [WSL2] Carregar credenciais do .env (na raiz do projeto)
 export DB_HOST=$(grep ^DB_HOST .env | cut -d '=' -f2-)
@@ -191,7 +195,7 @@ export DB_USERNAME=$(grep ^DB_USERNAME .env | cut -d '=' -f2-)
 export DB_PASSWORD=$(grep ^DB_PASSWORD .env | cut -d '=' -f2-)
 
 # 5. Copiar .sql para o container (serviço: mysql)
-docker compose cp /tmp/mysql-backups/backup_maxirecibo_*.sql mysql:/tmp/backup.sql
+docker compose cp /tmp/mysql-backups/backup_[nome-projeto]_*.sql mysql:/tmp/backup.sql
 
 # 6. Importar
 docker compose exec mysql bash -c "mysql -h 127.0.0.1 -u '$DB_USERNAME' -p'$DB_PASSWORD' '$DB_DATABASE' < /tmp/backup.sql"
@@ -201,8 +205,8 @@ docker compose exec mysql mysql -h 127.0.0.1 -u "$DB_USERNAME" -p"$DB_PASSWORD" 
 
 # 8. Excluir backups
 docker compose exec mysql rm /tmp/backup.sql
-rm /tmp/mysql-backups/backup_maxirecibo_*.sql
-rm /mnt/c/Users/SEU_USUARIO/Downloads/backup_maxirecibo_*.sql
+rm /tmp/mysql-backups/backup_[nome-projeto]_*.sql
+rm /mnt/c/Users/SEU_USUARIO/Downloads/backup_[nome-projeto]_*.sql
 unset DB_HOST DB_PORT DB_DATABASE DB_USERNAME DB_PASSWORD
 ```
 
@@ -210,15 +214,15 @@ unset DB_HOST DB_PORT DB_DATABASE DB_USERNAME DB_PASSWORD
 
 ## Problemas comuns
 
-| Erro | Causa | Solução |
-|---|---|---|
-| `No such file or directory` no cp | Nome do arquivo diferente | Verificar com `ls /mnt/c/Users/SEU_USUARIO/Downloads/*.sql` |
-| `no container found for service` | Usando nome real do container em vez do serviço | Usar sempre `mysql` (nome do serviço) |
-| `Access denied` | Credenciais não carregadas | Repetir o Passo 5 e confirmar com `echo $DB_USERNAME` |
-| `Unknown database` | Banco não existe no container | Criar com `CREATE DATABASE nome_do_banco;` antes de importar |
-| `Table already exists` | Banco local com dados antigos | Dropar e recriar: `DROP DATABASE nome; CREATE DATABASE nome;` |
-| `You do not have the SUPER privilege` | Backup com ROUTINES/TRIGGERS e usuário sem privilégio SUPER | Ver seção abaixo |
-| Importação travada | Arquivo muito grande | Usar `pv` para acompanhar progresso (Passo 7) |
+| Erro                                  | Causa                                                       | Solução                                                       |
+| ------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------- |
+| `No such file or directory` no cp     | Nome do arquivo diferente                                   | Verificar com `ls /mnt/c/Users/SEU_USUARIO/Downloads/*.sql`   |
+| `no container found for service`      | Usando nome real do container em vez do serviço             | Usar sempre `mysql` (nome do serviço)                         |
+| `Access denied`                       | Credenciais não carregadas                                  | Repetir o Passo 5 e confirmar com `echo $DB_USERNAME`         |
+| `Unknown database`                    | Banco não existe no container                               | Criar com `CREATE DATABASE nome_do_banco;` antes de importar  |
+| `Table already exists`                | Banco local com dados antigos                               | Dropar e recriar: `DROP DATABASE nome; CREATE DATABASE nome;` |
+| `You do not have the SUPER privilege` | Backup com ROUTINES/TRIGGERS e usuário sem privilégio SUPER | Ver seção abaixo                                              |
+| Importação travada                    | Arquivo muito grande                                        | Usar `pv` para acompanhar progresso (Passo 7)                 |
 
 ---
 
@@ -239,6 +243,6 @@ docker compose exec mysql bash -c "mysql -h 127.0.0.1 -u root -p'SENHA_ROOT' -e 
 Se não tiver acesso ao root, remova os DEFINERs do backup antes de importar:
 
 ```bash
-sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' /tmp/mysql-backups/backup_maxirecibo_*.sql > /tmp/mysql-backups/backup_clean.sql
+sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' /tmp/mysql-backups/backup_[nome-projeto]_*.sql > /tmp/mysql-backups/backup_clean.sql
 docker compose cp /tmp/mysql-backups/backup_clean.sql mysql:/tmp/backup.sql
 ```
