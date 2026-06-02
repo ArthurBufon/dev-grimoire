@@ -1,7 +1,5 @@
 # 🔮 Meu Grimório
 
----
-
 ## O que é isso?
 
 Um grimório é um livro de feitiços e conhecimento acumulado — pessoal, opinativo, construído com o tempo.
