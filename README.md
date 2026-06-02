@@ -1,9 +1,4 @@
-# 🔮 dev-grimoire
-
-> Começou como um repositório de design patterns e boilerplate Laravel.
-> Evoluiu para algo mais amplo: um grimório pessoal de preferências, convenções e ferramentas para desenvolvimento assistido por IA em 2026.
->
-> Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
+# 🔮 Meu Grimório
 
 ---
 
@@ -11,7 +6,11 @@
 
 Um grimório é um livro de feitiços e conhecimento acumulado — pessoal, opinativo, construído com o tempo.
 
-Este repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, boilerplates e convenções que uso no dia a dia. Nada aqui é neutro ou consensual. É o que funciona **pra mim**, em projetos reais.
+Esse repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, boilerplates e convenções que eu uso no dia a dia. 
+
+Nada aqui é neutro ou consensual. É o que funciona **pra mim**, em projetos reais.
+
+Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
 
 ---
 
@@ -33,7 +32,7 @@ Workflow com SRP: modelo, queries, services (web e API), helpers, migration e sp
 
 ---
 
-## 🎯 Pilares
+## 🧬 Pilares
 
 **SRP em tudo** — cada arquivo, função e serviço tem um único motivo de mudar.
 
@@ -51,7 +50,7 @@ Workflow com SRP: modelo, queries, services (web e API), helpers, migration e sp
 
 ---
 
-## 🤖 Por que padronizar em 2026?
+## 📜 Por que padronizar em 2026?
 
 Com IA gerando e refatorando código o tempo todo, uma base bem definida importa mais do que nunca:
 
@@ -61,7 +60,7 @@ Com IA gerando e refatorando código o tempo todo, uma base bem definida importa
 
 ---
 
-## 🚀 Como usar
+## 🔌 Como usar?
 
 1. Leia as convenções deste repositório
 2. **Cursor (global):** copie `.cursor/user-rules/` para **Settings → Rules → User** (`geral.md` sempre; depois a regra da sua stack)
