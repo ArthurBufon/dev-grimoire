@@ -91,3 +91,8 @@ $mensagem1 = "Atenção: você está com {$percentual}%, abaixo da meta…";
 $tipo1 = 'ruim';
 $mensagem1 = "Atenção: você está com {$percentual}%, abaixo da meta…";
 ```
+
+## Prioridade absoluta
+Antes de gerar qualquer código, identificar os padrões já existentes no arquivo/módulo
+em questão e segui-los estritamente. Nunca introduzir padrões novos sem solicitação explícita,
+mesmo que sejam "melhores práticas" gerais do Laravel ou PHP.
