@@ -107,6 +107,7 @@ Princípios:
 * Reutilizar código existente
 * Evitar abstrações desnecessárias
 * Evitar refatorações não relacionadas à feature
+* Código gerado deve ser SIMPLES de entender, e fácil de dar manutenção
 
 ---
 
