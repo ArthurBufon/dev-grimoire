@@ -119,7 +119,7 @@ Antes de considerar a implementação concluída:
 
 ### 8. Pausa obrigatória
 
-Ao concluir, responda exatamente:
+Ao concluir cada etapa da implementação OU concluir a tarefa por completo, responda exatamente:
 
 > ✅ Implementação concluída. Aguardando sua revisão antes de prosseguir.
 
