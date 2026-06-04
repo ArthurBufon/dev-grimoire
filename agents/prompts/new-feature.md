@@ -1,8 +1,3 @@
-Você pode adicionar uma seção específica para o fluxo de branch local, deixando explícito o processo esperado pela IA.
-
-Sugestão:
-
-````md
 # 🚀 Feature Prompt
 
 ## Branch da Feature (obrigatório)
@@ -132,8 +127,3 @@ Não realizar merge.
 Não realizar push.
 Não excluir a branch.
 Aguardar aprovação explícita.
-
-```
-
-Eu também adicionaria a etapa **"Planejamento obrigatório"** antes da implementação. Ela costuma evitar que a IA comece a codificar cedo demais e força uma análise prévia da arquitetura antes de qualquer alteração.
-```
