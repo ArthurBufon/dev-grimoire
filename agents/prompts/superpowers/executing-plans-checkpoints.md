@@ -16,12 +16,14 @@
 * Ao atingir cada checkpoint, PARAR e apresentar:
   * O que foi implementado nesse bloco
   * Todos os arquivos alterados, com quais linhas foram adicionadas/removidas e o motivo de cada alteração
+  * Como isso está relacionado ao contexto geral do plano, e por que é necessário
   * O que será executado no próximo bloco
 * Só avançar para o próximo bloco após confirmação explícita do dev
 
 ### Padrões
 * Seguir os padrões de código já existentes no projeto
 * Nunca inventar novos estilos ou convenções
+* Sempre utilizar a maneira mais simples e segura, independente da tarefa
 
 ---
 
