@@ -23,22 +23,28 @@
 * Seguir os padrões de código já existentes no projeto
 * Nunca inventar novos estilos ou convenções
 
+---
+
 ## Git
+
 ### Commits
 * Commits em português
 * Sempre no imperativo
 * Prefixo do recurso/feature SEMPRE ANTES
+
 #### Exemplos
 * `PRODUTOS: Adiciona x`
 * `CORES: Corrige y`
 * `CARROS: Remove z`
 * `SIMULADOS: Refatora z`
+
 ### Nunca commitar
 * `.env`
 * credenciais
 * tokens
 * arquivos de build
 * logs
+
 ### Autorização obrigatória
 * Nunca realizar commits ou pushs automaticamente
 * Sempre apresentar o comando e o conteúdo do commit ao dev e aguardar autorização explícita antes de executar
