@@ -23,13 +23,17 @@
 
 * Antes de modificar qualquer arquivo, perguntar ao dev se a implementação deve ser feita:
 
-  * Em uma nova branch
+  * Em uma nova branch local temporária
   * Diretamente na branch atual
 
 * Informar claramente qual é a branch atual
 
 * Se o dev optar por criar uma nova branch:
 
+  * A branch deve ser usada apenas temporariamente durante o desenvolvimento
+  * A branch deve ser criada apenas localmente
+  * A branch não deve ser enviada para a nuvem/remoto
+  * Nunca executar `git push` dessa branch
   * Solicitar ou sugerir um nome de branch coerente com o escopo do plano
   * Apresentar o comando que será executado
   * Aguardar confirmação explícita antes de criar a branch
@@ -40,6 +44,14 @@
   * Aguardar aprovação antes de iniciar qualquer implementação
 
 * Nunca criar, trocar ou modificar branches automaticamente sem autorização explícita do dev
+
+### Após finalizar o desenvolvimento
+
+* Após a implementação ser validada e integrada à `main`, a branch temporária deve ser descartada completamente
+* A branch temporária não deve permanecer como branch de trabalho ativa
+* A branch temporária não deve ser mantida no repositório local após o merge
+* Antes de remover a branch temporária, apresentar o comando que será executado e aguardar autorização explícita do dev
+* Nunca remover branches automaticamente sem autorização explícita do dev
 
 ---
 
