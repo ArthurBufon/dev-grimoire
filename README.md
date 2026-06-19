@@ -17,6 +17,12 @@ Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
 ### 📁 `guias/`
 Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
 
+### 📁 `agents/`
+Prompts e referências para apoiar fluxos de trabalho com agentes de IA.
+
+### 📁 `preferences/`
+Preferências pessoais de workflow, documentação e mensagens de commit.
+
 ### 📁 `.cursor/`
 
 | Pasta / arquivo | Função |
@@ -55,16 +61,6 @@ Com IA gerando e refatorando código o tempo todo, uma base bem definida importa
 - Prompts produzem resultados consistentes quando a arquitetura é previsível
 - User Rules globais no Cursor fixam convenções em todos os projetos automaticamente
 - Specs em `/docs` funcionam como memória de contexto para agentes
-
----
-
-## 🔌 Como usar?
-
-1. Leia as convenções deste repositório
-2. **Cursor (global):** copie `.cursor/user-rules/` para **Settings → Rules → User** (`geral.md` sempre; depois a regra da sua stack)
-3. **Cursor (setup):** MCPs e fluxo agêntico em [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md)
-4. **Laravel:** explore [`boilerplates/laravel`](boilerplates/laravel) e o spec em [`docs/features/carro/specs.md`](boilerplates/laravel/docs/features/carro/specs.md)
-5. Adapte ao seu gosto — é um grimório, não uma lei
 
 ---
 
