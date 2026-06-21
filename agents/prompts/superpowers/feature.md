@@ -102,7 +102,7 @@ docs/features/{feature-atual}/specs.md
 
 ---
 
-## 3. `/subagent-driven-development`
+## 3. `/subagent-driven-development` (recomendado)
 
 Use esta etapa para implementar a feature com revisão e qualidade de código.
 
