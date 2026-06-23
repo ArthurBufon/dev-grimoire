@@ -54,7 +54,7 @@ Regras:
 #### Exemplos
 
 * ❌ `/Services/Carro/Andar`
-* ✅ `/Services/Carro/Acao`
+* ✅ `/Services/Carro/Movimentacao`
 
 ---
 
@@ -65,9 +65,9 @@ O nome do arquivo deve representar apenas o tipo.
 ### Exemplos
 
 * ❌ `FinalizacaoService.php`
-* ✅ `Service.php`
+* ✅ `Finalizacao/Service.php`
 * ❌ `CancelamentoQueries.tsx`
-* ✅ `Queries.tsx`
+* ✅ `Cancelamento/Queries.tsx`
 
 O contexto deve estar no namespace/diretório.
 
@@ -124,12 +124,13 @@ ou:
 * Sempre analisar `/docs/*` antes de implementar
 * Localizar o contexto completo da feature antes de alterar código
 * Atualizações relevantes devem refletir no `docs/*/specs.md`
-
+  
 ### Regras
 
 * Docs servem como contexto de negócio e arquitetura
-* Não usar `/docs` para planos temporários
-* Planos de implementação devem ser temporários e fora do projeto
+* Não usar `/docs` para planos temporários.
+* Diretório deve conter somente specs específicas, regras de projeto e contexto.
+* Specs e planos gerados por frameworks devem ser descartados após implementação
 
 ---
 
