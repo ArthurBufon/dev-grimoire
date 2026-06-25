@@ -1,7 +1,7 @@
----
-name: plan-review
-description: Revisão crítica de task ou plano antes da execução, usando estilo grill-me: pressionar decisões, ambiguidades, riscos e prontidão sem implementar código.
-disable-model-invocation: true
+--- 
+name: revisar-plano-grill 
+description: "Revisão crítica de task ou plano antes da execução, usando estilo grill-me para pressionar decisões, ambiguidades, riscos e prontidão sem implementar código." 
+disable-model-invocation: true 
 ---
 
 # Revisão crítica de plano com estilo grill-me
