@@ -18,7 +18,7 @@ Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
 Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
 
 ### 📁 `agents/`
-Prompts e referências para apoiar fluxos de trabalho com agentes de IA.
+Prompts e referências para apoiar fluxos de trabalho com agentes de IA. Dentro de agents/skills, existem minhas skills favoritas e personalizadas.
 
 ### 📁 `preferences/`
 Preferências pessoais de workflow, documentação e mensagens de commit.
