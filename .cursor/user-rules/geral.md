@@ -132,6 +132,7 @@ ou:
 * Diretório deve conter somente specs específicas, regras de projeto e contexto.
 * Specs e planos gerados por frameworks devem ser descartados após implementação
 * Deve ser 100% informativa, com o único intuito de explicar a feature e decisões.
+* Proibido desviar dos padrões de formatação de código, ou usar ferramentas que façam a formatação automática do código.
 
 ---
 
