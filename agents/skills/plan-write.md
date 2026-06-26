@@ -140,7 +140,7 @@ Após o self-review de `writing-plans`, verificar:
 
 1. Apresentar o plano completo (conforme política de paths do projeto)
 2. Oferecer opções de execução conforme `writing-plans` (subagent-driven vs inline)
-3. Lembrar políticas do projeto sobre planos temporários ou specs pós-implementação, se aplicável
+3. Lembrar políticas do projeto sobre planos temporários ou specs pós-implementação, se aplicável. O arquivo .md do plano DEVE ser gerado, com uma observação de que será excluído após implementação.
 
 Encerrar com:
 
