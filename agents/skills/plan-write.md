@@ -122,6 +122,7 @@ Todo plano DEVE refletir o que estiver definido em **regras do projeto** e **use
 - **Testes** — framework, comandos, TDD se exigido
 - **Segurança** — credenciais, dados sensíveis, logging
 - **Stack** — libs, patterns e ferramentas já usadas no projeto
+- **Formatação** - padrões de formatação de código do projeto devem ser priorizados sempre. Estritamente proibído o uso de ferramentas de formatação (laravel pint, etc...)
 
 Não inventar convenções. Se o projeto não define algo, seguir padrões já presentes no codebase.
 
