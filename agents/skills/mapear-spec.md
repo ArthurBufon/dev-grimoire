@@ -1,8 +1,18 @@
-Anexar arquivos e contexto.
+---
+name: mapear-spec
+description: Mapear regras de negócio e código em linguagem compreensivel entre humanos e IAs
+---
 
-IA deve gerar output em /docs/features/{entidade}/specs.md
+Use os arquivos anexados e o contexto fornecido para gerar a especificação da feature.
+
+O output final deve ser salvo em:
+
+/docs/features/{entidade}/specs.md
 
 REGRAS:
-*Arquivo final não deve conter alucionações. Somente "tradução" das regras de negócio.
-*Arquivo simples e objetivo.
-*Seguir padrão de markdown das specs já existentes.
+
+Não alucinar. Documentar somente regras identificadas no código/contexto.
+Traduzir regras técnicas para linguagem simples e objetiva.
+Manter o arquivo breve, claro e direto.
+Seguir o padrão Markdown das specs já existentes.
+Não inventar regras, fluxos, campos ou comportamentos não presentes nos arquivos analisados.
