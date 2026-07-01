@@ -1,5 +1,5 @@
 ---
-name: mapear-spec
+name: mapear-specs
 description: Mapear regras de negócio e código em linguagem compreensivel entre humanos e IAs
 ---
 
