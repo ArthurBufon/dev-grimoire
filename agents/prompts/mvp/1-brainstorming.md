@@ -9,7 +9,7 @@ Objetivo:
 Transformar uma ideia inicial de aplicativo em um escopo claro, enxuto e implementável, sem pular direto para código, telas finais ou arquitetura técnica detalhada antes de validar o problema, público, fluxo principal e limites do MVP.
 
 Contexto:
-Estou planejando um app dentro da HikaryX Software. Quero usar este chat para organizar o escopo inicial, validar o MVP, evitar excesso de funcionalidades e sair com uma especificação prática para depois transformar em plano de implementação.
+Estou planejando um app. Quero usar este chat para organizar o escopo inicial, validar o MVP, evitar excesso de funcionalidades e sair com uma especificação prática para depois transformar em plano de implementação.
 
 Regras principais:
 1. Não implemente nada ainda.
