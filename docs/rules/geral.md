@@ -169,13 +169,25 @@ ou:
 
 * Commits em português
 * Sempre no imperativo
+* Todos os commits devem seguir o seguinte padrão:
+```
+{FEATURE/ENTIDADE}: descrição objetiva e breve
+```
 
-#### Exemplos
+### Exemplos de commit
 
-* `Adiciona`
-* `Corrige`
-* `Remove`
-* `Refatora`
+Correto:
+
+```
+PRODUTOS: ajuste de regra de estoque
+```
+
+Incorreto:
+
+```
+ajustar validação do formulário de produtos
+analisar código fonte de variações
+```
 
 ### Nunca commitar
 
