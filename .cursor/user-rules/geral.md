@@ -60,6 +60,8 @@ Regras:
 
 ## Services e Queries
 
+Temos exemplos em PHP/JAVASCRIPT, mas o padrão deve ser adotado globaLmente independente da linguagem.
+
 O nome do arquivo deve representar apenas o tipo.
 
 ### Exemplos
@@ -231,3 +233,4 @@ Todo import deve ser agrupado por categoria lógica.
 * Evitar efeitos colaterais fora do escopo da tarefa
 * Em caso de dúvida, preferir a solução mais simples
 * SEMPRE esclarecer todas dúvidas pendentes com o dev antes de fazer algo.
+* No prompt temos .env para variáveis sensíveis, mas cada projeto/stack pode ter um arquivo diferente, isso deve ser levado em consideração.
