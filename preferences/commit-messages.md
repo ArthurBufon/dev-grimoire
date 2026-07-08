@@ -3,7 +3,7 @@
 Todos os commits devem seguir o seguinte padrão:
 
 ```md
-{FEATURE}: descrição objetiva e breve
+{FEATURE/ENTIDADE}: descrição objetiva e breve
 ```
 
 ## Exemplos
