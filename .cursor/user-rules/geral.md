@@ -154,10 +154,12 @@ ou:
 
 ### Regras
 
-* Planos nunca devem ser commitados ou mantidos no repositório
+* Planos gerados devem obrigatóriamente ser salvos em /docs/plans/{feature}.md
+* Planos nunca devem ser commitados ou mantidos no repositório (geralmente o .gitignore já trata isso em cada projeto)
 * O `specs.md` da feature é a fonte de verdade após a implementação
 * Toda alteração estrutural relevante deve estar refletida no `specs.md` correspondente
 * Nunca atualizar o `specs.md` antes da implementação estar concluída e validada
+* O `specs.md` é uma fonte 100% informativa, nunca deve ser alterada com tom de changelog. SEMPRE será a fonte de verdade FINAL da feature/entidade.
 
 ---
 
