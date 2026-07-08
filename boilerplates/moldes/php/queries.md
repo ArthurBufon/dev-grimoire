@@ -7,162 +7,192 @@
 - Seguir regras de /docs/regras/geral.md
 
 ```
-import { RetornoPadronizado } from '@/types';
+<?php
 
-export default class Queries {
-	async index(filtros = {}) {
-		try {
-			const parametros = new URLSearchParams(filtros).toString();
+declare(strict_types=1);
 
-			const url = parametros ? `/carros?${parametros}` : '/carros';
+namespace App\Queries\Carro;
 
-			const options = {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-				},
-				credentials: 'same-origin' as RequestCredentials,
-			};
+use App\Models\Carro;
+use Illuminate\Database\Eloquent\Builder;
 
-			const retorno = await fetch(url, options);
+class Queries
+{
+    public function index(array $filtros): array
+    {
+        try {
 
-			const dados = await retorno.json() as RetornoPadronizado;
+            $query = Carro::query();
 
-			return dados;
-		} catch (error) {
-			return {
-				sucesso: false,
-				dados: {
-					lista: [],
-				},
-				erros: [
-					error instanceof Error ? error.message : 'Erro ao listar carros!',
-				],
-			};
-		}
-	}
+            $this->aplicarFiltros($query, $filtros);
 
-	async show(filtros = {}) {
-		try {
-			const id = filtros.id;
+            $this->aplicarOrdenacao($query, $filtros);
 
-			const url = `/carros/${id}`;
+            $lista = $query->get();
 
-			const options = {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-				},
-				credentials: 'same-origin' as RequestCredentials,
-			};
+            return [
+                'sucesso' => true,
+                'dados'   => ['lista' => $lista],
+                'erros'   => [],
+            ];
+        } catch (\Throwable $th) {
 
-			const retorno = await fetch(url, options);
+            return [
+                'sucesso' => false,
+                'dados'   => ['lista' => collect()],
+                'erros'   => [formatarMensagemErro($th)],
+            ];
+        }
+    }
 
-			const dados = await retorno.json() as RetornoPadronizado;
+    public function show(array $filtros): array
+    {
+        try {
 
-			return dados;
-		} catch (error) {
-			return {
-				sucesso: false,
-				dados: {
-					model: null,
-				},
-				erros: [
-					error instanceof Error ? error.message : 'Erro ao buscar carro!',
-				],
-			};
-		}
-	}
+            $query = Carro::query();
 
-	async store(dados) {
-		try {
-			const url = '/carros';
+            $this->aplicarFiltros($query, $filtros);
 
-			const options = {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-				},
-				credentials: 'same-origin' as RequestCredentials,
-				body: JSON.stringify(dados),
-			};
+            $model = $query->first();
 
-			const retorno = await fetch(url, options);
+            return [
+                'sucesso' => true,
+                'dados'   => ['model' => $model],
+                'erros'   => [],
+            ];
+        } catch (\Throwable $th) {
 
-			const dadosRetorno = await retorno.json() as RetornoPadronizado;
+            return [
+                'sucesso' => false,
+                'dados'   => ['model' => null],
+                'erros'   => [formatarMensagemErro($th)],
+            ];
+        }
+    }
 
-			return dadosRetorno;
-		} catch (error) {
-			return {
-				sucesso: false,
-				dados: {},
-				erros: [
-					error instanceof Error ? error.message : 'Erro ao salvar carro!',
-				],
-			};
-		}
-	}
+    private function aplicarFiltros(Builder $query, array $filtros): void
+    {
+        foreach ($filtros as $chave => $valor) {
 
-	async update(id: string | number, dados) {
-		try {
-			const url = `/carros/${id}`;
+            if ($valor === null || $valor === '') {
+                continue;
+            }
 
-			const options = {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-				},
-				credentials: 'same-origin' as RequestCredentials,
-				body: JSON.stringify(dados),
-			};
+            switch ($chave) {
 
-			const retorno = await fetch(url, options);
+                case 'id':
+                    $query->where('id', $valor);
+                    break;
 
-			const dadosRetorno = await retorno.json() as RetornoPadronizado;
+                case 'marca':
+                    $query->where('marca', 'like', '%' . $valor . '%');
+                    break;
 
-			return dadosRetorno;
-		} catch (error) {
-			return {
-				sucesso: false,
-				dados: {},
-				erros: [
-					error instanceof Error ? error.message : 'Erro ao atualizar carro!',
-				],
-			};
-		}
-	}
+                case 'modelo':
+                    $query->where('modelo', 'like', '%' . $valor . '%');
+                    break;
 
-	async destroy(id: string | number) {
-		try {
-			const url = `/carros/${id}`;
+                case 'ano':
+                    $query->where('ano', $valor);
+                    break;
 
-			const options = {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-				},
-				credentials: 'same-origin' as RequestCredentials,
-			};
+                case 'placa':
+                    $query->where('placa', $valor);
+                    break;
+            }
+        }
+    }
 
-			const retorno = await fetch(url, options);
+    private function aplicarOrdenacao(Builder $query, array $filtros): void
+    {
+        $ordenacao = $filtros['ordenacao'] ?? null;
 
-			const dados = await retorno.json() as RetornoPadronizado;
+        if (!$ordenacao || empty($ordenacao['coluna']) || empty($ordenacao['ordem'])) {
+            return;
+        }
 
-			return dados;
-		} catch (error) {
-			return {
-				sucesso: false,
-				dados: {},
-				erros: [
-					error instanceof Error ? error.message : 'Erro ao excluir carro!',
-				],
-			};
-		}
-	}
+        $query->orderBy($ordenacao['coluna'], $ordenacao['ordem']);
+    }
+
+    public function store(array $dados): array
+    {
+        try {
+
+            $retorno = Carro::create($dados);
+
+            $sucesso = $retorno->id !== null;
+
+            if (!$sucesso) {
+                throw new \Exception('Erro ao salvar carro!');
+            }
+
+            return [
+                'sucesso' => $sucesso,
+                'dados'   => ['model' => $retorno, 'id' => $retorno->id],
+                'erros'   => [],
+            ];
+        } catch (\Throwable $th) {
+
+            return [
+                'sucesso' => false,
+                'dados'   => [],
+                'erros'   => [formatarMensagemErro($th)],
+            ];
+        }
+    }
+
+    public function update(int $id, array $dados): array
+    {
+        try {
+
+            $model = Carro::findOrFail($id);
+
+            $model->fill($dados);
+
+            $sucesso = $model->save();
+
+            if (!$sucesso) {
+                throw new \Exception('Erro ao atualizar carro!');
+            }
+
+            return [
+                'sucesso' => $sucesso,
+                'dados'   => ['model' => $model],
+                'erros'   => [],
+            ];
+        } catch (\Throwable $th) {
+
+            return [
+                'sucesso' => false,
+                'dados'   => [],
+                'erros'   => [formatarMensagemErro($th)],
+            ];
+        }
+    }
+
+    public function destroy(string|int $id): array
+    {
+        try {
+
+            $model = Carro::findOrFail($id);
+
+            $linhasAfetadas = $model->delete();
+
+            $sucesso = $linhasAfetadas > 0;
+
+            return [
+                'sucesso' => $sucesso,
+                'dados'   => [],
+                'erros'   => [],
+            ];
+        } catch (\Throwable $th) {
+
+            return [
+                'sucesso' => false,
+                'dados'   => [],
+                'erros'   => [formatarMensagemErro($th)],
+            ];
+        }
+    }
 }
 ```
