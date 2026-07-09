@@ -2,138 +2,134 @@
 name: plan-execute-subagents
 description: >-
   Executa planos aprovados com subagents, uma task por vez, com revisão de spec
-  e qualidade entre etapas. Use após plan-write ou quando o usuário pedir para
-  executar um plano com subagents, ou com triggers como "/plan-execute-subagents",
-  "execute o plano", "subagent-driven-development".
-disable-model-invocation: true
+  e qualidade entre etapas. Use após plan-write/revisar-plano-grill ou quando
+  o usuário pedir para executar um plano aprovado com subagents.
+  disable-model-invocation: true
 ---
 
-# Execução de planos com subagents
+# Execução de plano com subagents
 
-Orquestra a **execução** de um plano já aprovado. Ativa o workflow de `subagent-driven-development` e define o comportamento obrigatório durante a implementação: uma task por vez, sem drift de escopo, KISS, regras do projeto e revisão antes de avançar.
+Executa um plano já aprovado usando `subagent-driven-development`.
 
-**Não planeja. Não reescreve o plano.** Só executa.
+Esta skill **não planeja, não reescreve e não expande escopo**. Ela apenas orquestra a implementação sequencial das tasks, garantindo aderência à spec, KISS e qualidade antes de avançar.
 
-## Posição no fluxo
-
-```
-plan-write → [revisão opcional: revisar-plano-grill] → plan-execute-subagents → plan-finished-review
-```
-
-## Hard Gate
-
-- O plano **já foi revisado e aprovado** pelo usuário.
-- **Não reescreva** o plano e **não altere o escopo**, exceto se encontrar bloqueio real — nesse caso, **pare e pergunte ao dev**.
-- Antes de começar, carregar e aplicar durante toda a execução:
-  1. **User Rules da IDE**
-  2. **`AGENTS.md`** na raiz (ou equivalente: `.cursor/rules/`, `CLAUDE.md`)
-  3. **Spec/design** referenciado no plano
-  4. **Plano** (arquivo ou texto fornecido na conversa)
-
-**Regra de precedência:** regras do projeto + user rules **sobrescrevem** defaults das sub-skills quando houver conflito.
-
-Anunciar no início: *"Iniciando execução do plano com subagent-driven-development."*
-
----
-
-## Instruções de execução
-
-Seguir **integralmente** o conteúdo abaixo:
+## Fluxo
 
 ```text
-/subagent-driven-development
-
-Execute o plano.
-
-O plano já foi revisado e aprovado. Não reescreva o plano e não altere o escopo, exceto se encontrar bloqueio real.
-
-Execute uma task por vez, na ordem do plano.
-Para cada task:
-1. implemente somente o necessário, princípio KISS é chave aqui;
-2. rode as verificações/testes indicados;
-3. faça revisão de aderência à spec;
-4. faça revisão de qualidade de código;
-5. corrija findings críticos/importantes antes de avançar.
-
-REGRAS DE DESENVOLVIMENTO
-- Seguir melhores práticas atuais (2026)
-- Código idiomático, tipado e legível
-- KISS é inegociável
-- Preferir soluções simples e previsíveis
-- Fazer alterações mínimas e localizadas
-- Nunca refatorar fora do escopo solicitado
-- Nunca criar abstrações, arquivos ou camadas sem necessidade real
-- Priorizar reutilização do código existente antes de criar novos componentes
-
-REGRAS GERAIS
-- Não alterar padrões arquiteturais sem necessidade
-- Não adicionar dependências sem justificativa
-- Não criar "helpers genéricos" prematuramente
-- Não mover arquivos sem motivo claro
-- Evitar efeitos colaterais fora do escopo da tarefa
-- Em caso de dúvida, preferir a solução mais simples
-- SEMPRE esclarecer todas dúvidas pendentes com o dev antes de fazer algo.
-- Ao executar os planos, sempre devem ser consideradas religiosamente: User Rules da IDE + AGENTS.md na raiz
-
-Ao final, apresente resumo do que foi alterado e verificações executadas.
+plan-write → revisar-plano-grill → plan-execute-subagents → plan-finished-review
 ```
 
----
+## Gate de entrada
 
-## Workflow técnico (subagent-driven-development)
+Antes de executar, confirmar que existe:
 
-Seguir a skill `superpowers:subagent-driven-development` para o mecanismo de subagents.
+* Plano aprovado pelo usuário
+* Spec/design referenciado no plano
+* Regras do projeto carregadas:
 
-### Preparação (uma vez)
+  * User Rules da IDE
+  * `AGENTS.md` na raiz, ou equivalente: `.cursor/rules/`, `CLAUDE.md`
+  * Outras instruções locais relevantes
 
-1. Ler o plano **uma vez**; extrair todas as tasks com texto completo e contexto
-2. Criar TodoWrite com todas as tasks
-3. Se o projeto exigir workspace isolado: aplicar `superpowers:using-git-worktrees` antes de implementar
+Regras do projeto e User Rules têm precedência sobre defaults desta skill.
 
-### Por task (sequencial — nunca paralelo)
+Se o plano não estiver aprovado, não executar. Solicitar aprovação primeiro.
 
-| Etapa | Subagent / ação |
-|-------|-----------------|
-| 1 | Dispatch implementer com texto completo da task + contexto (subagent **não** lê o arquivo do plano) |
-| 2 | Responder perguntas do implementer antes de prosseguir |
-| 3 | Implementer implementa, roda testes, self-review |
-| 4 | Dispatch spec reviewer → corrigir gaps → re-review até ✅ |
-| 5 | Dispatch code quality reviewer → corrigir issues críticos/importantes → re-review até ✅ |
-| 6 | Marcar task completa no TodoWrite |
-| 7 | Próxima task |
+Ao iniciar, anunciar:
 
-**Ordem das revisões:** spec compliance **antes** de code quality. Nunca avançar com issues abertas.
+> Iniciando execução do plano com subagent-driven-development.
 
-### Após todas as tasks
+## Contrato de execução
 
-1. Dispatch code reviewer final (implementação inteira)
-2. Apresentar resumo (ver seção abaixo)
-3. Sugerir `plan-finished-review` para validação pós-implementação
-4. Aplicar `superpowers:finishing-a-development-branch` quando apropriado
+Executar uma task por vez, na ordem do plano.
 
-### Escalonamento do implementer
+Para cada task:
 
-| Status | Ação |
-|--------|------|
-| DONE | Ir para revisão de spec |
-| DONE_WITH_CONCERNS | Ler concerns; se sobre correção/escopo, resolver antes da revisão |
-| NEEDS_CONTEXT | Fornecer contexto e re-dispatch |
-| BLOCKED | Avaliar: mais contexto, modelo mais capaz, dividir task, ou escalar ao dev |
+1. Enviar ao implementer o texto completo da task e o contexto necessário
+2. Implementar somente o necessário
+3. Rodar testes, lint ou verificações indicadas
+4. Fazer self-review
+5. Fazer revisão de aderência à spec
+6. Corrigir gaps de spec, se houver
+7. Fazer revisão de qualidade de código
+8. Corrigir issues críticos/importantes, se houver
+9. Marcar a task como concluída no TodoWrite
+10. Avançar para a próxima task
 
----
+Nunca executar tasks em paralelo.
+
+## Princípios obrigatórios
+
+* KISS é inegociável
+* Alterações mínimas, localizadas e previsíveis
+* Código idiomático para o stack do projeto
+* Reutilizar padrões e componentes existentes
+* Não refatorar fora do escopo
+* Não criar abstrações prematuras
+* Não adicionar dependências sem justificativa forte
+* Não alterar arquitetura sem necessidade real
+* Não implementar em `main`/`master` sem consentimento explícito
+* Em caso de dúvida bloqueante, parar e perguntar ao dev
+
+Dúvidas não bloqueantes devem ser resolvidas pela opção mais simples e mais aderente ao padrão existente do projeto.
+
+## Preparação
+
+1. Ler o plano uma vez
+2. Extrair todas as tasks com texto completo e contexto
+3. Criar TodoWrite com todas as tasks
+4. Se o projeto exigir isolamento, aplicar `superpowers:using-git-worktrees`
+5. Iniciar `superpowers:subagent-driven-development`
+
+## Ciclo por task
+
+| Etapa | Ação                                               |
+| ----- | -------------------------------------------------- |
+| 1     | Dispatch implementer com task completa + contexto  |
+| 2     | Resolver dúvidas bloqueantes do implementer        |
+| 3     | Implementer implementa, testa e faz self-review    |
+| 4     | Dispatch spec reviewer                             |
+| 5     | Corrigir gaps de spec até aprovação                |
+| 6     | Dispatch code quality reviewer                     |
+| 7     | Corrigir issues críticos/importantes até aprovação |
+| 8     | Marcar task como concluída                         |
+| 9     | Avançar para próxima task                          |
+
+A revisão de spec sempre vem antes da revisão de qualidade.
+
+Não avançar com findings críticos/importantes abertos.
+
+## Status do implementer
+
+| Status               | Ação                                                       |
+| -------------------- | ---------------------------------------------------------- |
+| `DONE`               | Enviar para revisão de spec                                |
+| `DONE_WITH_CONCERNS` | Avaliar concerns antes da revisão                          |
+| `NEEDS_CONTEXT`      | Fornecer contexto e re-dispatch                            |
+| `BLOCKED`            | Resolver com mais contexto, dividir task ou escalar ao dev |
+
+Se o bloqueio envolver mudança de escopo, parar e perguntar ao dev.
+
+## Finalização
+
+Após todas as tasks:
+
+1. Dispatch code reviewer final para a implementação completa
+2. Corrigir issues críticos/importantes, se houver
+3. Apresentar resumo final
+4. Sugerir `plan-finished-review`
+5. Aplicar `superpowers:finishing-a-development-branch` quando apropriado
 
 ## Resumo final obrigatório
-
-Ao concluir todas as tasks, entregar:
 
 ```markdown
 ## Execução concluída
 
 ### Alterações
-- [lista de arquivos/módulos alterados por task]
+- [arquivos/módulos alterados por task]
 
 ### Verificações executadas
-- [comandos de teste/lint rodados e resultado]
+- [comandos executados e resultado]
 
 ### Tasks
 - [x] Task 1 — ...
@@ -143,36 +139,37 @@ Ao concluir todas as tasks, entregar:
 - [se houver; senão: "Nenhum"]
 
 ### Próximo passo
-- [ex.: plan-finished-review, PR, testes manuais]
+- [plan-finished-review, PR, testes manuais etc.]
 ```
-
----
 
 ## Anti-patterns
 
-- Reescrever ou expandir o plano durante a execução
-- Pular revisão de spec ou de qualidade
-- Dispatch de múltiplos implementers em paralelo (conflitos)
-- Refatorar fora do escopo "já que estou aqui"
-- Ignorar perguntas do subagent
-- Avançar para próxima task com findings críticos/importantes abertos
-- Implementar em `main`/`master` sem consentimento explícito do usuário
+* Reescrever o plano durante a execução
+* Expandir escopo sem aprovação
+* Pular revisão de spec
+* Pular revisão de qualidade
+* Executar múltiplas tasks em paralelo
+* Refatorar “aproveitando que já está aqui”
+* Criar helpers genéricos sem necessidade real
+* Ignorar perguntas bloqueantes do implementer
+* Avançar com findings críticos/importantes abertos
+* Implementar direto em `main`/`master` sem consentimento
 
 ## Trigger phrases
 
-- `/plan-execute-subagents`
-- `execute o plano`
-- `subagent-driven-development` (quando o plano já está aprovado)
-- "implementar o plano", "rodar o plano de implementação"
+* `/plan-execute-subagents`
+* `execute o plano`
+* `implementar o plano`
+* `rodar o plano de implementação`
+* `subagent-driven-development`
 
 ## Skills relacionadas
 
-| Skill | Quando |
-|-------|--------|
-| `plan-write` | Antes — planejamento |
-| `revisar-plano-grill` | Antes — revisão crítica do plano |
-| `superpowers:subagent-driven-development` | Mecanismo de subagents |
-| `superpowers:using-git-worktrees` | Workspace isolado (se aplicável) |
-| `superpowers:test-driven-development` | Subagents implementadores |
-| `plan-finished-review` | Depois — validação pós-implementação |
-| `superpowers:finishing-a-development-branch` | Depois — merge/PR/cleanup |
+| Skill                                        | Quando usar                               |
+| -------------------------------------------- | ----------------------------------------- |
+| `plan-write`                                 | Antes, para criar o plano                 |
+| `revisar-plano-grill`                        | Antes, para revisar criticamente o plano  |
+| `superpowers:subagent-driven-development`    | Durante, como mecanismo de execução       |
+| `superpowers:using-git-worktrees`            | Durante, se precisar de workspace isolado |
+| `plan-finished-review`                       | Depois, para validação pós-implementação  |
+| `superpowers:finishing-a-development-branch` | Depois, para PR/merge/cleanup             |
