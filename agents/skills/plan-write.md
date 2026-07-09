@@ -6,7 +6,7 @@ Orchestrates full planning: brainstorming (superpowers), grilling (grill-me),
 then implementation plan (writing-plans). Use when the user wants a complete
 plan before building, or uses triggers like "plan-write", "write a plan",
 "elaborar plano", or "/plan-write".
------------------------------------
+---
 
 # Plan Write
 
