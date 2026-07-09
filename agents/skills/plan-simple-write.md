@@ -2,12 +2,12 @@
 
 name: plan-simple-write
 description: >-
-Generates a simple, objective implementation plan for decisions already made
-in the current conversation. Use when the user wants a direct implementation
-plan without brainstorming, grilling, design exploration, or invoking other
-skills. Trigger phrases include "plan-simple-write", "/plan-simple-write",
-"gerar plano simples", "plano simples", "plano objetivo", or
-"criar plano direto".
+    Generates a simple, objective implementation plan for decisions already made
+    in the current conversation. Use when the user wants a direct implementation
+    plan without brainstorming, grilling, design exploration, or invoking other
+    skills. Trigger phrases include "plan-simple-write", "/plan-simple-write",
+    "gerar plano simples", "plano simples", "plano objetivo", or
+    "criar plano direto".
 ---
 
 # Plan Simple Write
