@@ -29,6 +29,7 @@ Antes de executar, confirmar que existe:
 
   * User Rules da IDE
   * `AGENTS.md` na raiz, ou equivalente: `.cursor/rules/`, `CLAUDE.md`
+  * `docs/rules` sempre que existir
   * Outras instruções locais relevantes
 
 Regras do projeto e User Rules têm precedência sobre defaults desta skill.
@@ -54,7 +55,8 @@ Para cada task:
 7. Fazer revisão de qualidade de código
 8. Corrigir issues críticos/importantes, se houver
 9. Marcar a task como concluída no TodoWrite
-10. Avançar para a próxima task
+10. Apresentar o checkpoint da task e aguardar revisão e confirmação explícita do dev
+11. Somente após a confirmação, avançar para a próxima task
 
 Nunca executar tasks em paralelo.
 
@@ -70,6 +72,7 @@ Nunca executar tasks em paralelo.
 * Não alterar arquitetura sem necessidade real
 * Não implementar em `main`/`master` sem consentimento explícito
 * Em caso de dúvida bloqueante, parar e perguntar ao dev
+* Após concluir cada task, parar e aguardar revisão e confirmação explícita do dev antes de continuar
 
 Dúvidas não bloqueantes devem ser resolvidas pela opção mais simples e mais aderente ao padrão existente do projeto.
 
@@ -83,21 +86,44 @@ Dúvidas não bloqueantes devem ser resolvidas pela opção mais simples e mais 
 
 ## Ciclo por task
 
-| Etapa | Ação                                               |
-| ----- | -------------------------------------------------- |
-| 1     | Dispatch implementer com task completa + contexto  |
-| 2     | Resolver dúvidas bloqueantes do implementer        |
-| 3     | Implementer implementa, testa e faz self-review    |
-| 4     | Dispatch spec reviewer                             |
-| 5     | Corrigir gaps de spec até aprovação                |
-| 6     | Dispatch code quality reviewer                     |
-| 7     | Corrigir issues críticos/importantes até aprovação |
-| 8     | Marcar task como concluída                         |
-| 9     | Avançar para próxima task                          |
+| Etapa | Ação                                                        |
+| ----- | ----------------------------------------------------------- |
+| 1     | Dispatch implementer com task completa + contexto           |
+| 2     | Resolver dúvidas bloqueantes do implementer                 |
+| 3     | Implementer implementa, testa e faz self-review             |
+| 4     | Dispatch spec reviewer                                      |
+| 5     | Corrigir gaps de spec até aprovação                         |
+| 6     | Dispatch code quality reviewer                              |
+| 7     | Corrigir issues críticos/importantes até aprovação          |
+| 8     | Marcar task como concluída                                  |
+| 9     | Apresentar checkpoint e aguardar revisão/confirmação do dev |
+| 10    | Após confirmação explícita, avançar para a próxima task     |
 
 A revisão de spec sempre vem antes da revisão de qualidade.
 
 Não avançar com findings críticos/importantes abertos.
+
+## Checkpoint por task
+
+Após finalizar completamente uma task, parar a execução e apresentar:
+
+```markdown
+## Task concluída — [nome da task]
+
+### Alterações
+- [arquivos/módulos alterados]
+
+### Verificações executadas
+- [comandos executados e resultado]
+
+### Decisões / observações
+- [decisões relevantes, riscos ou pontos de atenção]
+
+### Revisão manual
+Aguardando revisão e confirmação explícita do dev para avançar para a próxima task.
+```
+
+Não iniciar, preparar ou implementar a próxima task antes da confirmação explícita do dev.
 
 ## Status do implementer
 
@@ -149,6 +175,7 @@ Após todas as tasks:
 * Pular revisão de spec
 * Pular revisão de qualidade
 * Executar múltiplas tasks em paralelo
+* Avançar para a próxima task sem revisão e confirmação explícita do dev
 * Refatorar “aproveitando que já está aqui”
 * Criar helpers genéricos sem necessidade real
 * Ignorar perguntas bloqueantes do implementer
