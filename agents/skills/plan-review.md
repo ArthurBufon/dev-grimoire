@@ -1,5 +1,5 @@
 ---
-name: revisar-plano-grill
+name: plan-review
 description: Revisa criticamente uma task ou plano antes da implementação para identificar problemas de escopo, arquitetura e complexidade.
 disable-model-invocation: true
 ---
