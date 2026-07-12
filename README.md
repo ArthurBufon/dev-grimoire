@@ -20,8 +20,8 @@ Diretório contendo guias práticos com passo a passo para diversos casos de uso
 ### 📁 `agents/`
 Prompts e referências para apoiar fluxos de trabalho com agentes de IA. Dentro de agents/skills, existem minhas skills favoritas e personalizadas.
 
-### 📁 `preferences/`
-Preferências pessoais de workflow, documentação e mensagens de commit.
+### 📁 `boilerplates/`
+Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Atualmente só existe uma referência para projeto laravel/react/inertia
 
 ### 📁 `.cursor/`
 
@@ -30,9 +30,6 @@ Preferências pessoais de workflow, documentação e mensagens de commit.
 | [`user-rules/`](.cursor/user-rules/) | Regras globais (PHP, JS, Flutter, geral) — copiar para **Settings → Rules → User** |
 | [`user-rules/README.md`](.cursor/user-rules/README.md) | Como ativar as User Rules em qualquer projeto |
 | [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md) | Setup completo: MCPs, Superpowers e User Rules |
-
-### 📁 `boilerplates/`
-Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Atualmente só existe uma referência para projeto laravel/react/inertia
 
 ---
 
