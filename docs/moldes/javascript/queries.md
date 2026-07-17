@@ -3,7 +3,7 @@
 ## TODOS os queries devem seguir o mesmo padrão de código fornecido abaixo, visando facilidade de manutenção e legibilidade de código.
 
 ### REGRAS
-- Seguir regras de /docs/rules/prefs-php.md
+- Seguir regras de /docs/rules/prefs-javascript.md
 - Seguir regras de /docs/rules/geral.md
 
 ```
