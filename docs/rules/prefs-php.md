@@ -60,7 +60,6 @@ public function destroy(int $id)      // deletar
 - Comandos sempre via `vendor/bin/sail`
 - Criar arquivos: `vendor/bin/sail artisan make:* --no-interaction`
 - Testes: `vendor/bin/sail artisan test --compact --filter=NomeTest`
-- Após alterar PHP: `vendor/bin/sail bin pint --dirty --format agent`
 
 ## Nomenclatura
 - `PascalCase` para classes, controllers, models, enums
