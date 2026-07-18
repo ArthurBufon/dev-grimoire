@@ -144,11 +144,20 @@ ou:
 
 ### Fluxo
 
+### Alterações simples
+
+Correções localizadas, sem decisão arquitetural e sem impacto amplo:
+
+- apresentar brevemente a abordagem;
+- implementar somente após autorização explícita do usuário, quando a solicitação
+  ainda não tiver autorizado a implementação;
+- não criar arquivo em `docs/plans`.
+
+### Alterações complexas
 1. Planejar a task antes de implementar, detalhando etapas e impactos
 2. Validar o plano com o usuário antes de iniciar a implementação
 3. Implementar conforme o plano aprovado
 4. Após implementação concluída e validada:
-
    * Verificar se existe `docs/features/<feature>/specs.md`
    * Se existir: atualizar refletindo as mudanças realizadas
    * Se não existir: perguntar se deve ser criado antes de prosseguir
