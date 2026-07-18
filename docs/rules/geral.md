@@ -1,8 +1,7 @@
-# User Rule — Geral
+# Geral
 
 ## Princípios de Desenvolvimento
 
-* Seguir melhores práticas atuais (2026)
 * Código idiomático, tipado e legível
 * KISS é inegociável
 * Preferir soluções simples e previsíveis
@@ -10,6 +9,9 @@
 * Nunca refatorar fora do escopo solicitado
 * Nunca criar abstrações, arquivos ou camadas sem necessidade real
 * Priorizar reutilização do código existente antes de criar novos componentes
+* As melhores práticas gerais só devem ser aplicadas quando não conflitarem
+com regras específicas do projeto nem com padrões consolidados no módulo alterado.
+Não modernizar, refatorar ou substituir padrões existentes fora do escopo solicitado.
 
 ---
 
