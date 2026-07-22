@@ -35,11 +35,11 @@ moldes/
 ```
 
 ### 📁 `docs/rules/`
-Convenções centralizadas, indexadas globalmente via **Cursor Settings → Indexing & Docs → Dev Grimoire**. Não copiar para cada repositório — o agente consulta esta pasta no grimório.
+Convenções centralizadas, consumidas via clone local irmão dos apps (`../dev-grimoire/`). Não copiar para cada repositório — o agente lê esta pasta no filesystem.
 
 | Arquivo | Função |
 |---|---|
-| [`global.md`](docs/rules/global.md) | **User Rule global** — colar no Cursor; consulta Dev Grimoire indexado + moldes |
+| [`global.md`](docs/rules/global.md) | **User Rule global** — clone local + Read/Grep |
 | [`geral.md`](docs/rules/geral.md) | Princípios, nomenclatura, Git, segurança |
 | [`php.md`](docs/rules/php.md) | Convenções PHP / Laravel |
 | [`javascript.md`](docs/rules/javascript.md) | Convenções JavaScript / React |
@@ -47,7 +47,7 @@ Convenções centralizadas, indexadas globalmente via **Cursor Settings → Inde
 
 ### 📁 `.cursor/`
 
-Setup do Cursor: User Rule global, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md).
+Setup do Cursor: User Rule global, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
 
 ---
 
@@ -75,7 +75,7 @@ Com IA gerando e refatorando código o tempo todo, uma base bem definida importa
 
 - Prompts produzem resultados consistentes quando a arquitetura é previsível
 - User Rules globais no Cursor fixam convenções em todos os projetos automaticamente
-- Documentação **Dev Grimoire** indexada no Cursor ancora o agente nas convenções em qualquer repositório
+- Clone local do **Dev Grimoire** (`../dev-grimoire/`) ancora o agente nas convenções em qualquer repositório via Read/Grep
 - Specs em `docs/features/` funcionam como memória de contexto para agentes
 
 ---

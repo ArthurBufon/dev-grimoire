@@ -4,7 +4,9 @@
 
 Copie [`docs/rules/global.md`](../docs/rules/global.md) para **Settings → Rules → User**.
 
-Indexe este repositório em **Settings → Indexing & Docs → Dev Grimoire**.
+## Grimório local
+
+Clone `dev-grimoire` como repositório **irmão** dos apps, no mesmo diretório pai (nome do pai é livre — ex.: `projetos/`). Ver [guia completo](../guias/cursor/setup-grimoire-local.md).
 
 ## MCPs
 

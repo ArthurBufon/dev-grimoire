@@ -1,17 +1,22 @@
 # User Rule Global
 
 > Cole este arquivo em **Cursor Settings → Rules → User**. Vale para todos os projetos.
-> Configure também **Settings → Indexing & Docs → Dev Grimoire** apontando para este repositório.
+> O Dev Grimoire deve estar clonado como repositório **irmão** do app aberto (`../dev-grimoire/`).
 
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
-## 1. Fonte de convenções
+## 1. Onde está o Dev Grimoire
 
 As convenções **não** vivem em `docs/rules/` do projeto atual.
 
-Consulte a documentação indexada **Dev Grimoire** em **Cursor Settings → Indexing & Docs**.
+O agente resolve o grimório no filesystem:
 
-Se o contexto não estiver disponível, busque explicitamente na documentação **Dev Grimoire** antes de prosseguir.
+1. Verificar se existe `../dev-grimoire/docs/rules/geral.md` (marker).
+2. Se existir → prefixo `{GRIMOIRE}` = `../dev-grimoire/`.
+3. Se não existir → parar e avisar o dev (clone ausente ou app fora do layout).
+4. Todos os paths de rules/moldes usam `{GRIMOIRE}/...`.
+
+**Leitura obrigatória via Read/Grep** — nunca assuma o conteúdo de um arquivo sem lê-lo no filesystem.
 
 ## 2. O que ler no Dev Grimoire
 
@@ -19,8 +24,8 @@ Se o contexto não estiver disponível, busque explicitamente na documentação 
 
 | Arquivo | Conteúdo |
 |---|---|
-| `docs/rules/geral.md` | Princípios, nomenclatura, Git, segurança, processo |
-| `docs/rules/anti-overengineering.md` | Escopo mínimo — alterar só o pedido |
+| `{GRIMOIRE}/docs/rules/geral.md` | Princípios, nomenclatura, Git, segurança |
+| `{GRIMOIRE}/docs/rules/anti-overengineering.md` | Escopo mínimo — alterar só o pedido |
 
 ### Por stack do projeto atual
 
@@ -28,40 +33,40 @@ Identifique a stack pelo repositório aberto (`composer.json` + `artisan` → La
 
 | Stack detectada | Arquivo no Dev Grimoire |
 |---|---|
-| PHP / Laravel | `docs/rules/php.md` |
-| JavaScript / React | `docs/rules/javascript.md` |
+| PHP / Laravel | `{GRIMOIRE}/docs/rules/php.md` |
+| JavaScript / React | `{GRIMOIRE}/docs/rules/javascript.md` |
 
 Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React), leia as duas. Não misture convenções de stacks diferentes no mesmo arquivo gerado.
 
 ### Ao criar arquivos novos
 
-**Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `moldes/` do Dev Grimoire. O código gerado deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
+**Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `{GRIMOIRE}/moldes/`. O código gerado deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
 
-#### Laravel (`moldes/laravel/`)
-
-| Criar no projeto | Molde de referência |
-|---|---|
-| `app/Models/{Entidade}.php` | `moldes/laravel/app/Models/Carro.php` |
-| `app/Queries/{Entidade}/Queries.php` | `moldes/laravel/app/Queries/Carro/Queries.php` |
-| `app/Services/{Entidade}/Service.php` | `moldes/laravel/app/Services/Carro/Service.php` |
-| `app/Services/Api/{Entidade}/Service.php` | `moldes/laravel/app/Services/Api/Carro/Service.php` |
-| `app/Services/{Entidade}/View/Service.php` | `moldes/laravel/app/Services/Carro/View/Service.php` |
-| `database/migrations/*_create_{entidades}_table.php` | `moldes/laravel/database/migrations/2026_05_08_000000_create_carros_table.php` |
-| `app/helpers.php` (funções globais) | `moldes/laravel/app/helpers.php` |
-| `docs/features/{entidade}/specs.md` | `moldes/laravel/docs/features/carro/specs.md` |
-
-#### React (`moldes/react/`)
+#### Laravel (`{GRIMOIRE}/moldes/laravel/`)
 
 | Criar no projeto | Molde de referência |
 |---|---|
-| `Pages/{Entidade}/Index.tsx` | `moldes/react/Pages/Carro/Index.tsx` |
-| `Pages/{Entidade}/Create.tsx` | `moldes/react/Pages/Carro/Create.tsx` |
-| `Pages/{Entidade}/Edit.tsx` | `moldes/react/Pages/Carro/Edit.tsx` |
-| `Queries/{Entidade}/Queries.tsx` | `moldes/react/Queries/Queries.tsx` |
-| `Services/{Entidade}/Service.tsx` | `moldes/react/Services/Service.tsx` |
-| `Components/Listagem/Card/Index.tsx` | `moldes/react/Components/Listagem/Card/Index.tsx` |
-| `Components/Listagem/Card/Show.tsx` | `moldes/react/Components/Listagem/Card/Show.tsx` |
-| `Utils/*.ts` | `moldes/react/Utils/` |
+| `app/Models/{Entidade}.php` | `{GRIMOIRE}/moldes/laravel/app/Models/Carro.php` |
+| `app/Queries/{Entidade}/Queries.php` | `{GRIMOIRE}/moldes/laravel/app/Queries/Carro/Queries.php` |
+| `app/Services/{Entidade}/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/Service.php` |
+| `app/Services/Api/{Entidade}/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Api/Carro/Service.php` |
+| `app/Services/{Entidade}/View/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/View/Service.php` |
+| `database/migrations/*_create_{entidades}_table.php` | `{GRIMOIRE}/moldes/laravel/database/migrations/2026_05_08_000000_create_carros_table.php` |
+| `app/helpers.php` (funções globais) | `{GRIMOIRE}/moldes/laravel/app/helpers.php` |
+| `docs/features/{entidade}/specs.md` | `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` |
+
+#### React (`{GRIMOIRE}/moldes/react/`)
+
+| Criar no projeto | Molde de referência |
+|---|---|
+| `Pages/{Entidade}/Index.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Index.tsx` |
+| `Pages/{Entidade}/Create.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Create.tsx` |
+| `Pages/{Entidade}/Edit.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Edit.tsx` |
+| `Queries/{Entidade}/Queries.tsx` | `{GRIMOIRE}/moldes/react/Queries/Queries.tsx` |
+| `Services/{Entidade}/Service.tsx` | `{GRIMOIRE}/moldes/react/Services/Service.tsx` |
+| `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |
+| `Components/Listagem/Card/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Show.tsx` |
+| `Utils/*.ts` | `{GRIMOIRE}/moldes/react/Utils/` |
 
 Se o projeto já tiver arquivos do mesmo tipo, o molde complementa — **padrões do projeto atual têm prioridade** sobre o molde quando já consolidados.
 
@@ -86,3 +91,5 @@ Projetos **não** devem ter `docs/rules/`. Specs de feature sim.
 Informe resumidamente quais arquivos do **Dev Grimoire** e do **projeto atual** foram consultados.
 
 Nunca invente regras ausentes nem assuma convenções que não estejam no Dev Grimoire ou no código do projeto.
+
+> **Nota:** Index Docs do Cursor não substitui leitura no filesystem — moldes PHP/TSX e rules só ficam acessíveis ao agente via Read/Grep em `../dev-grimoire/`.
