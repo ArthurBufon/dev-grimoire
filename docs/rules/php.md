@@ -31,10 +31,11 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 - `formatarMensagemErro(\Throwable $th)` — helper global em `app/helpers.php`
 
 ## Estrutura
-- Controllers: `app/Http/Controllers/[Modulo]/[Nome]Controller.php`
+*Módulos possíveis: Web ou Api
+- Controllers: `app/Http/Controllers/[Modulo]/[Entidade]/[Entidade]Controller.php`
 - Queries: `app/Queries/[Entidade]/Queries.php`
-- Services: `app/Services/[Entidade]/Service.php`
-- Form Requests: `app/Http/Requests/`
+- Services: `app/Services/[Modulo]/[Entidade]/Service.php`
+- Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php
 - URLs: sempre rotas nomeadas com `route()`
 
 ## Queries (`app/Queries/`)
