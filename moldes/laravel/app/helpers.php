@@ -163,4 +163,25 @@ if (!function_exists('validarDocumento')) {
     }
 }
 
+if (!function_exists('montarDadosPaginacao')) {
+    function montarDadosPaginacao(
+        int $totalFiltrados,
+        int $totalRetornado,
+        ?int $pagina = null,
+        ?int $limite = null
+    ): array {
+        $dados = [
+            'total'           => $totalFiltrados,
+            'total_retornado' => $totalRetornado,
+        ];
 
+        if ($pagina !== null && $limite !== null && $limite > 0) {
+
+            $dados['pagina']         = $pagina;
+            $dados['limite']         = $limite;
+            $dados['total_paginas']  = (int) ceil($totalFiltrados / $limite);
+        }
+
+        return $dados;
+    }
+}
