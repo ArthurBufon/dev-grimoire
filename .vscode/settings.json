@@ -1,3 +1,4 @@
 {
-  "intelephense.diagnostics.run": "off"
+  "intelephense.diagnostics.run": "off",
+  "typescript.validate.enable": false
 }
