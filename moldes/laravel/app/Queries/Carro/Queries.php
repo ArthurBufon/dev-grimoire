@@ -16,8 +16,8 @@ class Queries
             $query = Carro::query();
 
             $this->aplicarFiltros($query, $filtros);
-
             $this->aplicarOrdenacao($query, $filtros);
+            $this->carregarRelacionamentos($query, $filtros);
 
             $lista = $query->get();
 
@@ -43,6 +43,8 @@ class Queries
             $query = Carro::query();
 
             $this->aplicarFiltros($query, $filtros);
+            $this->aplicarOrdenacao($query, $filtros);
+            $this->carregarRelacionamentos($query, $filtros);
 
             $model = $query->first();
 
@@ -75,12 +77,18 @@ class Queries
                     $query->where('id', $valor);
                     break;
 
+                case 'busca_geral':
+                    if (empty($valor)) continue;
+
+                    $this->aplicarBuscaGeral($query, $valor);
+                    break;
+
                 case 'marca':
-                    $query->where('marca', 'like', '%' . $valor . '%');
+                    $query->where('marca', 'like', "%{$valor}%");
                     break;
 
                 case 'modelo':
-                    $query->where('modelo', 'like', '%' . $valor . '%');
+                    $query->where('modelo', 'like', "%{$valor}%");
                     break;
 
                 case 'ano':
@@ -94,6 +102,14 @@ class Queries
         }
     }
 
+    private function aplicarBuscaGeral(Builder $query, string $valor): void
+    {
+        $query->where('marca', 'like', "%{$valor}%")
+            ->orWhere('modelo', 'like', "%{$valor}%")
+            ->orWhere('ano', 'like', "%{$valor}%")
+            ->orWhere('placa', 'like', "%{$valor}%");
+    }
+
     private function aplicarOrdenacao(Builder $query, array $filtros): void
     {
         $ordenacao = $filtros['ordenacao'] ?? null;
@@ -103,6 +119,15 @@ class Queries
         }
 
         $query->orderBy($ordenacao['coluna'], $ordenacao['ordem']);
+    }
+
+    private function carregarRelacionamentos(Builder $query, array $filtros): void
+    {
+        $carregarRelacionamentos = $filtros['carregarRelacionamentos'] ?? [];
+
+        if (empty($carregarRelacionamentos)) return;
+
+        $query->with($carregarRelacionamentos);
     }
 
     public function store(array $dados): array
