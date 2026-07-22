@@ -4,7 +4,7 @@
 
 Um grimório é um livro de feitiços e conhecimento acumulado — pessoal, opinativo, construído com o tempo.
 
-Esse repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, boilerplates e convenções que eu uso no dia a dia. 
+Esse repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, moldes e convenções que eu uso no dia a dia. 
 
 Nada aqui é neutro ou consensual. É o que funciona **pra mim**, em projetos reais.
 
@@ -15,21 +15,39 @@ Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
 ## 📁 Conteúdo
 
 ### 📁 `guias/`
-Diretório contendo guias práticos com passo a passo para diversos casos de uso: correção de bugs, refatorações, planejamento de novas features, etc...
+Guias práticos com passo a passo para casos de uso reais: backups MySQL, conexões SSH, deploy Laravel, etc.
 
 ### 📁 `agents/`
-Prompts e referências para apoiar fluxos de trabalho com agentes de IA. Dentro de agents/skills, existem minhas skills favoritas e personalizadas.
+Prompts e skills para fluxos de trabalho com agentes de IA.
 
-### 📁 `boilerplates/`
-Workflow com SRP: modelo, queries, services (web e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Atualmente só existe uma referência para projeto laravel/react/inertia
+| Pasta | Função |
+|---|---|
+| [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
+| [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, mapear specs, grill-me, etc.) |
+
+### 📁 `moldes/`
+Código de referência com SRP: modelo, queries, services (web, view e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.
+
+```
+moldes/
+├── laravel/   → Models, Queries, Services, migration, docs/features/
+└── react/     → Pages, Services, Queries, Components, Utils
+```
+
+### 📁 `docs/rules/`
+Convenções centralizadas, indexadas globalmente via **Cursor Settings → Indexing & Docs → Dev Grimoire**. Não copiar para cada repositório — o agente consulta esta pasta no grimório.
+
+| Arquivo | Função |
+|---|---|
+| [`global.md`](docs/rules/global.md) | **User Rule global** — colar no Cursor; consulta Dev Grimoire indexado + moldes |
+| [`geral.md`](docs/rules/geral.md) | Princípios, nomenclatura, Git, segurança |
+| [`php.md`](docs/rules/php.md) | Convenções PHP / Laravel |
+| [`javascript.md`](docs/rules/javascript.md) | Convenções JavaScript / React |
+| [`anti-overengineering.md`](docs/rules/anti-overengineering.md) | Escopo mínimo — não alterar o que não foi pedido |
 
 ### 📁 `.cursor/`
 
-| Pasta / arquivo | Função |
-|---|---|
-| [`user-rules/`](.cursor/user-rules/) | Regras globais (PHP, JS, Flutter, geral) — copiar para **Settings → Rules → User** |
-| [`user-rules/README.md`](.cursor/user-rules/README.md) | Como ativar as User Rules em qualquer projeto |
-| [`tutorial-setup/tutorial.md`](.cursor/tutorial-setup/tutorial.md) | Setup completo: MCPs, Superpowers e User Rules |
+Setup do Cursor: User Rule global, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md).
 
 ---
 
@@ -57,7 +75,8 @@ Com IA gerando e refatorando código o tempo todo, uma base bem definida importa
 
 - Prompts produzem resultados consistentes quando a arquitetura é previsível
 - User Rules globais no Cursor fixam convenções em todos os projetos automaticamente
-- Specs em `/docs` funcionam como memória de contexto para agentes
+- Documentação **Dev Grimoire** indexada no Cursor ancora o agente nas convenções em qualquer repositório
+- Specs em `docs/features/` funcionam como memória de contexto para agentes
 
 ---
 

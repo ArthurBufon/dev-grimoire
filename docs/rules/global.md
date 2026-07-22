@@ -1,19 +1,88 @@
+# User Rule Global
+
+> Cole este arquivo em **Cursor Settings → Rules → User**. Vale para todos os projetos.
+> Configure também **Settings → Indexing & Docs → Dev Grimoire** apontando para este repositório.
+
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
-1. Verifique se o projeto contém o diretório `docs/rules`.
-2. Leia `docs/rules/geral.md`, quando existir.
-3. Identifique e leia todas as regras adicionais relacionadas:
+## 1. Fonte de convenções
 
-   * à linguagem;
-   * à stack;
-   * ao tipo de arquivo;
-   * à feature;
-   * à tarefa solicitada.
-4. Considere essas regras obrigatórias durante todo o trabalho.
-5. Em caso de conflito:
+As convenções **não** vivem em `docs/rules/` do projeto atual.
 
-   * instruções explícitas do usuário têm prioridade;
-   * regras mais específicas têm prioridade sobre regras gerais;
-   * padrões existentes no arquivo ou módulo têm prioridade sobre preferências genéricas.
-6. Antes de executar alterações, informe resumidamente quais arquivos de regras foram considerados.
-7. Nunca invente regras ausentes nem assuma que uma convenção geral substitui os padrões existentes no projeto.
+Consulte a documentação indexada **Dev Grimoire** em **Cursor Settings → Indexing & Docs**.
+
+Se o contexto não estiver disponível, busque explicitamente na documentação **Dev Grimoire** antes de prosseguir.
+
+## 2. O que ler no Dev Grimoire
+
+### Sempre
+
+| Arquivo | Conteúdo |
+|---|---|
+| `docs/rules/geral.md` | Princípios, nomenclatura, Git, segurança, processo |
+| `docs/rules/anti-overengineering.md` | Escopo mínimo — alterar só o pedido |
+
+### Por stack do projeto atual
+
+Identifique a stack pelo repositório aberto (`composer.json` + `artisan` → Laravel; `package.json` com React → JS/React).
+
+| Stack detectada | Arquivo no Dev Grimoire |
+|---|---|
+| PHP / Laravel | `docs/rules/php.md` |
+| JavaScript / React | `docs/rules/javascript.md` |
+
+Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React), leia as duas. Não misture convenções de stacks diferentes no mesmo arquivo gerado.
+
+### Ao criar arquivos novos
+
+**Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `moldes/` do Dev Grimoire. O código gerado deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
+
+#### Laravel (`moldes/laravel/`)
+
+| Criar no projeto | Molde de referência |
+|---|---|
+| `app/Models/{Entidade}.php` | `moldes/laravel/app/Models/Carro.php` |
+| `app/Queries/{Entidade}/Queries.php` | `moldes/laravel/app/Queries/Carro/Queries.php` |
+| `app/Services/{Entidade}/Service.php` | `moldes/laravel/app/Services/Carro/Service.php` |
+| `app/Services/Api/{Entidade}/Service.php` | `moldes/laravel/app/Services/Api/Carro/Service.php` |
+| `app/Services/{Entidade}/View/Service.php` | `moldes/laravel/app/Services/Carro/View/Service.php` |
+| `database/migrations/*_create_{entidades}_table.php` | `moldes/laravel/database/migrations/2026_05_08_000000_create_carros_table.php` |
+| `app/helpers.php` (funções globais) | `moldes/laravel/app/helpers.php` |
+| `docs/features/{entidade}/specs.md` | `moldes/laravel/docs/features/carro/specs.md` |
+
+#### React (`moldes/react/`)
+
+| Criar no projeto | Molde de referência |
+|---|---|
+| `Pages/{Entidade}/Index.tsx` | `moldes/react/Pages/Carro/Index.tsx` |
+| `Pages/{Entidade}/Create.tsx` | `moldes/react/Pages/Carro/Create.tsx` |
+| `Pages/{Entidade}/Edit.tsx` | `moldes/react/Pages/Carro/Edit.tsx` |
+| `Queries/{Entidade}/Queries.tsx` | `moldes/react/Queries/Queries.tsx` |
+| `Services/{Entidade}/Service.tsx` | `moldes/react/Services/Service.tsx` |
+| `Components/Listagem/Card/Index.tsx` | `moldes/react/Components/Listagem/Card/Index.tsx` |
+| `Components/Listagem/Card/Show.tsx` | `moldes/react/Components/Listagem/Card/Show.tsx` |
+| `Utils/*.ts` | `moldes/react/Utils/` |
+
+Se o projeto já tiver arquivos do mesmo tipo, o molde complementa — **padrões do projeto atual têm prioridade** sobre o molde quando já consolidados.
+
+## 3. O que ler no projeto atual (não no Dev Grimoire)
+
+| Local | Quando |
+|---|---|
+| `docs/features/<feature>/specs.md` | Contexto de negócio e regras da feature |
+| Código existente do módulo alterado | Padrões já consolidados no repositório |
+
+Projetos **não** devem ter `docs/rules/`. Specs de feature sim.
+
+## 4. Conflitos de prioridade
+
+1. Instruções explícitas do usuário
+2. Padrões existentes no arquivo ou módulo do projeto atual
+3. Regras do Dev Grimoire (`docs/rules/` + `moldes/`)
+4. Convenções genéricas da linguagem ou framework
+
+## 5. Antes de executar
+
+Informe resumidamente quais arquivos do **Dev Grimoire** e do **projeto atual** foram consultados.
+
+Nunca invente regras ausentes nem assuma convenções que não estejam no Dev Grimoire ou no código do projeto.

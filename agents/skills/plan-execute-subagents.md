@@ -29,7 +29,7 @@ Antes de executar, confirmar que existe:
 
   * User Rules da IDE
   * `AGENTS.md` na raiz, ou equivalente: `.cursor/rules/`, `CLAUDE.md`
-  * `docs/rules` sempre que existir
+  * documentação **Dev Grimoire** indexada (regras + moldes)
   * Outras instruções locais relevantes
 
 Regras do projeto e User Rules têm precedência sobre defaults desta skill.

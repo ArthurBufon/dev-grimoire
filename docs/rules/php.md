@@ -38,6 +38,15 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 - URLs: sempre rotas nomeadas com `route()`
 
 ## Queries (`app/Queries/`)
+
+Queries nunca devem conter métodos além de:
+
+* `index`
+* `show`
+* `store`
+* `update`
+* `destroy`
+
 Convenção obrigatória por entidade:
 ```php
 public function index(): array        // listar
@@ -46,6 +55,9 @@ public function store(array $dados)   // inserir
 public function update(array $dados)  // atualizar
 public function destroy(int $id)      // deletar
 ```
+
+Caso alguma query muito específica seja necessária, o `Service` deve lidar com essa lógica, mantendo o método com nome 100% em português, simples e objetivo.
+
 - Sem lógica de negócio — apenas SQL/Eloquent
 - Services chamam Queries; Controllers chamam Services
 
@@ -66,6 +78,19 @@ public function destroy(int $id)      // deletar
 - `camelCase` para métodos e variáveis
 - `snake_case` para colunas de banco e arquivos
 - `UPPER_SNAKE_CASE` para constantes
+
+## Organização de Imports
+
+### Ordem padrão
+
+```php
+// LIBS EXTERNAS
+// QUERIES
+// SERVICES
+// REPOSITORIES
+// UTILS
+// MODELS
+```
 
 ## Formatação e legibilidade (preservar; não “normalizar”)
 

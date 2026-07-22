@@ -12,6 +12,35 @@
 - Hooks: `[js_hooks_path]/useNomeHook.js`
 - Componentes: `[js_components_path]/NomeComponente.jsx`
 
+## Queries
+
+Queries devem ser compostas somente por:
+
+* `index`
+* `show`
+* `store`
+* `update`
+* `destroy`
+
+Caso alguma query específica seja necessária, deve ser usado um diretório específico para o contexto da query.
+
+Padrão:
+
+```txt
+/Queries/Recurso/QueryEspecifica/Queries.ts
+```
+
+ou:
+
+```txt
+/Queries/Recurso/QueryEspecifica/Queries.tsx
+```
+
+### Exemplos
+
+* ❌ `Queries/Carro/Queries.tsx: ligarCarro`
+* ✅ `Queries/Carro/Ligar/Queries.tsx: store`
+
 ## JavaScript (Vanilla)
 - `$(function(){ ... })` como entry point
 - Handlers no fim do arquivo
@@ -60,3 +89,26 @@ index: async function (filtros) {
 - `UPPER_SNAKE_CASE` — constantes
 - `kebab-case` — arquivos não-componentes
 - `PascalCase` — arquivos de componentes React (`.jsx`)
+
+## Organização de Imports
+
+Todo import deve ser agrupado por categoria lógica, com comentário de seção em maiúsculas. Referência: `moldes/react/Pages/Carro/Index.tsx` e `moldes/react/Pages/Carro/Create.tsx`.
+
+### Ordem padrão (Pages e componentes)
+
+```tsx
+// REACT
+// UI
+// TIPOS
+// ROTAS
+```
+
+Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quando não há types) são aceitáveis — seguir o padrão do arquivo ou módulo alterado.
+
+### Regras
+
+* Nunca misturar categorias
+* Sempre manter ordem consistente dentro do arquivo
+* Remover imports não utilizados
+* Priorizar clareza sobre quantidade de linhas
+* `import type` na mesma categoria dos imports de valor correspondentes (ex.: tipos em `// TIPOS`, ou junto de `// REACT` quando for type-only de React)

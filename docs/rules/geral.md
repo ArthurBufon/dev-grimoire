@@ -1,5 +1,18 @@
 # Geral
 
+## Regras por stack
+
+Antes de implementar, identifique a stack do projeto e leia a rule correspondente:
+
+| Stack | Arquivo |
+|---|---|
+| PHP / Laravel | `docs/rules/php.md` |
+| JavaScript / React | `docs/rules/javascript.md` |
+
+Leia a rule de cada stack em uso no projeto. Em projetos full stack (ex.: Laravel + React), leia as duas. Detalhes de estrutura, imports, HTTP, formatação e convenções de código ficam nas rules específicas.
+
+---
+
 ## Princípios de Desenvolvimento
 
 * Código idiomático, tipado e legível
@@ -23,27 +36,6 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 ---
 
-## Processo de Execução
-
-Antes de implementar:
-
-1. Entender o problema
-2. Investigar causa raiz
-3. Validar hipóteses no código
-4. Planejar abordagem
-5. Implementar em etapas pequenas
-6. Validar resultado e possíveis impactos
-
-Regras:
-
-* Nunca sair codando imediatamente
-* Nunca assumir que o handoff está correto
-* Quebrar problemas complexos em etapas menores
-* Explicar riscos relevantes antes de alterações amplas
-* Preferir edição de código existente ao invés de recriar estruturas
-
----
-
 ## Nomenclatura
 
 * Funções, métodos e classes em português, salvo instrução contrária
@@ -51,20 +43,24 @@ Regras:
 
 ### Regras de diretório e namespace
 
-* Diretórios e namespaces nunca devem conter verbos
+* Diretórios e namespaces devem usar substantivo nominizável — nunca verbos no infinitivo ou imperativo
 
 #### Exemplos
 
 * ❌ `/Services/Carro/Andar`
+* ❌ `/Services/Carro/Listar`
 * ✅ `/Services/Carro/Movimentacao`
+* ✅ `/Services/Carro/Listagem`
 
 ---
 
 ## Services e Queries
 
-Temos exemplos em PHP/JAVASCRIPT, mas o padrão deve ser adotado globaLmente independente da linguagem.
+O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`).
 
 O nome do arquivo deve representar apenas o tipo.
+
+Usar subpasta de contexto (ex.: `Finalizacao/Service.php`) é decisão do desenvolvedor. Em dúvida, perguntar ao dev — independente da stack.
 
 ### Exemplos
 
@@ -80,97 +76,27 @@ O contexto deve estar no namespace/diretório.
 * ✅ `App/Services/Pedido/Finalizacao/Service.php`
 * ✅ `resources/js/Queries/Pedido/Cancelamento/Queries.tsx`
 
-### PHP
-
-Queries nunca devem conter métodos além de:
-
-* `index`
-* `show`
-* `store`
-* `update`
-* `destroy`
-
-Caso alguma query muito específica seja necessária, o `Service` deve lidar com essa lógica, mantendo o método com nome 100% em português, simples e objetivo.
-
-### JS
-
-Queries também devem ser compostas somente por:
-
-* `index`
-* `show`
-* `store`
-* `update`
-* `destroy`
-
-Caso alguma query específica seja necessária, deve ser usado um diretório específico para o contexto da query.
-
-Padrão:
-
-```txt
-/Queries/Recurso/QueryEspecifica/Queries.ts
-```
-
-ou:
-
-```txt
-/Queries/Recurso/QueryEspecifica/Queries.tsx
-```
-
-#### Exemplos
-
-* ❌ `Queries/Carro/Queries.tsx: ligarCarro`
-* ✅ `Queries/Carro/Ligar/Queries.tsx: store`
-
 ---
 
 ## Contexto e Docs
 
-* Sempre analisar `/docs/*` antes de implementar
+* Antes de implementar, analisar `docs/` **local do projeto** para verificar se existe `docs/features/<feature>/specs.md` e se contém informações relevantes à alteração
 * Localizar o contexto completo da feature antes de alterar código
-* Atualizações relevantes devem refletir no `docs/*/specs.md`
-  
+* Atualizações relevantes devem refletir no `docs/features/<feature>/specs.md`
+
 ### Regras
 
-* Docs servem como contexto de negócio e arquitetura
-* Não usar `/docs` para planos temporários.
-* Diretório deve conter somente specs específicas, regras de projeto e contexto.
+* Docs do projeto servem como contexto de negócio e arquitetura
+* O diretório `docs/` do projeto deve conter somente specs de features (`docs/features/`) e contexto de negócio — convenções ficam no **Dev Grimoire** indexado
 * Specs e planos gerados por frameworks devem ser descartados após implementação
-* Deve ser 100% informativa, com o único intuito de explicar a feature e decisões.
-* Proibido desviar dos padrões de formatação de código, ou usar ferramentas que façam a formatação automática do código.
+* O `specs.md` deve ser 100% informativo, com o único intuito de explicar a feature e decisões
 
 ---
 
-## Planejamento e Implementação de Tasks
+## Planos
 
-### Fluxo
-
-### Alterações simples
-
-Correções localizadas, sem decisão arquitetural e sem impacto amplo:
-
-- apresentar brevemente a abordagem;
-- implementar somente após autorização explícita do usuário, quando a solicitação
-  ainda não tiver autorizado a implementação;
-- não criar arquivo em `docs/plans`.
-
-### Alterações complexas
-1. Planejar a task antes de implementar, detalhando etapas e impactos
-2. Validar o plano com o usuário antes de iniciar a implementação
-3. Implementar conforme o plano aprovado
-4. Após implementação concluída e validada:
-   * Verificar se existe `docs/features/<feature>/specs.md`
-   * Se existir: atualizar refletindo as mudanças realizadas
-   * Se não existir: perguntar se deve ser criado antes de prosseguir
-5. Deletar o plano do projeto após a implementação — planos são temporários e não devem permanecer na codebase
-
-### Regras
-
-* Planos gerados devem obrigatóriamente ser salvos em /docs/plans/{feature}.md
-* Planos nunca devem ser commitados ou mantidos no repositório (geralmente o .gitignore já trata isso em cada projeto)
-* O `specs.md` da feature é a fonte de verdade após a implementação
-* Toda alteração estrutural relevante deve estar refletida no `specs.md` correspondente
-* Nunca atualizar o `specs.md` antes da implementação estar concluída e validada
-* O `specs.md` é uma fonte 100% informativa, nunca deve ser alterada com tom de changelog. SEMPRE será a fonte de verdade FINAL da feature/entidade.
+* Planos/designs gerados devem obrigatóriamente ser salvos em `docs/plans/{feature}.md`
+* Planos nunca devem ser commitados ou mantidos no repositório (geralmente o `.gitignore` já trata isso em cada projeto)
 
 ---
 
@@ -182,8 +108,10 @@ Correções localizadas, sem decisão arquitetural e sem impacto amplo:
 * Sempre no imperativo
 * Todos os commits devem seguir o seguinte padrão:
 ```
-{FEATURE/ENTIDADE}: descrição objetiva e breve
+{TAREFA}: descrição objetiva e breve
 ```
+
+`{TAREFA}` é a feature ou entidade em maiúsculas (ex.: `PRODUTOS`, `CARROS`). Não usar prefixo `CHORE:`.
 
 ### Exemplos de commit
 
@@ -191,11 +119,13 @@ Correto:
 
 ```
 PRODUTOS: ajuste de regra de estoque
+CARROS: adicionar filtro por placa
 ```
 
 Incorreto:
 
 ```
+CHORE: atualizar dependências
 ajustar validação do formulário de produtos
 analisar código fonte de variações
 ```
@@ -220,32 +150,6 @@ analisar código fonte de variações
   * tokens
   * documentos pessoais
   * dados sensíveis
-
----
-
-## Organização de Imports
-
-Todo import deve ser agrupado por categoria lógica.
-
-### Regras
-
-* Nunca misturar categorias
-* Sempre manter ordem consistente
-* Remover imports não utilizados
-* Priorizar clareza sobre quantidade de linhas
-
----
-
-## Ordem padrão dos imports
-
-```php
-// LIBS EXTERNAS
-// QUERIES
-// SERVICES
-// REPOSITORIES
-// UTILS
-// MODELS
-```
 
 ---
 
