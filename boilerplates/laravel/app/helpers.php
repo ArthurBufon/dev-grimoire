@@ -25,6 +25,10 @@ if (!function_exists('ambienteDev')) {
     }
 }
 
+// ==========================
+// CNPJ (alfanumérico - padrão vigente no Brasil)
+// ==========================
+
 if (!function_exists('validarCnpjAlfanumerico')) {
     function validarCnpjAlfanumerico(string $cnpj): bool
     {
@@ -78,6 +82,84 @@ if (!function_exists('normalizarCnpj')) {
     function normalizarCnpj(string $cnpj): string
     {
         return strtoupper(preg_replace('/[^A-Z0-9]/', '', $cnpj));
+    }
+}
+
+// ==========================
+// CPF (somente numérico - módulo 11)
+// ==========================
+
+if (!function_exists('validarCpf')) {
+    function validarCpf(string $cpf): bool
+    {
+        $cpfLimpo = normalizarCpf($cpf);
+
+        // CPF sempre numérico, 11 dígitos
+        if (! preg_match('/^\d{11}$/', $cpfLimpo)) {
+            return false;
+        }
+
+        // Rejeita sequências de dígitos repetidos (ex: 111.111.111-11), inválidas na Receita
+        if (preg_match('/^(\d)\1{10}$/', $cpfLimpo)) {
+            return false;
+        }
+
+        $base = substr($cpfLimpo, 0, 9);
+        $digitosInformados = substr($cpfLimpo, 9, 2);
+
+        // 1º dígito: pesos de 10 a 2 sobre os 9 primeiros dígitos
+        $primeiroDigito = calcularDigitoCpf($base, 10);
+
+        // 2º dígito: pesos de 11 a 2 sobre os 9 primeiros + 1º dígito calculado
+        $segundoDigito = calcularDigitoCpf($base.$primeiroDigito, 11);
+
+        return ($primeiroDigito.$segundoDigito) === $digitosInformados;
+    }
+}
+
+if (!function_exists('calcularDigitoCpf')) {
+    function calcularDigitoCpf(string $base, int $pesoInicial): int
+    {
+        $soma = 0;
+
+        for ($i = 0; $i < strlen($base); $i++) {
+            $soma += (int) $base[$i] * ($pesoInicial - $i);
+        }
+
+        $resto = $soma % 11;
+
+        return $resto < 2 ? 0 : 11 - $resto;
+    }
+}
+
+if (!function_exists('normalizarCpf')) {
+    function normalizarCpf(string $cpf): string
+    {
+        return preg_replace('/\D/', '', $cpf);
+    }
+}
+
+// ==========================
+// Utilitário genérico (opcional)
+// ==========================
+
+if (!function_exists('validarDocumento')) {
+    function validarDocumento(string $documento): bool
+    {
+        $limpo = strtoupper($documento);
+        $limpo = preg_replace('/[^A-Z0-9]/', '', $limpo);
+
+        // CPF tem 11 caracteres e é sempre numérico
+        if (strlen($limpo) === 11) {
+            return validarCpf($limpo);
+        }
+
+        // CNPJ tem 14 caracteres (alfanumérico nos 12 primeiros + 2 dígitos numéricos)
+        if (strlen($limpo) === 14) {
+            return validarCnpjAlfanumerico($limpo);
+        }
+
+        return false;
     }
 }
 
