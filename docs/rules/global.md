@@ -24,8 +24,7 @@ O agente resolve o grimório no filesystem:
 
 | Arquivo | Conteúdo |
 |---|---|
-| `{GRIMOIRE}/docs/rules/geral.md` | Princípios, nomenclatura, Git, segurança |
-| `{GRIMOIRE}/docs/rules/anti-overengineering.md` | Escopo mínimo — alterar só o pedido |
+| `{GRIMOIRE}/docs/rules/geral.md` | Escopo mínimo, princípios, nomenclatura, Git, segurança |
 
 ### Por stack do projeto atual
 

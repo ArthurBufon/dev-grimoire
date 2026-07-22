@@ -13,14 +13,35 @@ Leia a rule de cada stack em uso no projeto. Em projetos full stack (ex.: Larave
 
 ---
 
+## Escopo mínimo
+
+**Obrigatório em todo trabalho** — planejamento, revisão, implementação e entrega.
+
+* Alterar somente o que foi pedido
+* Solução mais simples primeiro; em dúvida, perguntar ao dev
+* Não modificar código não solicitado
+* Não adicionar abstrações, arquivos ou camadas sem necessidade concreta
+* Não importar dependências desnecessárias
+* Não reescrever arquivos inteiros para mudanças pequenas
+* Não adicionar tratamento de erro para cenários impossíveis ou extremamente improváveis
+* Não refatorar fora do escopo solicitado
+* Não mover arquivos sem motivo claro
+* Não criar helpers genéricos prematuramente
+* Evitar efeitos colaterais fora do escopo da tarefa
+
+### Antes de entregar
+
+* Confirmar que só alterou o código solicitado
+* Verificar se existe abordagem mais simples
+* Confirmar que nenhum arquivo não solicitado foi tocado
+
+---
+
 ## Princípios de Desenvolvimento
 
 * Código idiomático, tipado e legível
 * KISS é inegociável
 * Preferir soluções simples e previsíveis
-* Fazer alterações mínimas e localizadas
-* Nunca refatorar fora do escopo solicitado
-* Nunca criar abstrações, arquivos ou camadas sem necessidade real
 * Priorizar reutilização do código existente antes de criar novos componentes
 * As melhores práticas gerais só devem ser aplicadas quando não conflitarem
 com regras específicas do projeto nem com padrões consolidados no módulo alterado.
@@ -155,11 +176,5 @@ analisar código fonte de variações
 
 ## Regras Gerais
 
-* Não alterar padrões arquiteturais sem necessidade
-* Não adicionar dependências sem justificativa
-* Não criar "helpers genéricos" prematuramente
-* Não mover arquivos sem motivo claro
-* Evitar efeitos colaterais fora do escopo da tarefa
-* Em caso de dúvida, preferir a solução mais simples
 * SEMPRE esclarecer todas dúvidas pendentes com o dev antes de fazer algo.
 * No prompt temos .env para variáveis sensíveis, mas cada projeto/stack pode ter um arquivo diferente, isso deve ser levado em consideração.

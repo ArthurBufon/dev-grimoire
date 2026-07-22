@@ -40,10 +40,9 @@ Convenções centralizadas, consumidas via clone local irmão dos apps (`../dev-
 | Arquivo | Função |
 |---|---|
 | [`global.md`](docs/rules/global.md) | **User Rule global** — clone local + Read/Grep |
-| [`geral.md`](docs/rules/geral.md) | Princípios, nomenclatura, Git, segurança |
+| [`geral.md`](docs/rules/geral.md) | Escopo mínimo, princípios, nomenclatura, Git, segurança |
 | [`php.md`](docs/rules/php.md) | Convenções PHP / Laravel |
 | [`javascript.md`](docs/rules/javascript.md) | Convenções JavaScript / React |
-| [`anti-overengineering.md`](docs/rules/anti-overengineering.md) | Escopo mínimo — não alterar o que não foi pedido |
 
 ### 📁 `.cursor/`
 
