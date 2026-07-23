@@ -48,7 +48,7 @@ ou:
 - Arrow functions
 
 ## React
-- Componentes em `PascalCase` como `function` ou arrow function
+- COMPONENTES - REGRAS OBRIGATÓRIAS: `PascalCase` SEMPRE + Formato Arrow function (RAFCE) + export exato do nome do arquivo (Create.tsx exporta Create)
 - Um componente por arquivo
 - Hooks customizados em `use[Nome]` — lógica reutilizável fora dos componentes
 - Estado local: `useState`; efeitos: `useEffect`; contexto global: `useContext` ou lib de estado
@@ -112,3 +112,4 @@ Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quan
 * Remover imports não utilizados
 * Priorizar clareza sobre quantidade de linhas
 * `import type` na mesma categoria dos imports de valor correspondentes (ex.: tipos em `// TIPOS`, ou junto de `// REACT` quando for type-only de React)
+* Exports sempre devem seguir o nome do arquivo: Create.tsx exporta Create, Index.tsx exporta Index
