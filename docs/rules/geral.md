@@ -110,7 +110,7 @@ O contexto deve estar no namespace/diretório.
 * Docs do projeto servem como contexto de negócio e arquitetura
 * O diretório `docs/` do projeto deve conter somente specs de features (`docs/features/`) e contexto de negócio — convenções ficam no **Dev Grimoire** local (clone irmão: `../dev-grimoire/`)
 * Specs e planos gerados por frameworks devem ser descartados após implementação
-* O `specs.md` deve ser 100% informativo, com o único intuito de explicar a feature e decisões
+* O `specs.md` deve ser 100% informativo, com o único intuito de explicar a feature e decisões (evitar tom de changelog. 100% informativo)
 
 ---
 
@@ -118,6 +118,7 @@ O contexto deve estar no namespace/diretório.
 
 * Planos/designs gerados devem obrigatóriamente ser salvos em `docs/plans/{feature}.md`
 * Planos nunca devem ser commitados ou mantidos no repositório (geralmente o `.gitignore` já trata isso em cada projeto)
+* Sempre que finalizados, devem ser excluídos, junto do design do plano (caso exista)
 
 ---
 
