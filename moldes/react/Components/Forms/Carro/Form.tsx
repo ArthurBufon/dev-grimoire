@@ -10,15 +10,11 @@ import { Label } from '@/Components/Ui/Label';
 import { Spinner } from '@/Components/Ui/Spinner';
 import { CheckCircle, X } from 'lucide-react';
 
+// TIPOS
+import type { DadosFormulario } from '@/types/carro';
+
 // ROTAS
 import { index as carrosIndex } from '@/routes/admin/carros';
-
-export type DadosFormulario = {
-    nome: string;
-    placa: string;
-    modelo: string;
-    cor: string;
-};
 
 type FormProps = {
     data: DadosFormulario;
@@ -43,29 +39,16 @@ const Form = ({
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="grid gap-2">
-                <Label htmlFor="nome">Nome</Label>
+                <Label htmlFor="marca">Marca</Label>
                 <Input
-                    id="nome"
-                    value={data.nome}
+                    id="marca"
+                    value={data.marca}
                     onChange={(evento) =>
-                        onCampoChange('nome', evento.target.value)
+                        onCampoChange('marca', evento.target.value)
                     }
                     required
                 />
-                <InputError message={errors.nome} />
-            </div>
-
-            <div className="grid gap-2">
-                <Label htmlFor="placa">Placa</Label>
-                <Input
-                    id="placa"
-                    value={data.placa}
-                    onChange={(evento) =>
-                        onCampoChange('placa', evento.target.value)
-                    }
-                    required
-                />
-                <InputError message={errors.placa ?? errosCliente[0]} />
+                <InputError message={errors.marca} />
             </div>
 
             <div className="grid gap-2">
@@ -82,6 +65,20 @@ const Form = ({
             </div>
 
             <div className="grid gap-2">
+                <Label htmlFor="ano">Ano</Label>
+                <Input
+                    id="ano"
+                    type="number"
+                    value={data.ano}
+                    onChange={(evento) =>
+                        onCampoChange('ano', Number(evento.target.value))
+                    }
+                    required
+                />
+                <InputError message={errors.ano} />
+            </div>
+
+            <div className="grid gap-2">
                 <Label htmlFor="cor">Cor</Label>
                 <Input
                     id="cor"
@@ -89,9 +86,35 @@ const Form = ({
                     onChange={(evento) =>
                         onCampoChange('cor', evento.target.value)
                     }
-                    required
                 />
                 <InputError message={errors.cor} />
+            </div>
+
+            <div className="grid gap-2">
+                <Label htmlFor="placa">Placa</Label>
+                <Input
+                    id="placa"
+                    value={data.placa}
+                    onChange={(evento) =>
+                        onCampoChange('placa', evento.target.value)
+                    }
+                    required
+                />
+                <InputError message={errors.placa ?? errosCliente[0]} />
+            </div>
+
+            <div className="grid gap-2">
+                <Label htmlFor="km">Km</Label>
+                <Input
+                    id="km"
+                    type="number"
+                    value={data.km}
+                    onChange={(evento) =>
+                        onCampoChange('km', Number(evento.target.value))
+                    }
+                    required
+                />
+                <InputError message={errors.km} />
             </div>
 
             <InputError message={errors.geral} />

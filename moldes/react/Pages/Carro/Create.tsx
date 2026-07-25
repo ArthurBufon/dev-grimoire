@@ -4,22 +4,28 @@ import type { SubmitEvent } from 'react';
 import type { FormDataConvertible } from '@inertiajs/core';
 import { Head, router, useForm } from '@inertiajs/react';
 
+// UI
+import Form from '@/Components/Forms/Carro/Form';
+
+// TIPOS
+import type { DadosFormulario } from '@/types/carro';
+
 // ROTAS
 import CarroController from '@/actions/App/Http/Controllers/Web/Admin/Carro/CarroController';
 import { index as adminIndex } from '@/routes/admin';
 import { index as carrosIndex } from '@/routes/admin/carros';
-
-import Form, { type DadosFormulario } from './Form';
 
 const Create = () => {
     const [processing, setProcessing] = useState(false);
     const [errosCliente, setErrosCliente] = useState<string[]>([]);
 
     const { data, setData } = useForm<DadosFormulario>({
-        nome: '',
-        placa: '',
+        marca: '',
         modelo: '',
+        ano: new Date().getFullYear(),
         cor: '',
+        placa: '',
+        km: 0,
     });
 
     const handleCampoChange = <K extends keyof DadosFormulario>(
@@ -42,10 +48,12 @@ const Create = () => {
 
     const formatarDadosRequest = (): Record<string, FormDataConvertible> => {
         return {
-            nome: data.nome,
-            placa: data.placa,
+            marca: data.marca,
             modelo: data.modelo,
+            ano: data.ano,
             cor: data.cor,
+            placa: data.placa,
+            km: data.km,
         };
     };
 

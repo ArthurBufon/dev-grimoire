@@ -4,15 +4,16 @@ import type { SubmitEvent } from 'react';
 import type { FormDataConvertible } from '@inertiajs/core';
 import { Head, router, useForm } from '@inertiajs/react';
 
+// UI
+import Form from '@/Components/Forms/Carro/Form';
+
 // TIPOS
-import type { Carro } from '@/types/auth';
+import type { Carro, DadosFormulario } from '@/types/carro';
 
 // ROTAS
 import CarroController from '@/actions/App/Http/Controllers/Web/Admin/Carro/CarroController';
 import { index as adminIndex } from '@/routes/admin';
 import { index as carrosIndex } from '@/routes/admin/carros';
-
-import Form, { type DadosFormulario } from './Form';
 
 type EditProps = {
     carro: Carro;
@@ -23,10 +24,12 @@ const Edit = ({ carro }: EditProps) => {
     const [errosCliente, setErrosCliente] = useState<string[]>([]);
 
     const { data, setData } = useForm<DadosFormulario>({
-        nome: carro.nome,
-        placa: carro.placa,
+        marca: carro.marca,
         modelo: carro.modelo,
-        cor: carro.cor,
+        ano: carro.ano,
+        cor: carro.cor ?? '',
+        placa: carro.placa,
+        km: carro.km,
     });
 
     const handleCampoChange = <K extends keyof DadosFormulario>(
@@ -49,10 +52,12 @@ const Edit = ({ carro }: EditProps) => {
 
     const formatarDadosRequest = (): Record<string, FormDataConvertible> => {
         return {
-            nome: data.nome,
-            placa: data.placa,
+            marca: data.marca,
             modelo: data.modelo,
+            ano: data.ano,
             cor: data.cor,
+            placa: data.placa,
+            km: data.km,
         };
     };
 
@@ -81,7 +86,7 @@ const Edit = ({ carro }: EditProps) => {
 
     return (
         <>
-            <Head title={`Editar ${carro.nome}`} />
+            <Head title={`Editar ${carro.marca}`} />
 
             <div className="mx-auto w-4/5 p-4">
                 <h1 className="mb-6 text-2xl font-semibold">Editar carro</h1>
