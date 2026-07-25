@@ -36,6 +36,18 @@ Regras do projeto e User Rules têm precedência sobre defaults desta skill.
 
 Se o plano não estiver aprovado, não executar. Solicitar aprovação primeiro.
 
+### Working tree sujo
+
+Antes de qualquer implementação, worktree ou subagent, verificar o estado do git (`git status`).
+
+Se houver arquivos alterados (staged, unstaged ou untracked relevantes ao trabalho):
+
+1. Parar imediatamente. Não iniciar a execução do plano.
+2. Solicitar obrigatoriamente ao desenvolvedor que revise as alterações e faça commit antes de continuar.
+3. Só retomar após working tree limpa (sem mudanças pendentes).
+
+Objetivo: evitar que a execução do plano reverta, sobrescreva ou conflite com mudanças ainda não commitadas.
+
 Ao iniciar, anunciar:
 
 > Iniciando execução do plano com subagent-driven-development.
@@ -78,11 +90,12 @@ Dúvidas não bloqueantes devem ser resolvidas pela opção mais simples e mais 
 
 ## Preparação
 
-1. Ler o plano uma vez
-2. Extrair todas as tasks com texto completo e contexto
-3. Criar TodoWrite com todas as tasks
-4. Se o projeto exigir isolamento, aplicar `superpowers:using-git-worktrees`
-5. Iniciar `superpowers:subagent-driven-development`
+1. Verificar working tree limpa (`git status`); se suja, parar e pedir commit ao dev
+2. Ler o plano uma vez
+3. Extrair todas as tasks com texto completo e contexto
+4. Criar TodoWrite com todas as tasks
+5. Se o projeto exigir isolamento, aplicar `superpowers:using-git-worktrees`
+6. Iniciar `superpowers:subagent-driven-development`
 
 ## Ciclo por task
 
@@ -170,6 +183,7 @@ Após todas as tasks:
 
 ## Anti-patterns
 
+* Iniciar execução com working tree suja (mudanças não commitadas)
 * Reescrever o plano durante a execução
 * Expandir escopo sem aprovação
 * Pular revisão de spec
