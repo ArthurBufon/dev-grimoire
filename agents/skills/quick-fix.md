@@ -4,7 +4,7 @@ description: >-
   Executa ajustes rápidos solicitados diretamente no chat, sem criar plano,
   sem subagents e sem expandir escopo. Use quando o usuário pedir um fix simples,
   alteração pontual, correção pequena ou ajuste direto no código.
-  disable-model-invocation: true
+  disable-model-invocation: false
 ---
 
 # Quick Fix
