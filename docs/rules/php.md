@@ -84,6 +84,8 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 
 ### Ordem padrão
 
+*SEMPRE separar por tipo.
+
 ```php
 // HTTP
 // CONTROLLERS
