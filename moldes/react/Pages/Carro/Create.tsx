@@ -24,6 +24,7 @@ const Create = () => {
         cor: '',
         placa: '',
         km: 0,
+        valor: 0,
     });
 
     const handleCampoChange = <K extends keyof DadosFormulario>(

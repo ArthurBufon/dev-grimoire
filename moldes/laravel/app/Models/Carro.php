@@ -20,10 +20,12 @@ class Carro extends Model
         'cor',
         'placa',
         'km',
+        'valor',
     ];
 
     protected $casts = [
-        'ano' => 'integer',
-        'km'  => 'integer',
+        'ano'   => 'integer',
+        'km'    => 'integer',
+        'valor' => 'integer',
     ];
 }

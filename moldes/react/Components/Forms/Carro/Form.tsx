@@ -13,6 +13,12 @@ import { CheckCircle, X } from 'lucide-react';
 // TIPOS
 import type { DadosFormulario } from '@/types/carro';
 
+// UTILS
+import {
+    extrairCentavosDoInput,
+    formatarCentavosParaReal,
+} from '@/Utils/dinheiro';
+
 // ROTAS
 import { index as carrosIndex } from '@/routes/admin/carros';
 
@@ -115,6 +121,24 @@ const Form = ({
                     required
                 />
                 <InputError message={errors.km} />
+            </div>
+
+            <div className="grid gap-2">
+                <Label htmlFor="valor">Valor</Label>
+                <Input
+                    id="valor"
+                    type="text"
+                    inputMode="numeric"
+                    value={formatarCentavosParaReal(data.valor)}
+                    onChange={(evento) =>
+                        onCampoChange(
+                            'valor',
+                            extrairCentavosDoInput(evento.target.value),
+                        )
+                    }
+                    required
+                />
+                <InputError message={errors.valor} />
             </div>
 
             <InputError message={errors.geral} />
