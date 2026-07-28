@@ -7,6 +7,7 @@
 
 ## Estrutura de arquivos
 - Pages: `[js_pages_path]/NomeModulo/Index.js` / `Form.js` / `Create.js` / `Edit.js`
+- Forms: `[js_components_path]/Forms/NomeModulo/Form.tsx` — campos compartilhados entre `Create` e `Edit`
 - Services: `[js_services_path]/NomeModulo/Service.js`
 - Queries: `[js_queries_path]/NomeModulo/Queries.js`
 - Hooks: `[js_hooks_path]/useNomeHook.js`
@@ -55,6 +56,66 @@ ou:
 - Sem lógica de negócio nos componentes — delegar para Services/Hooks
 - Sem chamadas HTTP nos componentes — delegar para Queries
 - Preferência sempre por TYPESCRIPT/TSX
+
+### Forms
+
+Páginas `Create` e `Edit` com formulário seguem o padrão de `moldes/react/Pages/Carro/Create.tsx`, `moldes/react/Pages/Carro/Edit.tsx` e `moldes/react/Components/Forms/Carro/Form.tsx`.
+
+#### Obrigatório
+
+* **`useForm` do Inertia** — estado, `setData`, `processing` e submit (`post` / `put`). Proibido `router.post` / `router.put`. O `useForm` permite controle fino pré-submit (validação, transformação de dados) quando necessário.
+* **`handleCampoChange`** — helper privado na Page, wrapper tipado de `setData`. Previne erros de tipagem e deixa o código mais idiomático e legível em pt-BR.
+* **`handleSubmit`** — helper privado na Page com `evento.preventDefault()`, validação pré-submit e chamada a `post` / `put` do `useForm`.
+* **Componente `Form` compartilhado** — campos comuns de `Create` e `Edit` extraídos para `[js_components_path]/Forms/{Entidade}/Form.tsx` (ex.: `resources/js/Components/Forms/Carro/Form.tsx`).
+
+#### Responsabilidades
+
+| Arquivo | Responsabilidade |
+|---|---|
+| `Create.tsx` / `Edit.tsx` | `useForm`, valores iniciais, `handleCampoChange`, `validarFormulario`, `handleSubmit`, layout da página |
+| `Forms/{Entidade}/Form.tsx` | markup dos campos, `InputError`, botões, props controladas (`data`, `onCampoChange`, `onSubmit`, `processing`, `errosCliente`) |
+
+#### Exemplo (Page)
+
+```tsx
+const { data, setData, post, processing } = useForm<DadosFormulario>({ /* ... */ });
+
+const handleCampoChange = <K extends keyof DadosFormulario>(
+    campo: K,
+    valor: DadosFormulario[K],
+) => {
+    setData((dadosAnteriores) => ({
+        ...dadosAnteriores,
+        [campo]: valor,
+    }));
+};
+
+const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
+    evento.preventDefault();
+
+    const validacao = validarFormulario();
+
+    if (!validacao.sucesso) {
+        setErrosCliente(validacao.erros);
+        return;
+    }
+
+    setErrosCliente([]);
+    post(CarroController.store.url()); // Edit usa put(...)
+};
+```
+
+#### Exemplo (Form compartilhado)
+
+```tsx
+<Form
+    data={data}
+    onCampoChange={handleCampoChange}
+    onSubmit={handleSubmit}
+    processing={processing}
+    errosCliente={errosCliente}
+/>
+```
 
 ## HTTP (obrigatório)
 - **Sempre `fetch`** — proibido `$.ajax`, `jQuery.get/post`, `axios`, `XMLHttpRequest`
