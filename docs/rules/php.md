@@ -85,6 +85,7 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 ### Ordem padrão
 
 ```php
+// HTTP
 // CONTROLLERS
 // FACADES
 // INERTIA
