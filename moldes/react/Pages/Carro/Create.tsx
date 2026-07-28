@@ -1,8 +1,7 @@
 // REACT
 import { useState } from 'react';
 import type { SubmitEvent } from 'react';
-import type { FormDataConvertible } from '@inertiajs/core';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 // UI
 import Form from '@/Components/Forms/Carro/Form';
@@ -16,10 +15,9 @@ import { index as adminIndex } from '@/routes/admin';
 import { index as carrosIndex } from '@/routes/admin/carros';
 
 const Create = () => {
-    const [processing, setProcessing] = useState(false);
     const [errosCliente, setErrosCliente] = useState<string[]>([]);
 
-    const { data, setData } = useForm<DadosFormulario>({
+    const { data, setData, post, processing } = useForm<DadosFormulario>({
         marca: '',
         modelo: '',
         ano: new Date().getFullYear(),
@@ -46,17 +44,6 @@ const Create = () => {
         };
     };
 
-    const formatarDadosRequest = (): Record<string, FormDataConvertible> => {
-        return {
-            marca: data.marca,
-            modelo: data.modelo,
-            ano: data.ano,
-            cor: data.cor,
-            placa: data.placa,
-            km: data.km,
-        };
-    };
-
     const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
@@ -70,10 +57,7 @@ const Create = () => {
 
         setErrosCliente([]);
 
-        router.post(CarroController.store.url(), formatarDadosRequest(), {
-            onStart: () => setProcessing(true),
-            onFinish: () => setProcessing(false),
-        });
+        post(CarroController.store.url());
     };
 
     return (
