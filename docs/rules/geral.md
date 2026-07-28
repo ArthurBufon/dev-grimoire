@@ -79,7 +79,11 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`).
 
-O nome do arquivo deve representar apenas o tipo.
+O nome do arquivo deve representar apenas o tipo (Service.* ou Queries.*).
+
+Regras de negócio específicas devem ficar lcalizadas nos services.
+
+Queries básicas sempre devem ficar em Queries (index/show/store/update/destroy)
 
 Usar subpasta de contexto (ex.: `Finalizacao/Service.php`) é decisão do desenvolvedor. Em dúvida, perguntar ao dev — independente da stack.
 
