@@ -85,7 +85,9 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 ### Ordem padrão
 
 ```php
-// LIBS EXTERNAS
+// CONTROLLERS
+// FACADES
+// INERTIA
 // QUERIES
 // SERVICES
 // REPOSITORIES
