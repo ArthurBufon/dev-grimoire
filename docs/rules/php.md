@@ -89,6 +89,7 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 // CONTROLLERS
 // FACADES
 // INERTIA
+// FORM REQUESTS
 // QUERIES
 // SERVICES
 // REPOSITORIES
