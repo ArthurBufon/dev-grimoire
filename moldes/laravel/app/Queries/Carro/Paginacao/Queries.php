@@ -12,112 +12,36 @@ class Queries
     public function index(array $filtros): array
     {
         try {
-
             $query = Carro::query();
 
             $this->aplicarFiltros($query, $filtros);
             $this->aplicarOrdenacao($query, $filtros);
             $this->carregarRelacionamentos($query, $filtros);
 
-            $totalRegistrosFiltrados = (clone $query)->count();
-
-            $pagina = $this->resolverPagina($filtros);
-            $limite = $this->resolverLimite($filtros);
-
-            $this->aplicarPaginacao($query, $pagina, $limite);
-
-            $lista = $query->get();
-
-            $paginacao = montarDadosPaginacao(
-                $totalRegistrosFiltrados,
-                $lista->count(),
-                $pagina,
-                $limite
-            );
+            ['lista' => $lista, 'paginacao' => $paginacao] = $this->aplicarPaginacao($query, $filtros);
 
             return [
                 'sucesso' => true,
-                'dados'   => [
-                    'lista'     => $lista,
+                'dados' => [
+                    'lista' => $lista,
                     'paginacao' => $paginacao,
                 ],
-                'erros'   => [],
+                'erros' => [],
             ];
         } catch (\Throwable $th) {
-
             return [
                 'sucesso' => false,
-                'dados'   => [
-                    'lista'     => [],
+                'dados' => [
+                    'lista' => [],
                     'paginacao' => [
-                        'total'           => 0,
+                        'total' => 0,
                         'total_retornado' => 0,
-                        'pagina'          => 1,
-                        'limite'          => 0,
-                        'total_paginas'   => 0,
+                        'pagina' => 1,
+                        'limite' => 0,
+                        'total_paginas' => 0,
                     ],
                 ],
-                'erros'   => [formatarMensagemErro($th)],
-            ];
-        }
-    }
-
-    private function aplicarPaginacao(Builder $query, int $pagina, ?int $limite): void
-    {
-        if ($limite === null) {
-
-            return;
-        }
-
-        $offset = ($pagina - 1) * $limite;
-
-        $query->offset($offset)->limit($limite);
-    }
-
-    private function resolverPagina(array $filtros): int
-    {
-        $pagina = (int) ($filtros['pagina'] ?? 1);
-
-        return $pagina > 0 ? $pagina : 1;
-    }
-
-    private function resolverLimite(array $filtros): ?int
-    {
-        $limite = $filtros['limite'] ?? $filtros['quantidade'] ?? null;
-
-        if ($limite === null || $limite === '') {
-
-            return null;
-        }
-
-        $limite = (int) $limite;
-
-        return $limite > 0 ? $limite : null;
-    }
-
-    public function show(array $filtros): array
-    {
-        try {
-
-            $query = Carro::query();
-
-            $this->aplicarFiltros($query, $filtros);
-            $this->aplicarOrdenacao($query, $filtros);
-            $this->carregarRelacionamentos($query, $filtros);
-
-            $model = $query->first();
-
-            return [
-                'sucesso' => true,
-                'dados'   => ['model' => $model],
-                'erros'   => [],
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'sucesso' => false,
-                'dados'   => ['model' => null],
-                'erros'   => [formatarMensagemErro($th)],
+                'erros' => [formatarMensagemErro($th)],
             ];
         }
     }
@@ -137,8 +61,6 @@ class Queries
                     break;
 
                 case 'busca_geral':
-                    if (empty($valor)) continue;
-
                     $this->aplicarBuscaGeral($query, $valor);
                     break;
 
@@ -171,11 +93,7 @@ class Queries
 
     private function aplicarOrdenacao(Builder $query, array $filtros): void
     {
-        $ordenacao = $filtros['ordenacao'] ?? null;
-
-        if (!$ordenacao || empty($ordenacao['coluna']) || empty($ordenacao['ordem'])) {
-            return;
-        }
+        $ordenacao = $filtros['ordenacao'] ?? ['coluna' => 'id', 'ordem' => 'desc'];
 
         $query->orderBy($ordenacao['coluna'], $ordenacao['ordem']);
     }
@@ -184,89 +102,46 @@ class Queries
     {
         $carregarRelacionamentos = $filtros['carregarRelacionamentos'] ?? [];
 
-        if (empty($carregarRelacionamentos)) return;
+        if (empty($carregarRelacionamentos)) {
+            return;
+        }
 
         $query->with($carregarRelacionamentos);
     }
 
-    public function store(array $dados): array
+    private function aplicarPaginacao(Builder $query, array $filtros): array
     {
-        try {
+        $porPagina = 10;
+        $maximoPaginas = 10;
 
-            $retorno = Carro::create($dados);
+        // total de registros e páginas disponíveis, já limitado por $maximoPaginas
+        $totalRegistrosFiltrados = (clone $query)->count();
+        $totalPaginas = min(
+            (int) ceil($totalRegistrosFiltrados / $porPagina),
+            $maximoPaginas
+        );
 
-            $sucesso = $retorno->id !== null;
+        // página pedida, corrigida para ficar dentro do intervalo válido
+        $paginaSolicitada = max(1, (int) ($filtros['pagina'] ?? 1));
+        $pagina = min($paginaSolicitada, max(1, $totalPaginas));
 
-            if (!$sucesso) {
-                throw new \Exception('Erro ao salvar carro!');
-            }
+        // aplica o recorte na query e executa
+        $offset = ($pagina - 1) * $porPagina;
+        $query->offset($offset)->limit($porPagina);
+        $lista = $query->get();
 
-            return [
-                'sucesso' => $sucesso,
-                'dados'   => ['model' => $retorno, 'id' => $retorno->id],
-                'erros'   => [],
-            ];
-        } catch (\Throwable $th) {
+        // monta os metadados de paginação (total_paginas já calculado acima, já limitado por $maximoPaginas)
+        $paginacao = montarDadosPaginacao(
+            $totalRegistrosFiltrados,
+            $lista->count(),
+            $pagina,
+            $porPagina,
+            $totalPaginas
+        );
 
-            return [
-                'sucesso' => false,
-                'dados'   => [],
-                'erros'   => [formatarMensagemErro($th)],
-            ];
-        }
-    }
-
-    public function update(int $id, array $dados): array
-    {
-        try {
-
-            $model = Carro::findOrFail($id);
-
-            $model->fill($dados);
-
-            $sucesso = $model->save();
-
-            if (!$sucesso) {
-                throw new \Exception('Erro ao atualizar carro!');
-            }
-
-            return [
-                'sucesso' => $sucesso,
-                'dados'   => ['model' => $model],
-                'erros'   => [],
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'sucesso' => false,
-                'dados'   => [],
-                'erros'   => [formatarMensagemErro($th)],
-            ];
-        }
-    }
-
-    public function destroy(string|int $id): array
-    {
-        try {
-
-            $model = Carro::findOrFail($id);
-
-            $linhasAfetadas = $model->delete();
-
-            $sucesso = $linhasAfetadas > 0;
-
-            return [
-                'sucesso' => $sucesso,
-                'dados'   => [],
-                'erros'   => [],
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'sucesso' => false,
-                'dados'   => [],
-                'erros'   => [formatarMensagemErro($th)],
-            ];
-        }
+        return [
+            'lista' => $lista,
+            'paginacao' => $paginacao,
+        ];
     }
 }

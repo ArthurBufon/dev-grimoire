@@ -163,23 +163,23 @@ if (!function_exists('validarDocumento')) {
     }
 }
 
-if (!function_exists('montarDadosPaginacao')) {
+if (! function_exists('montarDadosPaginacao')) {
     function montarDadosPaginacao(
         int $totalFiltrados,
         int $totalRetornado,
         ?int $pagina = null,
-        ?int $limite = null
+        ?int $limite = null,
+        ?int $totalPaginas = null
     ): array {
         $dados = [
-            'total'           => $totalFiltrados,
+            'total' => $totalFiltrados,
             'total_retornado' => $totalRetornado,
         ];
 
-        if ($pagina !== null && $limite !== null && $limite > 0) {
-
-            $dados['pagina']         = $pagina;
-            $dados['limite']         = $limite;
-            $dados['total_paginas']  = (int) ceil($totalFiltrados / $limite);
+        if ($pagina !== null && $limite !== null && $totalPaginas !== null) {
+            $dados['pagina'] = $pagina;
+            $dados['limite'] = $limite;
+            $dados['total_paginas'] = $totalPaginas;
         }
 
         return $dados;
