@@ -159,8 +159,12 @@ Todo import deve ser agrupado por categoria lógica, com comentário de seção 
 
 ```tsx
 // REACT
+// INERTIA
 // UI
 // TIPOS
+// CONTROLLERS
+// QUERIES
+// SERVICES
 // ROTAS
 ```
 
