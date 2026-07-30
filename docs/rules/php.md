@@ -97,7 +97,7 @@ Deve gerar uma seção:
 use Illuminate\Database\Eloquent\Builder;
 ```
 
-Abaixo estão alguns exemplos de seções:
+Abaixo estão alguns exemplos de seções. Nenhuma seção é obrigatória. Só deve existir a seção se existir algum import que de fato se encaixa na categoria:
 ```php
 // HTTP
 // CONTROLLERS
