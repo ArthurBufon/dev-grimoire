@@ -45,8 +45,9 @@ Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de mo
 * Não execute implementações paralelas que possam alterar os mesmos arquivos.
 * Não altere o escopo sem necessidade.
 * Não crie branches, worktrees ou commits sem permissão explícita do usuário.
-* Não interrompa a execução entre tarefas apenas para perguntar se deve continuar.
-* Pare somente quando estiver bloqueado, existir uma ambiguidade crítica ou todas as tarefas terminarem.
+* **CHECKPOINT OBRIGATÓRIO:** ao finalizar cada tarefa, pare e solicite revisão do dev antes de iniciar a próxima.
+* Não inicie a próxima tarefa sem aprovação explícita do dev.
+* Pare também quando estiver bloqueado ou existir uma ambiguidade crítica.
 
 ## Preparação
 
@@ -72,7 +73,26 @@ Para cada tarefa:
 5. Corrija problemas importantes encontrados.
 6. Execute novamente os testes relevantes.
 7. Marque a tarefa como concluída.
-8. Continue para a próxima tarefa.
+8. **CHECKPOINT:** apresente o resumo da tarefa ao dev e solicite revisão/aprovação.
+9. Só inicie a próxima tarefa após aprovação explícita do dev.
+
+## Checkpoint obrigatório entre tarefas
+
+Ao concluir cada tarefa (após implementação, revisão por subagent e correções):
+
+1. Apresente ao dev um resumo curto: o que foi feito, arquivos alterados, testes e riscos.
+2. Solicite revisão e aprovação explícita para prosseguir.
+3. **PARE.** Não dispare o próximo subagent implementador.
+4. Aguarde a resposta do dev.
+5. Só então inicie a próxima tarefa.
+
+**Proibido:**
+
+* Encadear a próxima tarefa automaticamente após a revisão do subagent.
+* Assumir aprovação por silêncio, "parece ok" interno ou ausência de bloqueio técnico.
+* Tratar o checkpoint como opcional quando a tarefa for "pequena", "óbvia" ou "já revisada pelo subagent".
+
+A revisão do subagent **não substitui** o checkpoint do dev.
 
 ## Subagent implementador
 
@@ -181,7 +201,7 @@ Depois da correção:
 
 1. execute os testes relevantes;
 2. peça uma nova revisão focada nos problemas encontrados;
-3. prossiga quando os problemas críticos e importantes estiverem resolvidos.
+3. quando os problemas críticos e importantes estiverem resolvidos, execute o checkpoint obrigatório com o dev antes da próxima tarefa.
 
 Problemas menores podem ser registrados para a revisão final quando não afetarem o comportamento ou a manutenção imediata.
 
