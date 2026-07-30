@@ -1,8 +1,8 @@
 ---
-name: requisitos-especificacoes
+name: definir-escopo
 description: Use when defining or refining complete functional and non-functional requirements for a feature before design, architecture, planning, or implementation.
 ---
-# Modelagem de Requisitos e Especificações
+# Definição de escopo (Requisitos + Especificações)
 
 ## Objetivo
 Definir, por interrogatório progressivo, todos os requisitos verificáveis de uma feature.
