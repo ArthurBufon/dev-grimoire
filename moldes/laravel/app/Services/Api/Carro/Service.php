@@ -32,7 +32,7 @@ class Service
 
         try {
 
-            $dadosDatabase = $this->dadosDatabase($dados);
+            $dadosDatabase = $this->formatarDatabase($dados);
 
             $retornoDatabase = $this->queries->store($dadosDatabase);
 
@@ -72,7 +72,7 @@ class Service
 
         try {
 
-            $dadosDatabase = $this->formatarDatabae($dados);
+            $dadosDatabase = $this->formatarDatabase($dados);
 
             $retornoDatabase = $this->queries->update($id, $dadosDatabase);
 
@@ -140,7 +140,7 @@ class Service
         }
     }
 
-    private function formatarDatabae(array $dados): array
+    private function formatarDatabase(array $dados): array
     {
         $mapa = [];
 
@@ -166,6 +166,10 @@ class Service
 
         if (array_key_exists('km', $dados)) {
             $mapa['km'] = (int) $dados['km'];
+        }
+
+        if (array_key_exists('valor', $dados)) {
+            $mapa['valor'] = $dados['valor'];
         }
 
         return $mapa;

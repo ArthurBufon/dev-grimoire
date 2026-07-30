@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cor', 40)->nullable();
             $table->string('placa', 10)->unique();
             $table->unsignedInteger('km')->default(0);
-            $table->unsignedInteger('valor')->default(0);
+            $table->decimal('valor', 10, 2)->default(0);
             $table->timestamps();
         });
     }

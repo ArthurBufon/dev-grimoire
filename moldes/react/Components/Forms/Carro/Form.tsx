@@ -15,8 +15,8 @@ import type { DadosFormulario } from '@/types/carro';
 
 // UTILS
 import {
-    extrairCentavosDoInput,
-    formatarCentavosParaReal,
+    extrairDecimalDoInput,
+    formatarDinheiroParaReal,
 } from '@/Utils/dinheiro';
 
 // ROTAS
@@ -129,11 +129,11 @@ const Form = ({
                     id="valor"
                     type="text"
                     inputMode="numeric"
-                    value={formatarCentavosParaReal(data.valor)}
+                    value={formatarDinheiroParaReal(data.valor)}
                     onChange={(evento) =>
                         onCampoChange(
                             'valor',
-                            extrairCentavosDoInput(evento.target.value),
+                            extrairDecimalDoInput(evento.target.value),
                         )
                     }
                     required

@@ -175,6 +175,10 @@ class Service
             $mapa['km'] = (int) $dados['km'];
         }
 
+        if (array_key_exists('valor', $dados)) {
+            $mapa['valor'] = $dados['valor'];
+        }
+
         return $mapa;
     }
 

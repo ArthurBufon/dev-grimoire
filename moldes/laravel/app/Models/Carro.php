@@ -26,6 +26,6 @@ class Carro extends Model
     protected $casts = [
         'ano'   => 'integer',
         'km'    => 'integer',
-        'valor' => 'integer',
+        'valor' => 'decimal:2',
     ];
 }

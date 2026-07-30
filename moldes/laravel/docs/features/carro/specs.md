@@ -21,8 +21,8 @@ A API REST dos controllers Laravel inspira os nomes dos métodos em queries e se
 
 - Classe: `App\Models\Carro`
 - Tabela: `carros`
-- Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`
-- Casts: `ano` e `km` como inteiros
+- Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`
+- Casts: `ano` e `km` como inteiros; `valor` como decimal com duas casas
 
 ### 2.2 Banco (migration)
 
@@ -37,6 +37,7 @@ Tabela `carros` (resumo):
 | `cor`    | Opcional                            |
 | `placa`  | Única no banco                      |
 | `km`     | Padrão 0                            |
+| `valor`  | Decimal (10,2), padrão 0            |
 | `created_at` / `updated_at` | Timestamps Laravel |
 
 Regras de negócio adicionais (unicidade de placa, obrigatoriedade de campos na criação, etc.) podem ser reforçadas em **Form Requests** ou validação na camada HTTP; este boilerplate concentra persistência e consulta em Queries + Services.
@@ -91,7 +92,7 @@ Em geral:
 - Injeta `App\Queries\Carro\Queries`.
 - **`index` / `show`**: repasse direto às queries.
 - **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada (`array_key_exists`), para permitir atualização parcial na camada que chama o service.
-- Campos mapeados: `marca`, `modelo`, `ano`, `cor`, `placa`, `km` (com cast numérico onde aplicável).
+- Campos mapeados: `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor` (com cast numérico onde aplicável).
 - **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas (regra única de apresentação/persistência da placa no domínio deste exemplo).
 - **`destroy(Carro $carro)`**: transação; em sucesso faz `session()->flash` de mensagem amigável; em erro faz flash de erro, `logarErro` e `rollBack`.
 - Erros inesperados: `formatarMensagemErro($th)` nos retornos e no log.
