@@ -1,50 +1,42 @@
 ---
-
 name: requisitos-especificacoes
 description: Use when defining or refining complete functional and non-functional requirements for a feature before design, architecture, planning, or implementation.
-
 ---
-
 # Modelagem de Requisitos e Especificações
 
 ## Objetivo
+Definir, por interrogatório progressivo, todos os requisitos verificáveis de uma feature.
+Descreva **o que** deve acontecer — nunca **como** será implementado.
 
-Definir todos os requisitos verificáveis de uma feature por meio de um interrogatório progressivo.
-O resultado descreve **o que** deve acontecer, nunca **como** será arquitetado ou implementado.
+## Regras
+* Antes de perguntar, inspecione código, docs, banco, testes e padrões já existentes no app relacionados ao tema.
+* Reaproveite termos e regras já existentes quando válidos; não presuma que o comportamento atual está correto — aponte inconsistências para o usuário decidir.
+* Pesquise práticas e normas atuais do domínio; cite fontes relevantes.
+* Não proponha arquitetura, tabelas, endpoints, bibliotecas ou qualquer detalhe de implementação.
+* Uma pergunta por vez, objetiva e com alternativas concretas quando possível; espere a resposta antes de seguir.
+* Questione respostas vagas, ambíguas ou contraditórias.
+* Só encerre quando não houver decisão relevante em aberto.
 
-## Regras obrigatórias
+## Blocos do interrogatório
+Percorra nesta ordem, aprofundando cada bloco até esgotar as decisões relevantes antes de passar ao próximo:
 
-* Antes das perguntas, inspecione código, documentação, banco, testes e padrões existentes relacionados.
-* Reaproveite termos, regras, comportamentos e restrições já presentes no app sempre que forem válidos.
-* Não presuma que o comportamento atual está correto; exponha inconsistências para decisão do usuário.
-* Pesquise recomendações atuais na internet para o domínio da feature e requisitos semelhantes.
-* Priorize documentação oficial, normas, fontes primárias e práticas amplamente adotadas; cite as fontes relevantes.
-* Não proponha arquitetura, classes, tabelas, endpoints, bibliotecas, componentes ou detalhes de implementação.
-* Faça apenas uma pergunta por vez e espere a resposta antes de continuar.
-* Prefira perguntas objetivas com alternativas concretas, permitindo resposta livre.
-* Questione respostas vagas, termos ambíguos, exceções ocultas e regras contraditórias.
-* Não encerre enquanto houver decisões relevantes indefinidas.
+1. **Problema e escopo** — que problema resolve, para quem, e o que fica de fora.
+2. **Fluxo e atores** — evento que inicia, resultado de sucesso, perfis/permissões envolvidos.
+3. **Dados e regras** — campos, obrigatoriedade, validações, limites, estados e transições.
+4. **Fluxo completo** — caminho principal, alternativos, erros, cancelamentos e retomadas.
+5. **Efeitos colaterais** — notificações, auditoria, integrações, dados históricos/retrocompatibilidade.
+6. **Contexto operacional** — prazos, fuso, idioma, segurança, privacidade, acessibilidade, desempenho e concorrência.
+7. **Fechamento** — revisão geral: falta algo, há contradição, duplicidade ou decisão de design disfarçada de requisito?
 
-## Ordem do interrogatório
+## Saída final
+Produza a especificação com:
+- Contexto, objetivo e glossário
+- Atores e permissões
+- Requisitos funcionais e regras de negócio (numerados, atômicos, testáveis)
+- Estados, transições e validações
+- Fluxos (principal, alternativos, exceções)
+- Requisitos não funcionais e integrações
+- Critérios de aceitação em Given/When/Then
+- Fora de escopo, dúvidas resolvidas e fontes consultadas
 
-1. Qual problema a feature resolve e para quem?
-2. Qual evento inicia o fluxo e qual resultado indica sucesso?
-3. Quais atores, perfis, permissões e responsabilidades existem?
-4. Quais dados entram, são exibidos, alterados, derivados ou exportados?
-5. Quais campos são obrigatórios, opcionais, únicos, imutáveis ou condicionais?
-6. Quais validações, limites, formatos, estados e transições são permitidos?
-7. Qual é o fluxo principal, passo a passo, do ponto de vista do usuário?
-8. Quais fluxos alternativos, cancelamentos, repetições e retomadas existem?
-9. Quais erros, indisponibilidades, conflitos e dados inválidos devem ser tratados?
-10. Quais efeitos colaterais ocorrem: notificações, registros, integrações ou auditoria?
-11. Quais regras de prazo, data, horário, fuso, moeda, idioma e localização se aplicam?
-12. Quais requisitos de segurança, privacidade, acessibilidade e conformidade existem?
-13. Quais requisitos de desempenho, volume, disponibilidade e concorrência são esperados?
-14. O que deve acontecer com dados existentes, históricos e compatibilidade retroativa?
-15. O que está explicitamente fora do escopo?
-
-## Saída obrigatória
-
-Produza uma especificação com: contexto, objetivo, glossário, atores, pré-condições, requisitos funcionais numerados, regras de negócio numeradas, estados e transições, validações, fluxos principal/alternativos/exceções, permissões, dados envolvidos, requisitos não funcionais, integrações, critérios de aceitação em Given/When/Then, fora de escopo, dúvidas resolvidas e fontes.
-Cada requisito deve ser claro, atômico, testável, sem termos subjetivos e rastreável aos critérios de aceitação.
-Ao final, faça uma revisão procurando lacunas, contradições, duplicidades, suposições e decisões de design disfarçadas de requisito.
+Revise ao final procurando lacunas, contradições, duplicidades e requisitos que na verdade são decisões de implementação.
