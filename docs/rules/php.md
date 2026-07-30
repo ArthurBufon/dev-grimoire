@@ -84,8 +84,20 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 
 ### Ordem padrão
 
-*SEMPRE separar por tipo.
+*Sempre separar por tipo.
+*Sempre priorizar o diretorio de nivel mais baixo.
 
+EXEMPLO:
+```php
+use Illuminate\Database\Eloquent\Builder;
+```
+Deve gerar uma seção: 
+```php
+//ELOQUENT
+use Illuminate\Database\Eloquent\Builder;
+```
+
+Abaixo estão alguns exemplos de seções:
 ```php
 // HTTP
 // CONTROLLERS
