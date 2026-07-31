@@ -103,6 +103,38 @@ O contexto deve estar no namespace/diretório.
 
 ---
 
+## Retornos
+
+Prioridade máxima: sempre usar o padrão `sucesso` / `dados` / `erros`, independente da stack.
+
+```txt
+{ sucesso, dados, erros }
+```
+
+* Sucesso: `{ sucesso: true, dados: {...}, erros: [] }`
+* Falha: `{ sucesso: false, dados: [], erros: ['...'] }`
+
+Detalhes de sintaxe e uso por stack ficam em `docs/rules/php.md` e `docs/rules/javascript.md`. Não inventar outro formato de retorno quando esse padrão se aplicar.
+
+---
+
+## Organização de Imports
+
+Obrigatório em PHP e JavaScript/React: agrupar imports por categoria lógica, cada grupo com comentário de seção em maiúsculas. Nunca misturar categorias no mesmo bloco.
+
+```txt
+// CATEGORIA
+import/use ...
+```
+
+* Só criar a seção se existir ao menos um import daquela categoria
+* Priorizar o diretório de nível mais baixo ao nomear a seção (ex.: `Eloquent\Builder` → `// ELOQUENT`)
+* Manter ordem consistente dentro do arquivo; remover imports não utilizados
+
+Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascript.md`. Em dúvida, seguir o padrão do arquivo ou módulo alterado.
+
+---
+
 ## Contexto e Docs
 
 * Antes de implementar, analisar `docs/` **local do projeto** para verificar se existe `docs/features/<feature>/specs.md` e se contém informações relevantes à alteração
