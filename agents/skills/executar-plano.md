@@ -94,6 +94,12 @@ Ao concluir cada tarefa (após implementação, revisão por subagent e correç�
 
 A revisão do subagent **não substitui** o checkpoint do dev.
 
+## Dev Grimoire na execução
+
+Implementador e revisor devem seguir `{GRIMOIRE}/docs/rules/global.md` (seção 6): ler rules da stack e molde via Read/Grep antes de criar ou alterar arquivos; na revisão, validar conformidade contra esses artefatos — não reinterpretar convenções.
+
+Incluir no prompt do subagent o path do molde quando a tarefa cria arquivo novo (mapa em `global.md`).
+
 ## Subagent implementador
 
 O implementador deve receber:
@@ -118,6 +124,7 @@ Contexto relevante:
 
 Regras:
 - mantenha o escopo restrito à tarefa;
+- convenções: {GRIMOIRE}/docs/rules/global.md (ler rules e molde antes de codar);
 - siga os padrões existentes do projeto;
 - escreva testes para os cenários importantes;
 - execute os testes relevantes;
@@ -173,6 +180,7 @@ Alterações:
 
 Verifique:
 - conformidade com os requisitos;
+- conformidade com {GRIMOIRE}/docs/rules/global.md (rules + molde do arquivo);
 - bugs ou regressões;
 - integração com o restante do projeto;
 - complexidade desnecessária;

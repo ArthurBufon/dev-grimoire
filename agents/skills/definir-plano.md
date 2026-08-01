@@ -19,7 +19,7 @@ Antes de escrever o plano, leia:
 1. Escopo: `docs/modelagem/{feature}/escopo/{feature}.md`
 2. Design: `docs/modelagem/{feature}/design/{feature}.md`
 3. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
-4. **Dev Grimoire** (`../dev-grimoire/`): `docs/rules/geral.md`, rules da stack em uso (`docs/rules/php.md`, `docs/rules/javascript.md`) e moldes correspondentes em `moldes/` — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
+4. **Dev Grimoire** (`../dev-grimoire/`): seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
 5. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
 6. User rules globais.
 7. Estrutura do codebase e arquivos semelhantes.
@@ -30,18 +30,11 @@ Regras do projeto e do usuário têm precedência sobre esta skill. Não invente
 
 ## Padrões do Dev Grimoire (obrigatório)
 
-**TODO código referenciado, exemplificado ou previsto no plano deve seguir rigidamente os padrões já existentes do Dev Grimoire.**
+Seguir `{GRIMOIRE}/docs/rules/global.md` — rules da stack (`geral.md`, `php.md`, `javascript.md`) e moldes mapeados em `global.md`.
 
-Isso inclui, sem exceção:
+Ao planejar arquivos novos, cite o molde de referência e espelhe assinaturas e estrutura do molde no plano (adaptando entidade, namespace e paths).
 
-* estrutura de arquivos, namespaces e diretórios definidos nas rules;
-* nomenclatura (português, substantivos nominizáveis, Services/Queries);
-* imports, assinaturas, tipos e organização de código das rules da stack;
-* estrutura, imports e padrões dos moldes em `moldes/` para cada arquivo novo.
-
-Ao planejar arquivos novos, identifique e cite o molde de referência correspondente. O código no plano deve espelhar o molde — adaptando apenas entidade, namespace e paths do projeto.
-
-Padrões consolidados no módulo alterado do projeto atual têm prioridade sobre o molde quando já estabelecidos; rules do Dev Grimoire e do projeto têm prioridade sobre convenções genéricas da linguagem ou framework.
+Padrões consolidados no módulo alterado do projeto atual têm prioridade sobre o molde quando já estabelecidos (ver prioridades em `global.md`).
 
 Não introduza no plano padrões alternativos, atalhos ou “melhorias” que divergem do Dev Grimoire fora do escopo solicitado.
 
@@ -105,7 +98,7 @@ Não inclua etapas automáticas de commit.
 **Stack:** [tecnologias utilizadas]
 
 ## Restrições Globais
-- Todo código gerado deve seguir rigidamente os padrões do Dev Grimoire (`docs/rules/` + `moldes/`).
+- Convenções de código: `{GRIMOIRE}/docs/rules/global.md` (não reinterpretar; ler rules e moldes via Read/Grep).
 - [regras aplicáveis a todas as tarefas]
 
 ## Política Git para execução
@@ -139,9 +132,30 @@ Para cada tarefa:
 - [ ] Implementar o comportamento
 - [ ] Executar testes relacionados
 - [ ] Validar lint, tipos e build aplicáveis
+- [ ] Explicar arquivos consultados e usados (ver abaixo)
+
+**Encerramento da tarefa — arquivos consultados e usados:**
+
+Ao finalizar a tarefa, documente de forma objetiva:
+
+- **Consultados:** arquivos lidos para contexto (rules, moldes, specs, código existente, ADRs) — sem alteração.
+- **Usados:** arquivos criados, alterados ou referenciados diretamente na implementação.
+
+Exemplo:
+
+```markdown
+**Arquivos consultados:**
+- `../dev-grimoire/docs/rules/php.md`
+- `../dev-grimoire/moldes/laravel/app/Services/Carro/Service.php`
+- `app/Services/Veiculo/Service.php` (padrão existente no módulo)
+
+**Arquivos usados:**
+- Criado: `app/Services/Veiculo/Service.php`
+- Alterado: `routes/api.php`
 ```
 
 Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
+```
 
 ## Estratégia de testes
 

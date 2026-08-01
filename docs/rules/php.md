@@ -48,14 +48,17 @@ Queries nunca devem conter métodos além de:
 * `update`
 * `destroy`
 
-Convenção obrigatória por entidade:
+Convenção obrigatória por entidade (molde: `moldes/laravel/app/Queries/Carro/Queries.php`):
+
 ```php
-public function index(): array        // listar
-public function show(int $id): array  // buscar por ID
-public function store(array $dados)   // inserir
-public function update(array $dados)  // atualizar
-public function destroy(int $id)      // deletar
+public function index(array $filtros): array
+public function show(array $filtros): array
+public function store(array $dados): array
+public function update(int $id, array $dados): array
+public function destroy(string|int $id): array
 ```
+
+`$filtros` só em `index` e `show`. `update` e `destroy` **não** recebem `$filtros`.
 
 Caso alguma query muito específica seja necessária, o `Service` deve lidar com essa lógica, mantendo o método com nome 100% em português, simples e objetivo.
 
@@ -91,13 +94,15 @@ EXEMPLO:
 ```php
 use Illuminate\Database\Eloquent\Builder;
 ```
-Deve gerar uma seção: 
+Deve gerar uma seção:
+
 ```php
-//ELOQUENT
+// ELOQUENT
 use Illuminate\Database\Eloquent\Builder;
 ```
 
 Abaixo estão alguns exemplos de seções. Nenhuma seção é obrigatória. Só deve existir a seção se existir algum import que de fato se encaixa na categoria:
+
 ```php
 // HTTP
 // CONTROLLERS
@@ -110,7 +115,10 @@ Abaixo estão alguns exemplos de seções. Nenhuma seção é obrigatória. Só 
 // REPOSITORIES
 // UTILS
 // MODELS
+// ELOQUENT
 ```
+
+Molde com imports por seção: `moldes/laravel/app/Queries/Carro/Queries.php`.
 
 ## Formatação e legibilidade (preservar; não “normalizar”)
 

@@ -153,7 +153,7 @@ index: async function (filtros) {
 
 ## Organização de Imports
 
-Todo import deve ser agrupado por categoria lógica, com comentário de seção em maiúsculas. Referência: `moldes/react/Pages/Carro/Index.tsx` e `moldes/react/Pages/Carro/Create.tsx`.
+Todo import deve ser agrupado por categoria lógica, com comentário de seção em maiúsculas. Referência: `moldes/react/Pages/Carro/Index.tsx`, `moldes/react/Pages/Carro/Create.tsx` e `moldes/react/Queries/Queries.tsx`.
 
 ### Ordem padrão (Pages e componentes)
 

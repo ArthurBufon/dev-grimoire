@@ -1,3 +1,4 @@
+// TIPOS
 import { RetornoPadronizado } from "@/types";
 
 export default class Queries {

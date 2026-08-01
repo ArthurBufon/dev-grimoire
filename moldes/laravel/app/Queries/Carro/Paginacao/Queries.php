@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries\Carro;
 
+// MODELS
 use App\Models\Carro;
+// ELOQUENT
 use Illuminate\Database\Eloquent\Builder;
 
 class Queries

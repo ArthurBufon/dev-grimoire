@@ -24,6 +24,7 @@ Prompts e skills para fluxos de trabalho com agentes de IA.
 |---|---|
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, mapear specs, grill-me, etc.) |
+| [`sync-global-skills.sh`](agents/sync-global-skills.sh) | Sincroniza skills globais (Cursor, Codex, Claude) com `agents/skills/` |
 
 ### 📁 `moldes/`
 Código de referência com SRP: modelo, queries, services (web, view e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.

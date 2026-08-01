@@ -72,6 +72,29 @@ Um único clone serve todos os apps do mesmo diretório pai.
 
 ---
 
+## Skills globais (Cursor, Codex, Claude)
+
+As skills de workflow (`definir-plano`, `executar-plano`, etc.) vivem em `agents/skills/` neste repositório — **fonte de verdade**.
+
+Após `git pull` com mudanças em skills ou `docs/rules/global.md`, sincronize:
+
+```bash
+cd /caminho/para/dev-grimoire
+./agents/sync-global-skills.sh
+```
+
+O script sincroniza **somente** diretórios globais que já existem na máquina:
+
+| Runtime | Diretório |
+|---|---|
+| Cursor | `~/.cursor/skills/` |
+| Codex | `$CODEX_HOME/skills/` (default `~/.codex/skills/`) |
+| Claude | `~/.claude/skills/` |
+
+Copia `agents/skills/*.md` → `{dir}/{skill}/SKILL.md` e gera `dev-grimoire/SKILL.md` a partir de `docs/rules/global.md`.
+
+---
+
 ## Troubleshooting
 
 | Problema | Causa provável | Solução |

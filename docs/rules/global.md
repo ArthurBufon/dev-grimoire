@@ -91,4 +91,10 @@ Informe resumidamente quais arquivos do **Dev Grimoire** e do **projeto atual** 
 
 Nunca invente regras ausentes nem assuma convenções que não estejam no Dev Grimoire ou no código do projeto.
 
+## 6. Referência para skills de agente
+
+Skills de planejamento, execução e revisão devem **apontar a este arquivo** e às rules da stack — não repetir convenções (imports, assinaturas de Queries, etc.) em cada skill.
+
+Implementadores e revisores (incl. subagents) devem ler rules e molde via Read/Grep **antes** de criar ou alterar arquivos. Na revisão, validar conformidade contra o molde mapeado neste arquivo e as rules lidas.
+
 > **Nota:** Index Docs do Cursor não substitui leitura no filesystem — moldes PHP/TSX e rules só ficam acessíveis ao agente via Read/Grep em `../dev-grimoire/`.

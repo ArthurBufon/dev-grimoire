@@ -36,7 +36,9 @@ Destaque arquivos ou mudanças sem relação clara com a task.
 
 ### 3. Padrões do projeto
 
-Confirme se o código segue os padrões existentes de:
+Confirme conformidade com `{GRIMOIRE}/docs/rules/global.md` (rules da stack + molde do arquivo). Aponte desvios concretos — imports, assinaturas, estrutura — não preferências pessoais.
+
+Confirme também se o código segue os padrões existentes de:
 
 * arquitetura;
 * organização;

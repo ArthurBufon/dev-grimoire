@@ -29,7 +29,7 @@ Antes de executar, confirmar que existe:
 
   * User Rules da IDE
   * `AGENTS.md` na raiz, ou equivalente: `.cursor/rules/`, `CLAUDE.md`
-  * Dev Grimoire local (`../dev-grimoire/`) — rules e moldes lidos via Read/Grep
+  * Dev Grimoire local (`../dev-grimoire/`) — `{GRIMOIRE}/docs/rules/global.md`
   * Outras instruções locais relevantes
 
 Regras do projeto e User Rules têm precedência sobre defaults desta skill.
@@ -58,7 +58,7 @@ Executar uma task por vez, na ordem do plano.
 
 Para cada task:
 
-1. Enviar ao implementer o texto completo da task e o contexto necessário
+1. Enviar ao implementer o texto completo da task, o contexto necessário e o molde de referência (`global.md`) quando a task cria arquivo novo
 2. Implementar somente o necessário
 3. Rodar testes, lint ou verificações indicadas
 4. Fazer self-review
