@@ -80,7 +80,7 @@ Após `git pull` com mudanças em skills ou `docs/rules/global.md`, sincronize:
 
 ```bash
 cd /caminho/para/dev-grimoire
-./agents/sync-global-skills.sh
+./agents/scripts/sync-global-skills.sh
 ```
 
 O script sincroniza **somente** diretórios globais que já existem na máquina:

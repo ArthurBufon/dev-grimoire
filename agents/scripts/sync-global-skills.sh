@@ -9,8 +9,10 @@
 # A skill dev-grimoire é gerada de docs/rules/global.md (não está em agents/skills/).
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SKILLS_SRC="${REPO_ROOT}/agents/skills"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+AGENTS_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+REPO_ROOT="$(cd "${AGENTS_DIR}/.." && pwd)"
+SKILLS_SRC="${AGENTS_DIR}/skills"
 GLOBAL_MD="${REPO_ROOT}/docs/rules/global.md"
 
 CODEX_HOME="${CODEX_HOME:-${HOME}/.codex}"
