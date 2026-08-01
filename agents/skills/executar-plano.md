@@ -48,6 +48,7 @@ Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de mo
 * **CHECKPOINT OBRIGATÓRIO:** ao finalizar cada tarefa, pare e solicite revisão do dev antes de iniciar a próxima.
 * Não inicie a próxima tarefa sem aprovação explícita do dev.
 * Pare também quando estiver bloqueado ou existir uma ambiguidade crítica.
+* **Formatação:** proibido executar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save, etc.) em arquivos tocados. Seguir as convenções do dev e o estilo já existente no arquivo/módulo; o diff deve mudar só o necessário. PHP: `{GRIMOIRE}/docs/rules/php.md` (seção "Formatação e legibilidade"). JS/TS: mesma política.
 
 ## Preparação
 
@@ -126,6 +127,7 @@ Regras:
 - mantenha o escopo restrito à tarefa;
 - convenções: {GRIMOIRE}/docs/rules/global.md (ler rules e molde antes de codar);
 - siga os padrões existentes do projeto;
+- NÃO use ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, eslint --fix para estilo, format-on-save); preserve o estilo do arquivo — diff mínimo;
 - escreva testes para os cenários importantes;
 - execute os testes relevantes;
 - não crie branch ou commit;
@@ -181,6 +183,7 @@ Alterações:
 Verifique:
 - conformidade com os requisitos;
 - conformidade com {GRIMOIRE}/docs/rules/global.md (rules + molde do arquivo);
+- ausência de reformatação desnecessária (sem Pint, Prettier, CS Fixer, eslint --fix de estilo);
 - bugs ou regressões;
 - integração com o restante do projeto;
 - complexidade desnecessária;

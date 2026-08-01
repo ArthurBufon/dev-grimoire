@@ -99,6 +99,7 @@ Não inclua etapas automáticas de commit.
 
 ## Restrições Globais
 - Convenções de código: `{GRIMOIRE}/docs/rules/global.md` (não reinterpretar; ler rules e moldes via Read/Grep).
+- **Formatação:** proibido usar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save, etc.) — nem no plano nem na execução. Seguir as convenções do dev e o estilo já existente no arquivo/módulo; o diff deve mudar só o necessário. PHP: `{GRIMOIRE}/docs/rules/php.md` (seção "Formatação e legibilidade"). JS/TS: mesma política.
 - [regras aplicáveis a todas as tarefas]
 
 ## Política Git para execução
@@ -172,10 +173,26 @@ Não abuse de testes unitários. Evite testar métodos privados, detalhes intern
 
 Use testes unitários, de integração ou de feature conforme o comportamento real.
 
+## Formatação de código
+
+**Proibido** incluir no plano (ou orientar na execução) o uso de ferramentas de formatação automática — em PHP e em JS/TS.
+
+Exemplos do que **não** usar nem sugerir:
+
+* Laravel Pint, PHP CS Fixer, Prettier, Biome format, `eslint --fix` só para padronizar estilo, format-on-save ou qualquer passo de “normalizar” arquivos tocados.
+
+Ao planejar alterações de código:
+
+* seguir as convenções do dev e os padrões já existentes no arquivo ou módulo;
+* manter o diff mínimo — sem “limpar” ou reformatar trechos fora do escopo da tarefa;
+* em PHP, obedecer `{GRIMOIRE}/docs/rules/php.md` (seção "Formatação e legibilidade");
+* em JS/TS, aplicar a mesma política de preservação de estilo do arquivo.
+
 ## Proibições
 
 Não use:
 
+* ferramentas de formatação automática (ver seção acima);
 * `TBD`, `TODO` ou “implementar depois”;
 * instruções vagas como “tratar erros”;
 * testes sem cenários definidos;
