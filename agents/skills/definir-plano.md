@@ -19,13 +19,31 @@ Antes de escrever o plano, leia:
 1. Escopo: `docs/modelagem/{feature}/escopo/{feature}.md`
 2. Design: `docs/modelagem/{feature}/design/{feature}.md`
 3. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
-4. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
-5. User rules globais.
-6. Estrutura do codebase e arquivos semelhantes.
+4. **Dev Grimoire** (`../dev-grimoire/`): `docs/rules/geral.md`, rules da stack em uso (`docs/rules/php.md`, `docs/rules/javascript.md`) e moldes correspondentes em `moldes/` — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
+5. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
+6. User rules globais.
+7. Estrutura do codebase e arquivos semelhantes.
 
 Use o mesmo slug `{feature}` das demais etapas. Não inicie o plano sem escopo e design.
 
-Regras do projeto e do usuário têm precedência sobre esta skill. Não invente convenções; quando algo não estiver documentado, siga os padrões existentes no código.
+Regras do projeto e do usuário têm precedência sobre esta skill. Não invente convenções; quando algo não estiver documentado, siga os padrões existentes no código e no Dev Grimoire.
+
+## Padrões do Dev Grimoire (obrigatório)
+
+**TODO código referenciado, exemplificado ou previsto no plano deve seguir rigidamente os padrões já existentes do Dev Grimoire.**
+
+Isso inclui, sem exceção:
+
+* estrutura de arquivos, namespaces e diretórios definidos nas rules;
+* nomenclatura (português, substantivos nominizáveis, Services/Queries);
+* imports, assinaturas, tipos e organização de código das rules da stack;
+* estrutura, imports e padrões dos moldes em `moldes/` para cada arquivo novo.
+
+Ao planejar arquivos novos, identifique e cite o molde de referência correspondente. O código no plano deve espelhar o molde — adaptando apenas entidade, namespace e paths do projeto.
+
+Padrões consolidados no módulo alterado do projeto atual têm prioridade sobre o molde quando já estabelecidos; rules do Dev Grimoire e do projeto têm prioridade sobre convenções genéricas da linguagem ou framework.
+
+Não introduza no plano padrões alternativos, atalhos ou “melhorias” que divergem do Dev Grimoire fora do escopo solicitado.
 
 ## Objetivo do plano
 
@@ -87,6 +105,7 @@ Não inclua etapas automáticas de commit.
 **Stack:** [tecnologias utilizadas]
 
 ## Restrições Globais
+- Todo código gerado deve seguir rigidamente os padrões do Dev Grimoire (`docs/rules/` + `moldes/`).
 - [regras aplicáveis a todas as tarefas]
 
 ## Política Git para execução
@@ -122,7 +141,7 @@ Para cada tarefa:
 - [ ] Validar lint, tipos e build aplicáveis
 ```
 
-Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades.
+Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
 
 ## Estratégia de testes
 
@@ -158,7 +177,7 @@ Antes de concluir:
 1. Confirme que todos os requisitos possuem uma tarefa.
 2. Verifique paths, nomes, tipos e assinaturas.
 3. Remova placeholders, duplicações e tarefas pequenas demais.
-4. Confirme aderência às regras do projeto e do usuário.
+4. Confirme aderência às regras do projeto, do usuário e do Dev Grimoire (rules + moldes citados para cada arquivo novo).
 5. Confirme que nenhum commit ou branch será criado sem permissão.
 6. Inclua uma etapa final com `git status` e revisão individual dos arquivos.
 7. Confirme que o plano referencia a exclusão futura de `docs/modelagem/{feature}/`.
