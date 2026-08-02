@@ -152,9 +152,9 @@ Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascrip
 
 ## Planos
 
-* Planos/designs gerados devem obrigatóriamente ser salvos em `docs/plans/{feature}.md`
-* Planos nunca devem ser commitados ou mantidos no repositório (geralmente o `.gitignore` já trata isso em cada projeto)
-* Sempre que finalizados, devem ser excluídos, junto do design do plano (caso exista)
+* Planos de implementação devem ser salvos em `docs/modelagem/{feature}/plano/{feature}.md`
+* Artefatos em `docs/modelagem/{feature}/` (escopo, design, plano) são temporários — não documentação permanente do repositório
+* Após a feature estar implementada e entregue, excluir `docs/modelagem/{feature}/` por completo
 
 ---
 

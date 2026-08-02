@@ -137,17 +137,21 @@ Defaults das sub-skills, como:
 ```text
 docs/superpowers/specs/
 docs/superpowers/plans/
+docs/plans/
 ```
 
 aplicam **somente** se o projeto não definir outro padrão.
 
 Antes de salvar qualquer artefato, verificar nas regras do projeto:
 
-| Artefato               | Se o projeto não define   | Se o projeto define                                        |
-| ---------------------- | ------------------------- | ---------------------------------------------------------- |
-| Design draft           | `docs/superpowers/specs/` | Seguir path e política do projeto                          |
-| Plano de implementação | `docs/superpowers/plans/` | Respeitar se planos são temporários, não commitáveis, etc. |
-| Spec definitiva        | —                         | Seguir quando e onde o projeto manda criar/atualizar specs |
+| Artefato               | Se o projeto não define   | Se o projeto define (Dev Grimoire)                           |
+| ---------------------- | ------------------------- | ------------------------------------------------------------ |
+| Escopo                 | —                         | `docs/modelagem/{feature}/escopo/{feature}.md`               |
+| Design draft           | `docs/superpowers/specs/` | `docs/modelagem/{feature}/design/{feature}.md`               |
+| Plano de implementação | `docs/superpowers/plans/` | `docs/modelagem/{feature}/plano/{feature}.md`                |
+| Spec definitiva        | —                         | `docs/features/{entidade}/specs.md`                          |
+
+Artefatos em `docs/modelagem/{feature}/` são temporários. Após a implementação, excluir o diretório por completo.
 
 Quando houver conflito, **seguir o projeto** e informar o usuário qual default foi substituído.
 

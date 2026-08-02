@@ -137,7 +137,7 @@ Após concluir a implementação, antes de qualquer commit manual posterior:
 3. Revisar detalhadamente cada arquivo modificado.
 4. Validar se cada alteração pertence ao escopo do plano.
 5. Atualizar a spec definitiva da entidade em `docs/features/{entidade}/specs.md`.
-6. Excluir o plano temporário de `docs/plans/`.
+6. Excluir `docs/modelagem/{feature}/` por completo.
 7. Aprovar os arquivos alterados **um por um**.
 8. Remover alterações acidentais, temporárias ou fora do escopo.
 9. Apresentar resumo final da implementação ao usuário.
@@ -155,6 +155,7 @@ Não utilizar defaults antigos de outras skills, como:
 ```text
 docs/superpowers/specs/
 docs/superpowers/plans/
+docs/plans/
 ```
 
 Esses paths estão proibidos neste fluxo.
@@ -166,23 +167,23 @@ Esses paths estão proibidos neste fluxo.
 Todo plano gerado por esta skill deve ser obrigatoriamente criado em:
 
 ```text
-docs/plans/
+docs/modelagem/{feature}/plano/{feature}.md
 ```
 
 Regras:
 
 * O plano é temporário.
-* A pasta `docs/plans/` é ignorada no Git por padrão.
+* Artefatos em `docs/modelagem/{feature}/` são temporários — não documentação permanente.
 * O plano não deve ser commitado.
-* O plano não deve ser salvo fora de `docs/plans/`.
-* Se `docs/plans/` não existir, criar a pasta antes de salvar o plano.
-* O arquivo deve usar nome curto, descritivo e em kebab-case.
-* O plano deve ser excluído obrigatoriamente após a implementação.
+* O plano não deve ser salvo fora de `docs/modelagem/{feature}/plano/`.
+* Se `docs/modelagem/{feature}/plano/` não existir, criar a estrutura antes de salvar o plano.
+* Usar o mesmo slug `{feature}` da entidade/feature em kebab-case.
+* Após a implementação, excluir `docs/modelagem/{feature}/` por completo.
 
 Exemplo:
 
 ```text
-docs/plans/implementar-clientes.md
+docs/modelagem/clientes/plano/clientes.md
 ```
 
 ---
@@ -224,10 +225,10 @@ Se a implementação afetar múltiplas entidades, atualizar o `specs.md` de cada
 
 ```text
 Decisões já tomadas na conversa
-→ gerar plano simples em docs/plans/
+→ gerar plano simples em docs/modelagem/{feature}/plano/{feature}.md
 → execução separada da implementação
 → atualizar docs/features/{entidade}/specs.md
-→ excluir plano temporário de docs/plans/
+→ excluir docs/modelagem/{feature}/ por completo
 → revisar todos os arquivos alterados um por um
 ```
 
@@ -267,9 +268,9 @@ Lista de arquivos e diretórios que provavelmente serão criados ou alterados.
 
 ## Política de documentação
 
-- Plano temporário: docs/plans/[arquivo].md
+- Plano temporário: docs/modelagem/{feature}/plano/{feature}.md
 - Spec pós-implementação: docs/features/{entidade}/specs.md
-- Após implementar e atualizar a spec, excluir este plano temporário.
+- Após implementar e atualizar a spec, excluir `docs/modelagem/{feature}/` por completo.
 
 ## Passos de implementação
 
@@ -297,7 +298,7 @@ Lista de arquivos e diretórios que provavelmente serão criados ou alterados.
 - [ ] Todos os arquivos alterados revisados um por um.
 - [ ] Alterações fora do escopo removidas.
 - [ ] `docs/features/{entidade}/specs.md` atualizado.
-- [ ] Plano temporário removido de `docs/plans/`.
+- [ ] `docs/modelagem/{feature}/` excluído por completo.
 - [ ] Nenhum commit feito automaticamente.
 - [ ] Nenhum push feito automaticamente.
 ```
@@ -319,7 +320,7 @@ O plano deve:
 * Separar claramente escopo e fora do escopo.
 * Incluir validação final arquivo por arquivo.
 * Incluir atualização de `specs.md` após implementação.
-* Incluir exclusão obrigatória do plano temporário após implementação.
+* Incluir exclusão obrigatória de `docs/modelagem/{feature}/` após implementação.
 
 O plano não deve:
 
@@ -342,7 +343,7 @@ O plano não deve:
 A skill termina quando o plano simples estiver gerado e salvo em:
 
 ```text
-docs/plans/[nome-do-plano].md
+docs/modelagem/{feature}/plano/{feature}.md
 ```
 
 Encerrar com:
@@ -350,11 +351,11 @@ Encerrar com:
 ```markdown
 ## Plano concluído
 
-- **Plano temporário:** `docs/plans/[nome-do-plano].md`
+- **Plano temporário:** `docs/modelagem/{feature}/plano/{feature}.md`
 - **Branch de execução:** [dev/desenvolvimento/develop/etc.]
 - **Git:** sem branch avulsa, sem commits, sem push durante implementação
 - **Spec pós-implementação:** `docs/features/{entidade}/specs.md`
-- **Pós-implementação obrigatório:** atualizar spec definitiva e excluir plano temporário
+- **Pós-implementação obrigatório:** atualizar spec definitiva e excluir `docs/modelagem/{feature}/`
 - **Próximo passo:** executar o plano em etapa separada
 ```
 
@@ -367,7 +368,7 @@ Encerrar com:
 * Invocar outras skills.
 * Escrever código durante o planejamento.
 * Criar design draft separado.
-* Criar plano fora de `docs/plans/`.
+* Criar plano fora de `docs/modelagem/{feature}/plano/`.
 * Atualizar `docs/features/{entidade}/specs.md` antes da implementação.
 * Criar branch `feature/*`.
 * Criar branch avulsa.
@@ -376,7 +377,7 @@ Encerrar com:
 * Criar plano genérico sem paths reais.
 * Criar tarefas vagas.
 * Criar refatorações fora do escopo.
-* Manter plano temporário após a implementação.
+* Manter `docs/modelagem/{feature}/` após a implementação.
 * Deixar arquivos alterados sem revisão individual.
 
 ---
