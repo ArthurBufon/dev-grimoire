@@ -3,7 +3,8 @@ name: definir-plano-simples
 description: >-
   Gera plano de implementação objetivo para tarefas simples e decisões já tomadas
   na conversa. Use com "plano simples", "plano objetivo", "definir-plano-simples"
-  ou quando a tarefa não exige escopo/design completo.
+  ou quando a tarefa não exige escopo/design completo. Antes do plano, use grill-me
+  para esclarecer dúvidas.
 ---
 
 # Definir Plano Simples
@@ -28,13 +29,26 @@ Esta skill cobre ajustes, correções, extensões pequenas e tarefas objetivas �
 
 ## Quando usar / não usar
 
-**Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples); plano direto sem brainstorming.
+**Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples); plano direto após dúvidas esclarecidas.
 
-**Não usar:** feature inteira, escopo ambíguo ou workflow completo solicitado — nesses casos, sugerir `definir-escopo` ou `definir-plano`.
+**Não usar:** feature inteira, escopo ambíguo sem passar por `grill-me`, ou workflow completo solicitado — nesses casos, sugerir `definir-escopo` ou `definir-plano`.
+
+## Tirar dúvidas antes do plano
+
+Antes de gerar o plano, use a skill **`grill-me`** para esclarecer **todas** as dúvidas sobre escopo, comportamento, arquivos afetados e decisões em aberto.
+
+Fluxo obrigatório quando houver incerteza:
+
+```text
+grill-me → decisões fechadas → definir-plano-simples
+```
+
+* Só avance para o plano quando não restar decisão relevante em aberto.
+* Se o escopo já estiver 100% claro na conversa, pode pular `grill-me` e ir direto ao plano.
 
 ## Hard gate
 
-Não implementar código, invocar outras skills, brainstorming ou grilling. Não expandir escopo nem inventar decisões. No máximo **uma pergunta bloqueante**; se não bloquear, assumir o caminho mais simples como premissa.
+Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes.
 
 ## Contexto obrigatório
 
@@ -146,7 +160,7 @@ O que não será feito agora.
 
 ## Regras de escrita e autorrevisão
 
-Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas, refatorações fora do escopo ou rediscutir decisões.
+Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas ou refatorações fora do escopo.
 
 Antes de concluir: cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas.
 
