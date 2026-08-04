@@ -113,6 +113,18 @@ class Queries
 
     private function aplicarPaginacao(Builder $query, array $filtros): array
     {
+        $aplicarPaginacao = $filtros['aplicar_paginacao'] ?? true;
+
+        if (! $aplicarPaginacao) {
+
+            $lista = $query->get();
+
+            return [
+                'lista' => $lista,
+                'paginacao' => montarDadosPaginacao($lista->count(), $lista->count()),
+            ];
+        }
+        
         $porPagina = 10;
         $maximoPaginas = 10;
 
