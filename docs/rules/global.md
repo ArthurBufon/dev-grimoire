@@ -65,6 +65,8 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `Services/{Entidade}/Service.tsx` | `{GRIMOIRE}/moldes/react/Services/Service.tsx` |
 | `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |
 | `Components/Listagem/Card/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Show.tsx` |
+| `Components/Listagem/Card/Filtro/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Filtro/Show.tsx` |
+| `types/paginacao.ts` | `{GRIMOIRE}/moldes/react/types/paginacao.ts` |
 | `Utils/*.ts` | `{GRIMOIRE}/moldes/react/Utils/` |
 
 Se o projeto já tiver arquivos do mesmo tipo, o molde complementa — **padrões do projeto atual têm prioridade** sobre o molde quando já consolidados.
