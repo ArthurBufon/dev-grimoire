@@ -16,15 +16,23 @@ Crie somente o plano. Não implemente código durante este fluxo.
 
 Antes de escrever o plano, leia:
 
-1. Escopo: `docs/modelagem/{feature}/escopo/{feature}.md`
-2. Design: `docs/modelagem/{feature}/design/{feature}.md`
+1. Escopo: `docs/modelagem/{feature}/escopo/{feature}.md` (**obrigatório**)
+2. Design: `docs/modelagem/{feature}/design/{feature}.md` (**opcional** — leia se existir)
 3. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
 4. **Dev Grimoire** (`../dev-grimoire/`): seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
 5. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
 6. User rules globais.
 7. Estrutura do codebase e arquivos semelhantes.
 
-Use o mesmo slug `{feature}` das demais etapas. Não inicie o plano sem escopo e design.
+Use o mesmo slug `{feature}` das demais etapas. Não inicie o plano sem escopo.
+
+### Design opcional
+
+Alinhe-se à triagem do escopo (`definir-escopo`, modos L/M/H):
+
+* Se o design existir → use-o como fonte das decisões técnicas.
+* Se não existir → derive a abordagem de moldes do Dev Grimoire, padrões do módulo e âncoras já registradas no escopo (“igual à feature Y”). Não invente arquitetura nova; se surgir decisão técnica não óbvia, pare e sugira `definir-design` antes de continuar.
+* Não bloqueie o plano só pela ausência do arquivo de design.
 
 Regras do projeto e do usuário têm precedência sobre esta skill. Não invente convenções; quando algo não estiver documentado, siga os padrões existentes no código e no Dev Grimoire.
 
