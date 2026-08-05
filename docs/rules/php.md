@@ -113,7 +113,6 @@ Abaixo estão alguns exemplos de seções. Nenhuma seção é obrigatória. Só 
 // QUERIES
 // SERVICES
 // REPOSITORIES
-// UTILS
 // MODELS
 // ELOQUENT
 ```
