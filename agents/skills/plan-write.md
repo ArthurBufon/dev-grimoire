@@ -146,8 +146,7 @@ Antes de salvar qualquer artefato, verificar nas regras do projeto:
 
 | Artefato               | Se o projeto não define   | Se o projeto define (Dev Grimoire)                           |
 | ---------------------- | ------------------------- | ------------------------------------------------------------ |
-| Escopo                 | —                         | `docs/modelagem/{feature}/escopo/{feature}.md`               |
-| Design draft           | `docs/superpowers/specs/` | `docs/modelagem/{feature}/design/{feature}.md`               |
+| Modelagem              | —                         | `docs/modelagem/{feature}/modelagem/{feature}.md`            |
 | Plano de implementação | `docs/superpowers/plans/` | `docs/modelagem/{feature}/plano/{feature}.md`                |
 | Spec definitiva        | —                         | `docs/features/{entidade}/specs.md`                          |
 

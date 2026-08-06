@@ -16,23 +16,21 @@ Crie somente o plano. Não implemente código durante este fluxo.
 
 Antes de escrever o plano, leia:
 
-1. Escopo: `docs/modelagem/{feature}/escopo/{feature}.md` (**obrigatório**)
-2. Design: `docs/modelagem/{feature}/design/{feature}.md` (**opcional** — leia se existir)
-3. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
-4. **Dev Grimoire** (`../dev-grimoire/`): seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
-5. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
-6. User rules globais.
-7. Estrutura do codebase e arquivos semelhantes.
+1. Modelagem: `docs/modelagem/{feature}/modelagem/{feature}.md` (**obrigatório** — gerado por `definir-modelagem`; contém comportamento e, quando houver, design técnico)
+2. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
+3. **Dev Grimoire** (`../dev-grimoire/`): seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
+4. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
+5. User rules globais.
+6. Estrutura do codebase e arquivos semelhantes.
 
-Use o mesmo slug `{feature}` das demais etapas. Não inicie o plano sem escopo.
+Use o mesmo slug `{feature}` das demais etapas. Não inicie o plano sem o arquivo de modelagem.
 
-### Design opcional
+### Uso da modelagem
 
-Alinhe-se à triagem do escopo (`definir-escopo`, modos L/M/H):
+Alinhe-se ao modo L/M/H e ao campo **Design** do artefato:
 
-* Se o design existir → use-o como fonte das decisões técnicas.
-* Se não existir → derive a abordagem de moldes do Dev Grimoire, padrões do módulo e âncoras já registradas no escopo (“igual à feature Y”). Não invente arquitetura nova; se surgir decisão técnica não óbvia, pare e sugira `definir-design` antes de continuar.
-* Não bloqueie o plano só pela ausência do arquivo de design.
+* Se a seção **Design técnico** existir → use-a como fonte das decisões técnicas.
+* Se **Design: pulado** → derive a abordagem de moldes do Dev Grimoire, padrões do módulo e âncoras registradas (“igual à feature Y”). Não invente arquitetura nova; se surgir decisão técnica não óbvia, pare e sugira retomar `definir-modelagem` (Fase 2) antes de continuar.
 
 Regras do projeto e do usuário têm precedência sobre esta skill. Não invente convenções; quando algo não estiver documentado, siga os padrões existentes no código e no Dev Grimoire.
 
@@ -221,4 +219,4 @@ Antes de concluir:
 6. Inclua uma etapa final com `git status` e revisão individual dos arquivos.
 7. Confirme que o plano referencia a exclusão futura de `docs/modelagem/{feature}/`.
 
-Ao terminar, informe onde o plano foi salvo (`docs/modelagem/{feature}/plano/{feature}.md`) e um resumo breve do escopo.
+Ao terminar, informe onde o plano foi salvo (`docs/modelagem/{feature}/plano/{feature}.md`) e um resumo breve da modelagem.

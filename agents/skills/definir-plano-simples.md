@@ -25,13 +25,13 @@ Crie somente o plano. Não implemente código durante este fluxo.
 
 Transformar decisões já tomadas (ou tarefas pontuais com escopo claro) em um plano executável, direto e com alterações mínimas.
 
-Esta skill cobre ajustes, correções, extensões pequenas e tarefas objetivas — **não** features inteiras. Para features completas, use `definir-escopo` → `definir-design` → `definir-plano`.
+Esta skill cobre ajustes, correções, extensões pequenas e tarefas objetivas — **não** features inteiras. Para features completas, use `definir-modelagem` → `definir-plano`.
 
 ## Quando usar / não usar
 
 **Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples); plano direto após dúvidas esclarecidas.
 
-**Não usar:** feature inteira, escopo ambíguo sem passar por `grill-me`, ou workflow completo solicitado — nesses casos, sugerir `definir-escopo` ou `definir-plano`.
+**Não usar:** feature inteira, escopo ambíguo sem passar por `grill-me`, ou workflow completo solicitado — nesses casos, sugerir `definir-modelagem` ou `definir-plano`.
 
 ## Tirar dúvidas antes do plano
 

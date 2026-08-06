@@ -24,10 +24,9 @@ Leia o plano em:
 
 `docs/modelagem/{feature}/plano/{feature}.md`
 
-Consulte escopo e design no mesmo diretório quando precisar esclarecer requisitos ou decisões técnicas:
+Consulte a modelagem no mesmo diretório quando precisar esclarecer requisitos ou decisões técnicas:
 
-* `docs/modelagem/{feature}/escopo/{feature}.md`
-* `docs/modelagem/{feature}/design/{feature}.md`
+* `docs/modelagem/{feature}/modelagem/{feature}.md`
 
 ## Política de exclusão
 
