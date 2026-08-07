@@ -53,7 +53,7 @@ Produza um plano executável por alguém que não conhece o projeto, contendo:
 * arquitetura e decisões relevantes;
 * interfaces, assinaturas e tipos;
 * etapas de implementação;
-* testes essenciais;
+* testes no mínimo essencial (anti-overkill — ver seção **Testes**);
 * comandos reais de validação.
 
 Siga KISS, DRY e YAGNI. Não inclua refatorações fora do escopo.
@@ -134,10 +134,10 @@ Para cada tarefa:
 - Consome: [dependências e assinaturas]
 - Produz: [métodos, tipos e comportamentos]
 
-- [ ] Criar os testes essenciais
+- [ ] Criar só os testes mínimos essenciais (sem overkill)
 - [ ] Confirmar que falham pelo motivo esperado
 - [ ] Implementar o comportamento
-- [ ] Executar testes relacionados
+- [ ] Executar os testes relacionados à tarefa
 - [ ] Validar lint, tipos e build aplicáveis
 - [ ] Explicar arquivos consultados e usados (ver abaixo)
 
@@ -164,20 +164,30 @@ Exemplo:
 Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
 ```
 
-## Estratégia de testes
+## Testes (mínimo essencial — anti-overkill)
 
-Use TDD com equilíbrio. Escreva testes suficientes para os cenários mais importantes da feature:
+Agents tendem a exagerar na quantidade e na granularidade dos testes. **Não faça isso.**
 
-* fluxo principal;
-* regras de negócio;
-* validações e autorizações relevantes;
-* erros esperados;
-* integrações críticas;
-* regressões.
+No plano, cubra **somente o básico mínimo** da feature: os poucos casos que realmente protegem o comportamento pedido. Prefira poucos testes de alto valor a uma suíte larga e frágil.
 
-Não abuse de testes unitários. Evite testar métodos privados, detalhes internos, cenários duplicados, mocks excessivos e cobertura sem valor.
+**Incluir (quando aplicável):**
 
-Use testes unitários, de integração ou de feature conforme o comportamento real.
+* 1 fluxo feliz principal;
+* 1–2 regras de negócio críticas (só as que definem o valor da feature);
+* erros/validações que o usuário ou a API realmente encontram;
+* regressão pontual se o bug/motivo da mudança for conhecido.
+
+**Não incluir:**
+
+* matriz completa de combinações, edge cases hipotéticos ou “e se”;
+* testes de getters/setters, métodos privados ou detalhes internos;
+* duplicar o mesmo cenário em unitário + feature + integração;
+* mocks excessivos, factories elaboradas ou scaffolding de teste maior que a feature;
+* meta de cobertura percentual ou “testar tudo que tocar”.
+
+Regra prática: se o plano listar mais testes do que passos de implementação relevantes, corte até sobrar o mínimo que falharia de forma óbvia se a feature quebrasse. Use o tipo de teste (unitário, integração, feature) que melhor exercita o comportamento real — um nível basta na maioria dos casos.
+
+TDD só quando couber no escopo: escrever o(s) teste(s) essenciais, ver falhar, implementar, passar. Sem expandir a suíte “por precaução”.
 
 ## Formatação de código
 
@@ -201,7 +211,7 @@ Não use:
 * ferramentas de formatação automática (ver seção acima);
 * `TBD`, `TODO` ou “implementar depois”;
 * instruções vagas como “tratar erros”;
-* testes sem cenários definidos;
+* testes sem cenários definidos, ou suíte ampla / overkill além do mínimo essencial;
 * “igual à tarefa anterior”;
 * funções, tipos ou arquivos não definidos;
 * comandos incompatíveis com o projeto;

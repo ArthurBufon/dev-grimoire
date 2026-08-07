@@ -139,7 +139,7 @@ O que não será feito agora.
 
 - Comandos reais de teste/build/lint do projeto.
 - Verificações manuais necessárias.
-- Casos principais a validar.
+- Casos principais a validar (ver seção **Testes** abaixo — mínimo essencial).
 
 ## Documentação pós-implementação
 
@@ -158,11 +158,34 @@ O que não será feito agora.
 - [ ] Nenhum commit ou push automático.
 ```
 
+## Testes (mínimo essencial — anti-overkill)
+
+Agents tendem a exagerar na quantidade e na granularidade dos testes. **Não faça isso.**
+
+No plano, cubra **somente o básico mínimo** da mudança: os poucos casos que realmente protegem o comportamento pedido. Prefira poucos testes de alto valor a uma suíte larga e frágil.
+
+**Incluir (quando aplicável):**
+
+* 1 fluxo feliz principal da alteração;
+* a regra de negócio ou validação crítica (só se for o ponto da tarefa);
+* 1 caso de erro esperado, se a feature/API falhar de forma relevante para o usuário;
+* regressão pontual se o ajuste for correção de bug conhecido.
+
+**Não incluir:**
+
+* matriz de edge cases, combinações “por precaução” ou cenários hipotéticos;
+* testes de detalhes internos, métodos privados ou getters/setters;
+* duplicar o mesmo cenário em vários níveis (unitário + feature + integração);
+* mocks excessivos, factories elaboradas ou scaffolding maior que o próprio ajuste;
+* meta de cobertura percentual ou “testar tudo que o diff tocar”.
+
+Regra prática: se a seção de testes/validação listar mais itens do que passos de implementação, corte até sobrar o mínimo que falharia de forma óbvia se a mudança quebrasse. Um tipo de teste costuma bastar; não planeje suíte ampla em tarefa simples.
+
 ## Regras de escrita e autorrevisão
 
-Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas ou refatorações fora do escopo.
+Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas ou refatorações fora do escopo. Na seção de testes: mínimo essencial — sem overkill.
 
-Antes de concluir: cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas.
+Antes de concluir: cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas; testes planejados são só os casos mais importantes.
 
 ## Critério de conclusão
 
