@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+// ENUMS
+use App\Enums\Marca;
 // MODELS
 use App\Models\Carro;
 // SERVICES
@@ -28,7 +30,7 @@ class CarroTest extends TestCase
     private function dadosCarro(array $sobrescrever = []): array
     {
         return array_merge([
-            'marca'  => 'Toyota',
+            'marca'  => Marca::Toyota->value,
             'modelo' => 'Corolla',
             'ano'    => 2020,
             'cor'    => 'Prata',
@@ -51,17 +53,17 @@ class CarroTest extends TestCase
 
     public function test_index_filtra_por_marca(): void
     {
-        Carro::create($this->dadosCarro(['marca' => 'Toyota', 'placa' => 'AAA1A11']));
-        Carro::create($this->dadosCarro(['marca' => 'Honda', 'placa' => 'BBB2B22']));
+        Carro::create($this->dadosCarro(['marca' => Marca::Toyota->value, 'placa' => 'AAA1A11']));
+        Carro::create($this->dadosCarro(['marca' => Marca::Honda->value, 'placa' => 'BBB2B22']));
 
         $retorno = $this->service->index([
-            'marca'              => 'Toyota',
+            'marca'              => Marca::Toyota->value,
             'aplicar_paginacao' => false,
         ]);
 
         $this->assertTrue($retorno['sucesso']);
         $this->assertCount(1, $retorno['dados']['lista']);
-        $this->assertSame('Toyota', $retorno['dados']['lista']->first()->marca);
+        $this->assertSame(Marca::Toyota, $retorno['dados']['lista']->first()->marca);
         $this->assertEmpty($retorno['erros']);
     }
 
@@ -76,7 +78,7 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
         $this->assertDatabaseHas('carros', [
             'placa' => 'ABC1D23',
-            'marca' => 'Toyota',
+            'marca' => Marca::Toyota->value,
         ]);
     }
 

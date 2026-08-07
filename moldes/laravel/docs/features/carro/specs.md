@@ -8,6 +8,8 @@ Documento de contexto para humanos e para assistentes de IA ao trabalhar em prom
 
 O recurso **Carro** exemplifica o padrão do projeto:
 
+- **Controller** (`App\Http\Controllers\Web\Admin\Carro\CarroController`): HTTP Inertia — chama View Service nas telas e Service nas mutações.
+- **Form Requests** (`StoreRequest` / `UpdateRequest`): validação e normalização de entrada (ex.: placa).
 - **Queries** (`App\Queries\Carro\Queries`): acesso a dados e consultas reutilizáveis.
 - **Services** (`App\Services\Carro` e `App\Services\Api\Carro`): regras de orquestração, transações e formatação antes de persistir.
 
@@ -22,16 +24,22 @@ A API REST dos controllers Laravel inspira os nomes dos métodos em queries e se
 - Classe: `App\Models\Carro`
 - Tabela: `carros`
 - Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`
-- Casts: `ano` e `km` como inteiros; `valor` como decimal com duas casas
+- Casts: `marca` → `App\Enums\Marca`; `ano` e `km` como inteiros; `valor` como decimal com duas casas
 
-### 2.2 Banco (migration)
+### 2.2 Enum `Marca`
+
+- Classe: `App\Enums\Marca` (backed `string`)
+- Cases em TitleCase; values em minúsculas (`toyota`, `honda`, `volkswagen`, `fiat`, `chevrolet`)
+- Validação HTTP com `Rule::enum(Marca::class)` nos Form Requests
+
+### 2.3 Banco (migration)
 
 Tabela `carros` (resumo):
 
 | Coluna   | Observação                          |
 |----------|-------------------------------------|
 | `id`     | Chave primária                      |
-| `marca`  | String (até 80 caracteres)          |
+| `marca`  | String (value do enum `Marca`)      |
 | `modelo` | String (até 120 caracteres)         |
 | `ano`    | Ano numérico                        |
 | `cor`    | Opcional                            |
@@ -40,7 +48,7 @@ Tabela `carros` (resumo):
 | `valor`  | Decimal (10,2), padrão 0            |
 | `created_at` / `updated_at` | Timestamps Laravel |
 
-Regras de negócio adicionais (unicidade de placa, obrigatoriedade de campos na criação, etc.) podem ser reforçadas em **Form Requests** ou validação na camada HTTP; este boilerplate concentra persistência e consulta em Queries + Services.
+Validação HTTP (unicidade de placa, obrigatoriedade de campos, etc.) fica nos **Form Requests**; persistência e consulta ficam em Queries + Services.
 
 ---
 
@@ -117,24 +125,46 @@ Garantir que `helpers.php` esteja carregado pelo autoload do Composer do aplicat
 
 ---
 
-## 7. Arquivos de referência
+## 7. Camada HTTP
+
+### 7.1 Controller (`App\Http\Controllers\Web\Admin\Carro\CarroController`)
+
+- Injeta `App\Services\Carro\Service` e `App\Services\Carro\View\Service`.
+- **index / create / edit**: monta props via View Service e renderiza Inertia (`Carro/Index`, `Carro/Create`, `Carro/Edit`).
+- **store / update / destroy**: chama o Service; em falha `back()->withErrors(['geral' => ...])`; em sucesso toast Inertia + `redirect()->route('admin.carros.index')`.
+- Filtros da listagem vêm do `Request` (`busca_geral`, `quantidade`, `pagina`).
+
+### 7.2 Form Requests
+
+- `StoreRequest` / `UpdateRequest` em `App\Http\Requests\Web\Admin\Carro`.
+- `prepareForValidation` normaliza `placa` (trim, sem espaços, maiúsculas) antes das rules.
+- Rules alinhadas à migration; `placa` unique (no update, `Rule::unique(...)->ignore($carro)`).
+
+---
+
+## 8. Arquivos de referência
 
 | Caminho |
 |-----------|
+| `app/Http/Controllers/Web/Admin/Carro/CarroController.php` |
+| `app/Http/Requests/Web/Admin/Carro/StoreRequest.php` |
+| `app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
+| `app/Enums/Marca.php` |
 | `app/Models/Carro.php` |
 | `app/Queries/Carro/Queries.php` |
 | `app/Services/Carro/Service.php` |
 | `app/Services/Api/Carro/Service.php` |
+| `app/Services/Carro/View/Service.php` |
 | `app/helpers.php` |
 | `database/migrations/2026_05_08_000000_create_carros_table.php` |
+| `tests/Feature/CarroTest.php` |
 
 ---
 
-## 8. Extensões comuns (fora do escopo mínimo do boilerplate)
+## 9. Extensões comuns (fora do escopo mínimo do boilerplate)
 
-- Rotas e controllers HTTP que chamem os services.
 - Policies, autorização e escopo por usuário.
-- Form Requests e regras de validação alinhadas à migration.
-- Testes automatizados (Feature/Unit) sobre `store`/`update` e conflito de placa duplicada.
+- Factory para seeds/testes.
+- Relações no Model (hasMany/belongsTo).
 
 Ao alterar comportamento, **atualize este `specs.md`** para manter o contexto para a próxima sessão de desenvolvimento ou de IA.

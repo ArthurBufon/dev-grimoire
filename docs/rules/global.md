@@ -45,6 +45,10 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 
 | Criar no projeto | Molde de referência |
 |---|---|
+| `app/Http/Controllers/Web/.../{Entidade}Controller.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php` |
+| `app/Http/Requests/.../StoreRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/StoreRequest.php` |
+| `app/Http/Requests/.../UpdateRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
+| `app/Enums/{Nome}.php` | `{GRIMOIRE}/moldes/laravel/app/Enums/Marca.php` |
 | `app/Models/{Entidade}.php` | `{GRIMOIRE}/moldes/laravel/app/Models/Carro.php` |
 | `app/Queries/{Entidade}/Queries.php` | `{GRIMOIRE}/moldes/laravel/app/Queries/Carro/Queries.php` |
 | `app/Services/{Entidade}/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/Service.php` |
@@ -52,6 +56,7 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `app/Services/{Entidade}/View/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/View/Service.php` |
 | `database/migrations/*_create_{entidades}_table.php` | `{GRIMOIRE}/moldes/laravel/database/migrations/2026_05_08_000000_create_carros_table.php` |
 | `app/helpers.php` (funções globais) | `{GRIMOIRE}/moldes/laravel/app/helpers.php` |
+| `tests/Feature/{Entidade}Test.php` | `{GRIMOIRE}/moldes/laravel/tests/Feature/CarroTest.php` |
 | `docs/features/{entidade}/specs.md` | `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` |
 
 #### React (`{GRIMOIRE}/moldes/react/`)
@@ -61,6 +66,7 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `Pages/{Entidade}/Index.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Index.tsx` |
 | `Pages/{Entidade}/Create.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Create.tsx` |
 | `Pages/{Entidade}/Edit.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Edit.tsx` |
+| `Components/Forms/{Entidade}/Form.tsx` | `{GRIMOIRE}/moldes/react/Components/Forms/Carro/Form.tsx` |
 | `Queries/{Entidade}/Queries.tsx` | `{GRIMOIRE}/moldes/react/Queries/Queries.tsx` |
 | `Services/{Entidade}/Service.tsx` | `{GRIMOIRE}/moldes/react/Services/Service.tsx` |
 | `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |

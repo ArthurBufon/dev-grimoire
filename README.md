@@ -27,12 +27,12 @@ Prompts e skills para fluxos de trabalho com agentes de IA.
 | [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills globais (Cursor, Codex, Claude) com `agents/skills/` |
 
 ### 📁 `moldes/`
-Código de referência com SRP: modelo, queries, services (web, view e API), helpers, migration e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.
+Código de referência com SRP: controller, form requests, modelo, queries, services (web, view e API), helpers, migration, testes e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.
 
 ```
 moldes/
-├── laravel/   → Models, Queries, Services, migration, docs/features/
-└── react/     → Pages, Services, Queries, Components, Utils
+├── laravel/   → Controllers, Requests, Models, Queries, Services, migration, tests, docs/features/
+└── react/     → Pages, Forms, Services, Queries, Components, Utils
 ```
 
 ### 📁 `docs/rules/`

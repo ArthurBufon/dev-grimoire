@@ -32,11 +32,12 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 
 ## Estrutura
 *Módulos possíveis: Web ou Api
-- Controllers: `app/Http/Controllers/[Modulo]/[Entidade]/[Entidade]Controller.php`
+- Controllers: `app/Http/Controllers/[Modulo]/[Entidade]/[Entidade]Controller.php` (molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php`)
 - Queries: `app/Queries/[Entidade]/Queries.php`
 - Services: `app/Services/[Modulo]/[Entidade]/Service.php`
-- Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php
+- Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php (moldes: `moldes/laravel/app/Http/Requests/Web/Admin/Carro/`)
 - URLs: sempre rotas nomeadas com `route()`
+- Controllers chamam Services e View Services; validação HTTP fica nos Form Requests; resposta Inertia/redirect no Controller
 
 ## Queries (`app/Queries/`)
 
@@ -69,7 +70,8 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 - Chaves em todos os control structures
 - Constructor property promotion (PHP 8)
 - Return types e type hints explícitos em todos os métodos
-- Enum keys em TitleCase
+- Enum keys em TitleCase; values em `snake_case` / minúsculas (molde: `moldes/laravel/app/Enums/Marca.php`)
+- Cast no Model com a classe do enum; validação HTTP com `Rule::enum(...)`
 - PHPDoc com array shapes; comentários inline só em lógica complexa
 
 ## Sail / Artisan

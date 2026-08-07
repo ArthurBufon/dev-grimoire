@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+// ENUMS
+use App\Enums\Marca;
+// ELOQUENT
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +27,7 @@ class Carro extends Model
     ];
 
     protected $casts = [
+        'marca' => Marca::class,
         'ano'   => 'integer',
         'km'    => 'integer',
         'valor' => 'decimal:2',
