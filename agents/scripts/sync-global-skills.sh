@@ -26,18 +26,30 @@ declare -A TARGETS=(
 log() { printf '%s\n' "$*"; }
 skip() { log "skip: $*"; }
 
-realpath_safe() {
-  local path="$1"
-  if [[ -d "$path" ]]; then
-    realpath "$path"
+# Garante diretório real no destino (substitui symlink por dir próprio).
+ensure_real_dir() {
+  local dir="$1"
+  if [[ -L "$dir" ]]; then
+    rm -rf "$dir"
   fi
+  mkdir -p "$dir"
 }
 
-# Evita sync duplicado quando paths são o mesmo dir (ex.: ~/.agents/skills → ~/.cursor/skills)
-declare -A SEEN_REALPATHS=()
+# Copia arquivo forçando substituição mesmo se o destino for symlink.
+force_copy() {
+  local src="$1"
+  local dest="$2"
+  if [[ -L "$dest" ]]; then
+    rm -f "$dest"
+  fi
+  cp --remove-destination "$src" "$dest"
+}
 
 build_dev_grimoire_skill() {
   local out="$1"
+  if [[ -L "$out" ]]; then
+    rm -f "$out"
+  fi
   {
     cat <<'HEADER'
 ---
@@ -62,8 +74,8 @@ sync_repo_skill() {
   local label="$4"
 
   local dest_dir="${root}/${name}"
-  mkdir -p "$dest_dir"
-  cp "$src" "${dest_dir}/SKILL.md"
+  ensure_real_dir "$dest_dir"
+  force_copy "$src" "${dest_dir}/SKILL.md"
   log "synced: ${name} → ${label} (${dest_dir})"
 }
 
@@ -72,7 +84,7 @@ sync_dev_grimoire_skill() {
   local label="$2"
 
   local dest_dir="${root}/dev-grimoire"
-  mkdir -p "$dest_dir"
+  ensure_real_dir "$dest_dir"
   build_dev_grimoire_skill "${dest_dir}/SKILL.md"
   log "synced: dev-grimoire → ${label} (from docs/rules/global.md)"
 }
@@ -102,21 +114,17 @@ skipped_targets=0
 for label in cursor codex claude; do
   root="${TARGETS[$label]}"
 
-  if [[ ! -d "$root" ]]; then
+  # Aceita dir real ou symlink para dir; só pula se o path não existir.
+  if [[ ! -e "$root" ]]; then
     skip "${label}: directory does not exist (${root})"
     skipped_targets=$((skipped_targets + 1))
     continue
   fi
 
-  resolved="$(realpath_safe "$root")"
-  if [[ -n "$resolved" && -n "${SEEN_REALPATHS[$resolved]:-}" ]]; then
-    skip "${label}: same path as ${SEEN_REALPATHS[$resolved]} (${root})"
+  if [[ ! -d "$root" ]]; then
+    skip "${label}: path exists but is not a directory (${root})"
     skipped_targets=$((skipped_targets + 1))
     continue
-  fi
-
-  if [[ -n "$resolved" ]]; then
-    SEEN_REALPATHS[$resolved]="$label"
   fi
 
   log "target: ${label} (${root})"
