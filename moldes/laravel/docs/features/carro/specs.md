@@ -120,8 +120,9 @@ A formatação de entrada para banco replica a ideia do service web (chaves acei
 ## 6. Helpers
 
 - `formatarMensagemErro(Throwable $th)` em `app/helpers.php`: usado em queries e services para padronizar mensagens de falha (mensagem, arquivo e linha).
+- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens (`Paginacao::aplicarPaginacao`, `Paginacao::montarDadosPaginacao`).
 
-Garantir que `helpers.php` esteja carregado pelo autoload do Composer do aplicativo final.
+Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via autoload PSR-4 do aplicativo final.
 
 ---
 
@@ -156,6 +157,7 @@ Garantir que `helpers.php` esteja carregado pelo autoload do Composer do aplicat
 | `app/Services/Api/Carro/Service.php` |
 | `app/Services/Carro/View/Service.php` |
 | `app/helpers.php` |
+| `app/Helpers/Paginacao.php` |
 | `database/migrations/2026_05_08_000000_create_carros_table.php` |
 | `tests/Feature/CarroTest.php` |
 

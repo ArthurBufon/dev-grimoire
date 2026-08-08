@@ -6,8 +6,12 @@ namespace App\Queries\Carro;
 
 // MODELS
 use App\Models\Carro;
+
 // ELOQUENT
 use Illuminate\Database\Eloquent\Builder;
+
+// HELPERS
+use App\Helpers\Paginacao;
 
 class Queries
 {
@@ -21,7 +25,7 @@ class Queries
             $this->aplicarOrdenacao($query, $filtros);
             $this->carregarRelacionamentos($query, $filtros);
 
-            ['lista' => $lista, 'paginacao' => $paginacao] = $this->aplicarPaginacao($query, $filtros);
+            ['lista' => $lista, 'paginacao' => $paginacao] = Paginacao::aplicarPaginacao($query, $filtros);
 
             return [
                 'sucesso' => true,
@@ -142,54 +146,6 @@ class Queries
         if (empty($carregarRelacionamentos)) return;
 
         $query->with($carregarRelacionamentos);
-    }
-
-    private function aplicarPaginacao(Builder $query, array $filtros): array
-    {
-        $aplicarPaginacao = $filtros['aplicar_paginacao'] ?? true;
-
-        if (!$aplicarPaginacao) {
-
-            $lista = $query->get();
-
-            return [
-                'lista'     => $lista,
-                'paginacao' => montarDadosPaginacao($lista->count(), $lista->count()),
-            ];
-        }
-
-        $porPagina     = 10;
-        $maximoPaginas = 10;
-
-        // total de registros e páginas disponíveis, já limitado por $maximoPaginas
-        $totalRegistrosFiltrados = (clone $query)->count();
-        $totalPaginas            = min(
-            (int) ceil($totalRegistrosFiltrados / $porPagina),
-            $maximoPaginas
-        );
-
-        // página pedida, corrigida para ficar dentro do intervalo válido
-        $paginaSolicitada = max(1, (int) ($filtros['pagina'] ?? 1));
-        $pagina           = min($paginaSolicitada, max(1, $totalPaginas));
-
-        // aplica o recorte na query e executa
-        $offset = ($pagina - 1) * $porPagina;
-        $query->offset($offset)->limit($porPagina);
-        $lista = $query->get();
-
-        // monta os metadados de paginação (total_paginas já calculado acima, já limitado por $maximoPaginas)
-        $paginacao = montarDadosPaginacao(
-            $totalRegistrosFiltrados,
-            $lista->count(),
-            $pagina,
-            $porPagina,
-            $totalPaginas
-        );
-
-        return [
-            'lista'     => $lista,
-            'paginacao' => $paginacao,
-        ];
     }
 
     public function store(array $dados): array

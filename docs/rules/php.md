@@ -65,6 +65,16 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 
 - Sem lógica de negócio — apenas SQL/Eloquent
 - Services chamam Queries; Controllers chamam Services
+- Listagens paginadas: `Paginacao::aplicarPaginacao($query, $filtros)` (molde: `moldes/laravel/app/Helpers/Paginacao.php`); **não** duplicar paginação na Query nem usar função global
+
+## Paginação (`App\Helpers\Paginacao`)
+
+Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/app/Helpers/Paginacao.php`.
+
+- `Paginacao::aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10): array` — retorna `['lista' => ..., 'paginacao' => ...]`
+- `Paginacao::montarDadosPaginacao(...)` — metadados (`total`, `total_retornado`, `pagina`, `limite`, `total_paginas`)
+- Filtros suportados: `pagina`, `quantidade` (teto 100), `aplicar_paginacao` (false = retorna lista inteira)
+- Queries com `index` paginado delegam à helper; fallback de erro com estrutura completa de `paginacao` (ver molde Carro)
 
 ## PHP (estilo)
 - Chaves em todos os control structures

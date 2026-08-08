@@ -162,26 +162,3 @@ if (!function_exists('validarDocumento')) {
         return false;
     }
 }
-
-if (! function_exists('montarDadosPaginacao')) {
-    function montarDadosPaginacao(
-        int $totalFiltrados,
-        int $totalRetornado,
-        ?int $pagina = null,
-        ?int $limite = null,
-        ?int $totalPaginas = null
-    ): array {
-        $dados = [
-            'total' => $totalFiltrados,
-            'total_retornado' => $totalRetornado,
-        ];
-
-        if ($pagina !== null && $limite !== null && $totalPaginas !== null) {
-            $dados['pagina'] = $pagina;
-            $dados['limite'] = $limite;
-            $dados['total_paginas'] = $totalPaginas;
-        }
-
-        return $dados;
-    }
-}
