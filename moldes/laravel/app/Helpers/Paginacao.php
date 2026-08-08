@@ -33,9 +33,7 @@ class Paginacao
 
     public static function aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10): array
     {
-        $aplicarPaginacao = $filtros['aplicar_paginacao'] ?? true;
-
-        if (! $aplicarPaginacao) {
+        if (! self::deveAplicarPaginacao($filtros)) {
 
             $lista = $query->get();
 
@@ -87,5 +85,14 @@ class Paginacao
         }
 
         return min($quantidade, 100);
+    }
+
+    private static function deveAplicarPaginacao(array $filtros): bool
+    {
+        if (! array_key_exists('aplicar_paginacao', $filtros)) {
+            return true;
+        }
+
+        return filter_var($filtros['aplicar_paginacao'], FILTER_VALIDATE_BOOLEAN);
     }
 }

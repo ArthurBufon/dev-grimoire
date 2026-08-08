@@ -120,7 +120,7 @@ A formatação de entrada para banco replica a ideia do service web (chaves acei
 ## 6. Helpers
 
 - `formatarMensagemErro(Throwable $th)` em `app/helpers.php`: usado em queries e services para padronizar mensagens de falha (mensagem, arquivo e linha).
-- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens (`Paginacao::aplicarPaginacao`, `Paginacao::montarDadosPaginacao`).
+- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens. `aplicar_paginacao: false` retorna a lista inteira; omitido/`true` pagina via `pagina` e `quantidade` (teto 100).
 
 Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via autoload PSR-4 do aplicativo final.
 
@@ -133,7 +133,7 @@ Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via 
 - Injeta `App\Services\Carro\Service` e `App\Services\Carro\View\Service`.
 - **index / create / edit**: monta props via View Service e renderiza Inertia (`Carro/Index`, `Carro/Create`, `Carro/Edit`).
 - **store / update / destroy**: chama o Service; em falha `back()->withErrors(['geral' => ...])`; em sucesso toast Inertia + `redirect()->route('admin.carros.index')`.
-- Filtros da listagem vêm do `Request` (`busca_geral`, `quantidade`, `pagina`).
+- Filtros da listagem vêm do `Request` (`busca_geral`, `quantidade`, `pagina`, `aplicar_paginacao`). Services/View Services repassam sem forçar default de `quantidade`.
 
 ### 7.2 Form Requests
 
