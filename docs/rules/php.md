@@ -74,9 +74,9 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
 - `Paginacao::aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10): array` — retorna `['lista' => ..., 'paginacao' => ...]`
 - `Paginacao::montarDadosPaginacao(...)` — metadados (`total`, `total_retornado`, `pagina`, `limite`, `total_paginas`)
 - Filtros suportados:
-  - `aplicar_paginacao` — omitido ou `true`: pagina; `false` (incl. `"false"`, `0`): `$query->get()` sem limit/offset, retorna a lista inteira
+  - `aplicar_paginacao` — omitido ou `true`: pagina; `false` (incl. `"false"`, `0`): sem paginação (sem offset nem metadados de página). Se `quantidade` estiver presente e > 0, aplica só `$query->limit(min(quantidade, 100))`; se ausente ou inválida, retorna a lista inteira
   - `pagina` — página atual (default `1`; teto = `total_paginas`)
-  - `quantidade` — itens por página (teto 100; se ausente ou inválida, usa `$porPagina` do método)
+  - `quantidade` — com `aplicar_paginacao` omitido/`true`: itens por página (teto 100; se ausente ou inválida, usa `$porPagina` do método). Com `aplicar_paginacao: false`: limita o retorno sem paginar
 - **Não** forçar default de `quantidade` em Service ou View Service; repassar os filtros do request/controller e deixar a helper decidir
 - Chaves de paginação (`pagina`, `quantidade`, `aplicar_paginacao`, `ordenacao`) **não** entram em `aplicarFiltros` da Query — são consumidas só pela helper
 - Queries com `index` paginado delegam à helper; fallback de erro com estrutura completa de `paginacao` (ver molde Carro)

@@ -35,6 +35,12 @@ class Paginacao
     {
         if (! self::deveAplicarPaginacao($filtros)) {
 
+            $quantidade = self::resolverQuantidadeOpcional($filtros);
+
+            if ($quantidade !== null) {
+                $query->limit($quantidade);
+            }
+
             $lista = $query->get();
 
             return [
@@ -72,19 +78,24 @@ class Paginacao
         ];
     }
 
-    private static function resolverPorPagina(array $filtros, int $padrao): int
+    private static function resolverQuantidadeOpcional(array $filtros): ?int
     {
         if (! array_key_exists('quantidade', $filtros)) {
-            return $padrao;
+            return null;
         }
 
         $quantidade = (int) $filtros['quantidade'];
 
         if ($quantidade <= 0) {
-            return $padrao;
+            return null;
         }
 
         return min($quantidade, 100);
+    }
+
+    private static function resolverPorPagina(array $filtros, int $padrao): int
+    {
+        return self::resolverQuantidadeOpcional($filtros) ?? $padrao;
     }
 
     private static function deveAplicarPaginacao(array $filtros): bool
