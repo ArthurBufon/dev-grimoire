@@ -120,7 +120,7 @@ A formatação de entrada para banco replica a ideia do service web (chaves acei
 ## 6. Helpers
 
 - `formatarMensagemErro(Throwable $th)` em `app/helpers.php`: usado em queries e services para padronizar mensagens de falha (mensagem, arquivo e linha).
-- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens. `aplicar_paginacao: false` retorna a lista inteira; omitido/`true` pagina via `pagina` e `quantidade` (teto 100).
+- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens. `aplicar_paginacao: false` retorna sem paginar; com `quantidade`, limita o retorno (teto 100) sem metadados de página. Omitido/`true` pagina via `pagina` e `quantidade`.
 
 Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via autoload PSR-4 do aplicativo final.
 

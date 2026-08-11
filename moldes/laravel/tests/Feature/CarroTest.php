@@ -67,6 +67,24 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_sem_paginacao_respeita_quantidade(): void
+    {
+        Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
+        Carro::create($this->dadosCarro(['placa' => 'BBB2B22', 'marca' => Marca::Honda->value]));
+        Carro::create($this->dadosCarro(['placa' => 'CCC3C33', 'marca' => Marca::Ford->value]));
+
+        $retorno = $this->service->index([
+            'aplicar_paginacao' => false,
+            'quantidade'        => 2,
+        ]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertCount(2, $retorno['dados']['lista']);
+        $this->assertSame(2, $retorno['dados']['paginacao']['total_retornado']);
+        $this->assertArrayNotHasKey('pagina', $retorno['dados']['paginacao']);
+        $this->assertEmpty($retorno['erros']);
+    }
+
     // STORE
 
     public function test_store_cria_carro_com_sucesso(): void
