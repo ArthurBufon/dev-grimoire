@@ -89,6 +89,9 @@ set -e
 SCRIPT_PATH="$(realpath "$0")"
 trap 'chmod +x "$SCRIPT_PATH"' EXIT
 
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+cd "$REPO_ROOT"
+
 echo "🚀 Deploy iniciado..."
 
 BRANCH_ATUAL=$(git rev-parse --abbrev-ref HEAD)

@@ -26,6 +26,9 @@ set -e
 SCRIPT_PATH="$(realpath "$0")"
 trap 'chmod +x "$SCRIPT_PATH"' EXIT
 
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+cd "$REPO_ROOT"
+
 echo "🚀 Deploy iniciado..."
 
 BRANCH_ATUAL=$(git rev-parse --abbrev-ref HEAD)
@@ -146,7 +149,9 @@ O script sincroniza com a **branch atual** do repositório no servidor:
 [projeto]-deploy
 ```
 
-Antes de rodar, confirme a branch com `git branch --show-current`.
+O script entra automaticamente na raiz do repositório (`scripts/..`), então o alias pode ser executado de qualquer diretório no SSH.
+
+Antes de rodar, confirme a branch com `git branch --show-current` (dentro do repo) ou `git -C /var/www/html/[projeto] branch --show-current`.
 
 ---
 
@@ -219,7 +224,7 @@ Exemplo:
 ```bash
 ssh usuario@servidor
 
-cd /var/www/html/[projeto]
-
 [projeto]-deploy
 ```
+
+Não é necessário `cd` no repositório antes do alias — o script resolve o diretório a partir do próprio caminho em `scripts/deploy.sh`.

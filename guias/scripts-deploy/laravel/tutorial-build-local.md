@@ -36,6 +36,9 @@ set -e
 SCRIPT_PATH="$(realpath "$0")"
 trap 'chmod +x "$SCRIPT_PATH"' EXIT
 
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+cd "$REPO_ROOT"
+
 echo "🚀 Build local de assets iniciado..."
 
 BRANCH_ATUAL=$(git rev-parse --abbrev-ref HEAD)
@@ -94,6 +97,9 @@ set -e
 
 SCRIPT_PATH="$(realpath "$0")"
 trap 'chmod +x "$SCRIPT_PATH"' EXIT
+
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
+cd "$REPO_ROOT"
 
 echo "🚀 Deploy iniciado..."
 
@@ -189,11 +195,10 @@ git checkout main   # ou dev
 ```bash
 ssh usuario@servidor
 
-cd /var/www/html/[projeto]
-git checkout main   # ou dev
-
 [projeto]-deploy
 ```
+
+O alias pode ser executado de qualquer diretório; o script entra na raiz do repo automaticamente.
 
 O script local sempre commita com a mensagem fixa:
 
