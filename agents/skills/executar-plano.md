@@ -10,6 +10,11 @@ description: Use quando existir um plano de implementação pronto para ser exec
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Regras obrigatórias
+
+1. **Evitar overengineering:** não adicionar abstrações, camadas, arquivos, refatorações ou verificações além do que a tarefa/plano exige. Implementar o mínimo correto — qualidade alta no código entregue, não em trabalho extra não solicitado.
+2. **Iterações rápidas com qualidade:** priorizar loops curtos por tarefa (contexto só do necessário, testes só dos cenários relevantes, sem exploração ou auditoria não pedida). Não compensar velocidade com atalhos que degradem o código dentro do escopo.
+
 ## Objetivo
 
 Executar um plano de implementação tarefa por tarefa, delegando o trabalho para subagents e validando cada entrega antes de continuar.
@@ -37,6 +42,8 @@ Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de mo
 
 ## Regras essenciais
 
+* **Sem overengineering:** escopo mínimo da tarefa; sem abstrações, arquivos ou verificações extras.
+* **Iteração rápida:** contexto, implementação e validação só do necessário — sem exploração ou auditoria não solicitada.
 * Leia o plano completo antes de começar.
 * Respeite as decisões e restrições definidas no plano.
 * Execute uma tarefa de implementação por vez.
@@ -66,7 +73,7 @@ Caso o plano contradiga o código ou tenha uma decisão impossível de inferir, 
 
 Para cada tarefa:
 
-1. Reúna somente o contexto necessário.
+1. Reúna **somente** o contexto necessário — não explore o codebase além do que a tarefa exige.
 2. Envie a tarefa para um subagent implementador.
 3. Analise o resultado e os testes executados.
 4. Envie as alterações para um subagent revisor.
@@ -123,7 +130,8 @@ Contexto relevante:
 [arquivos, interfaces e decisões anteriores]
 
 Regras:
-- mantenha o escopo restrito à tarefa;
+- mantenha o escopo restrito à tarefa — sem overengineering;
+- iteração rápida: implemente e valide só o pedido; sem exploração, auditoria ou verificações extras;
 - convenções: {GRIMOIRE}/docs/rules/global.md (ler rules e molde antes de codar);
 - siga os padrões existentes do projeto;
 - NÃO use ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, eslint --fix para estilo, format-on-save); preserve o estilo do arquivo — diff mínimo;
@@ -185,8 +193,10 @@ Verifique:
 - ausência de reformatação desnecessária (sem Pint, Prettier, CS Fixer, eslint --fix de estilo);
 - bugs ou regressões;
 - integração com o restante do projeto;
-- complexidade desnecessária;
+- complexidade desnecessária ou overengineering;
 - testes insuficientes ou frágeis.
+
+Não exija melhorias, refatorações ou verificações fora do escopo da tarefa.
 
 Classifique os problemas como:
 - crítico;

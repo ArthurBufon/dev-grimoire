@@ -13,6 +13,11 @@ description: >-
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Regras obrigatórias
+
+1. **Evitar overengineering:** não planejar abstrações, camadas, arquivos, refatorações ou verificações além do que a tarefa exige. A solução mais simples que atende o pedido é a correta.
+2. **Iterações rápidas com qualidade:** priorizar loops curtos (poucos passos, validação só do essencial, sem exploração ou auditoria não solicitada). Manter a melhor qualidade de código possível **dentro do escopo** — não compensar com trabalho extra fora dele.
+
 Anunciar no início:
 
 ```text
@@ -48,7 +53,7 @@ grill-me → decisões fechadas → definir-plano-simples
 
 ## Hard gate
 
-Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes.
+Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes. Não incluir passos de exploração, auditoria ou verificação que o pedido não exija.
 
 ## Contexto obrigatório
 
@@ -110,6 +115,8 @@ O que não será feito agora.
 
 - Convenções: `{GRIMOIRE}/docs/rules/global.md` (ler rules e moldes via Read/Grep).
 - **Formatação:** proibido usar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save). Seguir estilo existente no arquivo/módulo; diff mínimo.
+- **Sem overengineering:** solução mínima; sem abstrações, camadas ou arquivos extras sem necessidade concreta.
+- **Iteração rápida:** poucos passos diretos; validação só do que protege o comportamento pedido — sem verificações ou explorações extras.
 
 ## Política Git para execução
 
@@ -183,7 +190,7 @@ Regra prática: se a seção de testes/validação listar mais itens do que pass
 
 ## Regras de escrita e autorrevisão
 
-Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas ou refatorações fora do escopo. Na seção de testes: mínimo essencial — sem overkill.
+Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas, refatorações fora do escopo, passos de auditoria/exploração não solicitados ou complexidade acima do pedido. Na seção de testes: mínimo essencial — sem overkill.
 
 Antes de concluir: cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas; testes planejados são só os casos mais importantes.
 
