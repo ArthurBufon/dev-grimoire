@@ -1,6 +1,8 @@
 # Deploy Script - [projeto]
 
-Este documento explica como configurar e utilizar o script de deploy do projeto Laravel.
+Este documento explica como configurar e utilizar o script de deploy do projeto Laravel (servidor **com Node.js**).
+
+**Hospedagem compartilhada sem Node?** Use a variante [build local](./tutorial-build-local.md): assets compilados na máquina do dev e enviados via Git.
 
 ---
 
@@ -46,12 +48,14 @@ php artisan optimize:clear
 echo "📦 Instalando dependências PHP..."
 composer install --optimize-autoloader --no-interaction --ignore-platform-reqs
 
+# --- INÍCIO: remover se o servidor não tiver Node (ver tutorial-build-local.md) ---
 echo "📦 Instalando dependências Node..."
 npm ci
 
 echo "⚙️ Gerando assets..."
 rm -f public/hot
 npm run build
+# --- FIM: remover se o servidor não tiver Node ---
 
 echo "🗃️ Executando migrations..."
 echo "$MIGRATION_PWD" | php artisan migrate --force
@@ -61,6 +65,12 @@ php artisan optimize
 
 echo "✅ Deploy finalizado!"
 ```
+
+## Servidor sem Node.js
+
+Se o servidor **não permite Node** (hospedagem compartilhada, por exemplo), **remova** do `deploy.sh` o bloco entre os comentários `INÍCIO` e `FIM` (dependências Node + build).
+
+Nesse caso, os assets precisam estar em `public/build` no Git — buildados localmente antes do deploy. Fluxo completo: [build local](./tutorial-build-local.md).
 
 ---
 
@@ -148,8 +158,7 @@ O script executa automaticamente:
 - Limpeza de arquivos temporários
 - Limpeza de cache Laravel
 - Instalação de dependências Composer
-- Instalação de dependências NPM
-- Build dos assets
+- Instalação de dependências NPM e build dos assets *(somente se o servidor tiver Node; caso contrário, ver [build local](./tutorial-build-local.md))*
 - Execução das migrations
 - Rebuild dos caches de produção
 
@@ -174,6 +183,12 @@ git clean -fd
 ```
 
 Isso remove arquivos não rastreados pelo Git.
+
+---
+
+## Servidor sem Node.js
+
+Não inclua o bloco entre `# --- INÍCIO` e `# --- FIM` (`npm ci` + `npm run build`) se o ambiente não tiver Node instalado. O script do servidor fica só com Git + Composer + migrations + `php artisan optimize`. Os assets compilados (`public/build`) devem chegar via commit feito pelo [script de build local](./tutorial-build-local.md).
 
 ---
 
