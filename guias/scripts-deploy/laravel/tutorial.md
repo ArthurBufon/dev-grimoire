@@ -24,6 +24,9 @@ trap 'chmod +x "$SCRIPT_PATH"' EXIT
 
 echo "🚀 Deploy iniciado..."
 
+BRANCH_ATUAL=$(git rev-parse --abbrev-ref HEAD)
+echo "🌿 Branch atual: $BRANCH_ATUAL"
+
 read -s -p "🔒 Senha para migrations: " MIGRATION_PWD
 echo ""
 
@@ -31,10 +34,10 @@ echo ""
 COMMIT_ANTERIOR=$(git rev-parse HEAD)
 
 echo "📥 Atualizando código..."
-git fetch origin master
+git fetch origin "$BRANCH_ATUAL"
 
 echo "🧹 Limpando repositório (reset + clean)..."
-git reset --hard origin/master
+git reset --hard "origin/$BRANCH_ATUAL"
 git clean -fd
 
 echo "🧹 Limpando caches..."
@@ -122,17 +125,16 @@ source ~/.bashrc
 
 # 5. Como executar deploy
 
-Deploy produção:
+O script sincroniza com a **branch atual** do repositório no servidor:
+
+- Na `main` → `git fetch` + `reset --hard origin/main`
+- Na `dev` → `git fetch` + `reset --hard origin/dev`
 
 ```bash
 [projeto]-deploy
 ```
 
-Deploy ambiente de teste/dev:
-
-```bash
-[projeto]-deploy-dev
-```
+Antes de rodar, confirme a branch com `git branch --show-current`.
 
 ---
 
@@ -140,7 +142,8 @@ Deploy ambiente de teste/dev:
 
 O script executa automaticamente:
 
-- Atualização do código via Git
+- Detecção da branch atual (`git rev-parse --abbrev-ref HEAD`)
+- Atualização do código via Git (`origin/<branch-atual>`)
 - Reset completo do repositório
 - Limpeza de arquivos temporários
 - Limpeza de cache Laravel
@@ -157,10 +160,10 @@ O script executa automaticamente:
 ## O script executa:
 
 ```bash
-git reset --hard origin/master
+git reset --hard origin/<branch-atual>
 ```
 
-Isso remove alterações locais não commitadas.
+Isso remove alterações locais não commitadas e alinha o servidor com a branch em que você está (ex.: `main` ou `dev`).
 
 ---
 
