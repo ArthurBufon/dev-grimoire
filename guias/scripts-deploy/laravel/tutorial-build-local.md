@@ -6,6 +6,8 @@ O build dos assets roda na máquina do desenvolvedor; o servidor só sincroniza 
 
 Para servidores com Node disponível, use o [tutorial padrão](./tutorial.md).
 
+**HostGator shared com alias de `php`/`composer` quebrado?** No script do servidor, use caminhos absolutos conforme o [tutorial HostGator](./tutorial-hostgator.md).
+
 ---
 
 # 1. Pré-requisitos
@@ -115,6 +117,8 @@ php artisan optimize:clear
 
 echo "📦 Instalando dependências PHP..."
 composer install --optimize-autoloader --no-interaction --ignore-platform-reqs
+
+# HostGator shared: substitua php/composer por caminhos absolutos — ver tutorial-hostgator.md
 
 # Sem Node no servidor — assets em public/build vêm via Git (deploy-build-local.sh)
 

@@ -4,6 +4,8 @@ Este documento explica como configurar e utilizar o script de deploy do projeto 
 
 **Hospedagem compartilhada sem Node?** Use a variante [build local](./tutorial-build-local.md): assets compilados na máquina do dev e enviados via Git.
 
+**HostGator shared com `php`/`composer` quebrados no SSH?** Use a variante [HostGator](./tutorial-hostgator.md): caminhos absolutos para o PHP do EasyApache e o Composer em `~/bin`.
+
 ---
 
 # 1. Adicionar o script de deploy (dentro do proprio app)
