@@ -1,152 +1,51 @@
 ---
 name: quick-fix
 description: >-
-  Executa ajustes rápidos solicitados diretamente no chat, sem criar plano,
-  sem subagents e sem expandir escopo. Use quando o usuário pedir um fix simples,
-  alteração pontual, correção pequena ou ajuste direto no código.
-  disable-model-invocation: false
+  Use when the user asks for a small, local code change in chat:
+  typo, copy, one validation, one button, swap X for Y, “arrume isso”,
+  /quick-fix, “sem plano”, “faz direto”. Not for new architecture,
+  multi-feature work, or an explicit plan/subagents request.
+disable-model-invocation: false
 ---
 
 # Quick Fix
 
-Executa ajustes rápidos e pontuais solicitados pelo dev diretamente no chat.
+Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
-Esta skill **não cria plano**, **não usa subagents**, **não reestrutura código** e **não altera arquivos fora do escopo**. O objetivo é aplicar exatamente o ajuste pedido, com o menor impacto possível.
+**Fora:** arquitetura nova, várias features, refatoração ampla, plano ou subagents pedidos → sugerir `definir-plano`.
 
-## Quando usar
+## Contrato
 
-Use esta skill quando o usuário pedir algo como:
+1. Pedido do chat > padrão do módulo alterado > Dev Grimoire (`../dev-grimoire/docs/rules/`) > AGENTS.md / User Rules.
+2. Ler só o necessário: `geral.md` + rule da stack; spec em `docs/features/<feature>/specs.md` se existir; molde se **criar** arquivo.
+3. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
+4. Dúvida que muda comportamento → perguntar. Estilo → copiar o arquivo vizinho.
 
-* “corrija isso”
-* “ajuste esse comportamento”
-* “mude esse texto”
-* “adicione essa validação simples”
-* “arrume esse bug rápido”
-* “faça esse quick fix”
-* “altere somente esse ponto”
-* “troque X por Y”
-* “remova esse campo”
-* “adicione esse botão”
-* “corrija esse erro simples”
+## Fluxo
 
-## Quando não usar
+1. Arquivos mínimos do pedido.
+2. Patch no padrão existente.
+3. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada).
+4. Checar que o diff não saiu do escopo.
 
-Não usar esta skill quando:
+## Red flags — parar
 
-* O ajuste exige arquitetura nova
-* O pedido envolve múltiplas features
-* O escopo está ambíguo demais
-* A alteração exige planejamento
-* A alteração exige refatoração ampla
-* O usuário pediu explicitamente um plano
-* O usuário pediu execução com subagents
-* O impacto provável passa de um ajuste pontual
+- “já que estou aqui…”
+- helper/abstração genérica
+- plano ou subagent
+- mais de um módulo sem o dev ter pedido
 
-Nesses casos, sugerir `plan-write` ou outra skill apropriada.
-
-## Regras obrigatórias
-
-* Fazer exatamente o que foi pedido
-* Não gerar plano
-* Não chamar subagents
-* Não expandir o escopo
-* Não refatorar fora do necessário
-* Não alterar arquivos não relacionados ao ajuste
-* Não mudar arquitetura
-* Não criar abstrações sem necessidade real
-* Não adicionar dependências sem autorização explícita
-* Não alterar comportamento não solicitado
-* Não “melhorar” partes do código que não fazem parte do pedido
-* Preferir a menor alteração segura possível
-* Manter o padrão existente do projeto
-* Seguir User Rules da IDE quando disponíveis
-* Seguir `AGENTS.md`, `.cursor/rules/`, `CLAUDE.md` ou equivalente quando disponível
-* Sempre que disponível, carregar e seguir as regras em `/docs/regras`
-
-## Precedência de regras
-
-Quando houver conflito, seguir esta ordem:
-
-1. Instrução explícita do dev no chat
-2. Regras em `/docs/regras`
-3. User Rules da IDE
-4. `AGENTS.md`, `.cursor/rules/`, `CLAUDE.md` ou equivalente
-5. Padrões existentes no código
-6. Defaults desta skill
-
-## Fluxo de execução
-
-1. Entender o ajuste solicitado no chat
-2. Identificar os arquivos mínimos necessários
-3. Ler as regras aplicáveis:
-
-   * `/docs/regras`, se existir
-   * User Rules da IDE, se disponíveis
-   * `AGENTS.md`, `.cursor/rules/`, `CLAUDE.md` ou equivalente, se existir
-4. Implementar somente o ajuste solicitado
-5. Rodar verificações relevantes e proporcionais ao ajuste
-6. Revisar se a alteração ficou restrita ao escopo
-7. Informar o que foi alterado e quais verificações foram feitas
-
-## Verificações
-
-Executar somente verificações proporcionais ao ajuste.
-
-Exemplos:
-
-* Teste específico relacionado ao bug
-* Lint do arquivo alterado
-* Typecheck, se for rápido e padrão no projeto
-* Teste manual simples, quando aplicável
-
-Não rodar suítes pesadas sem necessidade, a menos que o projeto ou o dev exija.
-
-## Dúvidas
-
-Se houver dúvida não bloqueante, escolher a opção mais simples e aderente ao padrão existente.
-
-Se houver dúvida bloqueante que possa causar alteração errada ou fora do escopo, parar e perguntar ao dev.
-
-## Resumo final obrigatório
-
-Ao finalizar, responder de forma curta:
+## Resposta
 
 ```markdown
 ## Quick fix concluído
 
 ### Alterações
-- [arquivo/módulo]&#58; [descrição objetiva do ajuste]
+- arquivo: o que mudou
 
 ### Verificações
-- [comando/verificação executada]
-- [resultado]
+- comando: resultado
 
 ### Observações
-- [se houver; senão: "Nenhuma"]
+- Nenhuma | risco/limitação em uma linha
 ```
-
-## Anti-patterns
-
-* Criar plano para ajuste simples
-* Usar subagents
-* Refatorar código não relacionado
-* Alterar arquivos fora do escopo
-* Melhorar código “aproveitando”
-* Criar helpers genéricos
-* Adicionar dependências sem autorização
-* Mudar arquitetura
-* Fazer alterações grandes para resolver problema pequeno
-* Ignorar `/docs/regras` quando disponível
-
-## Trigger phrases
-
-* `/quick-fix`
-* `quick fix`
-* `ajuste rápido`
-* `corrige isso`
-* `arruma isso`
-* `faz só esse ajuste`
-* `altera somente isso`
-* `sem plano`
-* `não precisa planejar`
-* `faz direto`
