@@ -71,13 +71,15 @@ Caso alguma query muito específica seja necessária, o `Service` deve lidar com
 
 Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/app/Helpers/Paginacao.php`.
 
-- `Paginacao::aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10): array` — retorna `['lista' => ..., 'paginacao' => ...]`
+- `Paginacao::aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10, int $tetoQuantidade = 100): array` — retorna `['lista' => ..., 'paginacao' => ...]`
 - `Paginacao::montarDadosPaginacao(...)` — metadados (`total`, `total_retornado`, `pagina`, `limite`, `total_paginas`)
 - Filtros suportados:
-  - `aplicar_paginacao` — omitido ou `true`: pagina; `false` (incl. `"false"`, `0`): sem paginação (sem offset nem metadados de página). Se `quantidade` estiver presente e > 0, aplica só `$query->limit(min(quantidade, 100))`; se ausente ou inválida, retorna a lista inteira
+  - `aplicar_paginacao` — omitido ou `true`: pagina; `false` (incl. `"false"`, `0`): sem paginação (sem offset nem metadados de página). Se `quantidade` estiver presente e > 0, aplica só `$query->limit(min(quantidade, $tetoQuantidade))`; se ausente ou inválida, retorna a lista inteira
   - `pagina` — página atual (default `1`; teto = `total_paginas`)
-  - `quantidade` — com `aplicar_paginacao` omitido/`true`: itens por página (teto 100; se ausente ou inválida, usa `$porPagina` do método). Com `aplicar_paginacao: false`: limita o retorno sem paginar
-- **Não** forçar default de `quantidade` em Service ou View Service; repassar os filtros do request/controller e deixar a helper decidir
+  - `quantidade` — com `aplicar_paginacao` omitido/`true`: itens por página (teto default 100 via `$tetoQuantidade`; quem chama pode elevar o teto, ex.: listagens sem paginação que precisam de mais itens). Se ausente ou inválida, usa `$porPagina` do método. Com `aplicar_paginacao: false`: limita o retorno sem paginar
+  - `sem_limite_paginas` — omitido ou `false`: teto de páginas = `$maximoPaginas`; `true`: sem esse teto
+- `paginacao.total` **sempre** reflete o total real de registros filtrados, independente do corte de `quantidade` — inclusive no modo sem paginação (`aplicar_paginacao: false`)
+- Recomendação padrão: repassar os filtros do request/controller e deixar a helper decidir — **não** forçar default de `quantidade` em Service ou View Service. Exceção aceitável: listagens desenhadas para **sempre** operar sem paginação com limite alto e sensato (não o comportamento default de 10/página) podem fixar `aplicar_paginacao` e um default de `quantidade` na View Service, elevando o teto via `$tetoQuantidade` — documentar no código/specs da feature (referência: listagem de Título)
 - Chaves de paginação (`pagina`, `quantidade`, `aplicar_paginacao`, `ordenacao`) **não** entram em `aplicarFiltros` da Query — são consumidas só pela helper
 - Queries com `index` paginado delegam à helper; fallback de erro com estrutura completa de `paginacao` (ver molde Carro)
 

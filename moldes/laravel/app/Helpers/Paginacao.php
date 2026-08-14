@@ -31,11 +31,12 @@ class Paginacao
         return $dados;
     }
 
-    public static function aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10): array
+    public static function aplicarPaginacao(Builder $query, array $filtros, int $porPagina = 10, int $maximoPaginas = 10, int $tetoQuantidade = 100): array
     {
         if (! self::deveAplicarPaginacao($filtros)) {
 
-            $quantidade = self::resolverQuantidadeOpcional($filtros);
+            $totalFiltrado = (clone $query)->count();
+            $quantidade    = self::resolverQuantidadeOpcional($filtros, $tetoQuantidade);
 
             if ($quantidade !== null) {
                 $query->limit($quantidade);
@@ -45,17 +46,18 @@ class Paginacao
 
             return [
                 'lista'     => $lista,
-                'paginacao' => self::montarDadosPaginacao($lista->count(), $lista->count()),
+                'paginacao' => self::montarDadosPaginacao($totalFiltrado, $lista->count()),
             ];
         }
 
-        $porPagina = self::resolverPorPagina($filtros, $porPagina);
+        $porPagina = self::resolverPorPagina($filtros, $porPagina, $tetoQuantidade);
 
         $totalRegistrosFiltrados = (clone $query)->count();
-        $totalPaginas            = min(
-            (int) ceil($totalRegistrosFiltrados / $porPagina),
-            $maximoPaginas
-        );
+        $totalPaginas            = (int) ceil($totalRegistrosFiltrados / $porPagina);
+
+        if (! filter_var($filtros['sem_limite_paginas'] ?? false, FILTER_VALIDATE_BOOLEAN)) {
+            $totalPaginas = min($totalPaginas, $maximoPaginas);
+        }
 
         $paginaSolicitada = max(1, (int) ($filtros['pagina'] ?? 1));
         $pagina           = min($paginaSolicitada, max(1, $totalPaginas));
@@ -78,7 +80,7 @@ class Paginacao
         ];
     }
 
-    private static function resolverQuantidadeOpcional(array $filtros): ?int
+    private static function resolverQuantidadeOpcional(array $filtros, int $tetoQuantidade = 100): ?int
     {
         if (! array_key_exists('quantidade', $filtros)) {
             return null;
@@ -90,12 +92,12 @@ class Paginacao
             return null;
         }
 
-        return min($quantidade, 100);
+        return min($quantidade, $tetoQuantidade);
     }
 
-    private static function resolverPorPagina(array $filtros, int $padrao): int
+    private static function resolverPorPagina(array $filtros, int $padrao, int $tetoQuantidade = 100): int
     {
-        return self::resolverQuantidadeOpcional($filtros) ?? $padrao;
+        return self::resolverQuantidadeOpcional($filtros, $tetoQuantidade) ?? $padrao;
     }
 
     private static function deveAplicarPaginacao(array $filtros): bool
