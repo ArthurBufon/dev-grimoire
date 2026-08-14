@@ -59,6 +59,7 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `app/Helpers/Paginacao.php` | `{GRIMOIRE}/moldes/laravel/app/Helpers/Paginacao.php` |
 | `tests/Feature/{Entidade}Test.php` | `{GRIMOIRE}/moldes/laravel/tests/Feature/CarroTest.php` |
 | `docs/features/{entidade}/specs.md` | `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` |
+| `scripts/deploy.sh` (VPS com Node; build no servidor) | `{GRIMOIRE}/moldes/laravel/scripts/deploy.sh` |
 
 #### React (`{GRIMOIRE}/moldes/react/`)
 
