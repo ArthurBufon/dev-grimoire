@@ -1,4 +1,12 @@
-# explicar-plano
+---
+name: revisar-plano
+description: >-
+  Use when reviewing an implementation plan at a high level before execution —
+  summarize what will be done, affected parts, and decisions that need approval.
+  Triggers: "revisar plano", "explicar plano", "resumir plano".
+---
+
+# Revisar Plano
 
 Gere um resumo simples e de alto nível do plano fornecido.
 
