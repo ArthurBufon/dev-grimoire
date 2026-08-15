@@ -2,8 +2,8 @@
 # Atualiza o clone do Dev Grimoire e sincroniza skills globais.
 #
 # Uso:
-#   ./agents/scripts/sync-git.sh
-#   ./agents/scripts/sync-git.sh origin main
+#   ./agents/scripts/sync.sh
+#   ./agents/scripts/sync.sh origin main
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
