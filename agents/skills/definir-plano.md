@@ -10,6 +10,21 @@ description: Cria planos de implementação detalhados antes de alterar código.
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de escrever o plano, ao definir cada tarefa e antes de salvar o artefato.
+
+Hard gate desta skill — **não avance** se:
+
+* uma tarefa introduzir arquitetura, arquivo ou abstração além do que a modelagem e os moldes exigem;
+* código, assinaturas ou interfaces no plano duplicarem o molde sem eliminar ambiguidade real;
+* testes planejados superarem passos de implementação relevantes ou repetirem o mesmo cenário em vários níveis;
+* surgirem refatorações, "melhorias" ou NFRs não presentes na modelagem;
+* tarefas forem fatiadas em micro-passos só para parecer detalhado;
+* o plano crescer em volume sem crescimento proporcional de requisitos (modo L da modelagem → plano enxuto).
+
+Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento para o plano inteiro e, mentalmente, por tarefa.
+
 Crie somente o plano. Não implemente código durante este fluxo.
 
 ## Contexto obrigatório
@@ -221,6 +236,7 @@ Não use:
 
 Antes de concluir:
 
+0. Reaplique o gate anti-slop (ritual de saída); corte slop antes de entregar.
 1. Confirme que todos os requisitos possuem uma tarefa.
 2. Verifique paths, nomes, tipos e assinaturas.
 3. Remova placeholders, duplicações e tarefas pequenas demais.

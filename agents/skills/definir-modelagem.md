@@ -13,6 +13,21 @@ description: >-
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de perguntar, redigir ou salvar qualquer artefato.
+
+Hard gate desta skill — **não avance** se:
+
+* a pergunta empurrar arquitetura antes de fechar comportamento (Fase 1);
+* o modo **L** incluir seção de design ou NFRs sem sinal;
+* requisitos descreverem **como** implementar em vez de **o que** acontece;
+* bullets, Given/When/Then ou parágrafos repetirem o óbvio ou inflarem volume;
+* surgir camada, integração, fila, cache ou NFR "por precaução" sem sinal no pedido;
+* "Entendimento compartilhado" ou o artefato exceder o tamanho que o modo L/M/H justifica.
+
+Ritual obrigatório antes de gravar: executar o ritual de saída do fragmento. Se "Mantive" tiver item sem requisito verificável → corte antes de pedir confirmação ao dev.
+
 ## Objetivo
 
 Em um único fluxo: fechar **o quê** (comportamento) e, só se houver sinal, **como** (design técnico).
@@ -116,6 +131,6 @@ Checklist interno (não entrevistar): lacuna? contradição? requisito que é im
 - Rastreabilidade: requisito → decisão
 ```
 
-Revise lacunas, contradições e complexidade injustificada.
+Revise lacunas, contradições e complexidade injustificada. Reaplique o gate anti-slop antes de salvar.
 
 Salve em `docs/modelagem/{feature}/modelagem/{feature}.md`, informe o path e o próximo passo: `definir-plano`.

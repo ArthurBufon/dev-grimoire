@@ -13,10 +13,24 @@ description: >-
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de gerar o plano e antes de salvar o artefato.
+
+Hard gate desta skill — **não avance** se:
+
+* o plano tiver mais passos de implementação do que a tarefa simples exige (prefira 1–3 passos diretos);
+* a seção de testes/validação listar mais itens do que passos de implementação;
+* surgirem arquivos, camadas, refatorações ou explorações não pedidas;
+* código de exemplo, assinaturas ou diagramas duplicarem o que o molde/padrão do módulo já define;
+* restrições globais ou checklist repetirem o fragmento em prosa longa.
+
+Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento. Plano simples = plano **curto**; se o documento parecer "feature completa", corte até caber em tarefa pontual.
+
 ## Regras obrigatórias
 
-1. **Evitar overengineering:** não planejar abstrações, camadas, arquivos, refatorações ou verificações além do que a tarefa exige. A solução mais simples que atende o pedido é a correta.
-2. **Iterações rápidas com qualidade:** priorizar loops curtos (poucos passos, validação só do essencial, sem exploração ou auditoria não solicitada). Manter a melhor qualidade de código possível **dentro do escopo** — não compensar com trabalho extra fora dele.
+1. **Solução mínima:** a mais simples que atende 100% do pedido — ver gate anti-slop.
+2. **Iterações rápidas:** poucos passos, validação só do essencial, sem exploração ou auditoria não solicitada. Qualidade **dentro do escopo** — não compensar com trabalho extra fora dele.
 
 Anunciar no início:
 
@@ -53,7 +67,7 @@ grill-me → decisões fechadas → definir-plano-simples
 
 ## Hard gate
 
-Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes. Não incluir passos de exploração, auditoria ou verificação que o pedido não exija.
+Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes. Não incluir passos de exploração, auditoria ou verificação que o pedido não exija. Falhou no gate anti-slop → enxugar antes de salvar.
 
 ## Contexto obrigatório
 
@@ -192,7 +206,7 @@ Regra prática: se a seção de testes/validação listar mais itens do que pass
 
 Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas, refatorações fora do escopo, passos de auditoria/exploração não solicitados ou complexidade acima do pedido. Na seção de testes: mínimo essencial — sem overkill.
 
-Antes de concluir: cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas; testes planejados são só os casos mais importantes.
+Antes de concluir: gate anti-slop reaplicado (ritual de saída); cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas; testes planejados são só os casos mais importantes.
 
 ## Critério de conclusão
 

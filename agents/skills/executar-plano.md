@@ -10,10 +10,24 @@ description: Use quando existir um plano de implementação pronto para ser exec
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes da primeira tarefa, ao montar prompts de subagents e ao aceitar cada entrega.
+
+Hard gate desta skill — **não avance** se:
+
+* implementador ou revisor entregar arquivos, abstrações ou refatorações além do plano;
+* o diff incluir formatação, "limpeza" ou código não ligado à tarefa;
+* testes, factories ou mocks forem desproporcionais ao código alterado;
+* o subagent propor "melhorias" fora do escopo — rejeite e peça diff mínimo;
+* checkpoint ou relatório repetirem contexto em prosa longa.
+
+**Por tarefa:** antes do checkpoint com o dev, execute o ritual de saída do fragmento sobre o diff. Slop detectado → devolver ao implementador antes de pedir aprovação.
+
 ## Regras obrigatórias
 
-1. **Evitar overengineering:** não adicionar abstrações, camadas, arquivos, refatorações ou verificações além do que a tarefa/plano exige. Implementar o mínimo correto — qualidade alta no código entregue, não em trabalho extra não solicitado.
-2. **Iterações rápidas com qualidade:** priorizar loops curtos por tarefa (contexto só do necessário, testes só dos cenários relevantes, sem exploração ou auditoria não pedida). Não compensar velocidade com atalhos que degradem o código dentro do escopo.
+1. **Solução mínima:** implementar só o que a tarefa/plano exige — ver gate anti-slop.
+2. **Iterações rápidas:** contexto, testes e validação só do necessário; sem exploração ou auditoria não pedida.
 
 ## Objetivo
 
@@ -42,7 +56,7 @@ Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de mo
 
 ## Regras essenciais
 
-* **Sem overengineering:** escopo mínimo da tarefa; sem abstrações, arquivos ou verificações extras.
+* **Gate anti-slop:** diff mínimo; sem abstrações, arquivos ou verificações extras (ver fragmento).
 * **Iteração rápida:** contexto, implementação e validação só do necessário — sem exploração ou auditoria não solicitada.
 * Leia o plano completo antes de começar.
 * Respeite as decisões e restrições definidas no plano.
@@ -130,7 +144,7 @@ Contexto relevante:
 [arquivos, interfaces e decisões anteriores]
 
 Regras:
-- mantenha o escopo restrito à tarefa — sem overengineering;
+- gate anti-slop obrigatório: leia {GRIMOIRE}/agents/fragments/gate-anti-slop.md; diff mínimo; sem abstrações/arquivos/refatorações extras;
 - iteração rápida: implemente e valide só o pedido; sem exploração, auditoria ou verificações extras;
 - convenções: {GRIMOIRE}/docs/rules/global.md (ler rules e molde antes de codar);
 - siga os padrões existentes do projeto;
@@ -188,13 +202,13 @@ Alterações:
 [diff ou arquivos alterados]
 
 Verifique:
+- gate anti-slop ({GRIMOIRE}/agents/fragments/gate-anti-slop.md): slop = crítico; rejeitar entrega com complexidade/refatoração/testes extras;
 - conformidade com os requisitos;
 - conformidade com {GRIMOIRE}/docs/rules/global.md (rules + molde do arquivo);
 - ausência de reformatação desnecessária (sem Pint, Prettier, CS Fixer, eslint --fix de estilo);
 - bugs ou regressões;
 - integração com o restante do projeto;
-- complexidade desnecessária ou overengineering;
-- testes insuficientes ou frágeis.
+- testes insuficientes ou desproporcionais (overkill também é slop).
 
 Não exija melhorias, refatorações ou verificações fora do escopo da tarefa.
 
