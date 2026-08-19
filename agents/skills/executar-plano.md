@@ -1,7 +1,9 @@
 ---
-
 name: executar-plano
-description: Use quando existir um plano de implementação pronto para ser executado em tarefas usando subagents.
+description: >-
+  Executa plano pronto em `docs/modelagem/{feature}/plano/` tarefa por tarefa com
+  subagents. Triggers: "executar plano", "executar-plano". Pipeline completo com
+  revisão de spec + qualidade → `plan-execute-subagents`.
 ---
 
 # Executar Plano
@@ -24,265 +26,121 @@ Hard gate desta skill — **não avance** se:
 
 **Por tarefa:** antes do checkpoint com o dev, execute o ritual de saída do fragmento sobre o diff. Slop detectado → devolver ao implementador antes de pedir aprovação.
 
-## Regras obrigatórias
+Além do fragmento: uma tarefa por vez; subagent novo por tarefa; sem paralelismo no mesmo arquivo; sem branch/worktree/commit sem permissão; sem formatadores automáticos (Pint, Prettier, PHP CS Fixer, `eslint --fix` de estilo — ver `{GRIMOIRE}/docs/rules/php.md` se PHP).
 
-1. **Solução mínima:** implementar só o que a tarefa/plano exige — ver gate anti-slop.
-2. **Iterações rápidas:** contexto, testes e validação só do necessário; sem exploração ou auditoria não pedida.
+Anunciar no início:
+
+```text
+Usando executar-plano para executar o plano.
+```
 
 ## Objetivo
 
-Executar um plano de implementação tarefa por tarefa, delegando o trabalho para subagents e validando cada entrega antes de continuar.
-
-Princípio central:
+Executar um plano tarefa por tarefa, delegando para subagents e validando cada entrega antes de continuar.
 
 > Um subagent implementa, outro revisa e o controlador coordena.
 
-## Entrada obrigatória
+## Quando usar / não usar
 
-Leia o plano em:
+**Usar:** plano pronto em `docs/modelagem/{feature}/plano/{feature}.md`; escopo fechado.
 
-`docs/modelagem/{feature}/plano/{feature}.md`
+**Não usar:** sem artefato de plano; escopo ainda aberto; pipeline com revisão de spec + qualidade → `plan-execute-subagents`.
 
-Consulte a modelagem no mesmo diretório quando precisar esclarecer requisitos ou decisões técnicas:
+## Entrada
 
-* `docs/modelagem/{feature}/modelagem/{feature}.md`
+* Plano (obrigatório): `docs/modelagem/{feature}/plano/{feature}.md`
+* Modelagem (se existir): `docs/modelagem/{feature}/modelagem/{feature}.md`
 
-## Política de exclusão
+Artefatos em `docs/modelagem/{feature}/` são **temporários** — excluir por completo ao concluir; transferir o permanente para `docs/features/`.
 
-Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de modelagem — não documentação permanente do projeto.
+## Dev Grimoire (obrigatório)
 
-* Não versione conteúdo que deva permanecer no repositório dentro desses paths; transfira o que for necessário para `docs/features/` ou equivalente do projeto.
-* Após a feature estar implementada e entregue, **exclua** `docs/modelagem/{feature}/` por completo para evitar lixo acumulado no repositório.
+Implementador e revisor devem **ler via Read/Grep** antes de codar ou revisar:
 
-## Regras essenciais
+* `{GRIMOIRE}/docs/rules/global.md` + rule da stack (`geral.md`, `php.md`, `javascript.md`)
+* molde em `{GRIMOIRE}/moldes/` quando a tarefa cria arquivo novo (mapa em `global.md`)
 
-* **Gate anti-slop:** diff mínimo; sem abstrações, arquivos ou verificações extras (ver fragmento).
-* **Iteração rápida:** contexto, implementação e validação só do necessário — sem exploração ou auditoria não solicitada.
-* Leia o plano completo antes de começar.
-* Respeite as decisões e restrições definidas no plano.
-* Execute uma tarefa de implementação por vez.
-* Use um subagent novo para cada tarefa.
-* Não execute implementações paralelas que possam alterar os mesmos arquivos.
-* Não altere o escopo sem necessidade.
-* Não crie branches, worktrees ou commits sem permissão explícita do usuário.
-* **CHECKPOINT OBRIGATÓRIO:** ao finalizar cada tarefa, pare e solicite revisão do dev antes de iniciar a próxima.
-* Não inicie a próxima tarefa sem aprovação explícita do dev.
-* Pare também quando estiver bloqueado ou existir uma ambiguidade crítica.
-* **Formatação:** proibido executar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save, etc.) em arquivos tocados. Seguir as convenções do dev e o estilo já existente no arquivo/módulo; o diff deve mudar só o necessário. PHP: `{GRIMOIRE}/docs/rules/php.md` (seção "Formatação e legibilidade"). JS/TS: mesma política.
+Na revisão: validar conformidade contra esses artefatos — slop ou não-conformidade = **crítico**. Padrões consolidados no módulo alterado têm prioridade sobre molde.
+
+Incluir path do molde no prompt quando aplicável. **Não copiar regras do skill no prompt — referenciar paths.**
 
 ## Preparação
 
 Antes da primeira tarefa:
 
-1. Leia o plano completo.
-2. Identifique as tarefas e sua ordem.
-3. Verifique dependências entre elas.
-4. Confira o estado atual do repositório.
-5. Execute os testes existentes, quando viável.
-6. Registre quais tarefas já estavam concluídas.
+1. Ler o plano completo; identificar tarefas, ordem e dependências.
+2. Conferir estado do repositório; rodar testes existentes, se viável.
+3. Registrar tarefas já concluídas.
 
-Caso o plano contradiga o código ou tenha uma decisão impossível de inferir, pergunte ao usuário antes de implementar.
+Plano contradiz código ou decisão impossível de inferir → perguntar ao dev antes de implementar.
 
-## Fluxo por tarefa
+## Ciclo por tarefa
 
-Para cada tarefa:
+1. Contexto mínimo — não explorar além do que a tarefa exige.
+2. Subagent **implementador** (checklist abaixo).
+3. Validar diff + testes executados.
+4. Subagent **revisor** (checklist abaixo).
+5. Corrigir crítico/importante → re-revisar (máx. **2** rodadas por problema).
+6. Ritual anti-slop no diff.
+7. **CHECKPOINT** — parar; aguardar aprovação **explícita** do dev.
+8. Só então próxima tarefa.
 
-1. Reúna **somente** o contexto necessário — não explore o codebase além do que a tarefa exige.
-2. Envie a tarefa para um subagent implementador.
-3. Analise o resultado e os testes executados.
-4. Envie as alterações para um subagent revisor.
-5. Corrija problemas importantes encontrados.
-6. Execute novamente os testes relevantes.
-7. Marque a tarefa como concluída.
-8. **CHECKPOINT:** apresente o resumo da tarefa ao dev e solicite revisão/aprovação.
-9. Só inicie a próxima tarefa após aprovação explícita do dev.
+**Proibido:** encadear tarefas após revisão do subagent; aprovação por silêncio; checkpoint opcional em tarefa "pequena" ou "já revisada". Revisão do subagent **não substitui** checkpoint do dev.
 
-## Checkpoint obrigatório entre tarefas
+### Template de checkpoint
 
-Ao concluir cada tarefa (após implementação, revisão por subagent e correções):
+```markdown
+## Task concluída — [nome]
 
-1. Apresente ao dev um resumo curto: o que foi feito, arquivos alterados, testes e riscos.
-2. Solicite revisão e aprovação explícita para prosseguir.
-3. **PARE.** Não dispare o próximo subagent implementador.
-4. Aguarde a resposta do dev.
-5. Só então inicie a próxima tarefa.
+### Alterações
+- [arquivos/módulos]
 
-**Proibido:**
+### Verificações
+- [comandos e resultado]
 
-* Encadear a próxima tarefa automaticamente após a revisão do subagent.
-* Assumir aprovação por silêncio, "parece ok" interno ou ausência de bloqueio técnico.
-* Tratar o checkpoint como opcional quando a tarefa for "pequena", "óbvia" ou "já revisada pelo subagent".
+### Riscos
+- [pontos de atenção]
 
-A revisão do subagent **não substitui** o checkpoint do dev.
-
-## Dev Grimoire na execução
-
-Implementador e revisor devem seguir `{GRIMOIRE}/docs/rules/global.md` (seção 6): ler rules da stack e molde via Read/Grep antes de criar ou alterar arquivos; na revisão, validar conformidade contra esses artefatos — não reinterpretar convenções.
-
-Incluir no prompt do subagent o path do molde quando a tarefa cria arquivo novo (mapa em `global.md`).
-
-## Subagent implementador
-
-O implementador deve receber:
-
-* descrição completa da tarefa;
-* arquivos provavelmente envolvidos;
-* restrições relevantes do plano;
-* decisões tomadas em tarefas anteriores;
-* comandos de teste recomendados;
-* proibição de commit ou criação de branch sem permissão.
-
-Exemplo de instrução:
-
-```text
-Implemente a tarefa abaixo seguindo o plano.
-
-Tarefa:
-[descrição da tarefa]
-
-Contexto relevante:
-[arquivos, interfaces e decisões anteriores]
-
-Regras:
-- gate anti-slop obrigatório: leia {GRIMOIRE}/agents/fragments/gate-anti-slop.md; diff mínimo; sem abstrações/arquivos/refatorações extras;
-- iteração rápida: implemente e valide só o pedido; sem exploração, auditoria ou verificações extras;
-- convenções: {GRIMOIRE}/docs/rules/global.md (ler rules e molde antes de codar);
-- siga os padrões existentes do projeto;
-- NÃO use ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, eslint --fix para estilo, format-on-save); preserve o estilo do arquivo — diff mínimo;
-- escreva testes para os cenários importantes;
-- execute os testes relevantes;
-- não crie branch ou commit;
-- informe arquivos alterados, testes executados e possíveis preocupações.
+Aguardando confirmação explícita do dev para avançar.
 ```
 
-O implementador deve retornar:
+## Subagents
 
-* status: concluído, bloqueado ou precisa de contexto;
-* resumo da implementação;
-* arquivos alterados;
-* testes executados e resultados;
-* riscos ou dúvidas encontrados.
+### Implementador — incluir no prompt
+
+* Tarefa completa + arquivos + decisões anteriores + comandos de teste
+* Ler: `gate-anti-slop.md`, `global.md`, rule da stack, molde (se arquivo novo)
+* Proibido: commit, branch, formatadores, escopo extra
+* Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos
+
+### Revisor — incluir no prompt
+
+* Requisitos da tarefa + diff/arquivos alterados
+* Verificar: plano, gate anti-slop, conformidade Dev Grimoire, bugs/regressões, escopo
+* Slop ou não-conformidade com grimório = **crítico**
+* Classificar: crítico / importante / menor
+* Sem melhorias, refatorações ou preferência pessoal fora do escopo
 
 ## Testes
 
-Use TDD quando fizer sentido, principalmente para:
+Regras detalhadas: gate anti-slop. TDD quando a tarefa pedir (bug, regra de negócio, regressão).
 
-* regras de negócio;
-* correções de bugs;
-* comportamentos com entradas e saídas claras;
-* mudanças com risco de regressão.
-
-Não abuse de testes unitários.
-
-Escreva testes suficientes para cobrir os cenários mais importantes da feature. Não teste detalhes internos sem valor ou comportamento já garantido pelo framework.
-
-## Revisão da tarefa
-
-Após a implementação, envie a tarefa e o diff para outro subagent.
-
-O revisor deve verificar:
-
-* atendimento ao plano;
-* funcionamento da regra de negócio;
-* bugs e regressões;
-* integração com o código existente;
-* complexidade desnecessária;
-* qualidade dos testes;
-* alterações fora do escopo.
-
-Exemplo de instrução:
-
-```text
-Revise a implementação desta tarefa.
-
-Requisitos:
-[descrição da tarefa]
-
-Alterações:
-[diff ou arquivos alterados]
-
-Verifique:
-- gate anti-slop ({GRIMOIRE}/agents/fragments/gate-anti-slop.md): slop = crítico; rejeitar entrega com complexidade/refatoração/testes extras;
-- conformidade com os requisitos;
-- conformidade com {GRIMOIRE}/docs/rules/global.md (rules + molde do arquivo);
-- ausência de reformatação desnecessária (sem Pint, Prettier, CS Fixer, eslint --fix de estilo);
-- bugs ou regressões;
-- integração com o restante do projeto;
-- testes insuficientes ou desproporcionais (overkill também é slop).
-
-Não exija melhorias, refatorações ou verificações fora do escopo da tarefa.
-
-Classifique os problemas como:
-- crítico;
-- importante;
-- menor.
-
-Não sugira mudanças apenas por preferência pessoal.
-```
-
-## Correções
-
-Problemas críticos ou importantes devem ser enviados de volta ao implementador.
-
-Forneça:
-
-* descrição exata do problema;
-* arquivo ou trecho afetado;
-* comportamento esperado;
-* testes que precisam passar.
-
-Depois da correção:
-
-1. execute os testes relevantes;
-2. peça uma nova revisão focada nos problemas encontrados;
-3. quando os problemas críticos e importantes estiverem resolvidos, execute o checkpoint obrigatório com o dev antes da próxima tarefa.
-
-Problemas menores podem ser registrados para a revisão final quando não afetarem o comportamento ou a manutenção imediata.
-
-Evite ciclos infinitos. Após duas tentativas malsucedidas de corrigir o mesmo problema, reavalie a abordagem ou reporte o bloqueio ao usuário.
+Cobrir cenários importantes da tarefa — não detalhes internos nem suíte ampla.
 
 ## Bloqueios
 
-Considere uma tarefa bloqueada quando:
+Tarefa bloqueada quando: requisitos faltando; plano vs código inconsistente; dependência ausente; problema estrutural fora do escopo; decisão de produto/arquitetura necessária.
 
-* faltarem requisitos essenciais;
-* o plano contradizer o código;
-* uma dependência necessária não existir;
-* os testes revelarem um problema estrutural fora do escopo;
-* a correção exigir uma decisão de produto ou arquitetura.
+Reportar: tarefa, problema, tentativas, decisão necessária.
 
-Ao reportar um bloqueio, informe:
+## Encerramento
 
-* tarefa afetada;
-* problema encontrado;
-* tentativas realizadas;
-* decisão necessária.
+Após todas as tarefas aprovadas:
 
-## Revisão final
+1. Diff completo + suíte de testes aplicável.
+2. Corrigir crítico/importante.
+3. Atualizar `docs/features/{entidade}/specs.md`.
+4. Excluir `docs/modelagem/{feature}/` por completo.
+5. Relatar: tarefas, arquivos, testes, decisões, pendências menores, bloqueios.
 
-Depois de todas as tarefas:
-
-1. revise o diff completo da implementação;
-2. confirme que todas as tarefas do plano foram atendidas;
-3. execute a suíte de testes aplicável;
-4. verifique integração, regressões e mudanças fora do escopo;
-5. corrija problemas críticos ou importantes;
-6. exclua `docs/modelagem/{feature}/` por completo;
-7. apresente o resultado ao usuário.
-
-A revisão final deve considerar o conjunto completo, não apenas cada tarefa isoladamente.
-
-## Relatório final
-
-Informe:
-
-* tarefas concluídas;
-* principais arquivos alterados;
-* testes executados e resultados;
-* decisões importantes;
-* problemas menores pendentes;
-* bloqueios ou limitações;
-* estado atual da implementação;
-* confirmação de que `docs/modelagem/{feature}/` foi excluído.
-
-Não afirme que o trabalho está concluído sem verificar os testes, o diff final e a exclusão dos artefatos temporários.
+Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.

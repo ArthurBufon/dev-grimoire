@@ -124,6 +124,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 ## Execução
 
 - Branch: `[dev/desenvolvimento/develop/etc.]`
+- Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + molde citado por passo
 - Pós: atualizar `docs/features/{entidade}/specs.md`; excluir `docs/modelagem/{feature}/`
 - Checklist: implementado · testes · git status · revisão arquivo a arquivo · sem commit/push
 ```
