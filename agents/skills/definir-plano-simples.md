@@ -1,10 +1,9 @@
 ---
 name: definir-plano-simples
 description: >-
-  Gera plano de implementação objetivo para tarefas simples e decisões já tomadas
-  na conversa. Use com "plano simples", "plano objetivo", "definir-plano-simples"
-  ou quando a tarefa não exige escopo/design completo. Antes do plano, use grill-me
-  para esclarecer dúvidas.
+  Plano objetivo para tarefas simples com escopo claro. Triggers: "plano simples",
+  "plano objetivo", "definir-plano-simples". Dúvida bloqueante → grill-me ou
+  uma pergunta; escopo claro → plano direto.
 ---
 
 # Definir Plano Simples
@@ -25,12 +24,9 @@ Hard gate desta skill — **não avance** se:
 * código de exemplo, assinaturas ou diagramas duplicarem o que o molde/padrão do módulo já define;
 * restrições globais ou checklist repetirem o fragmento em prosa longa.
 
-Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento. Plano simples = plano **curto**; se o documento parecer "feature completa", corte até caber em tarefa pontual.
+Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento; confirmar escopo ↔ passos, paths reais, Git e exclusão de `docs/modelagem/{feature}/`. Plano simples = plano **curto**; se o documento parecer "feature completa", corte até caber em tarefa pontual.
 
-## Regras obrigatórias
-
-1. **Solução mínima:** a mais simples que atende 100% do pedido — ver gate anti-slop.
-2. **Iterações rápidas:** poucos passos, validação só do essencial, sem exploração ou auditoria não solicitada. Qualidade **dentro do escopo** — não compensar com trabalho extra fora dele.
+Além do fragmento: não implementar código; não expandir escopo; dúvida bloqueante → ver seção abaixo.
 
 Anunciar no início:
 
@@ -48,26 +44,15 @@ Esta skill cobre ajustes, correções, extensões pequenas e tarefas objetivas �
 
 ## Quando usar / não usar
 
-**Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples); plano direto após dúvidas esclarecidas.
+**Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples).
 
-**Não usar:** feature inteira, escopo ambíguo sem passar por `grill-me`, ou workflow completo solicitado — nesses casos, sugerir `definir-modelagem` ou `definir-plano`.
+**Não usar:** feature inteira, escopo ambíguo, ou workflow completo — nesses casos, sugerir `definir-modelagem` ou `definir-plano`.
 
-## Tirar dúvidas antes do plano
+## Antes do plano
 
-Antes de gerar o plano, use a skill **`grill-me`** para esclarecer **todas** as dúvidas sobre escopo, comportamento, arquivos afetados e decisões em aberto.
-
-Fluxo obrigatório quando houver incerteza:
-
-```text
-grill-me → decisões fechadas → definir-plano-simples
-```
-
-* Só avance para o plano quando não restar decisão relevante em aberto.
-* Se o escopo já estiver 100% claro na conversa, pode pular `grill-me` e ir direto ao plano.
-
-## Hard gate
-
-Não implementar código durante a geração do plano. Não expandir escopo nem inventar decisões. Não gerar o plano com dúvidas em aberto — use `grill-me` antes. Não incluir passos de exploração, auditoria ou verificação que o pedido não exija. Falhou no gate anti-slop → enxugar antes de salvar.
+* Escopo 100% claro na conversa → plano direto.
+* Dúvida **bloqueante** → `grill-me` ou **uma** pergunta objetiva.
+* Dúvida não bloqueante → registrar como premissa no plano.
 
 ## Contexto obrigatório
 
@@ -77,6 +62,8 @@ Antes de escrever o plano, inspecione:
 2. **Dev Grimoire** (`../dev-grimoire/`): `{GRIMOIRE}/docs/rules/global.md` e rules da stack — leitura via Read/Grep; nunca assumir conteúdo sem ler o filesystem.
 3. Specs permanentes em `docs/features/{entidade}/specs.md`, se existirem.
 4. Codebase: estrutura, padrões reais e arquivos semelhantes ao que será alterado.
+
+Priorize: (1) arquivo mais parecido no módulo alterado; (2) molde em `{GRIMOIRE}/moldes/` se arquivo novo — cite path do molde no plano.
 
 Não inventar arquitetura, nomenclatura ou ferramentas. Padrões consolidados no módulo alterado têm prioridade sobre moldes do Dev Grimoire.
 
@@ -90,26 +77,21 @@ Use slug `{feature}` em kebab-case. Se o diretório não existir, crie antes de 
 
 **Paths proibidos:** `docs/superpowers/`, `docs/plans/` ou qualquer local fora de `docs/modelagem/{feature}/plano/`.
 
-## Política de exclusão
-
-Artefatos em `docs/modelagem/{feature}/` são **temporários** — não versionar conteúdo permanente. Atualizar `docs/features/{entidade}/specs.md` só após implementação; depois, excluir `docs/modelagem/{feature}/` por completo.
+Artefatos em `docs/modelagem/{feature}/` são **temporários** — atualizar `docs/features/{entidade}/specs.md` só após implementação; depois, excluir `docs/modelagem/{feature}/` por completo.
 
 ## Política Git
 
-Nunca crie branches, faça commits, push ou altere histórico sem autorização explícita.
-
-O plano deve:
-
-* identificar a branch de desenvolvimento existente (`dev`, `desenvolvimento`, `develop` ou equivalente);
-* orientar implementação nessa branch;
-* proibir branches avulsas ou `feature/*`, `fix/*`, `task/*`, `chore/*`;
-* proibir commits e push durante a implementação;
-* exigir `git status` e revisão individual de cada arquivo alterado ao final.
+* Branch de dev existente (`dev`, `desenvolvimento`, `develop` ou equivalente).
+* Proibido: `feature/*`, `fix/*`, commits e push durante implementação.
+* Final: `git status` + revisão individual de cada arquivo.
+* Commits, push ou alteração de histórico só com autorização explícita.
 
 ## Estrutura do documento
 
+Template mínimo — omitir seções vazias. Não copiar regras do skill/gate para o plano.
+
 ```markdown
-# Plano de Implementação — [nome curto]
+# Plano — [nome curto]
 
 **Objetivo:** [resultado em uma frase]
 
@@ -117,96 +99,42 @@ O plano deve:
 
 Resumo do que já foi decidido na conversa ou na spec existente.
 
-## Escopo
+## Premissas
 
-O que será implementado.
+[só se houver; omitir seção se vazia]
 
-## Fora do escopo
+## Escopo / Fora do escopo
 
-O que não será feito agora.
+- Implementar: …
+- Não fazer: …
 
-## Restrições globais
+## Passos (1–3)
 
-- Convenções: `{GRIMOIRE}/docs/rules/global.md` (ler rules e moldes via Read/Grep).
-- **Formatação:** proibido usar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save). Seguir estilo existente no arquivo/módulo; diff mínimo.
-- **Sem overengineering:** solução mínima; sem abstrações, camadas ou arquivos extras sem necessidade concreta.
-- **Iteração rápida:** poucos passos diretos; validação só do que protege o comportamento pedido — sem verificações ou explorações extras.
+### 1. [verbo + entrega]
 
-## Política Git para execução
-
-- Branch: `[branch identificada]`
-- Não criar branches, commits ou push sem autorização.
-- Revisar cada arquivo alterado ao final.
-
-## Arquivos
-
-- `caminho/arquivo`: [criar|alterar] — [responsabilidade]
-
-## Passos de implementação
-
-### 1. [passo objetivo]
-
-- Ação direta.
-- Arquivos: `caminho/exato`
-- Resultado esperado.
-
-### 2. [passo objetivo]
-
-- Ação direta.
-- Arquivos: `caminho/exato`
-- Resultado esperado.
+- Arquivos: `caminho/exato` — [criar|alterar]
+- Resultado: …
 
 ## Validação
 
-- Comandos reais de teste/build/lint do projeto.
-- Verificações manuais necessárias.
-- Casos principais a validar (ver seção **Testes** abaixo — mínimo essencial).
+- Comando: `[teste/build/lint real do projeto]`
+- Manual: …
+- Testes (mínimo): [≤ nº de passos; ver gate anti-slop]
 
-## Documentação pós-implementação
+## Execução
 
-- Atualizar: `docs/features/{entidade}/specs.md`
-- Excluir: `docs/modelagem/{feature}/` por completo.
-
-## Checklist final
-
-- [ ] Implementação concluída.
-- [ ] Testes/build/lint executados.
-- [ ] `git status` revisado.
-- [ ] Arquivos alterados revisados um por um.
-- [ ] Alterações fora do escopo removidas.
-- [ ] `docs/features/{entidade}/specs.md` atualizado.
-- [ ] `docs/modelagem/{feature}/` excluído.
-- [ ] Nenhum commit ou push automático.
+- Branch: `[dev/desenvolvimento/develop/etc.]`
+- Pós: atualizar `docs/features/{entidade}/specs.md`; excluir `docs/modelagem/{feature}/`
+- Checklist: implementado · testes · git status · revisão arquivo a arquivo · sem commit/push
 ```
 
-## Testes (mínimo essencial — anti-overkill)
+## Testes (mínimo)
 
-Agents tendem a exagerar na quantidade e na granularidade dos testes. **Não faça isso.**
+Regras detalhadas: gate anti-slop. No plano, listar **no máximo** tantos itens quanto passos de implementação.
 
-No plano, cubra **somente o básico mínimo** da mudança: os poucos casos que realmente protegem o comportamento pedido. Prefira poucos testes de alto valor a uma suíte larga e frágil.
+Incluir só: 1 fluxo feliz + 1 regra crítica ou erro relevante (se aplicável).
 
-**Incluir (quando aplicável):**
-
-* 1 fluxo feliz principal da alteração;
-* a regra de negócio ou validação crítica (só se for o ponto da tarefa);
-* 1 caso de erro esperado, se a feature/API falhar de forma relevante para o usuário;
-* regressão pontual se o ajuste for correção de bug conhecido.
-
-**Não incluir:**
-
-* matriz de edge cases, combinações “por precaução” ou cenários hipotéticos;
-* testes de detalhes internos, métodos privados ou getters/setters;
-* duplicar o mesmo cenário em vários níveis (unitário + feature + integração);
-* mocks excessivos, factories elaboradas ou scaffolding maior que o próprio ajuste;
-* meta de cobertura percentual ou “testar tudo que o diff tocar”.
-
-Regra prática: se a seção de testes/validação listar mais itens do que passos de implementação, corte até sobrar o mínimo que falharia de forma óbvia se a mudança quebrasse. Um tipo de teste costuma bastar; não planeje suíte ampla em tarefa simples.
-
-## Regras de escrita e autorrevisão
-
-Plano direto, com paths exatos, moldes do Dev Grimoire para arquivos novos e validação concreta. Proibido: `TBD`, `TODO`, tarefas vagas, refatorações fora do escopo, passos de auditoria/exploração não solicitados ou complexidade acima do pedido. Na seção de testes: mínimo essencial — sem overkill.
-
-Antes de concluir: gate anti-slop reaplicado (ritual de saída); cada item do escopo tem passo correspondente; paths e rules conferidos; política Git e exclusão de `docs/modelagem/{feature}/` confirmadas; testes planejados são só os casos mais importantes.
+Não incluir: matriz de edge cases, duplicar níveis (unit+feature), cobertura %, mocks/scaffolding maiores que o ajuste.
 
 ## Critério de conclusão
 
