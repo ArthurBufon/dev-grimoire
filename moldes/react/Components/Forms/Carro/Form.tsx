@@ -141,6 +141,19 @@ const Form = ({
                 <InputError message={errors.valor} />
             </div>
 
+            <div className="grid gap-2">
+                <Label htmlFor="data_lancamento">Data de lançamento</Label>
+                <Input
+                    id="data_lancamento"
+                    type="date"
+                    value={data.data_lancamento}
+                    onChange={(evento) =>
+                        onCampoChange('data_lancamento', evento.target.value)
+                    }
+                />
+                <InputError message={errors.data_lancamento} />
+            </div>
+
             <InputError message={errors.geral} />
 
             <hr className="my-3 border-gray-200 dark:border-gray-700" />

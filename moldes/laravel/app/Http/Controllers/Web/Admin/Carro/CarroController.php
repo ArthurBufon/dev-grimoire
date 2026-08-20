@@ -34,7 +34,14 @@ class CarroController extends Controller
     {
         $dadosView = $this->viewService->index([
             'view'    => 'index',
-            'filtros' => $request->only(['busca_geral', 'quantidade', 'pagina', 'aplicar_paginacao']),
+            'filtros' => $request->only([
+                'busca_geral',
+                'data_lancamento_inicio',
+                'data_lancamento_fim',
+                'quantidade',
+                'pagina',
+                'aplicar_paginacao',
+            ]),
         ]);
 
         return Inertia::render('Carro/Index', $dadosView);

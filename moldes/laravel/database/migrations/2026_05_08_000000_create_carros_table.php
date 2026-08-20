@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('placa', 10)->unique();
             $table->unsignedInteger('km')->default(0);
             $table->decimal('valor', 10, 2)->default(0);
+            $table->date('data_lancamento')->nullable();
             $table->timestamps();
         });
     }

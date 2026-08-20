@@ -41,8 +41,9 @@ class StoreRequest extends FormRequest
             'ano'    => ['required', 'integer', 'min:1900', 'max:2100'],
             'cor'    => ['nullable', 'string', 'max:40'],
             'placa'  => ['required', 'string', 'max:10', 'unique:carros,placa'],
-            'km'     => ['required', 'integer', 'min:0'],
-            'valor'  => ['required', 'numeric', 'min:0'],
+            'km'              => ['required', 'integer', 'min:0'],
+            'valor'           => ['required', 'numeric', 'min:0'],
+            'data_lancamento' => ['nullable', 'date'],
         ];
     }
 }

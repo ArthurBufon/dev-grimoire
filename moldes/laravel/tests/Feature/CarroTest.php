@@ -35,8 +35,9 @@ class CarroTest extends TestCase
             'ano'    => 2020,
             'cor'    => 'Prata',
             'placa'  => 'ABC1D23',
-            'km'     => 10000,
-            'valor'  => 80000.00,
+            'km'              => 10000,
+            'valor'           => 80000.00,
+            'data_lancamento' => '2024-01-15',
         ], $sobrescrever);
     }
 
@@ -64,6 +65,23 @@ class CarroTest extends TestCase
         $this->assertTrue($retorno['sucesso']);
         $this->assertCount(1, $retorno['dados']['lista']);
         $this->assertSame(Marca::Toyota, $retorno['dados']['lista']->first()->marca);
+        $this->assertEmpty($retorno['erros']);
+    }
+
+    public function test_index_filtra_por_intervalo_data_lancamento(): void
+    {
+        Carro::create($this->dadosCarro(['placa' => 'AAA1A11', 'data_lancamento' => '2024-01-10']));
+        Carro::create($this->dadosCarro(['placa' => 'BBB2B22', 'data_lancamento' => '2024-06-20']));
+
+        $retorno = $this->service->index([
+            'data_lancamento_inicio' => '2024-01-01',
+            'data_lancamento_fim'    => '2024-02-01',
+            'aplicar_paginacao'      => false,
+        ]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertCount(1, $retorno['dados']['lista']);
+        $this->assertSame('AAA1A11', $retorno['dados']['lista']->first()->placa);
         $this->assertEmpty($retorno['erros']);
     }
 

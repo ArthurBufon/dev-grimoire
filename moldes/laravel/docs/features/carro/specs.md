@@ -23,8 +23,8 @@ A API REST dos controllers Laravel inspira os nomes dos métodos em queries e se
 
 - Classe: `App\Models\Carro`
 - Tabela: `carros`
-- Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`
-- Casts: `marca` → `App\Enums\Marca`; `ano` e `km` como inteiros; `valor` como decimal com duas casas
+- Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`
+- Casts: `marca` → `App\Enums\Marca`; `ano` e `km` como inteiros; `valor` como decimal com duas casas; `data_lancamento` como `date`
 
 ### 2.2 Enum `Marca`
 
@@ -46,6 +46,7 @@ Tabela `carros` (resumo):
 | `placa`  | Única no banco                      |
 | `km`     | Padrão 0                            |
 | `valor`  | Decimal (10,2), padrão 0            |
+| `data_lancamento` | Date, opcional               |
 | `created_at` / `updated_at` | Timestamps Laravel |
 
 Validação HTTP (unicidade de placa, obrigatoriedade de campos, etc.) fica nos **Form Requests**; persistência e consulta ficam em Queries + Services.
@@ -72,6 +73,7 @@ Em geral:
   - `marca`, `modelo`: `LIKE` com `%valor%`
   - `ano`: igualdade
   - `placa`: igualdade (já deve refletir o formato normalizado se a escrita passou pelo service)
+  - `data_lancamento_inicio` / `data_lancamento_fim`: `whereDate('data_lancamento', '>=' | '<=', $valor)` — filtro de intervalo, mesmo padrão usado para campos de data em outras listagens do projeto (ex.: `data_emissao` de Título)
 - `ordenacao`: opcional, estrutura `['coluna' => string, 'ordem' => 'asc'|'desc']` (ambos obrigatórios para aplicar `orderBy`).
 
 ### 3.3 `show(array $filtros)`
@@ -100,7 +102,7 @@ Em geral:
 - Injeta `App\Queries\Carro\Queries`.
 - **`index` / `show`**: repasse direto às queries.
 - **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada (`array_key_exists`), para permitir atualização parcial na camada que chama o service.
-- Campos mapeados: `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor` (com cast numérico onde aplicável).
+- Campos mapeados: `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento` (com cast numérico onde aplicável).
 - **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas (regra única de apresentação/persistência da placa no domínio deste exemplo).
 - **`destroy(Carro $carro)`**: transação; em sucesso faz `session()->flash` de mensagem amigável; em erro faz flash de erro, `logarErro` e `rollBack`.
 - Erros inesperados: `formatarMensagemErro($th)` nos retornos e no log.
@@ -133,7 +135,7 @@ Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via 
 - Injeta `App\Services\Carro\Service` e `App\Services\Carro\View\Service`.
 - **index / create / edit**: monta props via View Service e renderiza Inertia (`Carro/Index`, `Carro/Create`, `Carro/Edit`).
 - **store / update / destroy**: chama o Service; em falha `back()->withErrors(['geral' => ...])`; em sucesso toast Inertia + `redirect()->route('admin.carros.index')`.
-- Filtros da listagem vêm do `Request` (`busca_geral`, `quantidade`, `pagina`, `aplicar_paginacao`). Services/View Services repassam sem forçar default de `quantidade`.
+- Filtros da listagem vêm do `Request` (`busca_geral`, `data_lancamento_inicio`, `data_lancamento_fim`, `quantidade`, `pagina`, `aplicar_paginacao`). Services/View Services repassam sem forçar default de `quantidade`.
 
 ### 7.2 Form Requests
 

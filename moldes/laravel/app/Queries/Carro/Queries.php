@@ -116,6 +116,14 @@ class Queries
                 case 'placa':
                     $query->where('placa', $valor);
                     break;
+
+                case 'data_lancamento_inicio':
+                    $query->whereDate('data_lancamento', '>=', $valor);
+                    break;
+
+                case 'data_lancamento_fim':
+                    $query->whereDate('data_lancamento', '<=', $valor);
+                    break;
             }
         }
     }

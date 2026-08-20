@@ -24,12 +24,14 @@ class Carro extends Model
         'placa',
         'km',
         'valor',
+        'data_lancamento',
     ];
 
     protected $casts = [
-        'marca' => Marca::class,
-        'ano'   => 'integer',
-        'km'    => 'integer',
-        'valor' => 'decimal:2',
+        'marca'           => Marca::class,
+        'ano'             => 'integer',
+        'km'              => 'integer',
+        'valor'           => 'decimal:2',
+        'data_lancamento' => 'date',
     ];
 }

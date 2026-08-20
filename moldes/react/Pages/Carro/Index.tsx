@@ -1,6 +1,5 @@
 // REACT
 import { useState } from 'react';
-import type { SubmitEvent } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 
 // UI
@@ -10,6 +9,7 @@ import ListagemCard from '@/Components/Listagem/Card/Show';
 import ListagemCards from '@/Components/Listagem/Card/Index';
 import { Button } from '@/Components/Ui/Button';
 import { Input } from '@/Components/Ui/Input';
+import { Label } from '@/Components/Ui/Label';
 
 // TIPOS
 import type { Carro } from '@/types/carro';
@@ -28,22 +28,31 @@ type Props = {
 
 const Index = ({ lista, paginacao, filtros }: Props) => {
     const [buscaGeral, setBuscaGeral] = useState(filtros.busca_geral ?? '');
+    const [dataLancamentoInicio, setDataLancamentoInicio] = useState(filtros.data_lancamento_inicio ?? '');
+    const [dataLancamentoFim, setDataLancamentoFim] = useState(filtros.data_lancamento_fim ?? '');
 
     const numerosPagina = Array.from({ length: 10 }, (_, i) => i + 1);
     const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas, 10);
 
-    const handlePesquisar = (evento: SubmitEvent<HTMLFormElement>) => {
-        evento.preventDefault();
-
+    const handlePesquisar = () => {
         router.get(
             carrosIndex(),
             {
                 busca_geral: buscaGeral,
+                data_lancamento_inicio: dataLancamentoInicio,
+                data_lancamento_fim: dataLancamentoFim,
                 quantidade: 10,
                 pagina: 1,
             },
             { preserveState: true, replace: true },
         );
+    };
+
+    const handleLimpar = () => {
+        setBuscaGeral('');
+        setDataLancamentoInicio('');
+        setDataLancamentoFim('');
+        router.get(carrosIndex());
     };
 
     const irParaPagina = (pagina: number) => {
@@ -81,13 +90,39 @@ const Index = ({ lista, paginacao, filtros }: Props) => {
                 </div>
 
                 <div className="mx-auto flex w-4/5 flex-col gap-6">
-                    <Filtros onSubmit={handlePesquisar}>
+                    <Filtros
+                        onLimpar={handleLimpar}
+                        onPesquisar={handlePesquisar}
+                        filtrosExtras={
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="data_lancamento_inicio">Lançamento (início)</Label>
+                                    <Input
+                                        id="data_lancamento_inicio"
+                                        type="date"
+                                        value={dataLancamentoInicio}
+                                        onChange={(evento) => setDataLancamentoInicio(evento.target.value)}
+                                    />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="data_lancamento_fim">Lançamento (fim)</Label>
+                                    <Input
+                                        id="data_lancamento_fim"
+                                        type="date"
+                                        value={dataLancamentoFim}
+                                        onChange={(evento) => setDataLancamentoFim(evento.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        }
+                    >
                         <Input
                             id="busca_geral"
                             value={buscaGeral}
                             onChange={(evento) =>
                                 setBuscaGeral(evento.target.value)
                             }
+                            onKeyDown={(evento) => evento.key === 'Enter' && handlePesquisar()}
                             placeholder="Buscar por marca, modelo, ano ou placa"
                         />
                     </Filtros>

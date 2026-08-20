@@ -7,6 +7,7 @@ export type Carro = {
     placa: string;
     km: number;
     valor: string;
+    data_lancamento: string | null;
     created_at: string;
     updated_at: string;
 };
@@ -19,4 +20,5 @@ export type DadosFormulario = {
     placa: string;
     km: number;
     valor: string;
+    data_lancamento: string;
 };

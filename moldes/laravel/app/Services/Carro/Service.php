@@ -182,6 +182,10 @@ class Service
             $mapa['valor'] = $dados['valor'];
         }
 
+        if (array_key_exists('data_lancamento', $dados)) {
+            $mapa['data_lancamento'] = $dados['data_lancamento'];
+        }
+
         return $mapa;
     }
 
