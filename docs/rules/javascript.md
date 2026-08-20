@@ -57,6 +57,15 @@ ou:
 - Sem chamadas HTTP nos componentes — delegar para Queries
 - Preferência sempre por TYPESCRIPT/TSX
 
+### Filtros de listagem
+
+Páginas `Index` com filtros seguem o padrão de `moldes/react/Pages/Carro/Index.tsx`.
+
+* **Um único `useState` agrupando todos os filtros** (`const [filtros, setFiltros] = useState({ ... })`) — proibido `useState` separado por campo de filtro.
+* Cada campo atualiza o estado com o padrão `setFiltros((atual) => ({ ...atual, campo: valor }))`.
+* `onLimpar` reseta o objeto `filtros` inteiro (todas as chaves em branco) e navega para a rota base.
+* `onPesquisar` monta os parâmetros de busca a partir de `filtros` e usa `router.get` com `preserveState: true`.
+
 ### Forms
 
 Páginas `Create` e `Edit` com formulário seguem o padrão de `moldes/react/Pages/Carro/Create.tsx`, `moldes/react/Pages/Carro/Edit.tsx` e `moldes/react/Components/Forms/Carro/Form.tsx`.
