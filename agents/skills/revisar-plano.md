@@ -8,6 +8,12 @@ description: >-
 
 # Revisar Plano
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` ao avaliar o plano.
+
+Se alguma tarefa carregar arquitetura, abstração, refatoração ou NFR sem ligação com o pedido/modelagem, isso entra em **"Pontos para conferir antes de executar"** — não corrija o plano nesta skill, só sinalize.
+
 Gere um resumo simples e de alto nível do plano fornecido.
 
 O objetivo é permitir que eu entenda rapidamente **o que será feito, como será feito em linhas gerais e qual será o resultado esperado**, sem precisar ler o plano completo.
