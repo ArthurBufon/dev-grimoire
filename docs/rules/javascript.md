@@ -131,6 +131,9 @@ const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
 - Requests HTTP apenas em Queries, nunca em Pages ou componentes. Exceção quando usamos router.get para navegações com filtros/paginações em listagens
 - Cada método: `async function` + `try/catch` + headers (`Accept`, `Content-type`, `X-CSRF-Token`)
 - Catch retorna `{ sucesso: false, dados: [], erros: ['...'] }`
+- **`const url` obrigatório** — declarar a URL em variável separada **antes** do `fetch`. Proibido passar a URL inline no primeiro argumento de `fetch(...)`.
+- **`const options` obrigatório** — declarar method, headers, credentials, body etc. em objeto `options` separado **antes** do `fetch`. Proibido passar o objeto de opções inline no segundo argumento de `fetch(...)`.
+- Chamada final sempre na forma `const retorno = await fetch(url, options)` (ou `const resposta = await fetch(url, options)` quando o projeto usar esse nome).
 
 ```js
 index: async function (filtros) {
