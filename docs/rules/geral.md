@@ -35,6 +35,19 @@ Leia a rule de cada stack em uso no projeto. Em projetos full stack (ex.: Larave
 * Verificar se existe abordagem mais simples
 * Confirmar que nenhum arquivo não solicitado foi tocado
 
+### Proteção de alterações do desenvolvedor
+
+**É proibido desfazer, sobrescrever, apagar, restaurar ou descartar alterações que já existiam no worktree ou que surgirem durante a execução.** Elas devem ser tratadas como alterações do desenvolvedor, mesmo que estejam fora do escopo do plano, staged, unstaged ou untracked.
+
+* Antes de planejar, implementar, delegar ou revisar, registrar um baseline com `git status`, os diffs staged/unstaged e um snapshot do conteúdo de arquivos untracked relevantes.
+* Durante a execução, detectar alterações concorrentes antes de iniciar cada tarefa, antes de aplicar correções de subagents e antes da entrega.
+* Em arquivo compartilhado, preservar integralmente os trechos concorrentes e integrar apenas a mudança necessária para a tarefa.
+* Se preservar uma alteração impedir a implementação, gerar conflito sem resolução inequívoca ou exigir modificar/remover aquele trecho, parar e pedir instrução explícita ao desenvolvedor.
+* Nunca usar `git restore`, `git checkout --`, `git reset`, `git clean`, stash, exclusão de arquivo ou reescrita integral para eliminar alterações fora da tarefa.
+* Na revisão e na entrega, comparar o estado com o baseline e rejeitar qualquer regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente.
+
+Essa proteção tem prioridade sobre a regra de manter o escopo mínimo: “fora do escopo” significa **não tocar**, nunca desfazer.
+
 ---
 
 ## Princípios de Desenvolvimento

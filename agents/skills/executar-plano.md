@@ -69,8 +69,10 @@ Incluir path do molde no prompt quando aplicável. **Não copiar regras do skill
 Antes da primeira tarefa:
 
 1. Ler o plano completo; identificar tarefas, ordem e dependências.
-2. Conferir estado do repositório; rodar testes existentes, se viável.
+2. Registrar o baseline do worktree (`git status` e diffs staged, unstaged e untracked relevantes). Alterações existentes pertencem ao dev e devem ser preservadas; worktree sujo **não** bloqueia a execução.
 3. Registrar tarefas já concluídas.
+
+Antes de cada tarefa, de aplicar qualquer correção de subagent e de cada checkpoint, comparar o worktree com o baseline para identificar alterações concorrentes do dev. Nunca as reverta, sobrescreva, descarte ou exclua. Se a tarefa tocar o mesmo arquivo, integre somente o trecho necessário e preserve o restante; conflito sem resolução inequívoca → parar e pedir instrução explícita ao dev.
 
 Plano contradiz código ou decisão impossível de inferir → perguntar ao dev antes de implementar.
 
@@ -110,7 +112,7 @@ Aguardando confirmação explícita do dev para avançar.
 
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
 * Ler: `gate-anti-slop.md`, `global.md`, rule da stack, molde (se arquivo novo)
-* Proibido: commit, branch, formatadores, escopo extra
+* Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
 * Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos
 
 ### Revisor — incluir no prompt
@@ -118,6 +120,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Requisitos da tarefa + diff/arquivos alterados
 * Verificar: plano, gate anti-slop, conformidade Dev Grimoire, bugs/regressões, escopo
 * Slop ou não-conformidade com grimório = **crítico**
+* Regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente do dev = **crítico**
 * Classificar: crítico / importante / menor
 * Sem melhorias, refatorações ou preferência pessoal fora do escopo
 

@@ -85,6 +85,7 @@ Artefatos em `docs/modelagem/{feature}/` são **temporários** — atualizar `do
 * Proibido: `feature/*`, `fix/*`, commits e push durante implementação.
 * Final: `git status` + revisão individual de cada arquivo.
 * Commits, push ou alteração de histórico só com autorização explícita.
+* Registrar baseline do worktree antes da execução e preservar qualquer alteração preexistente ou concorrente do dev, mesmo fora do escopo. Nunca reverter, sobrescrever ou descartar essas alterações; conflito sem resolução inequívoca → parar e pedir instrução.
 
 ## Estrutura do documento
 
@@ -125,6 +126,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 
 - Branch: `[dev/desenvolvimento/develop/etc.]`
 - Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + molde citado por passo
+- Alterações do dev: registrar baseline e preservar alterações preexistentes ou concorrentes; nunca desfazer mudanças fora do escopo
 - Pós: atualizar `docs/features/{entidade}/specs.md`; excluir `docs/modelagem/{feature}/`
 - Checklist: implementado · testes · git status · revisão arquivo a arquivo · sem commit/push
 ```

@@ -107,6 +107,10 @@ O plano deve:
 
 Não inclua etapas automáticas de commit.
 
+## Proteção de alterações do desenvolvedor
+
+O plano deve assumir que o worktree pode conter alterações preexistentes ou receber alterações concorrentes do dev. Inclua nas restrições globais: registrar um baseline antes da execução; preservar integralmente essas alterações, inclusive em arquivos compartilhados; nunca revertê-las ou descartá-las por estarem fora do escopo; e parar para pedir instrução se houver conflito sem resolução inequívoca.
+
 ## Estrutura do documento
 
 ```markdown
@@ -121,6 +125,7 @@ Não inclua etapas automáticas de commit.
 ## Restrições Globais
 - Convenções de código: `{GRIMOIRE}/docs/rules/global.md` (não reinterpretar; ler rules e moldes via Read/Grep).
 - **Formatação:** proibido usar ferramentas de formatação automática (Pint, Prettier, PHP CS Fixer, `eslint --fix` para estilo, format-on-save, etc.) — nem no plano nem na execução. Seguir as convenções do dev e o estilo já existente no arquivo/módulo; o diff deve mudar só o necessário. PHP: `{GRIMOIRE}/docs/rules/php.md` (seção "Formatação e legibilidade"). JS/TS: mesma política.
+- **Alterações do desenvolvedor:** registrar baseline do worktree antes de executar; preservar qualquer alteração preexistente ou concorrente, mesmo fora do escopo; nunca revertê-la, sobrescrevê-la ou descartá-la. Conflito sem resolução inequívoca → parar e pedir instrução ao dev.
 - [regras aplicáveis a todas as tarefas]
 
 ## Política Git para execução
