@@ -26,6 +26,16 @@ Prompts e skills para fluxos de trabalho com agentes de IA.
 | [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc.) |
 | [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills globais (Cursor, Codex, Claude) com `agents/skills/` |
 
+#### Sincronizar skills globais
+
+Após alterar uma skill em `agents/skills/`, execute:
+
+```bash
+agents/scripts/sync-global-skills.sh
+```
+
+O script atualiza as instalações existentes do Cursor, Codex e Claude; a skill `dev-grimoire` é gerada a partir de `docs/rules/global.md`.
+
 ### 📁 `moldes/`
 Código de referência com SRP: controller, form requests, modelo, queries, services (web, view e API), helpers, migration, testes e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.
 
