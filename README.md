@@ -94,7 +94,9 @@ Com IA gerando e refatorando código o tempo todo, uma base bem definida importa
 
 ### Padrão de nomenclatura REST
  
-Services e queries **devem seguir essa nomenclatura ao máximo**. Desvie apenas quando a operação for genuinamente específica e não se encaixar em nenhum dos cinco verbos — e mesmo assim, prefira compor (`indexAtivos`, `showComRelacoes`) antes de inventar um nome novo.
+Queries devem usar somente os cinco métodos abaixo. Quando uma consulta exigir contexto específico, crie uma subpasta para esse contexto e mantenha o método REST correspondente (ex.: `Queries/Carro/Ativos/Queries.tsx: index`).
+
+Services também adotam os verbos REST quando a operação se encaixa neles. Regras de negócio específicas permanecem nos services, com métodos em português, simples e objetivos.
  
 | Método | HTTP | Descrição |
 |---|---|---|
