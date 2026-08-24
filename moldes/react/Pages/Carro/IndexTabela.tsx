@@ -65,6 +65,8 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
             carrosIndex(),
             {
                 busca_geral: filtros.busca_geral ?? '',
+                data_lancamento_inicio: dataLancamentoInicio,
+                data_lancamento_fim: dataLancamentoFim,
                 quantidade: 10,
                 pagina,
             },

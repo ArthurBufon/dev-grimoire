@@ -64,6 +64,8 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
             carrosIndex(),
             {
                 busca_geral: filtros.busca_geral ?? '',
+                data_lancamento_inicio: filtros.data_lancamento_inicio,
+                data_lancamento_fim: filtros.data_lancamento_fim,
                 quantidade: 10,
                 pagina,
             },
