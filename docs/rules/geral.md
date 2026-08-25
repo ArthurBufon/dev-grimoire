@@ -94,7 +94,7 @@ O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes
 
 O nome do arquivo deve representar apenas o tipo (Service.* ou Queries.*).
 
-Regras de negócio específicas devem ficar lcalizadas nos services.
+Regras de negócio específicas devem ficar localizadas nos services.
 
 Queries básicas sempre devem ficar em Queries (index/show/store/update/destroy)
 
