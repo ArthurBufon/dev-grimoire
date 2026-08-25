@@ -1,21 +1,21 @@
 /**
  * Utils/telefone.ts
- * Helper para aplicar m\Uffffffffara em n\Uffffffffs de telefone brasileiros.
- * Suporta telefone fixo (10 d\Ufffffffftos) e celular (11 d\Ufffffffftos).
+ * Helper para aplicar máscara em números de telefone brasileiros.
+ * Suporta telefone fixo (10 dígitos) e celular (11 dígitos).
  */
 
 import { somenteNumerosString } from "./index";
 
 /**
- * Aplica m\Uffffffffara de telefone brasileiro conforme a quantidade de d\Ufffffffftos.
+ * Aplica máscara de telefone brasileiro conforme a quantidade de dígitos.
  *
  * Exemplos:
  *  - "11987654321" -> "(11) 98765-4321"
  *  - "1133334444"  -> "(11) 3333-4444"
- *  - "119876"      -> "(11) 9876" (aplica parcialmente enquanto o usu\Uffffffffo digita)
+ *  - "119876"      -> "(11) 9876" (aplica parcialmente enquanto o usuário digita)
  *
- * @param valor Valor digitado (pode conter caracteres n\Uffffffffnum\Uffffffffcos)
- * @returns Valor formatado com a m\Uffffffffara de telefone
+ * @param valor Valor digitado (pode conter caracteres não numéricos)
+ * @returns Valor formatado com a máscara de telefone
  */
 export const aplicarMascaraTelefone = (valor: string): string => {
   if (!valor) {
@@ -36,30 +36,31 @@ export const aplicarMascaraTelefone = (valor: string): string => {
     return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
   }
 
-  // Celular (11 d\Ufffffffftos: DDD + 9 + 8 d\Ufffffffftos)
+  // Celular (11 dígitos: DDD + 9 + 8 dígitos)
   if (numeros.length > 10) {
     return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
   }
 
-  // Fixo (10 d\Ufffffffftos: DDD + 8 d\Ufffffffftos)
+  // Fixo (10 dígitos: DDD + 8 dígitos)
   return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 6)}-${numeros.slice(6, 10)}`;
 };
 
 /**
- * Remove a m\Uffffffffara, retornando apenas os n\Uffffffffs do telefone.
+ * Remove a máscara, retornando apenas os números do telefone.
  *
  * @param valor Telefone formatado
- * @returns Apenas os d\Ufffffffftos do telefone
+ * @returns Apenas os dígitos do telefone
  */
 export const removerMascaraTelefone = (valor: string): string => {
   return somenteNumerosString(valor) ?? "";
 };
 
 /**
- * Valida se o telefone (sem m\Uffffffffara) possui 10 ou 11 d\Ufffffffftos,
- * quantidade esperada para telefones brasileiros v\Uffffffffdos.
+ * Valida se o telefone (sem máscara) possui 10 ou 11 dígitos,
+ * quantidade esperada para telefones brasileiros válidos.
  *
- * @param valor Telefone formatado ou n\Uffffffff * @returns true se o telefone tiver 10 ou 11 d\Ufffffffftos
+ * @param valor Telefone formatado ou numérico
+ * @returns true se o telefone tiver 10 ou 11 dígitos
  */
 export const telefoneValido = (valor: string): boolean => {
   const numeros = somenteNumerosString(valor) ?? "";
