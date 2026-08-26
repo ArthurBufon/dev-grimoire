@@ -31,10 +31,12 @@ type Props = {
     filtros: FiltrosListagem;
 };
 
-const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
-    const [buscaGeral, setBuscaGeral] = useState(filtros.busca_geral ?? '');
-    const [dataLancamentoInicio, setDataLancamentoInicio] = useState(filtros.data_lancamento_inicio ?? '');
-    const [dataLancamentoFim, setDataLancamentoFim] = useState(filtros.data_lancamento_fim ?? '');
+const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
+    const [filtros, setFiltros] = useState({
+        busca_geral: filtrosIniciais.busca_geral ?? '',
+        data_lancamento_inicio: filtrosIniciais.data_lancamento_inicio ?? '',
+        data_lancamento_fim: filtrosIniciais.data_lancamento_fim ?? '',
+    });
 
     const numerosPagina = Array.from({ length: 10 }, (_, i) => i + 1);
     const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas, 10);
@@ -43,9 +45,9 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
         router.get(
             carrosIndex(),
             {
-                busca_geral: buscaGeral,
-                data_lancamento_inicio: dataLancamentoInicio,
-                data_lancamento_fim: dataLancamentoFim,
+                busca_geral: filtros.busca_geral,
+                data_lancamento_inicio: filtros.data_lancamento_inicio,
+                data_lancamento_fim: filtros.data_lancamento_fim,
                 quantidade: 10,
                 pagina: 1,
             },
@@ -54,9 +56,11 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
     };
 
     const handleLimpar = () => {
-        setBuscaGeral('');
-        setDataLancamentoInicio('');
-        setDataLancamentoFim('');
+        setFiltros({
+            busca_geral: '',
+            data_lancamento_inicio: '',
+            data_lancamento_fim: '',
+        });
         router.get(carrosIndex());
     };
 
@@ -65,8 +69,8 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
             carrosIndex(),
             {
                 busca_geral: filtros.busca_geral ?? '',
-                data_lancamento_inicio: dataLancamentoInicio,
-                data_lancamento_fim: dataLancamentoFim,
+                data_lancamento_inicio: filtros.data_lancamento_inicio,
+                data_lancamento_fim: filtros.data_lancamento_fim,
                 quantidade: 10,
                 pagina,
             },
@@ -107,8 +111,10 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
                                     <Input
                                         id="data_lancamento_inicio"
                                         type="date"
-                                        value={dataLancamentoInicio}
-                                        onChange={(evento) => setDataLancamentoInicio(evento.target.value)}
+                                        value={filtros.data_lancamento_inicio}
+                                        onChange={(evento) =>
+                                            setFiltros((atual) => ({ ...atual, data_lancamento_inicio: evento.target.value }))
+                                        }
                                     />
                                 </div>
                                 <div className="grid gap-2">
@@ -116,8 +122,10 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
                                     <Input
                                         id="data_lancamento_fim"
                                         type="date"
-                                        value={dataLancamentoFim}
-                                        onChange={(evento) => setDataLancamentoFim(evento.target.value)}
+                                        value={filtros.data_lancamento_fim}
+                                        onChange={(evento) =>
+                                            setFiltros((atual) => ({ ...atual, data_lancamento_fim: evento.target.value }))
+                                        }
                                     />
                                 </div>
                             </div>
@@ -125,9 +133,9 @@ const IndexTabela = ({ lista, paginacao, filtros }: Props) => {
                     >
                         <Input
                             id="busca_geral"
-                            value={buscaGeral}
+                            value={filtros.busca_geral}
                             onChange={(evento) =>
-                                setBuscaGeral(evento.target.value)
+                                setFiltros((atual) => ({ ...atual, busca_geral: evento.target.value }))
                             }
                             onKeyDown={(evento) => evento.key === 'Enter' && handlePesquisar()}
                             placeholder="Buscar por marca, modelo, ano ou placa"
