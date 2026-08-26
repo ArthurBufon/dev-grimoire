@@ -1,5 +1,7 @@
 export const formatarParaView = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
+    const [ano, mes, dia] = dateString.split('-').map(Number);
+
+    return new Date(ano, mes - 1, dia).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
