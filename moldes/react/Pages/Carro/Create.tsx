@@ -25,6 +25,7 @@ const Create = () => {
         placa: '',
         km: 0,
         valor: '0.00',
+        data_lancamento: '',
     });
 
     const handleCampoChange = <K extends keyof DadosFormulario>(

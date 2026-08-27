@@ -29,6 +29,7 @@ const Edit = ({ carro }: EditProps) => {
         placa: carro.placa,
         km: carro.km,
         valor: carro.valor,
+        data_lancamento: carro.data_lancamento ?? '',
     });
 
     const handleCampoChange = <K extends keyof DadosFormulario>(
