@@ -201,7 +201,7 @@ class Queries
 
             return [
                 'sucesso' => $sucesso,
-                'dados'   => ['model' => $model],
+                'dados'   => ['model' => $model->fresh()],
                 'erros'   => [],
             ];
         } catch (\Throwable $th) {
