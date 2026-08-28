@@ -41,6 +41,7 @@ class CarroController extends Controller
                 'quantidade',
                 'pagina',
                 'aplicar_paginacao',
+                'sem_limite_paginas',
             ]),
         ]);
 
