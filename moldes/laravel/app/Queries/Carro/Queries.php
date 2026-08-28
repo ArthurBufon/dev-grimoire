@@ -130,10 +130,12 @@ class Queries
 
     private function aplicarBuscaGeral(Builder $query, string $valor): void
     {
-        $query->where('marca', 'like', "%{$valor}%")
-            ->orWhere('modelo', 'like', "%{$valor}%")
-            ->orWhere('ano', 'like', "%{$valor}%")
-            ->orWhere('placa', 'like', "%{$valor}%");
+        $query->where(function (Builder $subquery) use ($valor) {
+            $subquery->where('marca', 'like', "%{$valor}%")
+                ->orWhere('modelo', 'like', "%{$valor}%")
+                ->orWhere('ano', 'like', "%{$valor}%")
+                ->orWhere('placa', 'like', "%{$valor}%");
+        });
     }
 
     private function aplicarOrdenacao(Builder $query, array $filtros): void
