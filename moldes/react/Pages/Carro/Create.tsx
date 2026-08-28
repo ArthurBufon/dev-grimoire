@@ -17,7 +17,7 @@ import { index as carrosIndex } from '@/routes/admin/carros';
 const Create = () => {
     const [errosCliente, setErrosCliente] = useState<string[]>([]);
 
-    const { data, setData, post, processing } = useForm<DadosFormulario>({
+    const { data, setData, post, processing, errors } = useForm<DadosFormulario>({
         marca: '',
         modelo: '',
         ano: new Date().getFullYear(),
@@ -71,6 +71,7 @@ const Create = () => {
 
                 <Form
                     data={data}
+                    erros={errors}
                     onCampoChange={handleCampoChange}
                     onSubmit={handleSubmit}
                     processing={processing}

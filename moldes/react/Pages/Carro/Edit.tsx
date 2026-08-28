@@ -21,7 +21,7 @@ type EditProps = {
 const Edit = ({ carro }: EditProps) => {
     const [errosCliente, setErrosCliente] = useState<string[]>([]);
 
-    const { data, setData, put, processing } = useForm<DadosFormulario>({
+    const { data, setData, put, processing, errors } = useForm<DadosFormulario>({
         marca: carro.marca,
         modelo: carro.modelo,
         ano: carro.ano,
@@ -75,6 +75,7 @@ const Edit = ({ carro }: EditProps) => {
 
                 <Form
                     data={data}
+                    erros={errors}
                     onCampoChange={handleCampoChange}
                     onSubmit={handleSubmit}
                     processing={processing}

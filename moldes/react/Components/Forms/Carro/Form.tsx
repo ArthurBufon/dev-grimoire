@@ -1,6 +1,6 @@
 // REACT
 import type { SubmitEvent } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 
 // UI
 import InputError from '@/Components/InputError';
@@ -22,8 +22,13 @@ import {
 // ROTAS
 import { index as carrosIndex } from '@/routes/admin/carros';
 
+type ErrosFormulario = Partial<Record<keyof DadosFormulario, string>> & {
+    geral?: string;
+};
+
 type FormProps = {
     data: DadosFormulario;
+    erros: ErrosFormulario;
     onCampoChange: <K extends keyof DadosFormulario>(
         campo: K,
         valor: DadosFormulario[K],
@@ -35,13 +40,12 @@ type FormProps = {
 
 const Form = ({
     data,
+    erros,
     onCampoChange,
     onSubmit,
     processing,
     errosCliente,
 }: FormProps) => {
-    const { errors } = usePage().props;
-
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="grid gap-2">
@@ -54,7 +58,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.marca} />
+                <InputError message={erros.marca} />
             </div>
 
             <div className="grid gap-2">
@@ -67,7 +71,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.modelo} />
+                <InputError message={erros.modelo} />
             </div>
 
             <div className="grid gap-2">
@@ -81,7 +85,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.ano} />
+                <InputError message={erros.ano} />
             </div>
 
             <div className="grid gap-2">
@@ -93,7 +97,7 @@ const Form = ({
                         onCampoChange('cor', evento.target.value)
                     }
                 />
-                <InputError message={errors.cor} />
+                <InputError message={erros.cor} />
             </div>
 
             <div className="grid gap-2">
@@ -106,7 +110,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.placa ?? errosCliente[0]} />
+                <InputError message={erros.placa ?? errosCliente[0]} />
             </div>
 
             <div className="grid gap-2">
@@ -120,7 +124,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.km} />
+                <InputError message={erros.km} />
             </div>
 
             <div className="grid gap-2">
@@ -138,7 +142,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={errors.valor} />
+                <InputError message={erros.valor} />
             </div>
 
             <div className="grid gap-2">
@@ -151,10 +155,10 @@ const Form = ({
                         onCampoChange('data_lancamento', evento.target.value)
                     }
                 />
-                <InputError message={errors.data_lancamento} />
+                <InputError message={erros.data_lancamento} />
             </div>
 
-            <InputError message={errors.geral} />
+            <InputError message={erros.geral} />
 
             <hr className="my-3 border-gray-200 dark:border-gray-700" />
 
