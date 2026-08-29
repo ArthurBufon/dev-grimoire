@@ -4,6 +4,8 @@ import { Head, Link, router } from '@inertiajs/react';
 
 // UI
 import { Car, Plus } from 'lucide-react';
+import Cabecalho from '@/Components/Listagem/Cabecalho/Show';
+import Conteudo from '@/Components/Listagem/Conteudo/Show';
 import Filtros from '@/Components/Listagem/Card/Filtro/Show';
 import ListagemCard from '@/Components/Listagem/Card/Show';
 import ListagemCards from '@/Components/Listagem/Card/Index';
@@ -82,20 +84,18 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
             <Head title="Carros" />
 
             <div className="flex flex-col gap-6 p-4">
-                <div className="flex items-center justify-between gap-4">
-                    <h1 className="flex items-center gap-2 text-2xl font-semibold">
-                        <Car className="size-6 shrink-0 text-primary" aria-hidden />
-                        Carros
-                    </h1>
-                    <Button asChild>
+                <Cabecalho
+                    titulo="Carros"
+                    icone={Car}
+                    acao={
                         <Link href={CarroController.create()}>
                             <Plus />
                             Novo carro
                         </Link>
-                    </Button>
-                </div>
+                    }
+                />
 
-                <div className="mx-auto flex w-4/5 flex-col gap-6">
+                <Conteudo>
                     <Filtros
                         onLimpar={handleLimpar}
                         onPesquisar={handlePesquisar}
@@ -219,7 +219,7 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                             </div>
                         </>
                     )}
-                </div>
+                </Conteudo>
             </div>
         </>
     );
