@@ -12,6 +12,16 @@ description: >-
 
 NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
 
+## Clareza do código (bloqueante)
+
+O código gerado deve ser o mais simples possível e compreensível por uma pessoa na primeira leitura. Clareza para humanos tem prioridade sobre soluções engenhosas, genéricas ou excessivamente compactas.
+
+* Preferir fluxo linear, nomes que expliquem intenção e estruturas já conhecidas no módulo.
+* Não criar abstrações, helpers, camadas, condicionais compactas ou controle de fluxo indireto quando uma solução direta for mais clara.
+* Evitar aninhamento desnecessário, valores implícitos e lógica que exija dedução para ser entendida.
+* Comentários explicam decisões não óbvias; não devem compensar código difícil de ler.
+* Se a implementação nova não puder ser entendida de primeira, simplificá-la dentro do escopo da tarefa antes de aceitá-la.
+
 ## Gate anti-slop (bloqueante)
 
 **Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes da primeira tarefa, ao montar prompts de subagents e ao aceitar cada entrega.
@@ -20,6 +30,7 @@ Hard gate desta skill — **não avance** se:
 
 * implementador ou revisor entregar arquivos, abstrações ou refatorações além do plano;
 * o diff incluir formatação, "limpeza" ou código não ligado à tarefa;
+* o código novo exigir interpretação, rastreamento indireto ou conhecimento implícito para entender seu fluxo básico;
 * testes, factories ou mocks forem desproporcionais ao código alterado;
 * o subagent propor "melhorias" fora do escopo — rejeite e peça diff mínimo;
 * checkpoint ou relatório repetirem contexto em prosa longa.
@@ -79,7 +90,7 @@ Plano contradiz código ou decisão impossível de inferir → perguntar ao dev 
 ## Ciclo por tarefa
 
 1. Contexto mínimo — não explorar além do que a tarefa exige.
-2. Subagent **implementador** (checklist abaixo).
+2. Subagent **implementador** (checklist abaixo), priorizando código que seja claro na primeira leitura.
 3. Validar diff + testes executados.
 4. Subagent **revisor** (checklist abaixo).
 5. Corrigir crítico/importante → re-revisar (máx. **2** rodadas por problema).
@@ -113,12 +124,14 @@ Aguardando confirmação explícita do dev para avançar.
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
 * Ler: `gate-anti-slop.md`, `global.md`, rule da stack, molde (se arquivo novo)
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
+* Implementar a solução mais direta e legível; o fluxo principal deve ser compreensível na primeira leitura, sem abstrações prematuras ou lógica indireta
 * Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos
 
 ### Revisor — incluir no prompt
 
 * Requisitos da tarefa + diff/arquivos alterados
 * Verificar: plano, gate anti-slop, conformidade Dev Grimoire, bugs/regressões, escopo
+* Verificar se o fluxo e a intenção do código novo são compreensíveis na primeira leitura; complexidade ou indireção evitável = **crítico**
 * Slop ou não-conformidade com grimório = **crítico**
 * Regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente do dev = **crítico**
 * Classificar: crítico / importante / menor
