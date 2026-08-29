@@ -69,6 +69,7 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `Pages/{Entidade}/Create.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Create.tsx` |
 | `Pages/{Entidade}/Edit.tsx` | `{GRIMOIRE}/moldes/react/Pages/Carro/Edit.tsx` |
 | `Components/Forms/{Entidade}/Form.tsx` | `{GRIMOIRE}/moldes/react/Components/Forms/Carro/Form.tsx` |
+| `Components/Forms/CardErros/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Forms/CardErros/Show.tsx` |
 | `Queries/{Entidade}/Queries.tsx` | `{GRIMOIRE}/moldes/react/Queries/Queries.tsx` |
 | `Services/{Entidade}/Service.tsx` | `{GRIMOIRE}/moldes/react/Services/Service.tsx` |
 | `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |
