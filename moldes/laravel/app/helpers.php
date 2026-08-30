@@ -17,7 +17,7 @@ if (!function_exists('somenteNumeros')) {
 }
 
 if (!function_exists('ambienteDev')) {
-    function ambienteDev(): string
+    function ambienteDev(): bool
     {
         $ambiente = env('APP_ENV', 'producao');
 
