@@ -27,6 +27,9 @@ Se o plano introduzir arquitetura, abstração, refatoração ou NFR sem víncul
 um requisito, sinalize isso em **⚠️ Pontos para decidir antes de executar**. Não
 altere nem reescreva o plano nesta skill.
 
+Se o plano alterar comportamento e não trouxer validação verificável, sinalize
+isso na mesma seção.
+
 ## O que explicar
 
 Descreva, em linguagem simples:

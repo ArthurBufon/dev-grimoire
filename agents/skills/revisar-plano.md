@@ -23,6 +23,8 @@ consulte somente o contexto necessário para explicar o fluxo e os impactos com 
 
 Se alguma tarefa carregar arquitetura, abstração, refatoração ou NFR sem ligação
 com o pedido/modelagem, sinalize em **"Pontos para conferir antes de executar"**.
+Se o plano alterar comportamento e não trouxer validação verificável, sinalize
+isso na mesma seção.
 Não altere o plano nesta skill.
 
 ## O que explicar
