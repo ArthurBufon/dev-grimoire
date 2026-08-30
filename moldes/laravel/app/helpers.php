@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-
 if (!function_exists('formatarMensagemErro')) {
     function formatarMensagemErro(Throwable $th): string
     {
