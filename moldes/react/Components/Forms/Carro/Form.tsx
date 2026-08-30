@@ -110,7 +110,7 @@ const Form = ({
                     }
                     required
                 />
-                <InputError message={erros.placa ?? errosCliente[0]} />
+                <InputError message={erros.placa} />
             </div>
 
             <div className="grid gap-2">
@@ -158,7 +158,7 @@ const Form = ({
                 <InputError message={erros.data_lancamento} />
             </div>
 
-            <InputError message={erros.geral} />
+            <InputError message={erros.geral ?? errosCliente[0]} />
 
             <hr className="my-3 border-gray-200 dark:border-gray-700" />
 
