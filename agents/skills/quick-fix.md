@@ -23,10 +23,11 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
 ## Fluxo
 
-1. Arquivos mínimos do pedido.
-2. Patch no padrão existente.
-3. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada).
-4. Checar que o diff não saiu do escopo.
+1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes do dev.
+2. Arquivos mínimos do pedido.
+3. Patch no padrão existente.
+4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada).
+5. Checar que o diff não saiu do escopo nem sobrescreveu alterações do dev.
 
 ## Red flags — parar
 
