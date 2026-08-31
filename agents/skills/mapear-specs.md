@@ -9,6 +9,8 @@ O output final deve ser salvo em:
 
 `docs/features/{entidade}/specs.md`
 
+Antes de analisar ou escrever, siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
+
 Antes de escrever, leia o molde `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` e a spec existente da entidade, se houver. Espelhe seções e tom do molde (ou da spec do projeto, se já existir); adapte só a entidade e o que o código realmente tem.
 
 REGRAS:
