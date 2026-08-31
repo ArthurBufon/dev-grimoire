@@ -6,12 +6,12 @@
 ```
 
 ## Estrutura de arquivos
-- Pages: `[js_pages_path]/NomeModulo/Index.js` / `Form.js` / `Create.js` / `Edit.js`
+- Pages: `[js_pages_path]/NomeModulo/Index.tsx` / `Form.tsx` / `Create.tsx` / `Edit.tsx`
 - Forms: `[js_components_path]/Forms/NomeModulo/Form.tsx` — campos compartilhados entre `Create` e `Edit`
-- Services: `[js_services_path]/NomeModulo/Service.js`
-- Queries: `[js_queries_path]/NomeModulo/Queries.js`
-- Hooks: `[js_hooks_path]/useNomeHook.js`
-- Componentes: `[js_components_path]/NomeComponente.jsx`
+- Services: `[js_services_path]/NomeModulo/Service.tsx`
+- Queries: `[js_queries_path]/NomeModulo/Queries.tsx`
+- Hooks: `[js_hooks_path]/useNomeHook.ts`
+- Componentes: `[js_components_path]/NomeComponente.tsx`
 
 ## Queries
 
@@ -161,7 +161,7 @@ index: async function (filtros) {
 - `PascalCase` — classes e componentes React
 - `UPPER_SNAKE_CASE` — constantes
 - `kebab-case` — arquivos não-componentes
-- `PascalCase` — arquivos de componentes React (`.jsx`)
+- `PascalCase` — arquivos de componentes React (`.tsx`)
 
 ## Organização de Imports
 
