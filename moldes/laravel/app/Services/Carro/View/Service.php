@@ -51,14 +51,17 @@ class Service
 
     private function dadosIndex(array $parametros): array
     {
-        $filtrosBusca = [
-            'empresa_id' => 1,
-            'quantidade' => 100,
-            'ordenacao'  => [
-                'coluna' => 'id',
-                'ordem'  => 'desc',
+        $filtrosBusca = array_replace(
+            [
+                'empresa_id' => 1,
+                'quantidade' => 100,
+                'ordenacao'  => [
+                    'coluna' => 'id',
+                    'ordem'  => 'desc',
+                ],
             ],
-        ];
+            $parametros['filtros'] ?? [],
+        );
 
         if (ambienteDev()) {
             // $filtrosBusca['quantidade'] = 10;
