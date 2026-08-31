@@ -20,7 +20,7 @@ export const aplicarMascaraCep = (valor: string): string => {
     return "";
   }
 
-  const numeros = somenteNumerosString(valor) ?? "".slice(0, 8);
+  const numeros = (somenteNumerosString(valor) ?? "").slice(0, 8);
 
   if (numeros.length <= 5) {
     return numeros;
