@@ -13,6 +13,8 @@ Antes de analisar ou escrever, siga `{GRIMOIRE}/docs/rules/global.md` para resol
 
 Antes de escrever, leia o molde `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` e a spec existente da entidade, se houver. Espelhe seções e tom do molde (ou da spec do projeto, se já existir); adapte só a entidade e o que o código realmente tem.
 
+Antes de salvar, registre `git status` e os diffs relevantes. Preserve integralmente trechos preexistentes ou concorrentes na spec; conflito sem resolução inequívoca → peça instrução ao dev.
+
 REGRAS:
 
 Não alucinar. Documentar somente regras identificadas no código/contexto.
