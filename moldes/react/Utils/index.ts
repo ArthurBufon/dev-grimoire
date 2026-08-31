@@ -1,4 +1,4 @@
-export const isEmpty = (lista: any[] | undefined | null): boolean => {
+export const isEmpty = (lista: readonly unknown[] | undefined | null): boolean => {
     if (!lista) return true;
 
     if (lista.length === 0) return true;
@@ -18,13 +18,13 @@ export const formatarLowerCase = (valor: string | null | undefined): string => {
     return valor.toLowerCase();
 };
 
-export const somenteNumeros = (valor: any): number | null => {
+export const somenteNumeros = (valor: unknown): number | null => {
     if (!valor) return null;
 
     return Number(String(valor).replace(/[^0-9]/g, ""));
 };
 
-export const somenteNumerosString = (valor: any): string | null => {
+export const somenteNumerosString = (valor: unknown): string | null => {
     if (!valor) return null;
 
     return String(valor).replace(/[^0-9]/g, "");
