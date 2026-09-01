@@ -3,6 +3,7 @@ import type { SubmitEvent } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
 // UI
+import CardErros from '@/Components/Forms/CardErros/Show';
 import Form from '@/Components/Forms/Carro/Form';
 
 // TIPOS
@@ -51,6 +52,8 @@ const Edit = ({ carro }: EditProps) => {
 
             <div className="mx-auto w-4/5 p-4">
                 <h1 className="mb-6 text-2xl font-semibold">Editar carro</h1>
+
+                <CardErros erros={errors} />
 
                 <Form
                     data={data}
