@@ -12,6 +12,22 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// SUPPORT
+use Illuminate\Support\Carbon;
+
+/**
+ * @property int $id
+ * @property Marca $marca
+ * @property string $modelo
+ * @property int $ano
+ * @property string|null $cor
+ * @property string $placa
+ * @property int $km
+ * @property string $valor
+ * @property Carbon|null $data_lancamento
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
 #[Fillable(['marca', 'modelo', 'ano', 'cor', 'placa', 'km', 'valor', 'data_lancamento'])]
 class Carro extends Model
 {
