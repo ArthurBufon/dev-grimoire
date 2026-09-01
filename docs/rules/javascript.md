@@ -74,15 +74,16 @@ Páginas `Create` e `Edit` com formulário seguem o padrão de `moldes/react/Pag
 
 * **`useForm` do Inertia** — estado, `setData`, `processing` e submit (`post` / `put`). Proibido `router.post` / `router.put`. O `useForm` permite controle fino pré-submit (validação, transformação de dados) quando necessário.
 * **`handleCampoChange`** — helper privado na Page, wrapper tipado de `setData`. Previne erros de tipagem e deixa o código mais idiomático e legível em pt-BR.
-* **`handleSubmit`** — helper privado na Page com `evento.preventDefault()`, validação pré-submit e chamada a `post` / `put` do `useForm`.
+* **`handleSubmit`** — helper privado na Page com `evento.preventDefault()` e chamada a `post` / `put` do `useForm`.
+* **Validação pré-submit** — usar `validarFormulario` e estado de erros cliente somente quando houver uma regra de negócio real que precise ser validada antes do envio.
 * **Componente `Form` compartilhado** — campos comuns de `Create` e `Edit` extraídos para `[js_components_path]/Forms/{Entidade}/Form.tsx` (ex.: `resources/js/Components/Forms/Carro/Form.tsx`).
 
 #### Responsabilidades
 
 | Arquivo | Responsabilidade |
 |---|---|
-| `Create.tsx` / `Edit.tsx` | `useForm`, valores iniciais, `handleCampoChange`, `validarFormulario`, `handleSubmit`, layout da página |
-| `Forms/{Entidade}/Form.tsx` | markup dos campos, `InputError`, botões, props controladas (`data`, `onCampoChange`, `onSubmit`, `processing`, `errosCliente`) |
+| `Create.tsx` / `Edit.tsx` | `useForm`, valores iniciais, `handleCampoChange`, `handleSubmit`, layout da página; validação pré-submit quando necessária |
+| `Forms/{Entidade}/Form.tsx` | markup dos campos, `InputError`, botões, props controladas (`data`, `onCampoChange`, `onSubmit`, `processing`) |
 
 #### Exemplo (Page)
 
@@ -102,14 +103,6 @@ const handleCampoChange = <K extends keyof DadosFormulario>(
 const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
     evento.preventDefault();
 
-    const validacao = validarFormulario();
-
-    if (!validacao.sucesso) {
-        setErrosCliente(validacao.erros);
-        return;
-    }
-
-    setErrosCliente([]);
     post(CarroController.store.url()); // Edit usa put(...)
 };
 ```
@@ -122,7 +115,6 @@ const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
     onCampoChange={handleCampoChange}
     onSubmit={handleSubmit}
     processing={processing}
-    errosCliente={errosCliente}
 />
 ```
 

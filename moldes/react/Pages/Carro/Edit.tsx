@@ -1,5 +1,4 @@
 // REACT
-import { useState } from 'react';
 import type { SubmitEvent } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
@@ -19,8 +18,6 @@ type EditProps = {
 };
 
 const Edit = ({ carro }: EditProps) => {
-    const [errosCliente, setErrosCliente] = useState<string[]>([]);
-
     const { data, setData, put, processing, errors } = useForm<DadosFormulario>({
         marca: carro.marca,
         modelo: carro.modelo,
@@ -42,26 +39,8 @@ const Edit = ({ carro }: EditProps) => {
         }));
     };
 
-    const validarFormulario = () => {
-        return {
-            sucesso: true,
-            dados: {},
-            erros: [] as string[],
-        };
-    };
-
     const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
         evento.preventDefault();
-
-        const validacao = validarFormulario();
-
-        if (!validacao.sucesso) {
-            setErrosCliente(validacao.erros);
-
-            return;
-        }
-
-        setErrosCliente([]);
 
         put(CarroController.update.url(carro.id));
     };
@@ -79,7 +58,6 @@ const Edit = ({ carro }: EditProps) => {
                     onCampoChange={handleCampoChange}
                     onSubmit={handleSubmit}
                     processing={processing}
-                    errosCliente={errosCliente}
                 />
             </div>
         </>

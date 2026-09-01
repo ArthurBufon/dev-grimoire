@@ -35,7 +35,6 @@ type FormProps = {
     ) => void;
     onSubmit: (evento: SubmitEvent<HTMLFormElement>) => void;
     processing: boolean;
-    errosCliente: string[];
 };
 
 const Form = ({
@@ -44,7 +43,6 @@ const Form = ({
     onCampoChange,
     onSubmit,
     processing,
-    errosCliente,
 }: FormProps) => {
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -158,7 +156,7 @@ const Form = ({
                 <InputError message={erros.data_lancamento} />
             </div>
 
-            <InputError message={erros.geral ?? errosCliente[0]} />
+            <InputError message={erros.geral} />
 
             <hr className="my-3 border-gray-200 dark:border-gray-700" />
 

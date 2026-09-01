@@ -1,5 +1,4 @@
 // REACT
-import { useState } from 'react';
 import type { SubmitEvent } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
@@ -15,8 +14,6 @@ import { index as adminIndex } from '@/routes/admin';
 import { index as carrosIndex } from '@/routes/admin/carros';
 
 const Create = () => {
-    const [errosCliente, setErrosCliente] = useState<string[]>([]);
-
     const { data, setData, post, processing, errors } = useForm<DadosFormulario>({
         marca: '',
         modelo: '',
@@ -38,26 +35,8 @@ const Create = () => {
         }));
     };
 
-    const validarFormulario = () => {
-        return {
-            sucesso: true,
-            dados: {},
-            erros: [] as string[],
-        };
-    };
-
     const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
         evento.preventDefault();
-
-        const validacao = validarFormulario();
-
-        if (!validacao.sucesso) {
-            setErrosCliente(validacao.erros);
-
-            return;
-        }
-
-        setErrosCliente([]);
 
         post(CarroController.store.url());
     };
@@ -75,7 +54,6 @@ const Create = () => {
                     onCampoChange={handleCampoChange}
                     onSubmit={handleSubmit}
                     processing={processing}
-                    errosCliente={errosCliente}
                 />
             </div>
         </>
