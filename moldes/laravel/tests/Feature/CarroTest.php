@@ -52,6 +52,21 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_ordena_por_id_quando_nao_recebe_ordenacao(): void
+    {
+        $primeiroCarro = Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
+        $segundoCarro  = Carro::create($this->dadosCarro(['placa' => 'BBB2B22']));
+
+        $retorno = $this->service->index(['aplicar_paginacao' => false]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertSame(
+            [$primeiroCarro->id, $segundoCarro->id],
+            $retorno['dados']['lista']->pluck('id')->all(),
+        );
+        $this->assertEmpty($retorno['erros']);
+    }
+
     public function test_index_filtra_por_marca(): void
     {
         Carro::create($this->dadosCarro(['marca' => Marca::Toyota->value, 'placa' => 'AAA1A11']));

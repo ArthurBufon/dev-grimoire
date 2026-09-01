@@ -143,6 +143,9 @@ class Queries
         $ordenacao = $filtros['ordenacao'] ?? null;
 
         if (!$ordenacao || empty($ordenacao['coluna']) || empty($ordenacao['ordem'])) {
+
+            $query->orderBy('id');
+
             return;
         }
 
