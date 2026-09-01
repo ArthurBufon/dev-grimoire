@@ -22,7 +22,7 @@ export const aplicarMascaraTelefone = (valor: string): string => {
     return '';
   }
 
-  const numeros = somenteNumerosString(valor) ?? "".slice(0, 11);
+  const numeros = (somenteNumerosString(valor) ?? '').slice(0, 11);
 
   if (numeros.length === 0) {
     return '';
