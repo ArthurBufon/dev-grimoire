@@ -30,12 +30,13 @@ Antes de sugerir:
 
 1. Resolver e ler o Dev Grimoire conforme o `AGENTS.md` ou User Rules do projeto:
    `../dev-grimoire/docs/rules/geral.md` e as rules das stacks detectadas.
-2. Ler as instruções locais do projeto e a spec da feature, quando existir.
-3. Inspecionar `git status`, commits recentes, estrutura do repositório e os
+2. Ler e aplicar `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de selecionar e apresentar as sugestões.
+3. Ler as instruções locais do projeto e a spec da feature, quando existir.
+4. Inspecionar `git status`, commits recentes, estrutura do repositório e os
    arquivos relevantes para cada candidato.
-4. Consultar código suficiente para citar evidência concreta. Não sugerir com
+5. Consultar código suficiente para citar evidência concreta. Não sugerir com
    base apenas no nome de um arquivo ou em suposições.
-5. Informar resumidamente os arquivos consultados antes de apresentar o resultado.
+6. Informar resumidamente os arquivos consultados antes de apresentar o resultado.
 
 Se houver mudanças locais do usuário, não sugerir algo que as sobrescreva ou
 conflite com elas. Se a sobreposição for relevante, descartá-la e procurar outro
