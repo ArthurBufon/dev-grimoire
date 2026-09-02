@@ -34,6 +34,7 @@ Leia a rule de cada stack em uso no projeto. Em projetos full stack (ex.: Larave
 * Confirmar que só alterou o código solicitado
 * Verificar se existe abordagem mais simples
 * Confirmar que nenhum arquivo não solicitado foi tocado
+* Após alterar código, executar a validação mais específica disponível para a mudança. Se não puder executá-la, informar o motivo e não declarar a tarefa concluída sem registrar essa limitação.
 
 ### Proteção de alterações do desenvolvedor
 
