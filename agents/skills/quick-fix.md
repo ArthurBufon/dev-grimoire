@@ -27,7 +27,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes do dev.
 2. Arquivos mínimos do pedido.
 3. Patch no padrão existente.
-4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada).
+4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Se não houver validação aplicável ou ela não puder ser executada, declarar isso na resposta.
 5. Checar que o diff não saiu do escopo nem sobrescreveu alterações do dev.
 
 ## Red flags — parar
@@ -46,7 +46,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 - arquivo: o que mudou
 
 ### Verificações
-- comando: resultado
+- comando: resultado | não executado: motivo
 
 ### Observações
 - Nenhuma | risco/limitação em uma linha
