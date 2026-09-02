@@ -1,9 +1,9 @@
 ---
 name: definir-plano-simples
 description: >-
-  Plano objetivo para tarefas simples com escopo claro. Triggers: "plano simples",
-  "plano objetivo", "definir-plano-simples". Dúvida bloqueante → grill-me ou
-  uma pergunta; escopo claro → plano direto.
+  Plano objetivo para mudanças de escopo claro, incluindo ajustes que afetam mais
+  de um arquivo ou módulo. Use após quick-fix escalar uma tarefa. Dúvida bloqueante
+  ou alto risco → definir-modelagem; escopo claro → plano direto.
 ---
 
 # Definir Plano Simples
@@ -40,18 +40,19 @@ Crie somente o plano. Não implemente código durante este fluxo.
 
 Transformar decisões já tomadas (ou tarefas pontuais com escopo claro) em um plano executável, direto e com alterações mínimas.
 
-Esta skill cobre ajustes, correções, extensões pequenas e tarefas objetivas — **não** features inteiras. Para features completas, use `definir-modelagem` → `definir-plano`.
+Esta skill cobre ajustes, correções, extensões e tarefas objetivas com escopo claro — inclusive quando afetam mais de um arquivo ou módulo. **Não** cobre features inteiras nem mudanças de alto risco. Para esses casos, use `definir-modelagem` → `definir-plano`.
 
 ## Quando usar / não usar
 
-**Usar:** escopo já decidido na conversa; tarefa pontual (fix, ajuste, validação, endpoint simples).
+**Usar:** escopo já decidido na conversa; fix, ajuste, validação, endpoint simples ou mudança delimitada que `quick-fix` escalou por não ser mais local.
 
-**Não usar:** feature inteira, escopo ambíguo, ou workflow completo — nesses casos, sugerir `definir-modelagem` ou `definir-plano`.
+**Não usar:** feature inteira, escopo ambíguo, arquitetura, migração, permissões, financeiro ou workflow completo — nesses casos, sugerir `definir-modelagem`.
 
 ## Antes do plano
 
 * Escopo 100% claro na conversa → plano direto.
-* Dúvida **bloqueante** → `grill-me` ou **uma** pergunta objetiva.
+* Dúvida **bloqueante** de escopo pontual → `grill-me` ou **uma** pergunta objetiva.
+* Dúvida de domínio, impacto ou arquitetura → parar e sugerir `definir-modelagem`.
 * Dúvida não bloqueante → registrar como premissa no plano.
 
 ## Contexto obrigatório

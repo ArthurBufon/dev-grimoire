@@ -12,7 +12,7 @@ disable-model-invocation: false
 
 Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
-**Fora:** arquitetura nova, várias features, refatoração ampla, plano ou subagents pedidos → sugerir `definir-plano`.
+**Fora:** arquitetura nova, várias features, refatoração ampla, impacto em mais de um módulo ou comportamento incerto → parar e sugerir `definir-plano-simples`. Se houver alto risco, ambiguidade de domínio, migração, permissões, financeiro ou decisão arquitetural → sugerir `definir-modelagem`.
 
 ## Contrato
 
@@ -36,6 +36,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 - helper/abstração genérica
 - plano ou subagent
 - mais de um módulo sem o dev ter pedido
+- a mudança revelou regra de negócio, risco ou escopo maior que um ajuste local
 
 ## Resposta
 
