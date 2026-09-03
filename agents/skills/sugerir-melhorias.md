@@ -1,7 +1,7 @@
 ---
 name: sugerir-melhorias
 description: >-
-  Analisa o repositório atual e sugere exatamente 5 melhorias pequenas, reais e
+  Analisa o repositório atual e sugere melhorias pequenas, reais e
   independentes, adequadas a commits curtos. Use com "sugerir melhorias",
   "melhorias simples", "commit diário" ou "/sugerir-melhorias". Não implementa,
   não commita e não propõe mudanças de arquitetura ou workflow.
@@ -12,12 +12,17 @@ description: >-
 Anunciar no início:
 
 ```text
-Usando sugerir-melhorias para analisar o repositório e propor 5 ajustes pequenos.
+Usando sugerir-melhorias para analisar o repositório e propor {quantidade} ajustes pequenos.
 ```
+
+## Quantidade
+
+Produza **5** sugestões por padrão. Se o usuário pedir uma quantidade explícita,
+produza exatamente essa quantidade, sem completar a lista com trabalho artificial.
 
 ## Objetivo
 
-Encontrar exatamente **5 melhorias legítimas**, baseadas em evidências do
+Encontrar exatamente **{quantidade} melhorias legítimas**, baseadas em evidências do
 repositório atual. Cada sugestão deve poder virar um commit pequeno e útil, sem
 criar trabalho artificial apenas para movimentar o histórico do GitHub.
 
@@ -49,7 +54,7 @@ Cada sugestão deve:
 - preservar o comportamento e a arquitetura existentes, salvo correção local e
   evidente de um bug;
 - ter escopo pequeno, preferencialmente em 1 arquivo e no máximo em 3;
-- ser independente das outras quatro;
+- ser independente das demais;
 - ter benefício verificável e validação proporcional;
 - seguir primeiro o padrão do módulo atual e depois o Dev Grimoire;
 - evitar repetir trabalho presente nos commits recentes.
@@ -75,9 +80,9 @@ Priorizar as opções por esta ordem:
 2. benefício claro;
 3. menor diff estimado;
 4. validação simples;
-5. variedade entre as cinco sugestões.
+5. variedade entre as sugestões selecionadas.
 
-Se não houver cinco melhorias honestas após inspeção suficiente, declarar
+Se não houver sugestões honestas suficientes após inspeção suficiente, declarar
 quantas foram encontradas e não completar a lista com trabalho artificial.
 
 ## Resposta
