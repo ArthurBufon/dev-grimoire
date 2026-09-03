@@ -16,7 +16,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
 ## Contrato
 
-1. Pedido do chat > instruções locais (`AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou User Rules) > padrão do módulo alterado > Dev Grimoire (`../dev-grimoire/docs/rules/`).
+1. Siga a seção **Conflitos de prioridade** em `{GRIMOIRE}/docs/rules/global.md`.
 2. Resolver o Grimório via `{GRIMOIRE}/docs/rules/global.md`; depois ler só o necessário: `geral.md` + rule da stack; spec em `docs/features/<feature>/specs.md` se existir; molde se **criar** arquivo.
 3. **Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de aplicar o patch.
 4. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
