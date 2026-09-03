@@ -51,6 +51,14 @@ Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de mo
 * Após a feature entregue, **exclua** `docs/modelagem/{feature}/` por completo.
 * Só mantenha os artefatos enquanto forem necessários às etapas seguintes.
 
+## Contexto obrigatório
+
+Antes da triagem, resolva `{GRIMOIRE}` conforme `{GRIMOIRE}/docs/rules/global.md` e leia
+as instruções locais, `geral.md`, as rules das stacks detectadas, a spec da
+feature (se existir) e o código, banco e testes diretamente relacionados.
+Registre o baseline do worktree e preserve alterações preexistentes ou
+concorrentes do dev.
+
 ## Triagem (obrigatória)
 
 Antes do interrogatório, inspecione código/docs existentes. Anuncie o modo e o motivo em uma frase. Se o usuário discordar, ajuste.
