@@ -46,7 +46,7 @@ O molde deve continuar genérico e didático — não virar cópia do domínio d
 
 ## Contexto obrigatório
 
-Resolver `{GRIMOIRE}` via `../dev-grimoire/docs/rules/geral.md` (marker). Se ausente, parar.
+Siga `../dev-grimoire/docs/rules/global.md` para resolver `{GRIMOIRE}`. Se o marker não existir, pare.
 
 Ler via Read/Grep:
 
