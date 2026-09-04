@@ -52,7 +52,7 @@ for campo in marca modelo ano cor placa km valor data_lancamento; do
   grep -Fq "\`${campo}\`" "${repo_root}/moldes/contratos/carro.md" || falhar "contrato Carro sem campo: ${campo}"
 done
 
-if rg -n "from ['\"]@/types['\"]" "${repo_root}/moldes/react" >/dev/null; then
+if grep -REn "from ['\"]@/types['\"]" "${repo_root}/moldes/react" >/dev/null; then
   falhar 'molde React importa @/types em vez de um arquivo de tipo direto'
 fi
 
