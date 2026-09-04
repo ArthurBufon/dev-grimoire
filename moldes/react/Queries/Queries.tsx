@@ -1,5 +1,5 @@
 // TIPOS
-import type { RetornoPadronizado } from "@/types";
+import type { RetornoPadronizado } from '@/types/retorno';
 
 export default class Queries {
   async index(filtros = {}) {

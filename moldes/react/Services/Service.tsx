@@ -1,4 +1,5 @@
-import { Carro } from '@/types';
+// TIPOS
+import type { Carro } from '@/types/carro';
 
 export class Service {
 

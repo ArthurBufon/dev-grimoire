@@ -14,6 +14,7 @@ AGENTS_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 REPO_ROOT="$(cd "${AGENTS_DIR}/.." && pwd)"
 SKILLS_SRC="${AGENTS_DIR}/skills"
 GLOBAL_MD="${REPO_ROOT}/docs/rules/global.md"
+VALIDAR_GRIMORIO="${AGENTS_DIR}/scripts/validar-grimorio.sh"
 
 CODEX_HOME="${CODEX_HOME:-${HOME}/.codex}"
 
@@ -98,6 +99,14 @@ if [[ ! -f "$GLOBAL_MD" ]]; then
   log "error: global.md not found: ${GLOBAL_MD}"
   exit 1
 fi
+
+if [[ ! -f "$VALIDAR_GRIMORIO" ]]; then
+  log "error: Grimório validator not found: ${VALIDAR_GRIMORIO}"
+  exit 1
+fi
+
+log "validating source..."
+bash "$VALIDAR_GRIMORIO"
 
 skill_files=("${SKILLS_SRC}"/*.md)
 if [[ ! -e "${skill_files[0]}" ]]; then
