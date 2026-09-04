@@ -140,7 +140,7 @@ O plano deve assumir que o worktree pode conter alterações preexistentes ou re
 
 Para cada tarefa:
 
-```markdown
+````markdown
 ### Tarefa N: [Entrega]
 
 **Arquivos:**
@@ -182,7 +182,7 @@ Exemplo:
 ```
 
 Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
-```
+````
 
 ## Testes (mínimo essencial — anti-overkill)
 
