@@ -53,7 +53,8 @@ Ler via Read/Grep:
 1. `{GRIMOIRE}/docs/rules/global.md` (mapa de moldes)
 2. Rules da stack em uso (`geral.md` + `php.md` e/ou `javascript.md`)
 3. Moldes atuais do tipo que será atualizado
-4. Código da entidade-fonte no app (e specs em `docs/features/`, se houver)
+4. `{GRIMOIRE}/moldes/contratos/carro.md` quando o escopo afetar Laravel e React
+5. Código da entidade-fonte no app (e specs em `docs/features/`, se houver)
 
 ## Entrada
 
@@ -88,6 +89,10 @@ Usar o mapa de `{GRIMOIRE}/docs/rules/global.md`. Para cada tipo no escopo:
 | … | caminho real | caminho Carro correspondente |
 
 Marcar: `igual` | `divergente` | `só-no-app` | `só-no-molde`.
+
+Quando o escopo incluir Laravel e React, conferir também se campos, valores de
+enum, nulidade e envelope continuam alinhados ao contrato Carro. Divergência
+intencional deve entrar na proposta com o motivo.
 
 ### 3. Extrair padrão (não domínio)
 

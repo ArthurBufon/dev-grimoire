@@ -83,6 +83,11 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 
 Se o projeto já tiver arquivos do mesmo tipo, o molde complementa — **padrões do projeto atual têm prioridade** sobre o molde quando já consolidados.
 
+Para referências que atravessam Laravel e React, leia também o contrato neutro
+em `{GRIMOIRE}/moldes/contratos/carro.md`. Ele define os dados e retornos que
+as duas pilhas devem manter alinhados; regras de implementação continuam nas
+rules e moldes específicos de cada stack.
+
 ## 3. O que ler no projeto atual (não no Dev Grimoire)
 
 | Local | Quando |
