@@ -61,6 +61,7 @@ Executar um plano tarefa por tarefa, delegando para subagents e validando cada e
 
 * Plano (obrigatório): `docs/modelagem/{feature}/plano/{feature}.md`
 * Modelagem (se existir): `docs/modelagem/{feature}/modelagem/{feature}.md`
+* Handoff (automático): `docs/modelagem/{feature}/handoff/{feature}.md`
 
 Artefatos em `docs/modelagem/{feature}/` são **temporários** — excluir por completo ao concluir; transferir o permanente para `docs/features/`.
 
@@ -80,12 +81,51 @@ Incluir path do molde no prompt quando aplicável. **Não copiar regras do skill
 Antes da primeira tarefa:
 
 1. Ler o plano completo; identificar tarefas, ordem e dependências.
-2. Registrar o baseline do worktree (`git status` e diffs staged, unstaged e untracked relevantes). Alterações existentes pertencem ao dev e devem ser preservadas; worktree sujo **não** bloqueia a execução.
-3. Registrar tarefas já concluídas.
+2. Se existir handoff, validar com `bash {GRIMOIRE}/agents/scripts/validar-handoff.sh docs/modelagem/{feature}/handoff/{feature}.md`, lê-lo e conferir seu estado contra Git e código. Git e código são a fonte de verdade; divergência → atualizar o handoff antes de seguir.
+3. Registrar o baseline do worktree (`git status` e diffs staged, unstaged e untracked relevantes). Alterações existentes pertencem ao dev e devem ser preservadas; worktree sujo **não** bloqueia a execução.
+4. Criar ou atualizar o handoff automaticamente. Nunca pedir essa ação ao dev.
+5. Registrar tarefas já concluídas.
 
 Antes de cada tarefa, de aplicar qualquer correção de subagent e de cada checkpoint, comparar o worktree com o baseline para identificar alterações concorrentes do dev. Nunca as reverta, sobrescreva, descarte ou exclua. Se a tarefa tocar o mesmo arquivo, integre somente o trecho necessário e preserve o restante; conflito sem resolução inequívoca → parar e pedir instrução explícita ao dev.
 
 Plano contradiz código ou decisão impossível de inferir → perguntar ao dev antes de implementar.
+
+## Handoff automático
+
+O handoff existe somente para retomar execução após troca de sessão ou agente. Ele
+não cria tarefa, não substitui checkpoint e não exige ação do dev.
+
+```markdown
+# Handoff de execução: {feature}
+
+## Estado atual
+- Plano: `...`
+- Baseline Git: [commit/status e alterações do dev preservadas]
+- Última tarefa: [concluída | bloqueada | aguardando aprovação]
+
+## Tarefas
+- Concluídas: ...
+- Atual: ...
+- Próxima: ...
+
+## Alterações verificadas
+- Arquivos: ...
+- Diff: [resumo objetivo]
+
+## Validações
+- [comando]: [resultado]
+
+## Decisões e bloqueios
+- [decisão confirmada, risco ou "Nenhum"]
+
+## Próxima ação
+- [uma ação concreta]
+```
+
+Antes de cada checkpoint, bloqueio ou encerramento, atualizar esse arquivo e
+executar o validador. Falha de validação bloqueia o avanço até corrigir o
+handoff. O diretório `docs/modelagem/{feature}/` já é removido no encerramento,
+portanto o handoff não permanece como documentação do projeto.
 
 ## Ciclo por tarefa
 
@@ -95,8 +135,9 @@ Plano contradiz código ou decisão impossível de inferir → perguntar ao dev 
 4. Subagent **revisor** (checklist abaixo).
 5. Corrigir crítico/importante → re-revisar (máx. **2** rodadas por problema).
 6. Ritual anti-slop no diff.
-7. **CHECKPOINT** — parar; aguardar aprovação **explícita** do dev.
-8. Só então próxima tarefa.
+7. Atualizar e validar o handoff automático.
+8. **CHECKPOINT** — parar; aguardar aprovação **explícita** do dev.
+9. Só então próxima tarefa.
 
 **Proibido:** encadear tarefas após revisão do subagent; aprovação por silêncio; checkpoint opcional em tarefa "pequena" ou "já revisada". Revisão do subagent **não substitui** checkpoint do dev.
 
@@ -113,6 +154,9 @@ Plano contradiz código ou decisão impossível de inferir → perguntar ao dev 
 
 ### Riscos
 - [pontos de atenção]
+
+### Handoff
+- `docs/modelagem/{feature}/handoff/{feature}.md` — validado
 
 Aguardando confirmação explícita do dev para avançar.
 ```
@@ -147,7 +191,8 @@ Cobrir cenários importantes da tarefa — não detalhes internos nem suíte amp
 
 Tarefa bloqueada quando: requisitos faltando; plano vs código inconsistente; dependência ausente; problema estrutural fora do escopo; decisão de produto/arquitetura necessária.
 
-Reportar: tarefa, problema, tentativas, decisão necessária.
+Atualizar e validar o handoff antes de reportar: tarefa, problema, tentativas,
+decisão necessária.
 
 ## Encerramento
 
@@ -156,7 +201,8 @@ Após todas as tarefas aprovadas:
 1. Diff completo + suíte de testes aplicável.
 2. Corrigir crítico/importante.
 3. Atualizar `docs/features/{entidade}/specs.md`.
-4. Excluir `docs/modelagem/{feature}/` por completo.
-5. Relatar: tarefas, arquivos, testes, decisões, pendências menores, bloqueios.
+4. Atualizar e validar o handoff final.
+5. Excluir `docs/modelagem/{feature}/` por completo.
+6. Relatar: tarefas, arquivos, testes, decisões, pendências menores, bloqueios.
 
 Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.
