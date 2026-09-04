@@ -42,9 +42,13 @@ Funciona da mesma forma em qualquer branch, inclusive `main` e `master`.
 4. Identificar os arquivos alterados e não rastreados. Excluir os arquivos
    proibidos pelos limites; se houver dúvida sobre um arquivo sensível, parar e
    pedir instrução.
-5. Executar `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh` antes de
-   propor o commit. Falha bloqueia commit e push; reportar a regra violada e
-   aguardar decisão do dev quando a correção exigir escolha de produto ou padrão.
+5. Só quando o repositório atual for o próprio `{GRIMOIRE}` — confirmar pelos
+   topos resolvidos com `git rev-parse --show-toplevel` — executar
+   `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh` antes de propor o
+   commit. Falha bloqueia commit e push; reportar a regra violada e aguardar
+   decisão do dev quando a correção exigir escolha de produto ou padrão.
+   Em qualquer outro projeto, não executar esse validador: usar apenas a
+   validação específica das áreas alteradas no repositório atual.
 
 ## Commit das pendências
 
