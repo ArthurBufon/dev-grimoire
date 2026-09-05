@@ -9,6 +9,17 @@ falhar() {
   exit 1
 }
 
+exigir_conteudo_secao() {
+  local secao="$1"
+
+  awk -v secao="$secao" '
+    $0 == secao { encontrouSecao = 1; next }
+    encontrouSecao && /^## / { exit 1 }
+    encontrouSecao && NF { encontrouConteudo = 1; exit 0 }
+    END { exit !encontrouConteudo }
+  ' "$handoff_path" || falhar "seção sem conteúdo: ${secao}"
+}
+
 [[ -n "$handoff_path" ]] || falhar 'informe o caminho do handoff'
 [[ -f "$handoff_path" ]] || falhar "arquivo não encontrado: ${handoff_path}"
 
@@ -22,6 +33,7 @@ for secao in \
   '## Decisões e bloqueios' \
   '## Próxima ação'; do
   grep -Fqx "$secao" "$handoff_path" >/dev/null || falhar "seção ausente: ${secao}"
+  exigir_conteudo_secao "$secao"
 done
 
 if grep -Eq '(^|[^[:alpha:]])(TODO|TBD)([^[:alpha:]]|$)' "$handoff_path"; then
