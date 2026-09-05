@@ -1,4 +1,4 @@
-# Para iniciar o planejamnto de um MVP de projeto
+# Para iniciar o planejamento de um MVP de projeto
 ## Utilize o prompt abaixo
 No final do prompt, cole a visão geral do projeto
 
