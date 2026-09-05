@@ -61,7 +61,7 @@ public function destroy(string|int $id): array
 
 `$filtros` só em `index` e `show`. `update` e `destroy` **não** recebem `$filtros`.
 
-Caso alguma query muito específica seja necessária, o `Service` deve lidar com essa lógica, mantendo o método com nome 100% em português, simples e objetivo.
+Caso alguma query específica seja necessária, use uma subpasta de contexto em `app/Queries/[Entidade]/[Contexto]/Queries.php` e mantenha um método REST correspondente. Regras de negócio permanecem no `Service`.
 
 - Sem lógica de negócio — apenas SQL/Eloquent
 - Services chamam Queries; Controllers chamam Services
