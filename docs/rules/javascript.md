@@ -119,8 +119,8 @@ const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
 ```
 
 ## HTTP (obrigatório)
-- **Sempre `fetch`** — proibido `$.ajax`, `jQuery.get/post`, `axios`, `XMLHttpRequest`
-- Requests HTTP apenas em Queries, nunca em Pages ou componentes. Exceção quando usamos router.get para navegações com filtros/paginações em listagens
+- **`fetch` em Queries** — proibido `$.ajax`, `jQuery.get/post`, `axios`, `XMLHttpRequest`
+- Requests HTTP apenas em Queries, nunca em Pages ou componentes. Exceções: `router.get` para navegações com filtros/paginações em listagens e `post` / `put` do `useForm` em formulários Inertia
 - Cada método: `async function` + `try/catch` + headers (`Accept`, `Content-type`, `X-CSRF-Token`)
 - Catch retorna `{ sucesso: false, dados: [], erros: ['...'] }`
 - **`const url` obrigatório** — declarar a URL em variável separada **antes** do `fetch`. Proibido passar a URL inline no primeiro argumento de `fetch(...)`.
