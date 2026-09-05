@@ -1,24 +1,18 @@
 # 🔮 Meu Grimório
 
-## O que é isso?
+Este é o meu repositório de referências para o trabalho do dia a dia. Aqui ficam os padrões, prompts, moldes e configurações que fui ajustando em projetos reais.
 
-Um grimório é um livro de feitiços e conhecimento acumulado — pessoal, opinativo, construído com o tempo.
-
-Esse repositório segue a mesma lógica: reúne padrões de projeto, configurações de IA, prompts, moldes e convenções que eu uso no dia a dia. 
-
-Nada aqui é neutro ou consensual. É o que funciona **pra mim**, em projetos reais.
-
-Não é um guia de boas práticas genérico. É **meu** jeito de trabalhar.
+Não é uma tentativa de reunir “as melhores práticas” universais. É um conjunto opinativo de escolhas que quero repetir quando fazem sentido — e revisar quando deixarem de fazer.
 
 ---
 
-## 📁 Conteúdo
+## O que tem aqui
 
 ### 📁 `guias/`
-Guias práticos com passo a passo para casos de uso reais: backups MySQL, conexões SSH, deploy Laravel, etc.
+Guias práticos para situações recorrentes: backup MySQL, conexão SSH e deploy Laravel.
 
 ### 📁 `agents/`
-Prompts e skills para fluxos de trabalho com agentes de IA.
+Prompts e skills para trabalhar com agentes de IA.
 
 | Pasta | Função |
 |---|---|
@@ -28,16 +22,16 @@ Prompts e skills para fluxos de trabalho com agentes de IA.
 
 #### Sincronizar skills globais
 
-Após alterar uma skill em `agents/skills/`, execute:
+Depois de alterar uma skill em `agents/skills/`, rode:
 
 ```bash
 agents/scripts/sync-global-skills.sh
 ```
 
-O script atualiza as instalações existentes do Cursor, Codex e Claude; a skill `dev-grimoire` é gerada a partir de `docs/rules/global.md`.
+O script atualiza as instalações já existentes do Cursor, Codex e Claude. A skill `dev-grimoire` é gerada a partir de `docs/rules/global.md`.
 
 ### 📁 `moldes/`
-Código de referência com SRP: controller, form requests, modelo, queries, services (web, view e API), helpers, migration, testes e specs. Domínio de exemplo: **Carro**. Stack atual: **Laravel** + **React/Inertia**.
+Código de referência para Laravel e React/Inertia. O domínio de exemplo é **Carro** e cobre controller, form requests, modelo, queries, services web/view/API, helpers, migration, testes e specs.
 
 ```
 moldes/
@@ -46,7 +40,7 @@ moldes/
 ```
 
 ### 📁 `docs/rules/`
-Convenções centralizadas, consumidas via clone local irmão dos apps (`../dev-grimoire/`). Não copiar para cada repositório — o agente lê esta pasta no filesystem.
+As convenções ficam centralizadas aqui. Os apps as consomem pelo clone irmão `../dev-grimoire/`, lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
 
 | Arquivo | Função |
 |---|---|
@@ -57,46 +51,46 @@ Convenções centralizadas, consumidas via clone local irmão dos apps (`../dev-
 
 ### 📁 `.cursor/`
 
-Setup do Cursor: User Rule global, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
+Configuração do Cursor, incluindo User Rule global, MCPs e plugin. Veja [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
 
 ---
 
-## 🧬 Pilares
+## Ideias que seguram a casa
 
-**SRP em tudo** — cada arquivo, função e serviço tem um único motivo de mudar.
+**SRP** — cada arquivo, função e serviço deve ter um motivo claro para mudar.
 
-**Queries + Services** — separação clara entre acesso a dados e lógica de caso de uso. Nomenclatura REST nos métodos (`index`, `show`, `store`, `update`, `destroy`) replicável em qualquer stack.
+**Queries + Services** — acesso a dados e lógica de caso de uso não ficam misturados. Quando a operação se encaixa, os métodos usam `index`, `show`, `store`, `update` e `destroy`.
 
-**Retorno padronizado** — envelope consistente em todos os fluxos:
+**Retorno padronizado** — os fluxos usam o mesmo envelope:
 ```json
 { "sucesso": true,  "dados": {},  "erros": [] }
 { "sucesso": false, "dados": {}, "erros": ["mensagem"] }
 ```
 
-**Docs como contexto para IA** — specs em `docs/features/<feature>/specs.md` reduzem ambiguidade e tornam o código gerado mais previsível.
+**Docs como contexto para IA** — specs em `docs/features/<feature>/specs.md` registram regras e reduzem ambiguidade na hora de gerar código.
 
-**SDD (Specification-Driven Development)** — define regras e fronteiras antes de implementar.
-
----
-
-## 📜 Por que padronizar em 2026?
-
-Com IA gerando e refatorando código o tempo todo, uma base bem definida importa mais do que nunca:
-
-- Prompts produzem resultados consistentes quando a arquitetura é previsível
-- User Rules globais no Cursor fixam convenções em todos os projetos automaticamente
-- Clone local do **Dev Grimoire** (`../dev-grimoire/`) ancora o agente nas convenções em qualquer repositório via Read/Grep
-- Specs em `docs/features/` funcionam como memória de contexto para agentes
+**SDD (Specification-Driven Development)** — regras e fronteiras vêm antes da implementação.
 
 ---
 
-## 📚 Referência rápida
+## Por que manter isso?
 
-### Padrão de nomenclatura REST
+Com IA participando cada vez mais do código, pequenas convenções bem registradas evitam que cada conversa recomece do zero:
+
+- Prompts rendem melhor quando a arquitetura já tem um padrão reconhecível
+- User Rules do Cursor levam essas escolhas para os projetos
+- O clone local do **Dev Grimoire** (`../dev-grimoire/`) dá ao agente uma fonte concreta para consultar via Read/Grep
+- Specs em `docs/features/` funcionam como memória de contexto da feature
+
+---
+
+## Referência rápida
+
+### Nomenclatura REST
  
-Queries devem usar somente os cinco métodos abaixo. Quando uma consulta exigir contexto específico, crie uma subpasta para esse contexto e mantenha o método REST correspondente (ex.: `Queries/Carro/Ativos/Queries.tsx: index`).
+Queries usam somente os cinco métodos abaixo. Quando uma consulta precisar de contexto próprio, ela vai para uma subpasta e mantém o método REST correspondente — por exemplo, `Queries/Carro/Ativos/Queries.tsx: index`.
 
-Services também adotam os verbos REST quando a operação se encaixa neles. Regras de negócio específicas permanecem nos services, com métodos em português, simples e objetivos.
+Services também usam esses verbos quando a operação se encaixa. Regras de negócio específicas continuam nos services, com nomes em português, simples e objetivos.
  
 | Método | HTTP | Descrição |
 |---|---|---|
@@ -106,9 +100,9 @@ Services também adotam os verbos REST quando a operação se encaixa neles. Reg
 | `update` | `PUT/PATCH /recursos/{id}` | Atualiza |
 | `destroy` | `DELETE /recursos/{id}` | Remove |
  
-> Se você está criando um método chamado `buscar`, `listar`, `salvar` ou `deletar` — quase certamente é um dos cinco acima com outro nome.
+> Se surgir um método chamado `buscar`, `listar`, `salvar` ou `deletar`, vale conferir antes se ele não é um desses cinco com outro nome.
 
-### Princípios que guiam tudo aqui
+### Princípios
 
 ```
 SRP  → um motivo de mudar por unidade
