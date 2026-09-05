@@ -40,6 +40,8 @@ Passos ordenados do menor risco ao maior impacto. Cada passo deve ser executáve
 
 ## 5. Código refatorado
 
+Antes de apresentar código, liste os comportamentos e interfaces públicas preservados. Se a proposta exigir mudança comportamental, declare-a explicitamente antes de implementá-la.
+
 Implemente a proposta seguindo:
 - Nomes que revelam intenção
 - Uma responsabilidade por função/classe (SRP)
