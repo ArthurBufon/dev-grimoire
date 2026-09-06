@@ -144,6 +144,18 @@ um, no máximo **50 linhas**, inclusive linhas em branco. Se precisar de mais
 detalhes, registre-os na spec, README ou ADR apropriado e deixe somente o link
 e o contexto indispensável nesses arquivos.
 
+### Lições ativas
+
+`AGENTS.md` pode receber a seção opcional `## Lições ativas` somente após
+aprovação explícita do dev. Máximo de 5 bullets, uma linha por lição, no formato
+`[área] situação → ação; prova: teste/spec`. Registre apenas erro real, local e
+recorrente que não caiba melhor em código, teste, spec ou regra do Grimório.
+
+Na revisão final, o agente pode sugerir no máximo uma lição no relatório. Ele
+**nunca** adiciona, substitui ou remove lição automaticamente: qualquer mudança
+em `AGENTS.md` exige confirmação explícita do dev. Com 5 lições, pedir ao dev
+que escolha uma substituição ou não adicionar nada.
+
 ## 4. Conflitos de prioridade
 
 1. Instruções explícitas do usuário
