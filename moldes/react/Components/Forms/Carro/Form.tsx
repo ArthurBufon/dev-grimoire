@@ -77,6 +77,8 @@ const Form = ({
                 <Input
                     id="ano"
                     type="number"
+                    min={1900}
+                    max={2100}
                     value={data.ano}
                     onChange={(evento) =>
                         onCampoChange('ano', Number(evento.target.value))
@@ -116,6 +118,7 @@ const Form = ({
                 <Input
                     id="km"
                     type="number"
+                    min={0}
                     value={data.km}
                     onChange={(evento) =>
                         onCampoChange('km', Number(evento.target.value))
