@@ -139,6 +139,7 @@ class CarroTest extends TestCase
 
         $this->assertTrue($retorno['sucesso']);
         $this->assertCount(2, $retorno['dados']['lista']);
+        $this->assertSame(3, $retorno['dados']['paginacao']['total']);
         $this->assertSame(2, $retorno['dados']['paginacao']['total_retornado']);
         $this->assertArrayNotHasKey('pagina', $retorno['dados']['paginacao']);
         $this->assertEmpty($retorno['erros']);
