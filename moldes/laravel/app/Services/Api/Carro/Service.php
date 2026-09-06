@@ -197,7 +197,7 @@ class Service
         Log::error(
             $mensagemFormatada,
             [
-                'sucesso' => 'false',
+                'sucesso' => false,
                 'dados'   => $dados,
                 'erros'   => [$mensagemFormatada],
             ]
