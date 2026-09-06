@@ -133,7 +133,7 @@ const Form = ({
                 <Input
                     id="valor"
                     type="text"
-                    inputMode="numeric"
+                    inputMode="decimal"
                     value={formatarDinheiroParaReal(data.valor)}
                     onChange={(evento) =>
                         onCampoChange(
