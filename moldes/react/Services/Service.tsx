@@ -57,13 +57,6 @@ export class Service {
         return carro;
     }
 
-    static filtrarDisponiveis(lista: Carro[]): Carro[] {
-
-        const listaFiltrada = lista.filter(item => item.disponivel);
-
-        return listaFiltrada;
-    }
-
     static montarNomeCompleto(carro: Carro): string {
 
         const nomeCompleto = `${carro.marca} ${carro.modelo} ${carro.ano}`;
