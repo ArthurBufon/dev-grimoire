@@ -16,15 +16,20 @@ exigir_arquivo() {
 }
 
 for path in \
+  'AGENTS.md' \
+  'CLAUDE.md' \
   'docs/rules/global.md' \
   'docs/rules/geral.md' \
   'docs/rules/php.md' \
   'docs/rules/javascript.md' \
   'agents/fragments/gate-anti-slop.md' \
+  'agents/scripts/inicializar-contexto-agentes.sh' \
   'agents/skills/executar-plano.md' \
   'agents/scripts/validar-handoff.sh' \
   'agents/scripts/fixtures/handoff-valido.md' \
   'moldes/contratos/carro.md' \
+  'moldes/agents/AGENTS.md' \
+  'moldes/agents/CLAUDE.md' \
   'moldes/laravel/app/Enums/Marca.php' \
   'moldes/laravel/app/Models/Carro.php' \
   'moldes/laravel/app/Queries/Carro/Queries.php' \
@@ -40,6 +45,15 @@ for path in \
   'moldes/react/types/paginacao.ts' \
   'moldes/react/types/retorno.ts'; do
   exigir_arquivo "$path"
+done
+
+for claude_file in 'CLAUDE.md' 'moldes/agents/CLAUDE.md'; do
+  grep -Fq '@AGENTS.md' "${repo_root}/${claude_file}" || falhar "${claude_file} não importa AGENTS.md"
+done
+
+for agent_file in 'AGENTS.md' 'CLAUDE.md' 'moldes/agents/AGENTS.md' 'moldes/agents/CLAUDE.md'; do
+  linhas="$(wc -l <"${repo_root}/${agent_file}")"
+  (( linhas <= 50 )) || falhar "${agent_file} excede o limite de 50 linhas (${linhas})"
 done
 
 for marca in toyota honda volkswagen fiat chevrolet; do

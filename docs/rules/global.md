@@ -18,6 +18,31 @@ O agente resolve o grimório no filesystem:
 
 **Leitura obrigatória via Read/Grep** — nunca assuma o conteúdo de um arquivo sem lê-lo no filesystem.
 
+### Contexto local de agentes
+
+Antes de começar o trabalho, verificar se `AGENTS.md` e `CLAUDE.md` existem na
+raiz do projeto atual.
+
+Se um deles estiver ausente, o contexto local de agentes **ainda não está ativo**.
+Na primeira resposta, informar quais arquivos faltam e oferecer a inicialização:
+
+```text
+O contexto local de agentes ainda não está ativo: falta [arquivos]. Posso criar
+os arquivos base com o Dev Grimoire e, em seguida, sugerir o conteúdo local que
+faz sentido para este projeto?
+```
+
+Não bloquear a tarefa pela ausência dos arquivos e não criá-los sem aceite
+explícito do usuário.
+
+Se o usuário aceitar:
+
+1. Executar `bash {GRIMOIRE}/agents/scripts/inicializar-contexto-agentes.sh` na raiz do projeto.
+2. Inspecionar README, manifests da stack, comandos, docs e módulos relevantes.
+3. Sugerir conteúdo mínimo para `AGENTS.md`, limitado a fatos e decisões locais
+   encontrados no projeto; não inventar regras nem repetir o Dev Grimoire.
+4. Preencher esse conteúdo somente após confirmação explícita do usuário.
+
 ## 2. O que ler no Dev Grimoire
 
 ### Sempre
@@ -94,10 +119,30 @@ rules e moldes específicos de cada stack.
 
 | Local | Quando |
 |---|---|
+| `AGENTS.md` | Sempre — mapa local do projeto, comandos e limites específicos |
+| `CLAUDE.md` | Quando o agente for Claude Code — deve importar `AGENTS.md` e conter somente instruções exclusivas do Claude |
 | `docs/features/<feature>/specs.md` | Contexto de negócio e regras da feature |
 | Código existente do módulo alterado | Padrões já consolidados no repositório |
 
 Projetos **não** devem ter `docs/rules/`. Specs de feature sim.
+
+### Conteúdo dos arquivos locais
+
+Todo projeto deve versionar `AGENTS.md` na raiz como fonte de verdade do contexto
+local: objetivo, stack, arquitetura, comandos de validação e limites específicos.
+Ele deve conter **somente** fatos e decisões que fazem sentido naquele projeto:
+regras internas, módulos sensíveis, integrações, comandos reais e decisões
+arquiteturais locais. Ele complementa o Dev Grimoire; não repete suas rules,
+moldes, convenções genéricas de linguagem ou instruções já globais.
+
+Projetos que usam Claude Code devem também versionar `CLAUDE.md` na raiz com
+`@AGENTS.md`. Instruções exclusivas do Claude ficam nele; todo contexto comum
+permanece em `AGENTS.md`. Ele não recebe regras de projeto compartilhadas.
+
+**Limite anti-slop (obrigatório):** `AGENTS.md` e `CLAUDE.md` podem ter, cada
+um, no máximo **50 linhas**, inclusive linhas em branco. Se precisar de mais
+detalhes, registre-os na spec, README ou ADR apropriado e deixe somente o link
+e o contexto indispensável nesses arquivos.
 
 ## 4. Conflitos de prioridade
 

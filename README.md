@@ -19,6 +19,7 @@ Prompts e skills para trabalhar com agentes de IA.
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc.) |
 | [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills globais (Cursor, Codex, Claude) com `agents/skills/` |
+| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` + `CLAUDE.md` no app, a partir dos moldes, sem sobrescrever arquivos existentes |
 
 #### Sincronizar skills globais
 
@@ -29,6 +30,23 @@ agents/scripts/sync-global-skills.sh
 ```
 
 O script atualiza as instalações já existentes do Cursor, Codex e Claude. A skill `dev-grimoire` é gerada a partir de `docs/rules/global.md`.
+
+#### Inicializar contexto local do app
+
+Em cada repositório de aplicação, mantenha `AGENTS.md` como a fonte única do
+contexto compartilhado pelos agentes. Para o Claude Code, `CLAUDE.md` importa
+esse arquivo e abriga somente regras exclusivas dele.
+
+```bash
+bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
+```
+
+Os dois arquivos são criados somente se ainda não existirem. Preencha os campos
+entre colchetes de `AGENTS.md` antes de delegar trabalho ao agente.
+
+Ao entrar em um projeto sem esses arquivos, o Dev Grimoire deve avisar que o
+contexto local ainda não está ativo, oferecer o inicializador e, se o dev
+aceitar, sugerir conteúdo enxuto baseado no próprio repositório.
 
 ### 📁 `moldes/`
 Código de referência para Laravel e React/Inertia. O domínio de exemplo é **Carro** e cobre controller, form requests, modelo, queries, services web/view/API, helpers, migration, testes e specs.
