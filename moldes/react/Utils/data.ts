@@ -30,6 +30,10 @@ export const formatarDataHoraLocal = (data: Date): string => {
 };
 
 export const parsearDataHoraLocal = (valor: string): Date | null => {
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(valor)) {
+        return null;
+    }
+
     const [dataParte, horaParte] = valor.split('T');
 
     if (!dataParte || !horaParte) {
@@ -43,7 +47,19 @@ export const parsearDataHoraLocal = (valor: string): Date | null => {
         return null;
     }
 
-    return new Date(ano, mes - 1, dia, hora, minuto);
+    const data = new Date(ano, mes - 1, dia, hora, minuto);
+
+    if (
+        data.getFullYear() !== ano ||
+        data.getMonth() !== mes - 1 ||
+        data.getDate() !== dia ||
+        data.getHours() !== hora ||
+        data.getMinutes() !== minuto
+    ) {
+        return null;
+    }
+
+    return data;
 };
 
 export const dataHoraLocalSugerida = (): string => {

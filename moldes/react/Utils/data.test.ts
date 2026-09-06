@@ -42,6 +42,10 @@ test('retorna nulo para datetime-local incompleto', () => {
     assert.equal(parsearDataHoraLocal('2026-08-26'), null);
 });
 
+test('retorna nulo para datetime-local inexistente', () => {
+    assert.equal(parsearDataHoraLocal('2026-02-30T14:30'), null);
+});
+
 test('soma minutos em uma data local', () => {
     assert.equal(
         somarMinutosDataHoraLocal('2026-08-26T23:45', 30),
