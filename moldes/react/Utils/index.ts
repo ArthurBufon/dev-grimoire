@@ -19,9 +19,13 @@ export const formatarLowerCase = (valor: string | null | undefined): string => {
 };
 
 export const somenteNumeros = (valor: unknown): number | null => {
-    if (!valor) return null;
+    if (valor === null || valor === undefined || valor === '') return null;
 
-    return Number(String(valor).replace(/[^0-9]/g, ""));
+    const digitos = String(valor).replace(/[^0-9]/g, '');
+
+    if (!digitos) return null;
+
+    return Number(digitos);
 };
 
 export const somenteNumerosString = (valor: unknown): string | null => {
