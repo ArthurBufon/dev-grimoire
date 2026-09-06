@@ -24,6 +24,7 @@ for path in \
   'docs/rules/javascript.md' \
   'agents/fragments/gate-anti-slop.md' \
   'agents/scripts/inicializar-contexto-agentes.sh' \
+  'agents/skills/check-slop.md' \
   'agents/skills/executar-plano.md' \
   'agents/scripts/validar-handoff.sh' \
   'agents/scripts/fixtures/handoff-valido.md' \
@@ -55,6 +56,9 @@ for agent_file in 'AGENTS.md' 'CLAUDE.md' 'moldes/agents/AGENTS.md' 'moldes/agen
   linhas="$(wc -l <"${repo_root}/${agent_file}")"
   (( linhas <= 50 )) || falhar "${agent_file} excede o limite de 50 linhas (${linhas})"
 done
+
+linhas_check_slop="$(wc -l <"${repo_root}/agents/skills/check-slop.md")"
+(( linhas_check_slop == 4 )) || falhar "check-slop deve ter exatamente 4 linhas (${linhas_check_slop})"
 
 for marca in toyota honda volkswagen fiat chevrolet; do
   grep -Fq "'${marca}'" "${repo_root}/moldes/laravel/app/Enums/Marca.php" || falhar "enum Marca sem valor: ${marca}"

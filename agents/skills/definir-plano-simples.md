@@ -128,7 +128,8 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 - Branch: `[dev/desenvolvimento/develop/etc.]`
 - Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + molde citado por passo
 - Alterações do dev: registrar baseline e preservar alterações preexistentes ou concorrentes; nunca desfazer mudanças fora do escopo
-- Pós: atualizar `docs/features/{entidade}/specs.md`; excluir `docs/modelagem/{feature}/`
+- Pós: atualizar `docs/features/{entidade}/specs.md` quando relevante; revisor novo confere plano, spec e diff final e invoca `$check-slop`; achado crítico/importante ou slop bloqueia o encerramento até correção dentro do escopo
+- Só então: validar handoff; excluir `docs/modelagem/{feature}/`
 - Checklist: implementado · testes · git status · revisão arquivo a arquivo · sem commit/push
 ```
 

@@ -198,11 +198,12 @@ decisão necessária.
 
 Após todas as tarefas aprovadas:
 
-1. Diff completo + suíte de testes aplicável.
-2. Corrigir crítico/importante.
-3. Atualizar `docs/features/{entidade}/specs.md`.
-4. Atualizar e validar o handoff final.
-5. Excluir `docs/modelagem/{feature}/` por completo.
-6. Relatar: tarefas, arquivos, testes, decisões, pendências menores, bloqueios.
+1. Atualizar `docs/features/{entidade}/specs.md` quando a entrega mudar contexto, comportamento ou decisão permanente.
+2. Um revisor novo confere plano, modelagem, spec atualizada e diff final; em seguida invoca `$check-slop` sobre o diff.
+3. Slop ou achado crítico/importante bloqueia o encerramento: corrigir somente dentro do escopo e repetir a revisão final (máx. 2 rodadas). Achado menor entra no relatório.
+4. Executar a suíte de testes aplicável e revisar o diff completo.
+5. Atualizar e validar o handoff final.
+6. Excluir `docs/modelagem/{feature}/` por completo.
+7. Relatar: tarefas, arquivos, testes, revisão final, decisões, pendências menores e bloqueios.
 
 Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.

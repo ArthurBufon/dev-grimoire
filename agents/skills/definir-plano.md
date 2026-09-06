@@ -136,6 +136,12 @@ O plano deve assumir que o worktree pode conter alterações preexistentes ou re
 
 ## Arquivos
 - `caminho/arquivo`: [responsabilidade]
+
+## Encerramento obrigatório
+- Atualizar `docs/features/{entidade}/specs.md` quando a entrega mudar contexto, comportamento ou decisão permanente.
+- Após a última tarefa, um revisor novo confere plano, modelagem, spec e diff final, depois invoca `$check-slop`.
+- Achado crítico/importante ou slop: corrigir dentro do escopo e repetir a revisão; achado menor: relatar.
+- Só então validar handoff, excluir `docs/modelagem/{feature}/` e encerrar.
 ```
 
 Para cada tarefa:
