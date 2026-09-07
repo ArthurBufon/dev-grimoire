@@ -188,8 +188,6 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                                     {lista.map((carro) => (
                                         <TabelaLinha
                                             key={carro.id}
-                                            selecionado={false}
-                                            onToggleSelecao={() => {}}
                                             celulas={[
                                                 carro.marca,
                                                 carro.modelo,
