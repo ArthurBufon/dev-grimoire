@@ -130,7 +130,7 @@ class CarroTest extends TestCase
     {
         Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
         Carro::create($this->dadosCarro(['placa' => 'BBB2B22', 'marca' => Marca::Honda->value]));
-        Carro::create($this->dadosCarro(['placa' => 'CCC3C33', 'marca' => Marca::Ford->value]));
+        Carro::create($this->dadosCarro(['placa' => 'CCC3C33', 'marca' => Marca::Chevrolet->value]));
 
         $retorno = $this->service->index([
             'aplicar_paginacao' => false,
