@@ -1,6 +1,8 @@
+export type Marca = 'toyota' | 'honda' | 'volkswagen' | 'fiat' | 'chevrolet';
+
 export type Carro = {
     id: number;
-    marca: string;
+    marca: Marca;
     modelo: string;
     ano: number;
     cor: string | null;
@@ -13,7 +15,7 @@ export type Carro = {
 };
 
 export type DadosFormulario = {
-    marca: string;
+    marca: Marca | '';
     modelo: string;
     ano: number;
     cor: string;
