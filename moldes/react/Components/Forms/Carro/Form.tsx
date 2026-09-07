@@ -48,14 +48,22 @@ const Form = ({
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="grid gap-2">
                 <Label htmlFor="marca">Marca</Label>
-                <Input
+                <select
                     id="marca"
                     value={data.marca}
                     onChange={(evento) =>
-                        onCampoChange('marca', evento.target.value)
+                        onCampoChange('marca', evento.target.value as DadosFormulario['marca'])
                     }
                     required
-                />
+                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                >
+                    <option value="">Selecione uma marca</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="honda">Honda</option>
+                    <option value="volkswagen">Volkswagen</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="chevrolet">Chevrolet</option>
+                </select>
                 <InputError message={erros.marca} />
             </div>
 
