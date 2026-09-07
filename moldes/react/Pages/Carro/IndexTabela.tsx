@@ -80,7 +80,11 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
 
     const semResultados = paginacao.total === 0;
     const paginaVazia = paginacao.total > 0 && lista.length === 0;
-    const temBusca = Boolean(filtros.busca_geral);
+    const temBusca = Boolean(
+        filtros.busca_geral ||
+            filtros.data_lancamento_inicio ||
+            filtros.data_lancamento_fim,
+    );
 
     return (
         <>
