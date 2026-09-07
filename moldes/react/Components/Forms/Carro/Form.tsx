@@ -114,7 +114,10 @@ const Form = ({
                     id="placa"
                     value={data.placa}
                     onChange={(evento) =>
-                        onCampoChange('placa', evento.target.value)
+                        onCampoChange(
+                            'placa',
+                            evento.target.value.replace(/\s+/g, '').toUpperCase(),
+                        )
                     }
                     required
                 />
