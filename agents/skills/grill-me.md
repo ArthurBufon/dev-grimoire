@@ -11,4 +11,6 @@ Ask the questions one at a time, waiting for feedback on each question before co
 
 If a question can be answered by exploring the codebase, explore the codebase instead.
 
-When no unresolved decisions remain, end with a brief summary of confirmed decisions, adopted assumptions, and remaining open items (`None` when there are none). Do not continue questioning or begin planning or implementation.
+Do not adopt an assumption unless the user confirms it or the project context proves it. Otherwise, keep it as an open item.
+
+When no unresolved decisions remain, end with a brief summary of confirmed decisions, verified facts, and remaining open items (`None` when there are none). Do not continue questioning or begin planning or implementation.
