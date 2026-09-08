@@ -5,6 +5,8 @@ description: Mapear regras de negócio e código em linguagem compreensível ent
 
 Use os arquivos anexados e o contexto fornecido para gerar a especificação da feature.
 
+Se esse material não bastar, localize e leia os módulos, rotas e testes diretamente ligados à feature antes de inferir regras.
+
 O output final deve ser salvo em:
 
 `docs/features/{entidade}/specs.md`
