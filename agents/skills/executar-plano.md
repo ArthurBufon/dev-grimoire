@@ -194,7 +194,7 @@ Tarefa bloqueada quando: requisitos faltando; plano vs código inconsistente; de
 Atualizar e validar o handoff antes de reportar: tarefa, problema, tentativas,
 decisão necessária.
 
-## Encerramento
+## 🏁 Encerramento
 
 Após todas as tarefas aprovadas:
 
@@ -205,6 +205,42 @@ Após todas as tarefas aprovadas:
 5. Executar a suíte de testes aplicável e revisar o diff completo.
 6. Atualizar e validar o handoff final.
 7. Excluir `docs/modelagem/{feature}/` por completo.
-8. Relatar: tarefas, arquivos, testes, revisão final, lição sugerida, decisões, pendências menores e bloqueios.
+8. Entregar o relatório final no formato abaixo. Usar linguagem simples, direta e fácil de entender, sem termos técnicos desnecessários. Em cada item de mudança, explicar claramente **como era antes** e **como é agora**.
 
 Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.
+
+### 📋 Relatório final
+
+```markdown
+## ✅ Concluído
+
+- [resumo simples do que foi entregue]
+
+## 🔄 Como era antes / como é agora
+
+- **[mudança]**
+  - Antes: [comportamento anterior, em linguagem simples]
+  - Agora: [novo comportamento, em linguagem simples]
+
+## 📁 Arquivos alterados
+
+- `[arquivo]` — [o que mudou]
+
+## 🧪 Verificações
+
+- `[comando]` — [resultado]
+
+## 🔎 Revisão final
+
+- [resultado da revisão e do check-slop]
+
+## 💡 Lição ativa sugerida
+
+- [lição ou “Nenhuma”]
+
+## 📝 Decisões e pendências
+
+- Decisões: [decisões confirmadas ou “Nenhuma”]
+- Pendências menores: [itens ou “Nenhuma”]
+- Bloqueios: [itens ou “Nenhum”]
+```
