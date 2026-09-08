@@ -24,6 +24,7 @@ Siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md
 Leia o plano inteiro. Consulte a modelagem, specs e somente os módulos de código
 diretamente citados ou necessários para confirmar o fluxo. Não suponha detalhes
 que não estejam no plano ou no código atual.
+Se precisar apontar uma inferência, identifique-a como tal em **⚠️ Pontos para decidir antes de executar**.
 
 Se o plano introduzir arquitetura, abstração, refatoração ou NFR sem vínculo com
 um requisito, sinalize isso em **⚠️ Pontos para decidir antes de executar**. Não
