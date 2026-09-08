@@ -46,6 +46,9 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 ### Alterações
 - arquivo: o que mudou
 
+### Contexto consultado
+- arquivos lidos para definir o patch
+
 ### Verificações
 - comando: resultado | não executado: motivo
 
