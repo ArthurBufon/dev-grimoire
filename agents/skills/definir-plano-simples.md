@@ -50,9 +50,9 @@ Esta skill cobre ajustes, correções, extensões e tarefas objetivas com escopo
 
 ## Antes do plano
 
-* Escopo 100% claro na conversa → plano direto.
+* Escopo 100% claro somente quando ator, resultado esperado, critério de aceite e limite de escopo estiverem decididos na conversa ou verificados no código/spec → plano direto.
 * Dúvida **bloqueante** de escopo pontual → `grill-me` ou **uma** pergunta objetiva.
-* Dúvida de domínio, impacto ou arquitetura → parar e sugerir `definir-modelagem`.
+* Dúvida de comportamento, domínio, impacto ou arquitetura → parar e sugerir `definir-modelagem`.
 * Premissa só para fato técnico verificável no código; dúvida de comportamento → perguntar.
 
 ## Contexto obrigatório
