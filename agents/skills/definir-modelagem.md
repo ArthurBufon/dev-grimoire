@@ -71,6 +71,8 @@ Antes do interrogatório, inspecione código/docs existentes. Anuncie o modo e o
 
 Na dúvida L↔M → **M**. M↔H → **H**.
 
+Use **H** quando faltar ator, resultado, fluxo principal ou critério de aceite; ou quando as fontes consultadas divergirem.
+
 ## Regras
 
 * Explore código, docs, banco e testes antes de perguntar.
@@ -109,6 +111,8 @@ Antes de gravar, apresente **Entendimento compartilhado**:
 * **M/H:** problema, atores, regras, fluxos, NFRs se houver, e design se aplicável.
 
 Só produza o artefato após confirmação explícita. Se algo mudar, retome o bloco afetado.
+
+No modo H, antes da confirmação, liste somente as decisões críticas como `confirmada pelo usuário`, `verificada em caminho:linha` ou `pendente bloqueante`. Não salve enquanto uma pendência puder mudar comportamento ou critério de aceite.
 
 Checklist interno (não entrevistar): lacuna? contradição? requisito que é implementação? decisão técnica sem design quando deveria ter?
 
