@@ -143,12 +143,14 @@ Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
 
 ### 5. Aplicar (só após confirmação)
 
-1. Atualizar/criar arquivos em `{GRIMOIRE}/moldes/...` com domínio Carro.
-2. Se o mapa ou a convenção mudou, atualizar `docs/rules/global.md` e, se necessário, a rule da stack — alteração mínima.
-3. Manter specs do molde (`moldes/laravel/docs/features/carro/specs.md`) alinhadas à estrutura (sem regras do app-fonte).
-4. Não rodar formatadores automáticos; seguir estilo dos moldes existentes.
-5. Executar `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh`; falha bloqueia o encerramento.
-6. Não commitar sem pedido explícito do dev.
+1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes no Grimório.
+2. Atualizar/criar arquivos em `{GRIMOIRE}/moldes/...` com domínio Carro.
+3. Se o mapa ou a convenção mudou, atualizar `docs/rules/global.md` e, se necessário, a rule da stack — alteração mínima.
+4. Manter specs do molde (`moldes/laravel/docs/features/carro/specs.md`) alinhadas à estrutura (sem regras do app-fonte).
+5. Não rodar formatadores automáticos; seguir estilo dos moldes existentes.
+6. Executar `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh`; falha bloqueia o encerramento.
+7. Antes de encerrar, comparar o worktree com o baseline e confirmar que nenhuma alteração preexistente ou concorrente foi sobrescrita.
+8. Não commitar sem pedido explícito do dev.
 
 ### 6. Encerrar
 
