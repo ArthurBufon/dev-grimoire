@@ -53,9 +53,12 @@ Código de referência para Laravel e React/Inertia. O domínio de exemplo é **
 
 ```
 moldes/
+├── contratos/ → Fonte de verdade cross-stack (campos, validações, listagem)
 ├── laravel/   → Controllers, Requests, Models, Queries, Services, migration, tests, docs/features/
 └── react/     → Pages, Forms, Services, Queries, Components, Utils
 ```
+
+Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md). O contrato define o que Laravel, React e a spec compartilham; na mesma mudança, revisar enum, tipos, formulário, queries e testes afetados (ver seção *Manutenção* do contrato).
 
 ### 📁 `docs/rules/`
 As convenções ficam centralizadas aqui. Os apps as consomem pelo clone irmão `../dev-grimoire/`, lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
