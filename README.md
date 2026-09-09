@@ -102,6 +102,17 @@ Com IA participando cada vez mais do código, pequenas convenções bem registra
 
 ---
 
+## Como o Grimório evolui
+
+Este repositório muda quando uma situação real revela um padrão reutilizável.
+
+- Registre decisões confirmadas em projeto, implementação ou incidente.
+- Explique o contexto e a decisão tomada; não mantenha um diário de alterações.
+- Não altere regras, moldes ou guias apenas para manter atividade no GitHub.
+- Se não houver aprendizado reutilizável, não há mudança necessária.
+
+---
+
 ## Referência rápida
 
 ### Nomenclatura REST
