@@ -42,7 +42,7 @@ O molde deve continuar genérico e didático — não virar cópia do domínio d
 1. **Não escrever** em `{GRIMOIRE}/moldes/` nem em `docs/rules/` sem confirmação explícita do dev sobre a proposta.
 2. **Não copiar** regras de negócio, nomes de domínio reais, secrets, IDs, textos de produto ou integrações específicas do app.
 3. **Não inventar** arquivos no molde que não existam (ou não tenham âncora clara) na entidade-fonte.
-4. Domínio do molde permanece **Carro** (e tipos auxiliares do exemplo, ex.: `Marca`) — renomear entidade-fonte → Carro na proposta.
+4. Domínio do molde permanece **Carro** (e catálogos auxiliares do exemplo, ex.: `Fabricante`) — renomear entidade-fonte → Carro na proposta.
 
 ## Contexto obrigatório
 
@@ -111,7 +111,7 @@ Descartar ou generalizar:
 * Relacionamentos e regras só daquele domínio
 * Strings de UI, rotas de produto, policies ad hoc
 
-Reescrever o exemplo no domínio **Carro** (campos simples do molde atual: marca, modelo, ano, placa…).
+Reescrever o exemplo no domínio **Carro** (campos do molde atual: fabricante_id, modelo, ano, placa…).
 
 ### 4. Proposta (obrigatória antes de gravar)
 

@@ -87,7 +87,7 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
 - Chaves em todos os control structures
 - Constructor property promotion (PHP 8)
 - Return types e type hints explícitos em todos os métodos
-- Enum keys em TitleCase; values em `snake_case` / minúsculas (molde: `moldes/laravel/app/Enums/Marca.php`)
+- Enum keys em TitleCase; values em `snake_case` / minúsculas quando o projeto usar enums backed
 - Cast no Model com a classe do enum; validação HTTP com `Rule::enum(...)`
 - PHPDoc com array shapes; comentários inline só em lógica complexa
 

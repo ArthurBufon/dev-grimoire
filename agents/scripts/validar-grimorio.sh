@@ -29,9 +29,10 @@ for path in \
   'agents/scripts/validar-handoff.sh' \
   'agents/scripts/fixtures/handoff-valido.md' \
   'moldes/contratos/carro.md' \
+  'moldes/contratos/fabricante.md' \
   'moldes/agents/AGENTS.md' \
   'moldes/agents/CLAUDE.md' \
-  'moldes/laravel/app/Enums/Marca.php' \
+  'moldes/laravel/app/Models/Fabricante.php' \
   'moldes/laravel/app/Models/Carro.php' \
   'moldes/laravel/app/Queries/Carro/Queries.php' \
   'moldes/laravel/app/Services/Carro/Service.php' \
@@ -43,6 +44,7 @@ for path in \
   'moldes/react/Queries/Queries.tsx' \
   'moldes/react/Services/Service.tsx' \
   'moldes/react/types/carro.ts' \
+  'moldes/react/types/fabricante.ts' \
   'moldes/react/types/paginacao.ts' \
   'moldes/react/types/retorno.ts'; do
   exigir_arquivo "$path"
@@ -60,12 +62,12 @@ done
 linhas_check_slop="$(wc -l <"${repo_root}/agents/skills/check-slop.md")"
 (( linhas_check_slop == 4 )) || falhar "check-slop deve ter exatamente 4 linhas (${linhas_check_slop})"
 
-for marca in toyota honda volkswagen fiat chevrolet; do
-  grep -Fq "'${marca}'" "${repo_root}/moldes/laravel/app/Enums/Marca.php" || falhar "enum Marca sem valor: ${marca}"
-  grep -Fq "\`${marca}\`" "${repo_root}/moldes/contratos/carro.md" || falhar "contrato Carro sem valor de marca: ${marca}"
-done
+grep -Fq 'fabricante_id' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
+  || falhar 'model Carro sem relacionamento fabricante_id'
+grep -Fq 'belongsTo(Fabricante::class)' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
+  || falhar 'model Carro sem belongsTo Fabricante'
 
-for campo in marca modelo ano cor placa km valor data_lancamento; do
+for campo in fabricante_id modelo ano cor placa km valor data_lancamento; do
   grep -Fq "${campo}" "${repo_root}/moldes/react/types/carro.ts" || falhar "tipo React sem campo: ${campo}"
   grep -Fq "\`${campo}\`" "${repo_root}/moldes/contratos/carro.md" || falhar "contrato Carro sem campo: ${campo}"
 done

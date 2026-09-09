@@ -49,7 +49,7 @@ contexto local ainda não está ativo, oferecer o inicializador e, se o dev
 aceitar, sugerir conteúdo enxuto baseado no próprio repositório.
 
 ### 📁 `moldes/`
-Código de referência para Laravel e React/Inertia. O domínio de exemplo é **Carro** e cobre controller, form requests, modelo, queries, services web/view/API, helpers, migration, testes e specs.
+Código de referência para Laravel e React/Inertia. O domínio de exemplo é **Carro**, com catálogo **Fabricante** (`belongsTo`), e cobre controller, form requests, modelos, queries, services web/view/API, helpers, migrations, testes e specs.
 
 ```
 moldes/
@@ -58,7 +58,7 @@ moldes/
 └── react/     → Pages, Forms, Services, Queries, Components, Utils
 ```
 
-Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md). O contrato define o que Laravel, React e a spec compartilham; na mesma mudança, revisar enum, tipos, formulário, queries e testes afetados (ver seção *Manutenção* do contrato).
+Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md); o catálogo **Fabricante** em [`moldes/contratos/fabricante.md`](moldes/contratos/fabricante.md). Os contratos definem o que Laravel, React e as specs compartilham; na mesma mudança, revisar tipos, formulário, queries e testes afetados (ver seção *Manutenção* de cada contrato).
 
 ### 📁 `docs/rules/`
 As convenções ficam centralizadas aqui. Os apps as consomem pelo clone irmão `../dev-grimoire/`, lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
