@@ -104,6 +104,7 @@ Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React)
 | `Components/Listagem/Tabela/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Tabela/Index.tsx` |
 | `Components/Listagem/Tabela/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Tabela/Show.tsx` |
 | `types/carro.ts` | `{GRIMOIRE}/moldes/react/types/carro.ts` |
+| `types/fabricante.ts` (catálogo / `OpcaoVinculo`) | `{GRIMOIRE}/moldes/react/types/fabricante.ts` |
 | `types/paginacao.ts` | `{GRIMOIRE}/moldes/react/types/paginacao.ts` |
 | `types/retorno.ts` | `{GRIMOIRE}/moldes/react/types/retorno.ts` |
 | `Utils/*.ts` | `{GRIMOIRE}/moldes/react/Utils/` |
