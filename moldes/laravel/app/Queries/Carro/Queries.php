@@ -101,8 +101,8 @@ class Queries
                     $this->aplicarBuscaGeral($query, $valor);
                     break;
 
-                case 'marca':
-                    $query->where('marca', 'like', "%{$valor}%");
+                case 'fabricante_id':
+                    $query->where('fabricante_id', $valor);
                     break;
 
                 case 'modelo':
@@ -131,10 +131,12 @@ class Queries
     private function aplicarBuscaGeral(Builder $query, string $valor): void
     {
         $query->where(function (Builder $subquery) use ($valor) {
-            $subquery->where('marca', 'like', "%{$valor}%")
-                ->orWhere('modelo', 'like', "%{$valor}%")
+            $subquery->where('modelo', 'like', "%{$valor}%")
                 ->orWhere('ano', 'like', "%{$valor}%")
-                ->orWhere('placa', 'like', "%{$valor}%");
+                ->orWhere('placa', 'like', "%{$valor}%")
+                ->orWhereHas('fabricante', function (Builder $fabricanteQuery) use ($valor) {
+                    $fabricanteQuery->where('nome', 'like', "%{$valor}%");
+                });
         });
     }
 

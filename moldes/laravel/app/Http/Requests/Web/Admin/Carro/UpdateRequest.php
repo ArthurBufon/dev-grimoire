@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Web\Admin\Carro;
 
-// ENUMS
-use App\Enums\Marca;
 // HTTP
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,11 +36,11 @@ class UpdateRequest extends FormRequest
         $carro = $this->route('carro');
 
         return [
-            'marca'  => ['required', Rule::enum(Marca::class)],
-            'modelo' => ['required', 'string', 'max:120'],
-            'ano'    => ['required', 'integer', 'min:1900', 'max:2100'],
-            'cor'    => ['nullable', 'string', 'max:40'],
-            'placa'  => [
+            'fabricante_id'   => ['required', 'integer', Rule::exists('fabricantes', 'id')],
+            'modelo'          => ['required', 'string', 'max:120'],
+            'ano'             => ['required', 'integer', 'min:1900', 'max:2100'],
+            'cor'             => ['nullable', 'string', 'max:40'],
+            'placa'           => [
                 'required',
                 'string',
                 'max:10',

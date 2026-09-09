@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Web\Admin\Carro;
 
-// ENUMS
-use App\Enums\Marca;
 // HTTP
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -36,11 +34,11 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'marca'  => ['required', Rule::enum(Marca::class)],
-            'modelo' => ['required', 'string', 'max:120'],
-            'ano'    => ['required', 'integer', 'min:1900', 'max:2100'],
-            'cor'    => ['nullable', 'string', 'max:40'],
-            'placa'  => ['required', 'string', 'max:10', 'unique:carros,placa'],
+            'fabricante_id'   => ['required', 'integer', Rule::exists('fabricantes', 'id')],
+            'modelo'          => ['required', 'string', 'max:120'],
+            'ano'             => ['required', 'integer', 'min:1900', 'max:2100'],
+            'cor'             => ['nullable', 'string', 'max:40'],
+            'placa'           => ['required', 'string', 'max:10', 'unique:carros,placa'],
             'km'              => ['required', 'integer', 'min:0'],
             'valor'           => ['required', 'numeric', 'min:0'],
             'data_lancamento' => ['nullable', 'date'],

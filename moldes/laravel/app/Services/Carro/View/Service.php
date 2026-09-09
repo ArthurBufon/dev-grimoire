@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services\Carro\View;
 
+// QUERIES
 use App\Queries\Carro\Queries as CarroQueries;
+use App\Queries\Fabricante\Queries as FabricanteQueries;
 
 class Service
 {
-    public function __construct(private CarroQueries $queries)
-    {
+    public function __construct(
+        private CarroQueries $queries,
+        private FabricanteQueries $fabricanteQueries,
+    ) {
         //
     }
 
@@ -41,6 +45,8 @@ class Service
     private function dadosIndex(array $parametros): array
     {
         $filtros = $parametros['filtros'] ?? [];
+        $filtros['carregarRelacionamentos'] = ['fabricante'];
+
         $retorno = $this->queries->index($filtros)['dados'];
 
         return [
@@ -59,13 +65,27 @@ class Service
 
     private function dadosCreate(array $parametros): array
     {
-        return [];
+        return $this->dadosCatalogos();
     }
 
     private function dadosEdit(array $parametros): array
     {
+        return array_merge([
+            'carro' => $parametros['carro']->load('fabricante'),
+        ], $this->dadosCatalogos());
+    }
+
+    private function dadosCatalogos(): array
+    {
+        $retorno = $this->fabricanteQueries->index([
+            'ativo'               => true,
+            'aplicar_paginacao'   => false,
+            'quantidade'          => 200,
+            'ordenacao'           => ['coluna' => 'nome', 'ordem' => 'asc'],
+        ]);
+
         return [
-            'carro' => $parametros['carro'],
+            'fabricantes' => $retorno['dados']['lista'] ?? collect(),
         ];
     }
 

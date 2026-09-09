@@ -158,8 +158,8 @@ class Service
     {
         $mapa = [];
 
-        if (array_key_exists('marca', $dados)) {
-            $mapa['marca'] = $dados['marca'];
+        if (array_key_exists('fabricante_id', $dados)) {
+            $mapa['fabricante_id'] = (int) $dados['fabricante_id'];
         }
 
         if (array_key_exists('modelo', $dados)) {

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-// ENUMS
-use App\Enums\Marca;
 // MODELS
 use App\Models\Carro;
+use App\Models\Fabricante;
 // SERVICES
 use App\Services\Carro\Service;
 // TESTING
@@ -20,21 +19,28 @@ class CarroTest extends TestCase
 
     private Service $service;
 
+    private Fabricante $fabricante;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->service = app(Service::class);
+
+        $this->fabricante = Fabricante::create([
+            'nome'  => 'Toyota',
+            'ativo' => true,
+        ]);
     }
 
     private function dadosCarro(array $sobrescrever = []): array
     {
         return array_merge([
-            'marca'  => Marca::Toyota->value,
-            'modelo' => 'Corolla',
-            'ano'    => 2020,
-            'cor'    => 'Prata',
-            'placa'  => 'ABC1D23',
+            'fabricante_id'   => $this->fabricante->id,
+            'modelo'          => 'Corolla',
+            'ano'             => 2020,
+            'cor'             => 'Prata',
+            'placa'           => 'ABC1D23',
             'km'              => 10000,
             'valor'           => 80000.00,
             'data_lancamento' => '2024-01-15',
@@ -67,19 +73,21 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
-    public function test_index_filtra_por_marca(): void
+    public function test_index_filtra_por_fabricante_id(): void
     {
-        Carro::create($this->dadosCarro(['marca' => Marca::Toyota->value, 'placa' => 'AAA1A11']));
-        Carro::create($this->dadosCarro(['marca' => Marca::Honda->value, 'placa' => 'BBB2B22']));
+        $honda = Fabricante::create(['nome' => 'Honda', 'ativo' => true]);
+
+        Carro::create($this->dadosCarro(['fabricante_id' => $this->fabricante->id, 'placa' => 'AAA1A11']));
+        Carro::create($this->dadosCarro(['fabricante_id' => $honda->id, 'placa' => 'BBB2B22']));
 
         $retorno = $this->service->index([
-            'marca'              => Marca::Toyota->value,
+            'fabricante_id'     => $this->fabricante->id,
             'aplicar_paginacao' => false,
         ]);
 
         $this->assertTrue($retorno['sucesso']);
         $this->assertCount(1, $retorno['dados']['lista']);
-        $this->assertSame(Marca::Toyota, $retorno['dados']['lista']->first()->marca);
+        $this->assertSame($this->fabricante->id, $retorno['dados']['lista']->first()->fabricante_id);
         $this->assertEmpty($retorno['erros']);
     }
 
@@ -114,7 +122,7 @@ class CarroTest extends TestCase
         ]));
 
         $retorno = $this->service->index([
-            'busca_geral'          => 'Corolla',
+            'busca_geral'            => 'Corolla',
             'data_lancamento_inicio' => '2024-01-01',
             'data_lancamento_fim'    => '2024-02-01',
             'aplicar_paginacao'      => false,
@@ -126,11 +134,30 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_busca_geral_por_nome_do_fabricante(): void
+    {
+        Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
+        Carro::create($this->dadosCarro([
+            'fabricante_id' => Fabricante::create(['nome' => 'Honda', 'ativo' => true])->id,
+            'placa'         => 'BBB2B22',
+        ]));
+
+        $retorno = $this->service->index([
+            'busca_geral'       => 'Toyota',
+            'aplicar_paginacao' => false,
+        ]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertCount(1, $retorno['dados']['lista']);
+        $this->assertSame('AAA1A11', $retorno['dados']['lista']->first()->placa);
+        $this->assertEmpty($retorno['erros']);
+    }
+
     public function test_index_sem_paginacao_respeita_quantidade(): void
     {
         Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
-        Carro::create($this->dadosCarro(['placa' => 'BBB2B22', 'marca' => Marca::Honda->value]));
-        Carro::create($this->dadosCarro(['placa' => 'CCC3C33', 'marca' => Marca::Chevrolet->value]));
+        Carro::create($this->dadosCarro(['placa' => 'BBB2B22']));
+        Carro::create($this->dadosCarro(['placa' => 'CCC3C33']));
 
         $retorno = $this->service->index([
             'aplicar_paginacao' => false,
@@ -155,8 +182,8 @@ class CarroTest extends TestCase
         $this->assertNotEmpty($retorno['dados']['id']);
         $this->assertEmpty($retorno['erros']);
         $this->assertDatabaseHas('carros', [
-            'placa' => 'ABC1D23',
-            'marca' => Marca::Toyota->value,
+            'placa'         => 'ABC1D23',
+            'fabricante_id' => $this->fabricante->id,
         ]);
     }
 

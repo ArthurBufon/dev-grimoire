@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// ENUMS
-use App\Enums\Marca;
-
 // ELOQUENT
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-// SUPPORT
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property Marca $marca
+ * @property int $fabricante_id
  * @property string $modelo
  * @property int $ano
  * @property string|null $cor
@@ -27,8 +23,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $data_lancamento
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Fabricante $fabricante
  */
-#[Fillable(['marca', 'modelo', 'ano', 'cor', 'placa', 'km', 'valor', 'data_lancamento'])]
+#[Fillable(['fabricante_id', 'modelo', 'ano', 'cor', 'placa', 'km', 'valor', 'data_lancamento'])]
 class Carro extends Model
 {
     use HasFactory;
@@ -38,11 +35,16 @@ class Carro extends Model
     protected function casts(): array
     {
         return [
-            'marca'           => Marca::class,
+            'fabricante_id'   => 'integer',
             'ano'             => 'integer',
             'km'              => 'integer',
             'valor'           => 'decimal:2',
             'data_lancamento' => 'date',
         ];
+    }
+
+    public function fabricante(): BelongsTo
+    {
+        return $this->belongsTo(Fabricante::class);
     }
 }

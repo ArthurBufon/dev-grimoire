@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('carros', function (Blueprint $table) {
             $table->id();
-            $table->string('marca', 80);
+            $table->foreignId('fabricante_id')->constrained('fabricantes')->restrictOnDelete();
             $table->string('modelo', 120);
             $table->unsignedSmallInteger('ano');
             $table->string('cor', 40)->nullable();

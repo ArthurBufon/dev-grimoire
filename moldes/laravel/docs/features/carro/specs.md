@@ -23,23 +23,18 @@ A API REST dos controllers Laravel inspira os nomes dos métodos em queries e se
 
 - Classe: `App\Models\Carro`
 - Tabela: `carros`
-- Atributos em mass assignment (`$fillable`): `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`
-- Casts: `marca` → `App\Enums\Marca`; `ano` e `km` como inteiros; `valor` como decimal com duas casas; `data_lancamento` como `date`
+- Atributos em mass assignment (`$fillable`): `fabricante_id`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`
+- Casts: `fabricante_id`, `ano` e `km` como inteiros; `valor` como decimal com duas casas; `data_lancamento` como `date`
+- Relação: `belongsTo(Fabricante::class)`
 
-### 2.2 Enum `Marca`
-
-- Classe: `App\Enums\Marca` (backed `string`)
-- Cases em TitleCase; values em minúsculas (`toyota`, `honda`, `volkswagen`, `fiat`, `chevrolet`)
-- Validação HTTP com `Rule::enum(Marca::class)` nos Form Requests
-
-### 2.3 Banco (migration)
+### 2.2 Banco (migration)
 
 Tabela `carros` (resumo):
 
 | Coluna   | Observação                          |
 |----------|-------------------------------------|
 | `id`     | Chave primária                      |
-| `marca`  | String (value do enum `Marca`)      |
+| `fabricante_id` | FK para `fabricantes`; `restrictOnDelete` |
 | `modelo` | String (até 120 caracteres)         |
 | `ano`    | Ano numérico                        |
 | `cor`    | Opcional                            |
@@ -70,11 +65,14 @@ Em geral:
 - Retorno em sucesso: `dados.lista` com coleção de modelos `Carro`.
 - Filtros suportados em `aplicarFiltros` (valores vazios ou `null` são ignorados):
   - `id`: igualdade
-  - `marca`, `modelo`: `LIKE` com `%valor%`
+  - `fabricante_id`: igualdade
+  - `modelo`: `LIKE` com `%valor%`
   - `ano`: igualdade
   - `placa`: igualdade (já deve refletir o formato normalizado se a escrita passou pelo service)
-  - `data_lancamento_inicio` / `data_lancamento_fim`: `whereDate('data_lancamento', '>=' | '<=', $valor)` — filtro de intervalo, mesmo padrão usado para campos de data em outras listagens do projeto (ex.: `data_emissao` de Título)
-- `ordenacao`: opcional, estrutura `['coluna' => string, 'ordem' => 'asc'|'desc']` (ambos obrigatórios para aplicar `orderBy`).
+  - `busca_geral`: `modelo`, `ano`, `placa` e nome do fabricante relacionado
+  - `data_lancamento_inicio` / `data_lancamento_fim`: `whereDate('data_lancamento', '>=' | '<=', $valor)`
+- `carregarRelacionamentos`: array de relações para `with()` (ex.: `['fabricante']`)
+- `ordenacao`: opcional, estrutura `['coluna' => string, 'ordem' => 'asc'|'desc']`
 
 ### 3.3 `show(array $filtros)`
 
@@ -101,47 +99,34 @@ Em geral:
 
 - Injeta `App\Queries\Carro\Queries`.
 - **`index` / `show`**: repasse direto às queries.
-- **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada (`array_key_exists`), para permitir atualização parcial na camada que chama o service.
-- Campos mapeados: `marca`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento` (com cast numérico onde aplicável).
-- **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas (regra única de apresentação/persistência da placa no domínio deste exemplo).
-- **`destroy(Carro $carro)`**: transação; em sucesso faz `session()->flash` de mensagem amigável; em erro faz flash de erro, `logarErro` e `rollBack`.
-- Erros inesperados: `formatarMensagemErro($th)` nos retornos e no log.
+- **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada.
+- Campos mapeados: `fabricante_id`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`.
+- **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas.
+- **`destroy(Carro $carro)`**: transação; flash de sucesso/erro na sessão.
 
 ---
 
-## 5. Service API (`App\Services\Api\Carro\Service`)
+## 5. View Service (`App\Services\Carro\View\Service`)
+
+- **`index`**: repassa filtros à query com `carregarRelacionamentos: ['fabricante']`.
+- **`create` / `edit`**: inclui `fabricantes` (catálogo ativo) para o select do formulário.
+- **`edit`**: carrega `carro` com relação `fabricante`.
+
+---
+
+## 6. Service API (`App\Services\Api\Carro\Service`)
 
 - Mesma injeção de `Queries` e o mesmo contrato de métodos **index / show / store / update / destroy**.
-- Diferença em relação ao web: **sem** `session()->flash` no fluxo de exclusão (adequado a API stateless).
-- Mensagens de log do `logarErro` são prefixadas de forma a identificar contexto API.
-
-A formatação de entrada para banco replica a ideia do service web (chaves aceitas e `normalizarPlaca`).
-
----
-
-## 6. Helpers
-
-- `formatarMensagemErro(Throwable $th)` em `app/helpers.php`: usado em queries e services para padronizar mensagens de falha (mensagem, arquivo e linha).
-- `App\Helpers\Paginacao` em `app/Helpers/Paginacao.php`: paginação centralizada para listagens. `aplicar_paginacao: false` retorna sem paginar; com `quantidade`, limita o retorno (teto 100) sem metadados de página. Omitido/`true` pagina via `pagina` e `quantidade`.
-
-Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via autoload PSR-4 do aplicativo final.
+- Diferença em relação ao web: **sem** `session()->flash` no fluxo de exclusão.
 
 ---
 
 ## 7. Camada HTTP
 
-### 7.1 Controller (`App\Http\Controllers\Web\Admin\Carro\CarroController`)
+### 7.1 Form Requests
 
-- Injeta `App\Services\Carro\Service` e `App\Services\Carro\View\Service`.
-- **index / create / edit**: monta props via View Service e renderiza Inertia (`Carro/Index`, `Carro/Create`, `Carro/Edit`).
-- **store / update / destroy**: chama o Service; em falha `back()->withErrors(['geral' => ...])`; em sucesso toast Inertia + `redirect()->route('admin.carros.index')`.
-- Filtros da listagem vêm do `Request` (`busca_geral`, `data_lancamento_inicio`, `data_lancamento_fim`, `quantidade`, `pagina`, `aplicar_paginacao`). Services/View Services repassam sem forçar default de `quantidade`.
-
-### 7.2 Form Requests
-
-- `StoreRequest` / `UpdateRequest` em `App\Http\Requests\Web\Admin\Carro`.
-- `prepareForValidation` normaliza `placa` (trim, sem espaços, maiúsculas) antes das rules.
-- Rules alinhadas à migration; `placa` unique (no update, `Rule::unique(...)->ignore($carro)`).
+- `fabricante_id`: obrigatório; `exists:fabricantes,id`
+- Demais rules alinhadas à migration; `placa` unique (no update, `Rule::unique(...)->ignore($carro)`).
 
 ---
 
@@ -152,16 +137,15 @@ Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via 
 | `app/Http/Controllers/Web/Admin/Carro/CarroController.php` |
 | `app/Http/Requests/Web/Admin/Carro/StoreRequest.php` |
 | `app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
-| `app/Enums/Marca.php` |
 | `app/Models/Carro.php` |
+| `app/Models/Fabricante.php` |
 | `app/Queries/Carro/Queries.php` |
 | `app/Services/Carro/Service.php` |
 | `app/Services/Api/Carro/Service.php` |
 | `app/Services/Carro/View/Service.php` |
-| `app/helpers.php` |
-| `app/Helpers/Paginacao.php` |
-| `database/migrations/2026_05_08_000000_create_carros_table.php` |
+| `database/migrations/2026_05_08_000001_create_carros_table.php` |
 | `tests/Feature/CarroTest.php` |
+| `moldes/contratos/carro.md` |
 
 ---
 
@@ -169,6 +153,6 @@ Garantir que `helpers.php` e classes em `app/Helpers/` estejam disponíveis via 
 
 - Policies, autorização e escopo por usuário.
 - Factory para seeds/testes.
-- Relações no Model (hasMany/belongsTo).
+- CRUD web completo de Fabricante.
 
 Ao alterar comportamento, **atualize este `specs.md`** para manter o contexto para a próxima sessão de desenvolvimento ou de IA.
