@@ -12,6 +12,7 @@ import { CheckCircle, X } from 'lucide-react';
 
 // TIPOS
 import type { DadosFormulario } from '@/types/carro';
+import type { OpcaoVinculo } from '@/types/fabricante';
 
 // UTILS
 import {
@@ -29,6 +30,7 @@ type ErrosFormulario = Partial<Record<keyof DadosFormulario, string>> & {
 type FormProps = {
     data: DadosFormulario;
     erros: ErrosFormulario;
+    fabricantes: OpcaoVinculo[];
     onCampoChange: <K extends keyof DadosFormulario>(
         campo: K,
         valor: DadosFormulario[K],
@@ -40,6 +42,7 @@ type FormProps = {
 const Form = ({
     data,
     erros,
+    fabricantes,
     onCampoChange,
     onSubmit,
     processing,
@@ -47,24 +50,29 @@ const Form = ({
     return (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <div className="grid gap-2">
-                <Label htmlFor="marca">Marca</Label>
+                <Label htmlFor="fabricante_id">Fabricante</Label>
                 <select
-                    id="marca"
-                    value={data.marca}
+                    id="fabricante_id"
+                    value={data.fabricante_id}
                     onChange={(evento) =>
-                        onCampoChange('marca', evento.target.value as DadosFormulario['marca'])
+                        onCampoChange(
+                            'fabricante_id',
+                            evento.target.value === ''
+                                ? ''
+                                : Number(evento.target.value),
+                        )
                     }
                     required
                     className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                 >
-                    <option value="">Selecione uma marca</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="honda">Honda</option>
-                    <option value="volkswagen">Volkswagen</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="chevrolet">Chevrolet</option>
+                    <option value="">Selecione um fabricante</option>
+                    {fabricantes.map((fabricante) => (
+                        <option key={fabricante.id} value={fabricante.id}>
+                            {fabricante.nome}
+                        </option>
+                    ))}
                 </select>
-                <InputError message={erros.marca} />
+                <InputError message={erros.fabricante_id} />
             </div>
 
             <div className="grid gap-2">

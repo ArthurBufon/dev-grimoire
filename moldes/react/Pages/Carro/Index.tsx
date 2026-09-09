@@ -137,7 +137,7 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                                 setFiltros((atual) => ({ ...atual, busca_geral: evento.target.value }))
                             }
                             onKeyDown={(evento) => evento.key === 'Enter' && handlePesquisar()}
-                            placeholder="Buscar por marca, modelo, ano ou placa"
+                            placeholder="Buscar por fabricante, modelo, ano ou placa"
                         />
                     </Filtros>
 
@@ -176,7 +176,7 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                                         <ListagemCard
                                             key={carro.id}
                                             icone={Car}
-                                            titulo={`${carro.marca} ${carro.modelo}`}
+                                            titulo={`${carro.fabricante?.nome ?? '—'} ${carro.modelo}`}
                                             detalhes={[
                                                 carro.placa,
                                                 String(carro.ano),

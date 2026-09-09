@@ -142,7 +142,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                                 setFiltros((atual) => ({ ...atual, busca_geral: evento.target.value }))
                             }
                             onKeyDown={(evento) => evento.key === 'Enter' && handlePesquisar()}
-                            placeholder="Buscar por marca, modelo, ano ou placa"
+                            placeholder="Buscar por fabricante, modelo, ano ou placa"
                         />
                     </Filtros>
 
@@ -178,7 +178,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                             ) : (
                                 <Tabela
                                     cabecalho={[
-                                        'Marca',
+                                        'Fabricante',
                                         'Modelo',
                                         'Ano',
                                         'Placa',
@@ -189,7 +189,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                                         <TabelaLinha
                                             key={carro.id}
                                             celulas={[
-                                                carro.marca,
+                                                carro.fabricante?.nome ?? '—',
                                                 carro.modelo,
                                                 String(carro.ano),
                                                 carro.placa,

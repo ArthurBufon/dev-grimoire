@@ -8,15 +8,20 @@ import Form from '@/Components/Forms/Carro/Form';
 
 // TIPOS
 import type { DadosFormulario } from '@/types/carro';
+import type { OpcaoVinculo } from '@/types/fabricante';
 
 // ROTAS
 import CarroController from '@/actions/App/Http/Controllers/Web/Admin/Carro/CarroController';
 import { index as adminIndex } from '@/routes/admin';
 import { index as carrosIndex } from '@/routes/admin/carros';
 
-const Create = () => {
+type CreateProps = {
+    fabricantes: OpcaoVinculo[];
+};
+
+const Create = ({ fabricantes }: CreateProps) => {
     const { data, setData, post, processing, errors } = useForm<DadosFormulario>({
-        marca: '',
+        fabricante_id: '',
         modelo: '',
         ano: new Date().getFullYear(),
         cor: '',
@@ -54,6 +59,7 @@ const Create = () => {
                 <Form
                     data={data}
                     erros={errors}
+                    fabricantes={fabricantes}
                     onCampoChange={handleCampoChange}
                     onSubmit={handleSubmit}
                     processing={processing}

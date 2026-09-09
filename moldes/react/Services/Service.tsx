@@ -59,7 +59,9 @@ export class Service {
 
     static montarNomeCompleto(carro: Carro): string {
 
-        const nomeCompleto = `${carro.marca} ${carro.modelo} ${carro.ano}`;
+        const fabricante = carro.fabricante?.nome ?? '';
+
+        const nomeCompleto = `${fabricante} ${carro.modelo} ${carro.ano}`.trim();
 
         return nomeCompleto;
     }

@@ -1,8 +1,10 @@
-export type Marca = 'toyota' | 'honda' | 'volkswagen' | 'fiat' | 'chevrolet';
+// TIPOS
+import type { Fabricante } from '@/types/fabricante';
 
 export type Carro = {
     id: number;
-    marca: Marca;
+    fabricante_id: number;
+    fabricante?: Fabricante;
     modelo: string;
     ano: number;
     cor: string | null;
@@ -15,7 +17,7 @@ export type Carro = {
 };
 
 export type DadosFormulario = {
-    marca: Marca | '';
+    fabricante_id: number | '';
     modelo: string;
     ano: number;
     cor: string;
