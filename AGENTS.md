@@ -13,6 +13,6 @@
 
 ## Limites locais
 
-- `docs/rules/global.md` é a fonte da skill global `dev-grimoire`.
-- `agents/scripts/sync-global-skills.sh` distribui skills para Cursor, Codex e Claude.
-- Não alterar arquivos instalados em diretórios globais como substituto da fonte neste repositório.
+- `docs/rules/global.md` é a fonte da User Rule global e da skill `dev-grimoire`.
+- `agents/scripts/sync-global-skills.sh` distribui skills e publica `global.md` em `~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`.
+- Não alterar arquivos em `~/.codex`, `~/.claude` ou `~/.cursor/skills` como substituto da fonte neste repositório.

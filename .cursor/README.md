@@ -2,7 +2,7 @@
 
 ## User Rule
 
-Copie [`docs/rules/global.md`](../docs/rules/global.md) para **Settings → Rules → User**.
+Copie [`docs/rules/global.md`](../docs/rules/global.md) para **Settings → Rules → User**, ou rode `bash agents/scripts/sync-global-skills.sh` e use o conteúdo atualizado (Codex/Claude são publicados automaticamente; Cursor continua manual).
 
 ## Grimório local
 

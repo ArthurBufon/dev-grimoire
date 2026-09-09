@@ -40,8 +40,11 @@ O nome da pasta **deve** ser `dev-grimoire` — a User Rule global resolve o gri
 ## Setup no Cursor
 
 1. Abra **somente o app** no Cursor (ex.: `projetos/app-cliente-a/`) — multi-root não é obrigatório.
-2. Copie o conteúdo de [`docs/rules/global.md`](../../docs/rules/global.md) para **Settings → Rules → User**.
-3. Não é necessário configurar **Indexing & Docs**.
+2. Rode `bash agents/scripts/sync-global-skills.sh` no grimório (skills + Codex/Claude globais).
+3. Copie o conteúdo de [`docs/rules/global.md`](../../docs/rules/global.md) para **Settings → Rules → User** (Cursor não tem destino em arquivo no script).
+4. Não é necessário configurar **Indexing & Docs**.
+
+Guias dos outros runtimes: [Codex](../codex/setup-grimoire-local.md), [Claude](../claude/setup-grimoire-local.md).
 
 ---
 
@@ -72,26 +75,24 @@ Um único clone serve todos os apps do mesmo diretório pai.
 
 ---
 
-## Skills globais (Cursor, Codex, Claude)
+## Sincronização global (Cursor, Codex, Claude)
 
-As skills de workflow (`definir-plano`, `executar-plano`, etc.) vivem em `agents/skills/` neste repositório — **fonte de verdade**.
+Fonte de verdade: `docs/rules/global.md` e `agents/skills/`.
 
-Após `git pull` com mudanças em skills ou `docs/rules/global.md`, sincronize:
+Após `git pull` com mudanças em skills ou `global.md`:
 
 ```bash
 cd /caminho/para/dev-grimoire
-./agents/scripts/sync-global-skills.sh
+bash agents/scripts/sync-global-skills.sh
 ```
 
-O script sincroniza **somente** diretórios globais que já existem na máquina:
+| Runtime | Instrução always-on | Skills |
+|---|---|---|
+| Cursor | Settings → Rules → User (manual) | `~/.cursor/skills/` |
+| Codex | `$CODEX_HOME/AGENTS.md` | `$CODEX_HOME/skills/` |
+| Claude | `~/.claude/CLAUDE.md` | `~/.claude/skills/` |
 
-| Runtime | Diretório |
-|---|---|
-| Cursor | `~/.cursor/skills/` |
-| Codex | `$CODEX_HOME/skills/` (default `~/.codex/skills/`) |
-| Claude | `~/.claude/skills/` |
-
-Copia `agents/skills/*.md` → `{dir}/{skill}/SKILL.md` e gera `dev-grimoire/SKILL.md` a partir de `docs/rules/global.md`.
+O script copia `agents/skills/*.md` → `{dir}/{skill}/SKILL.md`, gera a skill `dev-grimoire` a partir de `global.md` e publica `global.md` em `AGENTS.md` / `CLAUDE.md`. Se existir `AGENTS.override.md` no Codex, o script não sobrescreve `AGENTS.md`.
 
 ---
 

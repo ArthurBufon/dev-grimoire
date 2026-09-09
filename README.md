@@ -18,7 +18,7 @@ Prompts e skills para trabalhar com agentes de IA.
 |---|---|
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc.) |
-| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills globais (Cursor, Codex, Claude) com `agents/skills/` |
+| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills e instruções globais (`AGENTS.md` / `CLAUDE.md`) com `agents/skills/` e `docs/rules/global.md` |
 | [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` + `CLAUDE.md` no app, a partir dos moldes, sem sobrescrever arquivos existentes |
 
 #### Sincronizar skills globais
@@ -29,7 +29,7 @@ Depois de alterar uma skill em `agents/skills/`, rode:
 agents/scripts/sync-global-skills.sh
 ```
 
-O script atualiza as instalações já existentes do Cursor, Codex e Claude. A skill `dev-grimoire` é gerada a partir de `docs/rules/global.md`.
+O script atualiza skills nos três runtimes, publica `docs/rules/global.md` em `~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`, e gera a skill `dev-grimoire`. No Cursor, a User Rule continua manual em Settings → Rules → User.
 
 #### Inicializar contexto local do app
 

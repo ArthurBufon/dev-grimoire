@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-# Sincroniza skills globais locais com agents/skills/ do Dev Grimoire (fonte de verdade).
+# Sincroniza skills globais e instruções always-on com o Dev Grimoire (fonte de verdade).
 #
-# Destinos (só sincroniza se o diretório raiz de skills existir):
+# Skills (só sincroniza se o diretório raiz de skills existir):
 #   - Cursor:  ~/.cursor/skills/
 #   - Codex:   $CODEX_HOME/skills/  (default ~/.codex/skills/)
 #   - Claude:  ~/.claude/skills/
 #
+# Instruções globais (docs/rules/global.md):
+#   - Codex:   $CODEX_HOME/AGENTS.md
+#   - Claude:  ~/.claude/CLAUDE.md
+#
 # A skill dev-grimoire é gerada de docs/rules/global.md (não está em agents/skills/).
+# Cursor continua usando Settings → Rules → User (sem destino em arquivo no script).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -22,6 +27,11 @@ declare -A TARGETS=(
   [cursor]="${HOME}/.cursor/skills"
   [codex]="${CODEX_HOME}/skills"
   [claude]="${HOME}/.claude/skills"
+)
+
+declare -A GLOBAL_INSTRUCTION_TARGETS=(
+  [codex]="${CODEX_HOME}/AGENTS.md"
+  [claude]="${HOME}/.claude/CLAUDE.md"
 )
 
 log() { printf '%s\n' "$*"; }
@@ -90,6 +100,30 @@ sync_dev_grimoire_skill() {
   log "synced: dev-grimoire → ${label} (from docs/rules/global.md)"
 }
 
+sync_global_instructions() {
+  local label="$1"
+  local dest="$2"
+  local parent_dir
+
+  parent_dir="$(dirname "$dest")"
+
+  if [[ "$label" == "codex" && -s "${CODEX_HOME}/AGENTS.override.md" ]]; then
+    skip "codex: AGENTS.override.md present — not updating AGENTS.md"
+    return 1
+  fi
+
+  if [[ ! -e "$parent_dir" ]]; then
+    skip "${label}: home directory does not exist (${parent_dir})"
+    return 1
+  fi
+
+  mkdir -p "$parent_dir"
+  force_copy "$GLOBAL_MD" "$dest"
+  log "synced: global.md → ${label} (${dest})"
+
+  return 0
+}
+
 if [[ ! -d "$SKILLS_SRC" ]]; then
   log "error: skills source not found: ${SKILLS_SRC}"
   exit 1
@@ -115,6 +149,25 @@ if [[ ! -e "${skill_files[0]}" ]]; then
 fi
 
 log "source: ${SKILLS_SRC}"
+log "---"
+
+synced_instructions=0
+skipped_instructions=0
+
+log "global instructions: ${GLOBAL_MD}"
+log "---"
+
+for label in codex claude; do
+  if sync_global_instructions "$label" "${GLOBAL_INSTRUCTION_TARGETS[$label]}"; then
+    synced_instructions=$((synced_instructions + 1))
+  else
+    skipped_instructions=$((skipped_instructions + 1))
+  fi
+done
+
+log ""
+log "---"
+log "skills"
 log "---"
 
 synced_targets=0
@@ -148,9 +201,10 @@ for label in cursor codex claude; do
 done
 
 log "---"
-log "done: ${synced_targets} target(s) synced, ${skipped_targets} skipped"
+log "done: ${synced_instructions} global instruction(s) synced, ${skipped_instructions} skipped"
+log "done: ${synced_targets} skill target(s) synced, ${skipped_targets} skipped"
 
-if [[ "$synced_targets" -eq 0 ]]; then
-  log "warning: no global skills directory found — install skills in at least one runtime first"
+if [[ "$synced_targets" -eq 0 && "$synced_instructions" -eq 0 ]]; then
+  log "warning: no global runtime directory found — install Cursor, Codex or Claude first"
   exit 0
 fi

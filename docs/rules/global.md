@@ -1,7 +1,10 @@
 # User Rule Global
 
-> Cole este arquivo em **Cursor Settings → Rules → User**. Vale para todos os projetos.
-> O Dev Grimoire deve estar clonado como repositório **irmão** do app aberto (`../dev-grimoire/`).
+> **Cursor:** cole em **Settings → Rules → User**.
+> **Codex / Claude Code:** publique com `bash agents/scripts/sync-global-skills.sh`
+> (`~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`).
+> Vale para todos os projetos. O Dev Grimoire deve estar clonado como repositório
+> **irmão** do app aberto (`../dev-grimoire/`).
 
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
