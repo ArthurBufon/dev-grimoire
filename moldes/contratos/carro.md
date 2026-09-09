@@ -7,7 +7,7 @@ React e a spec de Carro. Não substitui regras de implementação de cada stack.
 
 | Campo | Persistência/API | Formulário React | Observação |
 | --- | --- | --- | --- |
-| `marca` | obrigatório; `toyota`, `honda`, `volkswagen`, `fiat` ou `chevrolet` | obrigatório; um dos mesmos valores | Enum `Marca` |
+| `fabricante_id` | inteiro obrigatório; deve existir em `fabricantes` | obrigatório; select de fabricantes ativos | `belongsTo` Fabricante |
 | `modelo` | string obrigatória; até 120 caracteres | string obrigatória | |
 | `ano` | inteiro entre 1900 e 2100 | número obrigatório | |
 | `cor` | string opcional ou `null`; até 40 caracteres | string; vazio representa ausência | |
@@ -18,10 +18,10 @@ React e a spec de Carro. Não substitui regras de implementação de cada stack.
 
 ## Listagem
 
-- Entrada: `busca_geral`, `data_lancamento_inicio`, `data_lancamento_fim`,
-  `quantidade` e `pagina`.
-- Saída: `lista` de carros e `paginacao` com `total`, `total_retornado`,
-  `pagina`, `limite` e `total_paginas`.
+- Entrada: `busca_geral`, `fabricante_id`, `data_lancamento_inicio`,
+  `data_lancamento_fim`, `quantidade` e `pagina`.
+- Saída: `lista` de carros (com `fabricante` carregado) e `paginacao` com `total`,
+  `total_retornado`, `pagina`, `limite` e `total_paginas`.
 
 ## Retornos e fluxos
 
@@ -30,15 +30,18 @@ React e a spec de Carro. Não substitui regras de implementação de cada stack.
   carro existente.
 - A validação HTTP é a autoridade para entrada. Validação React só existe para
   regra de negócio que precise ser verificada antes do envio.
+- Telas de criação e edição recebem `fabricantes` (lista de opções ativas) via
+  View Service.
 
 ## Manutenção
 
 Ao alterar este contrato, revisar na mesma mudança:
 
-1. enum, migration, Form Requests e tipos do Model;
+1. migration, Form Requests e tipos do Model;
 2. tipos, campos e navegação React;
 3. spec de Carro;
-4. qualquer Query, Service ou teste que exponha os dados alterados.
+4. contrato de Fabricante quando o vínculo mudar;
+5. qualquer Query, Service ou teste que exponha os dados alterados.
 
 Se uma camada precisar divergir, documentar a razão nesta seção antes de alterar
 o molde correspondente.
