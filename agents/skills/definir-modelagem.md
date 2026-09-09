@@ -3,8 +3,7 @@ name: definir-modelagem
 description: >-
   Define requisitos verificáveis e, quando necessário, design técnico de uma
   feature antes do plano. Use com "definir modelagem", "definir escopo",
-  "definir design" ou antes de definir-plano. Substitui definir-escopo e
-  definir-design.
+  "definir design" ou antes de definir-plano.
 ---
 
 # Definir Modelagem (escopo + design)

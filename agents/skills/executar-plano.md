@@ -2,8 +2,7 @@
 name: executar-plano
 description: >-
   Executa plano pronto em `docs/modelagem/{feature}/plano/` tarefa por tarefa com
-  subagents. Triggers: "executar plano", "executar-plano". Pipeline completo com
-  revisão de spec + qualidade → `plan-execute-subagents`.
+  subagents. Triggers: "executar plano", "executar-plano".
 ---
 
 # Executar Plano
@@ -55,7 +54,7 @@ Executar um plano tarefa por tarefa, delegando para subagents e validando cada e
 
 **Usar:** plano pronto em `docs/modelagem/{feature}/plano/{feature}.md`; escopo fechado.
 
-**Não usar:** sem artefato de plano; escopo ainda aberto; pipeline com revisão de spec + qualidade → `plan-execute-subagents`.
+**Não usar:** sem artefato de plano; escopo ainda aberto.
 
 ## Entrada
 
