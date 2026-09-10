@@ -88,6 +88,8 @@ Configuração do Cursor, incluindo User Rule global, MCPs e plugin. Veja [`.cur
 { "sucesso": false, "dados": {}, "erros": ["mensagem"] }
 ```
 
+**Arquitetura dos moldes** — Queries, Services, envelope e organização de arquivos dos moldes valem como referência em qualquer stack, sem forçar o framework a abrir mão das próprias convenções.
+
 **Docs como contexto para IA** — specs em `docs/features/<feature>/specs.md` registram regras e reduzem ambiguidade na hora de gerar código.
 
 **SDD (Specification-Driven Development)** — regras e fronteiras vêm antes da implementação.

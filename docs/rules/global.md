@@ -70,6 +70,14 @@ Identifique a stack pelo repositório aberto (`composer.json` + `artisan` → La
 
 Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React), leia as duas. Não misture convenções de stacks diferentes no mesmo arquivo gerado.
 
+### Arquitetura dos moldes (qualquer stack)
+
+Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura preferida: pasta de contexto, arquivo pelo tipo (`Service`, `Queries`), envelope `sucesso` / `dados` / `erros`, métodos REST e specs em `docs/features/`. Detalhes em `{GRIMOIRE}/docs/rules/geral.md`.
+
+- Stack **com** molde (Laravel, React): seguir o molde e a rule da stack.
+- Stack **sem** molde: reproduzir o máximo possível essa organização de arquivos e responsabilidades, mapeando para paths e idioms do framework em uso.
+- **Nunca** abandonar convenções do próprio framework só para copiar um path literal do grimório.
+
 ### Ao criar arquivos novos
 
 **Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `{GRIMOIRE}/moldes/`. O código gerado deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
@@ -170,6 +178,8 @@ que escolha uma substituição ou não adicionar nada.
 1. Instruções explícitas do usuário
 2. Padrões existentes no arquivo ou módulo do projeto atual
 3. Regras do Dev Grimoire (`docs/rules/` + `moldes/`)
+   - Stack **com** molde (Laravel, React): seguir o molde.
+   - Stack **sem** molde: arquitetura dos moldes só onde não conflitar com as convenções do framework; o framework vence o path literal do molde.
 4. Convenções genéricas da linguagem ou framework
 
 ## 5. Antes de executar

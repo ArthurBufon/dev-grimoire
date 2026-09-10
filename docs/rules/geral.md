@@ -11,6 +11,8 @@ Antes de implementar, identifique a stack do projeto e leia a rule correspondent
 
 Leia a rule de cada stack em uso no projeto. Em projetos full stack (ex.: Laravel + React), leia as duas. Detalhes de estrutura, imports, HTTP, formatação e convenções de código ficam nas rules específicas.
 
+Se a stack **não** tiver rule nem molde, use mesmo assim a arquitetura dos moldes (Queries, Services, envelope, nomenclatura de arquivos) na medida em que o framework permitir. Não invente pastas ou camadas que o próprio framework rejeita só para espelhar Laravel ou React.
+
 ---
 
 ## Escopo mínimo
@@ -91,7 +93,7 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 ## Services e Queries
 
-O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`).
+O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`). Sem rule própria, mantenha essa organização de arquivos e responsabilidades no idioma do framework — sem criar camadas que o framework já resolve de outro jeito.
 
 O nome do arquivo deve representar apenas o tipo (Service.* ou Queries.*).
 
