@@ -126,8 +126,6 @@ class Service
                 throw new \Exception($retornoDatabase['erros'][0] ?? 'Erro não identificado!');
             }
 
-            session()->flash('mensagem_sucesso', 'Carro excluído com sucesso!');
-
             DB::commit();
 
             return [
@@ -136,8 +134,6 @@ class Service
                 'erros'   => [],
             ];
         } catch (\Throwable $th) {
-
-            session()->flash('mensagem_erro', 'Erro ao excluir carro!');
 
             $this->logarErro(['id' => $carro->id], formatarMensagemErro($th));
 

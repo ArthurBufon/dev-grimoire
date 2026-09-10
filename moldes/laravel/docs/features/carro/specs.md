@@ -102,7 +102,7 @@ Em geral:
 - **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada.
 - Campos mapeados: `fabricante_id`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`.
 - **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas.
-- **`destroy(Carro $carro)`**: transação; flash de sucesso/erro na sessão.
+- **`destroy(Carro $carro)`**: transação; feedback de sucesso/erro fica no controller (`Inertia::flash`).
 
 ---
 
