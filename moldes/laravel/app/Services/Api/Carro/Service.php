@@ -61,6 +61,8 @@ class Service
 
             DB::rollBack();
 
+            $this->logarErro([], formatarMensagemErro($th));
+
             return [
                 'sucesso' => false,
                 'dados'   => [],
@@ -100,6 +102,8 @@ class Service
         } catch (\Throwable $th) {
 
             DB::rollBack();
+
+            $this->logarErro(['id' => $id], formatarMensagemErro($th));
 
             return [
                 'sucesso' => false,
