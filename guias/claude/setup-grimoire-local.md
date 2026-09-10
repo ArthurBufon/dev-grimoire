@@ -2,7 +2,7 @@
 
 ## Pré-requisito
 
-Clone `dev-grimoire` uma vez no ancestral comum dos apps (irmão ou níveis acima). Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
+Clone `dev-grimoire` uma vez (irmão, ancestral ou pasta irmã do ancestral). Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
 
 ## Instrução global always-on
 

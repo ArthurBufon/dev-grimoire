@@ -6,7 +6,7 @@ Copie [`docs/rules/global.md`](../docs/rules/global.md) para **Settings → Rule
 
 ## Grimório local
 
-Clone `dev-grimoire` uma vez no ancestral comum dos apps (irmão do app ou alguns níveis acima — ex.: `projetos/` com apps em `projetos/laravel/...`). Ver [guia completo](../guias/cursor/setup-grimoire-local.md).
+Clone `dev-grimoire` uma vez (irmão, ancestral ou pasta irmã do ancestral — ex.: grimório em `projetos/dev-grimoire` e app em `projetos-flutter/projeto-1`). Ver [guia completo](../guias/cursor/setup-grimoire-local.md).
 
 ## MCPs
 

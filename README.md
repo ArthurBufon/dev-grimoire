@@ -61,7 +61,7 @@ moldes/
 Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md); o catálogo **Fabricante** em [`moldes/contratos/fabricante.md`](moldes/contratos/fabricante.md). Os contratos definem o que Laravel, React e as specs compartilham; na mesma mudança, revisar tipos, formulário, queries e testes afetados (ver seção *Manutenção* de cada contrato).
 
 ### 📁 `docs/rules/`
-As convenções ficam centralizadas aqui. Os apps as consomem pelo clone local `dev-grimoire` (irmão do app ou ancestral comum), lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
+As convenções ficam centralizadas aqui. Os apps as consomem pelo clone local `dev-grimoire` (irmão, ancestral ou pasta irmã do ancestral), lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
 
 | Arquivo | Função |
 |---|---|

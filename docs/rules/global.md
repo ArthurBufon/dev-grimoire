@@ -4,8 +4,8 @@
 > **Codex / Claude Code:** publique com `bash agents/scripts/sync-global-skills.sh`
 > (`~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`).
 > Vale para todos os projetos. Mantenha **um** clone local chamado `dev-grimoire`.
-> Ele pode ser irmão do app (`../dev-grimoire/`) ou estar num ancestral
-> (ex.: app em `projetos/laravel/erp-1` e grimório em `projetos/dev-grimoire`).
+> Ele pode ser irmão do app, ancestral, ou estar numa pasta irmã do ancestral
+> (ex.: app em `projetos-flutter/projeto-1` e grimório em `projetos/dev-grimoire`).
 
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
@@ -13,16 +13,19 @@ Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
 As convenções **não** vivem em `docs/rules/` do projeto atual.
 
-O agente resolve o grimório no filesystem, subindo a partir do app aberto:
+O agente resolve o grimório no filesystem, subindo a partir do app aberto.
+Marker: `{caminho}/dev-grimoire/docs/rules/geral.md`.
 
-1. Partir do diretório pai do repositório aberto.
-2. Em cada nível, verificar se existe `{dir}/dev-grimoire/docs/rules/geral.md` (marker).
-3. Se existir → `{GRIMOIRE}` = `{dir}/dev-grimoire/`. Usar o primeiro encontrado (o mais próximo do app).
-4. Se não existir, subir um nível e repetir até a raiz do filesystem.
-5. Se nenhum marker for encontrado → parar e avisar o dev (clone ausente ou pasta com nome diferente de `dev-grimoire`).
-6. Todos os paths de rules/moldes usam `{GRIMOIRE}/...`.
+1. Partir do diretório pai do repositório aberto (`dir`).
+2. Em cada `dir`, nesta ordem:
+   1. Se existir `{dir}/dev-grimoire/` com o marker → `{GRIMOIRE}` = `{dir}/dev-grimoire/`.
+   2. Senão, listar **somente filhos imediatos** de `dir` (não recursivo; não listar filhos de `/`) e, para cada pasta `{irmao}`, verificar `{dir}/{irmao}/dev-grimoire/` com o marker.
+   3. Um único candidato → usar. Vários no mesmo nível → parar e perguntar ao dev qual clone usar.
+3. Se não houver candidato, subir um nível e repetir até a raiz do filesystem.
+4. Se nenhum marker for encontrado → parar e avisar o dev (clone ausente ou pasta com nome diferente de `dev-grimoire`).
+5. Todos os paths de rules/moldes usam `{GRIMOIRE}/...`.
 
-Um único clone no ancestral comum serve apps em subpastas de stack (ex.: `projetos/laravel/...` e `projetos/react/...`). Não manter cópias do grimório por pasta de framework.
+O mais próximo do app vence. Um único clone serve apps no mesmo ancestral, em subpastas de stack (`projetos/laravel/...`) e em pastas irmãs (`projetos-flutter/projeto-1` → `projetos/dev-grimoire`). Não manter cópias do grimório por pasta de framework.
 
 **Leitura obrigatória via Read/Grep** — nunca assuma o conteúdo de um arquivo sem lê-lo no filesystem.
 

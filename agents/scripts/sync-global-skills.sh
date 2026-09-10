@@ -67,7 +67,7 @@ build_dev_grimoire_skill() {
 name: dev-grimoire
 description: >-
   Resolve e aplica convenções do Dev Grimoire (rules e moldes) a partir do clone
-  local dev-grimoire (irmão do app ou ancestral). Use antes de planejar, revisar, gerar código ou modificar
+  local dev-grimoire (irmão, ancestral ou pasta irmã). Use antes de planejar, revisar, gerar código ou modificar
   arquivos em qualquer projeto. Lê rules e moldes via Read/Grep no filesystem.
 ---
 

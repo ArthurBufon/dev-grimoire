@@ -2,7 +2,7 @@
 
 ## Pré-requisito
 
-Clone `dev-grimoire` uma vez no ancestral comum dos apps (irmão ou níveis acima). Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
+Clone `dev-grimoire` uma vez (irmão, ancestral ou pasta irmã do ancestral). Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
 
 ## Instrução global always-on
 
@@ -23,13 +23,13 @@ O mesmo script publica skills em `$CODEX_HOME/skills/`, incluindo `dev-grimoire`
 
 ## Validação
 
-Na raiz de um app com o grimório resolvível (irmão ou ancestral):
+Na raiz de um app com o grimório resolvível (irmão, ancestral ou pasta irmã):
 
 ```bash
 codex --ask-for-approval never "Resuma as instruções atuais sobre o Dev Grimoire."
 ```
 
-Resultado esperado: menção à resolução de `{GRIMOIRE}` (clone `dev-grimoire` no pai ou num ancestral) e leitura via Read/Grep.
+Resultado esperado: menção à resolução de `{GRIMOIRE}` (clone `dev-grimoire` no pai, ancestral ou pasta irmã) e leitura via Read/Grep.
 
 ## Manutenção
 
