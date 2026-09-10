@@ -158,7 +158,7 @@ Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascrip
 ### Regras
 
 * Docs do projeto servem como contexto de negócio e arquitetura
-* O diretório `docs/` do projeto deve conter somente specs de features (`docs/features/`) e contexto de negócio — convenções ficam no **Dev Grimoire** local (clone irmão: `../dev-grimoire/`)
+* O diretório `docs/` do projeto deve conter somente specs de features (`docs/features/`) e contexto de negócio — convenções ficam no **Dev Grimoire** local (clone `dev-grimoire` no pai ou num ancestral; ver `docs/rules/global.md`)
 * Specs e planos gerados por frameworks devem ser descartados após implementação
 * O `specs.md` deve ser 100% informativo, com o único intuito de explicar a feature e decisões (evitar tom de changelog. 100% informativo)
 

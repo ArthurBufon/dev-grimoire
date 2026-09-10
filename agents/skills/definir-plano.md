@@ -33,7 +33,7 @@ Antes de escrever o plano, leia:
 
 1. Modelagem: `docs/modelagem/{feature}/modelagem/{feature}.md` (**obrigatório** — gerado por `definir-modelagem`; contém comportamento e, quando houver, design técnico)
 2. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes.
-3. **Dev Grimoire** (`../dev-grimoire/`): seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
+3. **Dev Grimoire**: seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
 4. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
 5. User rules globais.
 6. Estrutura do codebase e arquivos semelhantes.
@@ -178,8 +178,8 @@ Exemplo:
 
 ```markdown
 **Arquivos consultados:**
-- `../dev-grimoire/docs/rules/php.md`
-- `../dev-grimoire/moldes/laravel/app/Services/Carro/Service.php`
+- `{GRIMOIRE}/docs/rules/php.md`
+- `{GRIMOIRE}/moldes/laravel/app/Services/Carro/Service.php`
 - `app/Services/Veiculo/Service.php` (padrão existente no módulo)
 
 **Arquivos usados:**

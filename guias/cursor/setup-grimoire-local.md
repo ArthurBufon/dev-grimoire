@@ -1,10 +1,10 @@
-# Setup — Dev Grimoire local (clone irmão dos apps)
+# Setup — Dev Grimoire local (clone único nos ancestrais)
 
 ## Propósito
 
 O agente do Cursor precisa ler rules e moldes do Dev Grimoire via **Read/Grep no filesystem**. O Index Docs nativo não crawl repositórios GitHub nem expõe arquivos PHP/TSX às ferramentas do agente.
 
-A solução: manter **um clone local** de `dev-grimoire` como **irmão** de todos os apps, no mesmo diretório pai.
+A solução: manter **um clone local** chamado `dev-grimoire` no ancestral comum dos apps — irmão do app ou alguns níveis acima.
 
 ---
 
@@ -12,7 +12,9 @@ A solução: manter **um clone local** de `dev-grimoire` como **irmão** de todo
 
 O **único nome fixo** é a pasta do grimório: `dev-grimoire`.
 
-O diretório pai que agrupa os apps **não tem nome fixo** — pode ser `projetos`, `projetos-laravel`, `workspace`, ou qualquer outro:
+O diretório que agrupa os apps **não tem nome fixo**. Apps podem ficar em subpastas de stack; o grimório fica no ancestral comum, não em cada pasta de framework.
+
+Irmão dos apps:
 
 ```text
 projetos/                  ← nome livre (exemplo)
@@ -22,11 +24,24 @@ projetos/                  ← nome livre (exemplo)
 └── ...
 ```
 
+Ancestral (apps agrupados por stack):
+
+```text
+projetos/
+├── dev-grimoire/          ← clone único
+├── laravel/
+│   └── erp-1/             ← app aberto; grimório em ../../dev-grimoire
+└── react/
+    └── spa-1/
+```
+
+A User Rule sobe diretório a diretório a partir do pai do app até achar `{dir}/dev-grimoire/docs/rules/geral.md`. O primeiro marker vence.
+
 ---
 
 ## Clone
 
-No **mesmo diretório pai dos apps** (ex.: dentro de `projetos/`):
+No ancestral comum (ex.: dentro de `projetos/`):
 
 ```bash
 cd /caminho/para/projetos
@@ -39,7 +54,7 @@ O nome da pasta **deve** ser `dev-grimoire` — a User Rule global resolve o gri
 
 ## Setup no Cursor
 
-1. Abra **somente o app** no Cursor (ex.: `projetos/app-cliente-a/`) — multi-root não é obrigatório.
+1. Abra **somente o app** no Cursor (ex.: `projetos/laravel/erp-1/`) — multi-root não é obrigatório.
 2. Rode `bash agents/scripts/sync-global-skills.sh` no grimório (skills + Codex/Claude globais).
 3. Copie o conteúdo de [`docs/rules/global.md`](../../docs/rules/global.md) para **Settings → Rules → User** (Cursor não tem destino em arquivo no script).
 4. Não é necessário configurar **Indexing & Docs**.
@@ -52,13 +67,13 @@ Guias dos outros runtimes: [Codex](../codex/setup-grimoire-local.md), [Claude](.
 
 Com o app aberto no Cursor, peça ao agente:
 
-> Leia `../dev-grimoire/README.md` e confirme o conteúdo.
+> Resolva `{GRIMOIRE}` conforme a User Rule e leia `{GRIMOIRE}/README.md`.
 
-Resultado esperado: leitura bem-sucedida do arquivo.
+Resultado esperado: leitura bem-sucedida do arquivo (irmão `../dev-grimoire` ou ancestral `../../dev-grimoire`, etc.).
 
 Teste adicional (Laravel):
 
-> Leia `../dev-grimoire/moldes/laravel/app/Models/Carro.php`.
+> Leia `{GRIMOIRE}/moldes/laravel/app/Models/Carro.php`.
 
 ---
 
@@ -71,7 +86,7 @@ cd /caminho/para/projetos/dev-grimoire
 git pull origin main
 ```
 
-Um único clone serve todos os apps do mesmo diretório pai.
+Um único clone serve todos os apps sob o mesmo ancestral.
 
 ---
 
@@ -100,7 +115,7 @@ O script copia `agents/skills/*.md` → `{dir}/{skill}/SKILL.md`, gera a skill `
 
 | Problema | Causa provável | Solução |
 |---|---|---|
-| Agente não encontra o grimório | App fora do layout irmão | Mover app ou clonar `dev-grimoire` no mesmo pai |
+| Agente não encontra o grimório | Nenhum ancestral tem `dev-grimoire/` | Clonar `dev-grimoire` no ancestral comum |
 | Marker não encontrado | Pasta com nome diferente de `dev-grimoire` | Renomear para `dev-grimoire` ou clonar com o nome correto |
 | Read bloqueado em `../` | Restrição do ambiente | Usar multi-root workspace como plano B (adicionar `dev-grimoire` como pasta raiz extra) |
 | Conteúdo desatualizado | Clone sem `git pull` | Atualizar o grimório local |

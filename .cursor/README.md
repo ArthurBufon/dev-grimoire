@@ -6,7 +6,7 @@ Copie [`docs/rules/global.md`](../docs/rules/global.md) para **Settings → Rule
 
 ## Grimório local
 
-Clone `dev-grimoire` como repositório **irmão** dos apps, no mesmo diretório pai (nome do pai é livre — ex.: `projetos/`). Ver [guia completo](../guias/cursor/setup-grimoire-local.md).
+Clone `dev-grimoire` uma vez no ancestral comum dos apps (irmão do app ou alguns níveis acima — ex.: `projetos/` com apps em `projetos/laravel/...`). Ver [guia completo](../guias/cursor/setup-grimoire-local.md).
 
 ## MCPs
 

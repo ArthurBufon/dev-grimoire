@@ -2,7 +2,7 @@
 
 ## Pré-requisito
 
-Clone `dev-grimoire` como repositório **irmão** dos apps. Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
+Clone `dev-grimoire` uma vez no ancestral comum dos apps (irmão ou níveis acima). Ver layout em [guia do Cursor](../cursor/setup-grimoire-local.md).
 
 ## Instrução global always-on
 
@@ -26,7 +26,7 @@ Em cada app, versione `AGENTS.md` na raiz (contexto local). O `CLAUDE.md` do pro
 Inicializar arquivos locais:
 
 ```bash
-bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
+bash {GRIMOIRE}/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
 ## Manutenção

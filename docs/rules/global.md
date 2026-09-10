@@ -3,8 +3,9 @@
 > **Cursor:** cole em **Settings → Rules → User**.
 > **Codex / Claude Code:** publique com `bash agents/scripts/sync-global-skills.sh`
 > (`~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`).
-> Vale para todos os projetos. O Dev Grimoire deve estar clonado como repositório
-> **irmão** do app aberto (`../dev-grimoire/`).
+> Vale para todos os projetos. Mantenha **um** clone local chamado `dev-grimoire`.
+> Ele pode ser irmão do app (`../dev-grimoire/`) ou estar num ancestral
+> (ex.: app em `projetos/laravel/erp-1` e grimório em `projetos/dev-grimoire`).
 
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
@@ -12,12 +13,16 @@ Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
 As convenções **não** vivem em `docs/rules/` do projeto atual.
 
-O agente resolve o grimório no filesystem:
+O agente resolve o grimório no filesystem, subindo a partir do app aberto:
 
-1. Verificar se existe `../dev-grimoire/docs/rules/geral.md` (marker).
-2. Se existir → prefixo `{GRIMOIRE}` = `../dev-grimoire/`.
-3. Se não existir → parar e avisar o dev (clone ausente ou app fora do layout).
-4. Todos os paths de rules/moldes usam `{GRIMOIRE}/...`.
+1. Partir do diretório pai do repositório aberto.
+2. Em cada nível, verificar se existe `{dir}/dev-grimoire/docs/rules/geral.md` (marker).
+3. Se existir → `{GRIMOIRE}` = `{dir}/dev-grimoire/`. Usar o primeiro encontrado (o mais próximo do app).
+4. Se não existir, subir um nível e repetir até a raiz do filesystem.
+5. Se nenhum marker for encontrado → parar e avisar o dev (clone ausente ou pasta com nome diferente de `dev-grimoire`).
+6. Todos os paths de rules/moldes usam `{GRIMOIRE}/...`.
+
+Um único clone no ancestral comum serve apps em subpastas de stack (ex.: `projetos/laravel/...` e `projetos/react/...`). Não manter cópias do grimório por pasta de framework.
 
 **Leitura obrigatória via Read/Grep** — nunca assuma o conteúdo de um arquivo sem lê-lo no filesystem.
 
@@ -179,4 +184,4 @@ Skills de planejamento, execução e revisão devem **apontar a este arquivo** e
 
 Implementadores e revisores (incl. subagents) devem ler rules e molde via Read/Grep **antes** de criar ou alterar arquivos. Na revisão, validar conformidade contra o molde mapeado neste arquivo e as rules lidas.
 
-> **Nota:** Index Docs do Cursor não substitui leitura no filesystem — moldes PHP/TSX e rules só ficam acessíveis ao agente via Read/Grep em `../dev-grimoire/`.
+> **Nota:** Index Docs do Cursor não substitui leitura no filesystem — moldes PHP/TSX e rules só ficam acessíveis ao agente via Read/Grep em `{GRIMOIRE}/`.

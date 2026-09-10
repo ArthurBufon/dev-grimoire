@@ -2,7 +2,7 @@
 name: extrair-molde
 description: >-
   Extrai padrões estruturais de uma entidade canônica do app atual e propõe
-  atualização dos moldes em ../dev-grimoire/moldes/. Use com "extrair molde",
+  atualização dos moldes em {GRIMOIRE}/moldes/. Use com "extrair molde",
   "atualizar molde", "sincronizar molde", "promover padrão ao grimoire" ou
   quando o molde Carro estiver desatualizado em relação ao projeto vivo.
 ---
@@ -46,7 +46,7 @@ O molde deve continuar genérico e didático — não virar cópia do domínio d
 
 ## Contexto obrigatório
 
-Siga `../dev-grimoire/docs/rules/global.md` para resolver `{GRIMOIRE}`. Se o marker não existir, pare.
+Siga `{GRIMOIRE}/docs/rules/global.md` para resolver `{GRIMOIRE}`. Se o marker não existir, pare.
 
 Ler via Read/Grep:
 
@@ -122,7 +122,7 @@ Apresentar resumo curto:
 
 **Fonte:** `{Entidade}` em `{app}`
 **Escopo:** …
-**GRIMOIRE:** `../dev-grimoire/`
+**GRIMOIRE:** `{GRIMOIRE}/`
 
 ### Divergências
 | Arquivo molde | Mudança | Motivo (estrutura) |
@@ -166,7 +166,7 @@ Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
 ### Sync
 Rodar quando quiser publicar skills/rules nos runtimes:
 `./agents/scripts/sync-global-skills.sh`
-(Nota: o script sincroniza skills; moldes e rules já são lidos via clone irmão.)
+(Nota: o script sincroniza skills; moldes e rules já são lidos via `{GRIMOIRE}/`.)
 
 ### Não aplicado / pendente
 - […]

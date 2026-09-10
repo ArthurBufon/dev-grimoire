@@ -38,7 +38,7 @@ contexto compartilhado pelos agentes. Para o Claude Code, `CLAUDE.md` importa
 esse arquivo e abriga somente regras exclusivas dele.
 
 ```bash
-bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
+bash {GRIMOIRE}/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
 Os dois arquivos são criados somente se ainda não existirem. Preencha os campos
@@ -61,7 +61,7 @@ moldes/
 Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md); o catálogo **Fabricante** em [`moldes/contratos/fabricante.md`](moldes/contratos/fabricante.md). Os contratos definem o que Laravel, React e as specs compartilham; na mesma mudança, revisar tipos, formulário, queries e testes afetados (ver seção *Manutenção* de cada contrato).
 
 ### 📁 `docs/rules/`
-As convenções ficam centralizadas aqui. Os apps as consomem pelo clone irmão `../dev-grimoire/`, lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
+As convenções ficam centralizadas aqui. Os apps as consomem pelo clone local `dev-grimoire` (irmão do app ou ancestral comum), lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
 
 | Arquivo | Função |
 |---|---|
@@ -100,7 +100,7 @@ Com IA participando cada vez mais do código, pequenas convenções bem registra
 
 - Prompts rendem melhor quando a arquitetura já tem um padrão reconhecível
 - User Rules do Cursor levam essas escolhas para os projetos
-- O clone local do **Dev Grimoire** (`../dev-grimoire/`) dá ao agente uma fonte concreta para consultar via Read/Grep
+- O clone local do **Dev Grimoire** (`{GRIMOIRE}/`) dá ao agente uma fonte concreta para consultar via Read/Grep
 - Specs em `docs/features/` funcionam como memória de contexto da feature
 
 ---

@@ -33,8 +33,8 @@ reescrever datas/histórico durante este fluxo.
 
 Antes de sugerir:
 
-1. Resolver e ler o Dev Grimoire conforme o `AGENTS.md` ou User Rules do projeto:
-   `../dev-grimoire/docs/rules/geral.md` e as rules das stacks detectadas.
+1. Resolver e ler o Dev Grimoire conforme `{GRIMOIRE}/docs/rules/global.md`:
+   `{GRIMOIRE}/docs/rules/geral.md` e as rules das stacks detectadas.
 2. Ler e aplicar `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de selecionar e apresentar as sugestões.
 3. Ler as instruções locais do projeto e a spec da feature, quando existir.
 4. Inspecionar `git status`, commits recentes, estrutura do repositório e os
