@@ -199,7 +199,7 @@ class Service
         return strtoupper($semEspacos ?? '');
     }
 
-    public function logarErro(array $dados, string $mensagemErro): void
+    private function logarErro(array $dados, string $mensagemErro): void
     {
         $id = $dados['id'] ?? '?';
         $mensagemFormatada = "Erro ao processar carro (id {$id}): {$mensagemErro}";

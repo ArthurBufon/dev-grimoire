@@ -170,7 +170,7 @@ class Service
         return $mapa;
     }
 
-    public function logarErro(array $dados, string $mensagemErro): void
+    private function logarErro(array $dados, string $mensagemErro): void
     {
         $id = $dados['id'] ?? '?';
         $mensagemFormatada = "Erro ao processar fabricante (id {$id}): {$mensagemErro}";
