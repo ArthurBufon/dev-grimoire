@@ -89,10 +89,7 @@ Edit.layout = {
     breadcrumbs: [
         { title: 'Painel Admin', href: adminIndex() },
         { title: 'Carros', href: carrosIndex() },
-        {
-            title: 'Editar',
-            href: CarroController.edit({ carro: carro.id }),
-        },
+        { title: 'Editar' },
     ],
 };
 
