@@ -36,6 +36,7 @@ class CarroController extends Controller
             'view'    => 'index',
             'filtros' => $request->only([
                 'busca_geral',
+                'fabricante_id',
                 'data_lancamento_inicio',
                 'data_lancamento_fim',
                 'quantidade',
