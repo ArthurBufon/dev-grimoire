@@ -1,6 +1,9 @@
 // TIPOS
 import type { RetornoPadronizado } from '@/types/retorno';
 
+const csrfToken = (): string =>
+  document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+
 export default class Queries {
   async index(filtros = {}) {
     try {
@@ -13,6 +16,7 @@ export default class Queries {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "X-CSRF-Token": csrfToken(),
         },
         credentials: "same-origin" as RequestCredentials,
       };
@@ -46,6 +50,7 @@ export default class Queries {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "X-CSRF-Token": csrfToken(),
         },
         credentials: "same-origin" as RequestCredentials,
       };
@@ -77,6 +82,7 @@ export default class Queries {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "X-CSRF-Token": csrfToken(),
         },
         credentials: "same-origin" as RequestCredentials,
         body: JSON.stringify(dados),
@@ -107,6 +113,7 @@ export default class Queries {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "X-CSRF-Token": csrfToken(),
         },
         credentials: "same-origin" as RequestCredentials,
         body: JSON.stringify(dados),
@@ -137,6 +144,7 @@ export default class Queries {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "X-CSRF-Token": csrfToken(),
         },
         credentials: "same-origin" as RequestCredentials,
       };
