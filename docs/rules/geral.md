@@ -114,7 +114,7 @@ O contexto deve estar no namespace/diretório.
 
 ### Exemplos
 
-* ✅ `App/Services/Pedido/Finalizacao/Service.php`
+* ✅ `app/Services/Pedido/Finalizacao/Service.php`
 * ✅ `resources/js/Queries/Pedido/Cancelamento/Queries.tsx`
 
 ---
