@@ -6,7 +6,7 @@
 ```
 
 ## Estrutura de arquivos
-- Pages: `[js_pages_path]/NomeModulo/Index.tsx` / `Form.tsx` / `Create.tsx` / `Edit.tsx`
+- Pages: `[js_pages_path]/NomeModulo/Index.tsx` / `Create.tsx` / `Edit.tsx`
 - Forms: `[js_components_path]/Forms/NomeModulo/Form.tsx` — campos compartilhados entre `Create` e `Edit`
 - Services: `[js_services_path]/NomeModulo/Service.tsx`
 - Queries: `[js_queries_path]/NomeModulo/Queries.tsx`
