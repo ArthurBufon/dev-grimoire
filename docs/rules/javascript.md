@@ -8,6 +8,7 @@
 ## Estrutura de arquivos
 - Pages: `[js_pages_path]/NomeModulo/Index.tsx` / `Create.tsx` / `Edit.tsx`
 - Forms: `[js_components_path]/Forms/NomeModulo/Form.tsx` — campos compartilhados entre `Create` e `Edit`
+- Erros de formulário: `[js_components_path]/Forms/CardErros/Show.tsx` (molde: `moldes/react/Components/Forms/CardErros/Show.tsx`)
 - Services: `[js_services_path]/NomeModulo/Service.tsx`
 - Queries: `[js_queries_path]/NomeModulo/Queries.tsx`
 - Hooks: `[js_hooks_path]/useNomeHook.ts`
@@ -59,7 +60,7 @@ ou:
 
 ### Filtros de listagem
 
-Páginas `Index` com filtros seguem o padrão de `moldes/react/Pages/Carro/Index.tsx`.
+Páginas `Index` com filtros seguem o padrão de `moldes/react/Pages/Carro/Index.tsx` (listagem em card). Variante tabela: ler `moldes/react/Pages/Carro/IndexTabela.tsx` e gravar no app como `Pages/{Entidade}/Index.tsx` — nunca criar `IndexTabela.tsx` no projeto.
 
 * **Um único `useState` agrupando todos os filtros** (`const [filtros, setFiltros] = useState({ ... })`) — proibido `useState` separado por campo de filtro.
 * Cada campo atualiza o estado com o padrão `setFiltros((atual) => ({ ...atual, campo: valor }))`.
