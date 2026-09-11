@@ -93,7 +93,12 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 | `app/Http/Requests/.../StoreRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/StoreRequest.php` |
 | `app/Http/Requests/.../UpdateRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
 | `app/Models/{Entidade}.php` | `{GRIMOIRE}/moldes/laravel/app/Models/Carro.php` |
-| Catálogo pai (`Fabricante`, `Marca`, etc.) | `{GRIMOIRE}/moldes/laravel/app/Models/Fabricante.php` |
+| Catálogo pai — Model | `{GRIMOIRE}/moldes/laravel/app/Models/Fabricante.php` |
+| Catálogo pai — Queries | `{GRIMOIRE}/moldes/laravel/app/Queries/Fabricante/Queries.php` |
+| Catálogo pai — Service | `{GRIMOIRE}/moldes/laravel/app/Services/Fabricante/Service.php` |
+| Catálogo pai — migration | `{GRIMOIRE}/moldes/laravel/database/migrations/2026_05_08_000000_create_fabricantes_table.php` |
+| Catálogo pai — teste | `{GRIMOIRE}/moldes/laravel/tests/Feature/FabricanteTest.php` |
+| Catálogo pai — spec | `{GRIMOIRE}/moldes/laravel/docs/features/fabricante/specs.md` |
 | `app/Queries/{Entidade}/Queries.php` | `{GRIMOIRE}/moldes/laravel/app/Queries/Carro/Queries.php` |
 | `app/Services/{Entidade}/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/Service.php` |
 | `app/Services/Api/{Entidade}/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Api/Carro/Service.php` |
@@ -130,8 +135,9 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 
 Se o projeto já tiver arquivos do mesmo tipo, o molde complementa — **padrões do projeto atual têm prioridade** sobre o molde quando já consolidados.
 
-Para referências que atravessam Laravel e React, leia também o contrato neutro
-em `{GRIMOIRE}/moldes/contratos/carro.md`. Ele define os dados e retornos que
+Para referências que atravessam Laravel e React, leia também os contratos
+neutros em `{GRIMOIRE}/moldes/contratos/carro.md` e
+`{GRIMOIRE}/moldes/contratos/fabricante.md`. Eles definem os dados e retornos que
 as duas pilhas devem manter alinhados; regras de implementação continuam nas
 rules e moldes específicos de cada stack.
 
