@@ -7,9 +7,22 @@ description: >-
 
 # Executar Plano
 
-## Regra final
+## Velocidade e tokens (bloqueante)
 
-NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
+Vale para o controlador e para **todo** subagent. Pular qualidade para ir mais rápido é proibido: se o atalho piora o código, os testes ou a revisão, não usar.
+
+1. **Caminho mais curto.** Entregar a tarefa no menor número de passos que ainda preserve o resultado correto e claro. Não explorar, reler, documentar, testar em largura nem lançar agentes extras quando isso não muda o diff, os testes da tarefa ou o veredito da revisão. Manter obrigatórios: leitura das rules/molde necessários à tarefa, ciclo implementador → revisor, testes pedidos pela tarefa, gate anti-slop e checkpoint do dev.
+2. **Tokens só no que muda o resultado.** Ler só os arquivos da tarefa (Grep/Read pontual). Prompt de subagent: recorte da tarefa + paths — não colar skill, plano inteiro nem conteúdo de arquivos. Retorno em bullets curtos. Sem prosa de status, sem repetir contexto já lido nesta sessão, sem segundo passe “por garantia”.
+
+## Dúvida bloqueante (bloqueante)
+
+Dúvida importante ou que muda o resultado → **parar no meio da execução** e confirmar com o dev. Não assumir, não escolher “o mais provável”, não seguir a tarefa.
+
+Vale para o controlador e para **todo** subagent. Subagent com dúvida → status `precisa contexto` e devolver; o controlador pergunta ao dev e só retoma depois da resposta explícita.
+
+Não bloqueia detalhe trivial que não altera comportamento, arquivos ou testes. Velocidade e tokens **não** autorizam seguir com ambiguidade.
+
+Exemplos: plano vs código; requisito faltando; duas interpretações plausíveis; decisão de produto/arquitetura; conflito com alteração do dev.
 
 ## Clareza do código (bloqueante)
 
@@ -87,7 +100,7 @@ Antes da primeira tarefa:
 
 Antes de cada tarefa, de aplicar qualquer correção de subagent e de cada checkpoint, comparar o worktree com o baseline para identificar alterações concorrentes do dev. Nunca as reverta, sobrescreva, descarte ou exclua. Se a tarefa tocar o mesmo arquivo, integre somente o trecho necessário e preserve o restante; conflito sem resolução inequívoca → parar e pedir instrução explícita ao dev.
 
-Plano contradiz código ou decisão impossível de inferir → perguntar ao dev antes de implementar.
+Dúvida bloqueante/importante (incl. plano vs código) → parar e confirmar com o dev; não implementar chute.
 
 ## Handoff automático
 
@@ -128,7 +141,7 @@ portanto o handoff não permanece como documentação do projeto.
 
 ## Ciclo por tarefa
 
-1. Contexto mínimo — não explorar além do que a tarefa exige.
+1. Contexto mínimo — aplicar as duas regras de velocidade e tokens; não explorar além do que a tarefa exige.
 2. Subagent **implementador** (checklist abaixo), priorizando código que seja claro na primeira leitura.
 3. Validar diff + testes executados.
 4. Subagent **revisor** (checklist abaixo).
@@ -166,13 +179,17 @@ Aguardando confirmação explícita do dev para avançar.
 
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
 * Ler: `gate-anti-slop.md`, `global.md`, rule da stack, molde (se arquivo novo)
+* Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
+* Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
 * Implementar a solução mais direta e legível; o fluxo principal deve ser compreensível na primeira leitura, sem abstrações prematuras ou lógica indireta
-* Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos
+* Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos — bullets curtos, sem dump de arquivos
 
 ### Revisor — incluir no prompt
 
-* Requisitos da tarefa + diff/arquivos alterados
+* Requisitos da tarefa + diff/arquivos alterados (paths, não colar o repositório)
+* Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
+* Implementação chutada sob dúvida bloqueante/importante = **crítico** (devolver; o controlador confirma com o dev)
 * Verificar: plano, gate anti-slop, conformidade Dev Grimoire, bugs/regressões, escopo
 * Verificar se o fluxo e a intenção do código novo são compreensíveis na primeira leitura; complexidade ou indireção evitável = **crítico**
 * Slop ou não-conformidade com grimório = **crítico**
@@ -188,10 +205,9 @@ Cobrir cenários importantes da tarefa — não detalhes internos nem suíte amp
 
 ## Bloqueios
 
-Tarefa bloqueada quando: requisitos faltando; plano vs código inconsistente; dependência ausente; problema estrutural fora do escopo; decisão de produto/arquitetura necessária.
+Tarefa bloqueada quando: dúvida bloqueante/importante; requisitos faltando; plano vs código inconsistente; dependência ausente; problema estrutural fora do escopo; decisão de produto/arquitetura necessária.
 
-Atualizar e validar o handoff antes de reportar: tarefa, problema, tentativas,
-decisão necessária.
+Parar no meio da execução, atualizar e validar o handoff, e perguntar ao dev: tarefa, problema, tentativas, decisão necessária. Não retomar sem resposta explícita.
 
 ## 🏁 Encerramento
 
