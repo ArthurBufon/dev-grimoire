@@ -34,7 +34,8 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 *Módulos possíveis: Web ou Api
 - Controllers: `app/Http/Controllers/[Modulo]/[Entidade]/[Entidade]Controller.php` (molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php`)
 - Queries: `app/Queries/[Entidade]/Queries.php`
-- Services: `app/Services/[Modulo]/[Entidade]/Service.php`
+- Services web/catálogo: `app/Services/[Entidade]/Service.php` (molde: `moldes/laravel/app/Services/Carro/Service.php`)
+- Services API: `app/Services/Api/[Entidade]/Service.php` (molde: `moldes/laravel/app/Services/Api/Carro/Service.php`)
 - Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php (moldes: `moldes/laravel/app/Http/Requests/Web/Admin/Carro/`)
 - URLs: sempre rotas nomeadas com `route()`
 - Controllers chamam Services e View Services; validação HTTP fica nos Form Requests; resposta Inertia/redirect no Controller
