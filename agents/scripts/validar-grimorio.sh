@@ -36,6 +36,8 @@ for path in \
   'moldes/laravel/app/Models/Carro.php' \
   'moldes/laravel/app/Queries/Carro/Queries.php' \
   'moldes/laravel/app/Services/Carro/Service.php' \
+  'moldes/laravel/app/helpers.php' \
+  'moldes/laravel/app/Helpers/Paginacao.php' \
   'moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php' \
   'moldes/react/Pages/Carro/Index.tsx' \
   'moldes/react/Pages/Carro/Create.tsx' \
