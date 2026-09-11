@@ -121,8 +121,8 @@ não cria tarefa, não substitui checkpoint e não exige ação do dev.
 - Próxima: ...
 
 ## Alterações verificadas
-- Arquivos: ...
-- Diff: [resumo objetivo]
+- `[arquivo]` — [o que foi feito neste arquivo]
+- Diff: [resumo objetivo do comportamento]
 
 ## Validações
 - [comando]: [resultado]
@@ -153,13 +153,18 @@ portanto o handoff não permanece como documentação do projeto.
 
 **Proibido:** encadear tarefas após revisão do subagent; aprovação por silêncio; checkpoint opcional em tarefa "pequena" ou "já revisada". Revisão do subagent **não substitui** checkpoint do dev.
 
+Checkpoint incompleto **bloqueia** o avanço: sem o resumo de comportamento **e** sem um bullet por arquivo do diff da tarefa (path + o que foi feito), não pedir aprovação.
+
 ### Template de checkpoint
 
 ```markdown
 ## Task concluída — [nome]
 
 ### Alterações
-- [arquivos/módulos]
+- [o que a tarefa passou a fazer / deixou de fazer — comportamento, não path]
+
+### Arquivos alterados
+- `[arquivo]` — [o que foi feito neste arquivo]
 
 ### Verificações
 - [comandos e resultado]
@@ -173,6 +178,8 @@ portanto o handoff não permanece como documentação do projeto.
 Aguardando confirmação explícita do dev para avançar.
 ```
 
+`Arquivos alterados` cobre **todo** o diff da tarefa (criados, editados, removidos). Um bullet por path; o texto diz o que mudou naquele arquivo, não o nome do módulo. Sem agrupamento tipo “backend” ou “forms”.
+
 ## Subagents
 
 ### Implementador — incluir no prompt
@@ -183,7 +190,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
 * Implementar a solução mais direta e legível; o fluxo principal deve ser compreensível na primeira leitura, sem abstrações prematuras ou lógica indireta
-* Retorno: status (concluído/bloqueado/precisa contexto), arquivos, testes, riscos — bullets curtos, sem dump de arquivos
+* Retorno: status (concluído/bloqueado/precisa contexto), um bullet por arquivo (`path` — o que foi feito), testes, riscos — bullets curtos, sem dump de arquivos
 
 ### Revisor — incluir no prompt
 
