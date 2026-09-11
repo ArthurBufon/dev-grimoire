@@ -1,6 +1,6 @@
 # Especificação: recurso **Carro**
 
-Documento de contexto para humanos e para assistentes de IA ao trabalhar em prompts relacionados a **carros** neste boilerplate Laravel.
+Documento de contexto para humanos e para assistentes de IA ao trabalhar em prompts relacionados a **carros** neste molde Laravel.
 
 ---
 
@@ -149,7 +149,7 @@ Em geral:
 
 ---
 
-## 9. Extensões comuns (fora do escopo mínimo do boilerplate)
+## 9. Extensões comuns (fora do escopo mínimo do molde)
 
 - Policies, autorização e escopo por usuário.
 - Factory para seeds/testes.
