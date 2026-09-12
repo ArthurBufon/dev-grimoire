@@ -134,9 +134,12 @@ não cria tarefa, não substitui checkpoint e não exige ação do dev.
 - [uma ação concreta]
 ```
 
-Antes de cada checkpoint, bloqueio ou encerramento, atualizar esse arquivo e
-executar o validador. Falha de validação bloqueia o avanço até corrigir o
-handoff. O diretório `docs/modelagem/{feature}/` já é removido no encerramento,
+Antes de cada checkpoint, bloqueio ou encerramento, atualizar **só as seções
+que mudaram** nesta tarefa (`Estado atual`, `Tarefas`, `Alterações verificadas`,
+`Validações` se houver comando novo, `Decisões e bloqueios` se houver novidade,
+`Próxima ação`). Não reescrever o arquivo inteiro nem seções estáveis. Em
+seguida executar o validador. Falha de validação bloqueia o avanço até corrigir
+o handoff. O diretório `docs/modelagem/{feature}/` já é removido no encerramento,
 portanto o handoff não permanece como documentação do projeto.
 
 ## Ciclo por tarefa
