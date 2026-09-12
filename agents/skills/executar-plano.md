@@ -135,12 +135,14 @@ não cria tarefa, não substitui checkpoint e não exige ação do dev.
 ```
 
 Antes de cada checkpoint, bloqueio ou encerramento, atualizar **só as seções
-que mudaram** nesta tarefa (`Estado atual`, `Tarefas`, `Alterações verificadas`,
-`Validações` se houver comando novo, `Decisões e bloqueios` se houver novidade,
-`Próxima ação`). Não reescrever o arquivo inteiro nem seções estáveis. Em
-seguida executar o validador. Falha de validação bloqueia o avanço até corrigir
-o handoff. O diretório `docs/modelagem/{feature}/` já é removido no encerramento,
-portanto o handoff não permanece como documentação do projeto.
+que mudaram** nesta tarefa. Nas seções acumulativas (`Tarefas` concluídas,
+`Alterações verificadas`, `Validações`), **acrescentar** o delta — não apagar
+o histórico das tarefas anteriores. `Estado atual` e `Próxima ação` substituem
+o valor corrente. `Decisões e bloqueios` só muda se houver novidade. Não
+reescrever o arquivo inteiro nem seções estáveis. Em seguida executar o
+validador. Falha de validação bloqueia o avanço até corrigir o handoff. O
+diretório `docs/modelagem/{feature}/` já é removido no encerramento, portanto
+o handoff não permanece como documentação do projeto.
 
 ## Ciclo por tarefa
 
@@ -188,7 +190,7 @@ Aguardando confirmação explícita do dev para avançar.
 ### Implementador — incluir no prompt
 
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
-* Ler: `gate-anti-slop.md`, `global.md`, rule da stack, molde (se arquivo novo)
+* Ler: `gate-anti-slop.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo ou se o plano ancora no molde)
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev

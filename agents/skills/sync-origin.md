@@ -46,9 +46,10 @@ Funciona da mesma forma em qualquer branch, inclusive `main` e `master`.
    decisão do dev quando a correção exigir escolha de produto ou padrão.
    Em qualquer outro projeto, não executar esse validador: usar apenas a
    validação específica das áreas alteradas no repositório atual.
-5. Não ler `global.md`, rules da stack nem o gate nesta preparação. Grimório
-   só no passo 4 (validador do próprio grimório) ou na resolução de conflito
-   de código (`Conflitos e validação`).
+5. Não ler `global.md` nem as rules da stack nesta preparação. A mensagem de
+   commit segue a seção Git de `geral.md` (Grep/Read só dessa seção se ainda
+   não estiver no contexto). Rules da stack e gate só na resolução de
+   conflito de código (`Conflitos e validação`).
 
 ## Commit das pendências
 
@@ -77,7 +78,8 @@ Funciona da mesma forma em qualquer branch, inclusive `main` e `master`.
 
 1. Inspecionar apenas os arquivos conflitantes e o contexto direto necessário
    para preservar os dois lados da alteração.
-2. Resolver os conflitos no padrão do módulo e das rules lidas, sem refatorar
+2. Antes de editar conflito de código, ler `geral.md` + a rule da stack
+   detectada. Resolver no padrão do módulo e dessas rules, sem refatorar
    trechos não conflitantes ou descartar alterações do dev.
 3. Executar a validação mais específica disponível para as áreas afetadas. Sem
    validação disponível, ou se ela falhar, parar e relatar arquivos, conflito e

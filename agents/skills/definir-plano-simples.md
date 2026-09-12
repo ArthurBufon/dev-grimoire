@@ -59,7 +59,7 @@ Esta skill cobre ajustes, correções, extensões e tarefas objetivas com escopo
 
 Antes de escrever o plano, inspecione:
 
-1. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes — `Read` só se **não** estiverem no contexto desta sessão. Não abrir `.cursor/rules/` por garantia.
+1. Regras do projeto: `AGENTS.md` e `CLAUDE.md` do **projeto atual** — `Read` só se já não estiverem no contexto desta sessão. Em dúvida, leia. Não substituir pelo `AGENTS.md` do grimório nem por user rules. Não abrir `.cursor/rules/` por garantia.
 2. **Dev Grimoire**: `{GRIMOIRE}/docs/rules/global.md` e rules da stack — leitura via Read/Grep; nunca assumir conteúdo sem ler o filesystem.
 3. Specs permanentes em `docs/features/{entidade}/specs.md`, se existirem.
 4. Codebase: estrutura, padrões reais e arquivos semelhantes ao que será alterado.

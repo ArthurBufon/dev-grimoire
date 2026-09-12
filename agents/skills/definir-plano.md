@@ -32,7 +32,7 @@ Crie somente o plano. Não implemente código durante este fluxo.
 Antes de escrever o plano, leia:
 
 1. Modelagem: `docs/modelagem/{feature}/modelagem/{feature}.md` (**obrigatório** — gerado por `definir-modelagem`; contém comportamento e, quando houver, design técnico)
-2. Regras do projeto: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` ou equivalentes — `Read` só se **não** estiverem no contexto desta sessão. Não abrir `.cursor/rules/` por garantia.
+2. Regras do projeto: `AGENTS.md` e `CLAUDE.md` do **projeto atual** — `Read` só se já não estiverem no contexto desta sessão. Em dúvida, leia. Não substituir pelo `AGENTS.md` do grimório nem por user rules. Não abrir `.cursor/rules/` por garantia.
 3. **Dev Grimoire**: seguir `{GRIMOIRE}/docs/rules/global.md` (resolução do grimório, rules da stack e mapa de moldes) — leitura obrigatória via Read/Grep; nunca assumir o conteúdo sem ler o filesystem.
 4. Specs, ADRs e documentação permanente relevante em `docs/` (fora de `docs/modelagem/`).
 5. User rules globais.
@@ -53,7 +53,7 @@ Regras do projeto e do usuário têm precedência sobre esta skill. Não invente
 
 Seguir `{GRIMOIRE}/docs/rules/global.md` — rules da stack (`geral.md`, `php.md`, `javascript.md`) e moldes mapeados em `global.md`.
 
-Ao planejar arquivos novos, cite o molde de referência e espelhe assinaturas e estrutura do molde no plano (adaptando entidade, namespace e paths).
+Ao planejar arquivos novos, leia o molde de referência e cite o path no plano (adaptando entidade, namespace e paths). Não cole assinaturas que o molde já define — o executor lê o molde citado. Sem path de molde ou vizinho, a tarefa não está pronta.
 
 Padrões consolidados no módulo alterado do projeto atual têm prioridade sobre o molde quando já estabelecidos (ver prioridades em `global.md`).
 
@@ -66,7 +66,7 @@ Produza um plano executável por alguém que não conhece o projeto, contendo:
 * arquivos exatos que serão criados ou alterados;
 * responsabilidade de cada arquivo;
 * arquitetura e decisões relevantes;
-* interfaces, assinaturas e tipos;
+* interfaces (path do molde ou do vizinho + o que diverge); assinaturas e tipos só se o molde não cobrir;
 * etapas de implementação;
 * testes no mínimo essencial (anti-overkill — ver seção **Testes**);
 * comandos reais de validação.
