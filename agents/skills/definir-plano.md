@@ -12,7 +12,7 @@ NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de p
 
 ## Gate anti-slop (bloqueante)
 
-**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de escrever o plano, ao definir cada tarefa e antes de salvar o artefato.
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` uma vez no início, antes de escrever o plano. Ao definir cada tarefa e antes de salvar, execute só o ritual de saída do fragmento — não reler o arquivo.
 
 Hard gate desta skill — **não avance** se:
 
