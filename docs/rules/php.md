@@ -103,6 +103,16 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
 - `snake_case` para colunas de banco e arquivos
 - `UPPER_SNAKE_CASE` para constantes
 
+## Migrations
+
+Produção (MySQL) limita identificadores a **64 caracteres** — tabela, coluna, índice, unique e FK. O Laravel nomeia sozinho no formato `{tabela}_{colunas}_unique` / `_index` / `_foreign`; tabela ou colunas longas estouram no deploy (`1059 Identifier name is too long`).
+
+Ao gerar migration, **sempre** calcular o nome automático. Se passar de 64, passar nome explícito ≤ 64 em `unique()`, `index()` e FKs.
+
+```php
+$table->unique(['fabricante_id', 'placa'], 'carros_fabricante_placa_unique');
+```
+
 ## Organização de Imports
 
 ### Ordem padrão
