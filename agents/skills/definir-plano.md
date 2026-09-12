@@ -157,8 +157,8 @@ Para cada tarefa:
 **Responsabilidade:** [resultado produzido]
 
 **Interfaces:**
-- Consome: [dependências e assinaturas]
-- Produz: [métodos, tipos e comportamentos]
+- Consome: [path do molde ou do arquivo vizinho; só detalhar o que diverge]
+- Produz: [path do molde + o que diverge; métodos/tipos só se o molde não cobrir]
 
 - [ ] Criar só os testes mínimos essenciais (sem overkill)
 - [ ] Confirmar que falham pelo motivo esperado
@@ -187,7 +187,7 @@ Exemplo:
 - Alterado: `routes/api.php`
 ```
 
-Inclua código, assinaturas e comandos concretos quando necessários para eliminar ambiguidades. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
+Cite o path do molde em vez de colar assinatura ou código que o molde já define. Inclua código, assinaturas e comandos concretos só quando o molde ou o módulo não cobrirem a ambiguidade. Qualquer código incluído deve obedecer rigidamente aos padrões do Dev Grimoire.
 ````
 
 ## Testes (mínimo essencial — anti-overkill)
