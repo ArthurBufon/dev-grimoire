@@ -32,23 +32,23 @@ Funciona da mesma forma em qualquer branch, inclusive `main` e `master`.
 
 ## Preparação
 
-1. Resolver o Grimório via `{GRIMOIRE}/docs/rules/global.md`, ler `geral.md`,
-   as rules da stack detectada e aplicar
-   `{GRIMOIRE}/agents/fragments/gate-anti-slop.md`.
-2. Registrar baseline com `git status --short`, `git diff --cached`, `git diff`
+1. Registrar baseline com `git status --short`, `git diff --cached`, `git diff`
    e a lista de arquivos não rastreados. Alterações existentes pertencem ao dev.
-3. Confirmar que `HEAD` está em uma branch local e que existe o remoto `origin`;
+2. Confirmar que `HEAD` está em uma branch local e que existe o remoto `origin`;
    branch destacada → parar e informar o estado.
-4. Identificar os arquivos alterados e não rastreados. Excluir os arquivos
+3. Identificar os arquivos alterados e não rastreados. Excluir os arquivos
    proibidos pelos limites; se houver dúvida sobre um arquivo sensível, parar e
    pedir instrução.
-5. Só quando o repositório atual for o próprio `{GRIMOIRE}` — confirmar pelos
+4. Só quando o repositório atual for o próprio `{GRIMOIRE}` — confirmar pelos
    topos resolvidos com `git rev-parse --show-toplevel` — executar
    `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh` antes de propor o
    commit. Falha bloqueia commit e push; reportar a regra violada e aguardar
    decisão do dev quando a correção exigir escolha de produto ou padrão.
    Em qualquer outro projeto, não executar esse validador: usar apenas a
    validação específica das áreas alteradas no repositório atual.
+5. Não ler `global.md`, rules da stack nem o gate nesta preparação. Grimório
+   só no passo 4 (validador do próprio grimório) ou na resolução de conflito
+   de código (`Conflitos e validação`).
 
 ## Commit das pendências
 
