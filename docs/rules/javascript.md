@@ -183,3 +183,36 @@ Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quan
 * Priorizar clareza sobre quantidade de linhas
 * `import type` na mesma categoria dos imports de valor correspondentes (ex.: tipos em `// TIPOS`, ou junto de `// REACT` quando for type-only de React)
 * Exports sempre devem seguir o nome do arquivo: Create.tsx exporta Create, Index.tsx exporta Index
+
+## Formatação e legibilidade (preservar; não “normalizar”)
+
+Ao editar qualquer arquivo, **o diff deve mudar só o necessário** para a tarefa. É proibido “limpar” ou padronizar estilo de propósito.
+
+**Não remover nem evitar:**
+
+- **Quebras de linha e indentação** já usadas em JSX, props multilinha, objetos e arrays quando o trecho já segue esse padrão.
+- **Trailing comma** ou ausência dela — seguir o arquivo alterado, não impor preferência pessoal.
+- **Aspas simples ou duplas** — manter a do módulo/arquivo.
+
+**Não executar** Prettier, Biome format, `eslint --fix` só para estilo ou format-on-save em arquivos tocados **só** para reformatar, a menos que o usuário peça.
+
+**Exemplo (props multilinha — manter o “ANTES”, não impor o “DEPOIS”):**
+
+```tsx
+// Manter quando já existir no arquivo:
+<Form
+    data={data}
+    onCampoChange={handleCampoChange}
+    onSubmit={handleSubmit}
+    processing={processing}
+/>
+
+// Evitar introduzir por hábito:
+<Form data={data} onCampoChange={handleCampoChange} onSubmit={handleSubmit} processing={processing} />
+```
+
+## Prioridade absoluta
+
+Antes de gerar qualquer código, identificar os padrões já existentes no arquivo/módulo
+em questão e segui-los estritamente. Nunca introduzir padrões novos sem solicitação explícita,
+mesmo que sejam "melhores práticas" gerais de JavaScript, TypeScript ou React.
