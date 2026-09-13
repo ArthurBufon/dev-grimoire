@@ -36,6 +36,7 @@ Se a stack **não** tiver rule nem molde, use mesmo assim a arquitetura dos mold
 * Confirmar que só alterou o código solicitado
 * Verificar se existe abordagem mais simples
 * Confirmar que nenhum arquivo não solicitado foi tocado
+* Aplicar `agents/fragments/gate-anti-slop.md` (ritual de saída bloqueante) antes de concluir
 * Após alterar código, executar a validação mais específica disponível para a mudança. Se não puder executá-la, informar o motivo e não declarar a tarefa concluída sem registrar essa limitação.
 
 ### Proteção de alterações do desenvolvedor
