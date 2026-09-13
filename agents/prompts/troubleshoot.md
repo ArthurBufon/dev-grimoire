@@ -27,8 +27,9 @@ Com base nas informações acima, me ajude a identificar as possíveis causas do
 
 **Restrições:**
 - Não sugira alterações de código
-- Apenas liste as possíveis causas, do mais para o menos provável
-- Se precisar de mais contexto para uma análise mais precisa, sinalize quais informações seriam úteis
+- Liste somente causas sustentadas pelo contexto ou pelo log, da mais para a menos provável
+- Para cada causa, indique brevemente qual evidência a sustenta
+- Se não houver evidência suficiente, não complete com hipóteses genéricas; peça as informações específicas que faltam
 
 ---
 
