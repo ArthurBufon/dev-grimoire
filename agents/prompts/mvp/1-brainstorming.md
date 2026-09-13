@@ -77,7 +77,7 @@ Monte a proposta de escopo em seções curtas:
 - Riscos e dúvidas abertas
 - Critérios de sucesso
 
-Após cada seção importante, pergunte se está correto antes de continuar.
+Confirme o entendimento ao concluir um bloco coerente ou quando uma resposta puder mudar o escopo. Não interrompa o fluxo para validar cada seção isoladamente.
 
 Etapa 5 — Revisão crítica
 Antes de finalizar, revise a especificação procurando:
