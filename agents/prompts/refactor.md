@@ -52,12 +52,7 @@ Implemente a proposta seguindo:
 
 ## Princípios
 
-```
-SRP  → um motivo de mudar por unidade
-OCP  → aberto para extensão, fechado para modificação
-LSP  → subtipos respeitam contratos do pai
-ISP  → interfaces pequenas e focadas
-DIP  → dependa de abstrações, não implementações
-```
+Aplique princípios de design somente quando resolverem o problema diagnosticado.
+Não crie interfaces, camadas ou abstrações apenas para aplicar SOLID.
 
 > **Pragmatismo:** não refatore o que não precisa mudar. Prefira evolução incremental a reescritas totais.
