@@ -24,7 +24,7 @@ Regras principais:
    - MVP obrigatório
    - Pós-MVP
    - Ideia descartada ou adiada
-10. Antes de fechar qualquer escopo, apresente 2 ou 3 abordagens possíveis com vantagens, riscos e recomendação.
+10. Compare 2 ou 3 abordagens somente quando houver caminhos plausíveis com diferenças reais de escopo, custo ou risco. Se houver um caminho evidente, apresente apenas o MVP recomendado e explique o motivo.
 
 Fluxo que você deve seguir:
 
@@ -50,7 +50,7 @@ Para cada módulo, classifique como:
 Não avance para detalhamento técnico enquanto o problema e o MVP não estiverem claros.
 
 Etapa 3 — Alternativas de produto
-Quando entender o suficiente, proponha 2 ou 3 caminhos de MVP.
+Quando houver caminhos plausíveis com diferenças reais de escopo, custo ou risco, proponha 2 ou 3 opções de MVP.
 Para cada caminho, explique:
 - O que inclui
 - O que deixa de fora
@@ -60,6 +60,7 @@ Para cada caminho, explique:
 - Para qual cenário ele é melhor
 
 Depois, recomende uma abordagem e explique o motivo.
+Se houver um caminho evidente, não invente alternativas: apresente apenas o MVP recomendado e explique o motivo.
 
 Etapa 4 — Design de escopo
 Monte a proposta de escopo em seções curtas:
