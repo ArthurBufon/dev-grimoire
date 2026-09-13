@@ -44,6 +44,20 @@ O molde deve continuar genérico e didático — não virar cópia do domínio d
 3. **Não inventar** arquivos no molde que não existam (ou não tenham âncora clara) na entidade-fonte.
 4. Domínio do molde permanece **Carro** (e catálogos auxiliares do exemplo, ex.: `Fabricante`) — renomear entidade-fonte → Carro na proposta.
 
+## Gate anti-slop (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes da proposta e antes de gravar qualquer arquivo.
+
+Hard gate desta skill — **não avance** se:
+
+* a proposta criar arquivo, camada ou abstração no molde sem âncora clara na entidade-fonte;
+* specs ou tabelas da proposta repetirem o óbvio ou inflarem volume;
+* “melhorias” do app-fonte entrarem no molde sem padrão consolidado;
+* a atualização duplicar regras de negócio, domínio real ou integrações específicas do app;
+* o diff incluir formatação, “limpeza” ou código além da estrutura extraída.
+
+Ritual obrigatório antes de apresentar a proposta e antes de aplicar: executar o ritual de saída do fragmento.
+
 ## Contexto obrigatório
 
 Siga `{GRIMOIRE}/docs/rules/global.md` para resolver `{GRIMOIRE}`. Se o marker não existir, pare.
