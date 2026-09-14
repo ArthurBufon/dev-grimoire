@@ -180,9 +180,9 @@ Inclua a seção **Não aplicado / pendente** somente quando houver itens reais.
 - [global.md / php.md / javascript.md ou "nenhuma"]
 
 ### Sync
-Rodar quando quiser publicar skills/rules nos runtimes:
+Rodar quando quiser sincronizar skills e atualizar `global.md` no Codex/Claude:
 `./agents/scripts/sync-global-skills.sh`
-(Nota: o script sincroniza skills; moldes e rules já são lidos via `{GRIMOIRE}/`.)
+(Nota: o script sincroniza skills nos runtimes e publica `global.md` no Codex/Claude; moldes e as demais rules são lidos via `{GRIMOIRE}/`.)
 
 ```
 
