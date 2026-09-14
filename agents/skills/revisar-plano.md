@@ -16,7 +16,7 @@ breve e orientada a arquitetura e fluxo de código.
 
 ## Antes de resumir
 
-Siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
+Leia o `AGENTS.md` do projeto atual. Siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
 
 **Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` ao avaliar o plano.
 

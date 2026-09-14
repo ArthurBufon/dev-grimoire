@@ -63,4 +63,4 @@ backup_[nome-projeto]_290526_143022.sql
 * Funciona de forma segura apenas com tabelas **InnoDB**
 * A senha entre aspas simples `'...'` suporta todos os caracteres especiais
 * Para compactar o arquivo gerado: `gzip backup_[nome-projeto]_*.sql`
-* **Nunca versione este arquivo** — adicione `*.sql` ao `.gitignore`
+* **Nunca versione este arquivo** — adicione `backup_*.sql` ao `.gitignore`

@@ -17,7 +17,7 @@ entender como o código vai funcionar, mas mais rápida que ler o plano completo
 
 ## Antes de explicar
 
-Siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
+Leia o `AGENTS.md` do projeto atual. Siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
 
 **Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md`.
 
