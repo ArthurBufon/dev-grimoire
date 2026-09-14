@@ -168,6 +168,8 @@ Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
 
 ### 6. Encerrar
 
+Inclua a seção **Não aplicado / pendente** somente quando houver itens reais.
+
 ```markdown
 ## Extrair-molde concluído
 
@@ -182,8 +184,6 @@ Rodar quando quiser publicar skills/rules nos runtimes:
 `./agents/scripts/sync-global-skills.sh`
 (Nota: o script sincroniza skills; moldes e rules já são lidos via `{GRIMOIRE}/`.)
 
-### Não aplicado / pendente
-- […]
 ```
 
 ## Regras de qualidade do molde gerado
