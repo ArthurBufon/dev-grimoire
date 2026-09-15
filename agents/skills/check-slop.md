@@ -1,6 +1,6 @@
 ---
 name: check-slop
-description: "Revisa código, diffs e artefatos em busca de complexidade desnecessária, falta de clareza e overengineering. Relata por padrão; só corrige quando o usuário pedir explicitamente."
+description: "Revisa conteúdo colado na invocação, prompts, código, diffs e outros artefatos em busca de AI slop, complexidade desnecessária, falta de clareza e overengineering. Relata por padrão; só corrige quando o usuário pedir explicitamente."
 ---
 
 # Check Slop
@@ -17,14 +17,16 @@ Por padrão, apenas relate os achados. Só altere arquivos quando o usuário ped
 
 ## Fluxo
 
-1. Analise somente o artefato ou diff indicado. Sem alvo explícito, use as alterações atuais do repositório.
-2. Relacione cada arquivo ou trecho ao requisito que o justifica.
-3. Aplique o teste de remoção do gate e compare com a solução direta já usada no módulo.
-4. Identifique como slop todo item sem requisito, benefício verificável ou necessidade concreta.
+1. Se houver conteúdo após a invocação, trate-o como o alvo completo e prioritário, inclusive quando for um prompt ou texto copiado e colado. Caso contrário, analise somente o artefato ou diff indicado; sem alvo explícito, use as alterações atuais do repositório.
+2. Relacione cada arquivo, seção ou trecho ao requisito que o justifica.
+3. Aplique o teste de remoção do gate. Quando o alvo for código, compare também com a solução direta já usada no módulo.
+4. Indique como AI slop todo item sem requisito, benefício verificável ou necessidade concreta, explicando objetivamente por que ele não faz sentido.
 
 ## Resposta
 
 - Sem achados: `APROVADO — nenhum slop detectado.`
-- Com achados: `BLOQUEADO`, seguido de um bullet por ocorrência no formato `arquivo:linha — excesso — por que não se justifica — corte mínimo`.
+- Com achados: `BLOQUEADO`, seguido de um bullet por ocorrência no formato `arquivo:linha ou trecho — ponto de AI slop — por que não faz sentido — corte mínimo`.
+
+Em conteúdo colado sem numeração de linhas, localize cada ocorrência por uma seção ou trecho curto reconhecível.
 
 Não acrescente elogios, recapitulação do contexto ou melhorias opcionais.
