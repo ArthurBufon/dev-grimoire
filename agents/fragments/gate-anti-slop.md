@@ -12,6 +12,8 @@ LLMs tendem ao caminho mais complexo: camadas extras, abstrações prematuras, d
 
 Na dúvida: **corte**. Pergunte ao dev só se cortar mudar comportamento ou decisão real.
 
+**Teste de remoção:** se este arquivo, camada, teste, seção ou trecho for removido, algum requisito ou critério de aceite deixa de ser atendido? Se não, corte.
+
 ## Red flags — bloquear imediatamente
 
 ### Arquitetura e código
