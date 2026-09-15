@@ -61,8 +61,8 @@ for agent_file in 'AGENTS.md' 'CLAUDE.md' 'moldes/agents/AGENTS.md' 'moldes/agen
   (( linhas <= 50 )) || falhar "${agent_file} excede o limite de 50 linhas (${linhas})"
 done
 
-linhas_check_slop="$(wc -l <"${repo_root}/agents/skills/check-slop.md")"
-(( linhas_check_slop == 4 )) || falhar "check-slop deve ter exatamente 4 linhas (${linhas_check_slop})"
+grep -Fq '{GRIMOIRE}/agents/fragments/gate-anti-slop.md' "${repo_root}/agents/skills/check-slop.md" \
+  || falhar 'check-slop não referencia o gate anti-slop'
 
 grep -Fq 'fabricante_id' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
   || falhar 'model Carro sem relacionamento fabricante_id'
