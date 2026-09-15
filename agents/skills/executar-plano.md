@@ -38,6 +38,16 @@ O código gerado deve ser o mais simples possível e compreensível por uma pess
 
 **Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes da primeira tarefa, ao montar prompts de subagents e ao aceitar cada entrega.
 
+## Gate convenções de código (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/gate-convencoes-codigo.md` antes da primeira tarefa PHP/JS e ao aceitar cada entrega.
+
+Antes de **cada checkpoint** e no **encerramento**, executar automaticamente no repositório do app:
+
+`bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`
+
+Falha bloqueia avanço até corrigir. Não pedir ao dev para rodar o script.
+
 Hard gate desta skill — **não avance** se:
 
 * implementador ou revisor entregar arquivos, abstrações ou refatorações além do plano;
@@ -152,9 +162,10 @@ o handoff não permanece como documentação do projeto.
 4. Subagent **revisor** (checklist abaixo).
 5. Corrigir crítico/importante → re-revisar (máx. **2** rodadas por problema).
 6. Ritual anti-slop no diff.
-7. Atualizar e validar o handoff automático.
-8. **CHECKPOINT** — parar; aguardar aprovação **explícita** do dev.
-9. Só então próxima tarefa.
+7. Executar `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no repositório do app.
+8. Atualizar e validar o handoff automático.
+9. **CHECKPOINT** — parar; aguardar aprovação **explícita** do dev.
+10. Só então próxima tarefa.
 
 **Proibido:** encadear tarefas após revisão do subagent; aprovação por silêncio; checkpoint opcional em tarefa "pequena" ou "já revisada". Revisão do subagent **não substitui** checkpoint do dev.
 
@@ -190,7 +201,7 @@ Aguardando confirmação explícita do dev para avançar.
 ### Implementador — incluir no prompt
 
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
-* Ler: `gate-anti-slop.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo ou se o plano ancora no molde)
+* Ler: `gate-anti-slop.md`, `gate-convencoes-codigo.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo ou se o plano ancora no molde)
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
@@ -202,7 +213,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Requisitos da tarefa + diff/arquivos alterados (paths, não colar o repositório)
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Implementação chutada sob dúvida bloqueante/importante = **crítico** (devolver; o controlador confirma com o dev)
-* Verificar: plano, gate anti-slop, conformidade Dev Grimoire, bugs/regressões, escopo
+* Verificar: plano, gate anti-slop, gate convenções, conformidade Dev Grimoire, bugs/regressões, escopo
 * Verificar se o fluxo e a intenção do código novo são compreensíveis na primeira leitura; complexidade ou indireção evitável = **crítico**
 * Slop ou não-conformidade com grimório = **crítico**
 * Regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente do dev = **crítico**
@@ -227,12 +238,13 @@ Após todas as tarefas aprovadas:
 
 1. Atualizar `docs/features/{entidade}/specs.md` quando a entrega mudar contexto, comportamento ou decisão permanente.
 2. Um revisor novo confere plano, modelagem, spec atualizada e diff final; em seguida invoca `$check-slop` sobre o diff.
-3. Slop ou achado crítico/importante bloqueia o encerramento: corrigir somente dentro do escopo e repetir a revisão final (máx. 2 rodadas). Achado menor entra no relatório.
-4. Se houver erro real, local e recorrente, sugerir no máximo uma `Lição ativa` no relatório. **Nunca** alterar `AGENTS.md` sem aprovação explícita do dev.
-5. Executar a suíte de testes aplicável e revisar o diff completo.
-6. Atualizar e validar o handoff final.
-7. Excluir `docs/modelagem/{feature}/` por completo.
-8. Entregar o relatório final no formato abaixo. Usar linguagem simples, direta e fácil de entender, sem termos técnicos desnecessários. Em cada item de mudança, explicar claramente **como era antes** e **como é agora**.
+3. Executar `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no repositório do app.
+4. Slop, violação de convenções ou achado crítico/importante bloqueia o encerramento: corrigir somente dentro do escopo e repetir a revisão final (máx. 2 rodadas). Achado menor entra no relatório.
+5. Se houver erro real, local e recorrente, sugerir no máximo uma `Lição ativa` no relatório. **Nunca** alterar `AGENTS.md` sem aprovação explícita do dev.
+6. Executar a suíte de testes aplicável e revisar o diff completo.
+7. Atualizar e validar o handoff final.
+8. Excluir `docs/modelagem/{feature}/` por completo.
+9. Entregar o relatório final no formato abaixo. Usar linguagem simples, direta e fácil de entender, sem termos técnicos desnecessários. Em cada item de mudança, explicar claramente **como era antes** e **como é agora**.
 
 Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.
 

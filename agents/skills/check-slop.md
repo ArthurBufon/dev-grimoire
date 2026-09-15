@@ -7,7 +7,9 @@ description: "Revisa código, diffs e artefatos em busca de complexidade desnece
 
 ## Contexto
 
-Leia e aplique `{GRIMOIRE}/agents/fragments/gate-anti-slop.md`. Use como referência o pedido, a modelagem ou o plano aplicável, as instruções locais e os padrões existentes nos arquivos analisados.
+Leia e aplique `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` e `{GRIMOIRE}/agents/fragments/gate-convencoes-codigo.md`. Use como referência o pedido, a modelagem ou o plano aplicável, as instruções locais e os padrões existentes nos arquivos analisados.
+
+Se o diff incluir PHP ou Queries JS/TS, executar automaticamente `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no repositório analisado; falha = `BLOQUEADO`.
 
 ## Limite de atuação
 

@@ -6,6 +6,24 @@ Todo método de service e controller retorna:
 return ['sucesso' => true, 'dados' => ['model' => $model], 'erros' => []];
 ```
 
+## Controllers JSON (bloqueante)
+
+Em controllers que respondem JSON, **proibido** `return response()->json([...])` inline.
+
+Montar o envelope em `$retorno` e só então retornar:
+
+```php
+$retorno = [
+    'sucesso' => true,
+    'dados'   => ['referencia' => $valor],
+    'erros'   => [],
+];
+
+return response()->json($retorno, 200);
+```
+
+Molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php`.
+
 ## Tratamento de erros em Services
 Todo método público usa `try/catch` com `logarErro` e `formatarMensagemErro`:
 
@@ -148,6 +166,8 @@ Abaixo estão alguns exemplos de seções. Nenhuma seção é obrigatória. Só 
 ```
 
 Molde com imports por seção: `moldes/laravel/app/Queries/Carro/Queries.php`.
+
+**Escopo do validador automático:** arquivos **novos** ou em pasta `Referencia/` exigem seções; legado tocado incidentalmente não é reformatado só para passar no script.
 
 ## Formatação e legibilidade (preservar; não “normalizar”)
 

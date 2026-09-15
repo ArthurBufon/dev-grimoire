@@ -39,13 +39,10 @@ Funciona da mesma forma em qualquer branch, inclusive `main` e `master`.
 3. Identificar os arquivos alterados e não rastreados. Excluir os arquivos
    proibidos pelos limites; se houver dúvida sobre um arquivo sensível, parar e
    pedir instrução.
-4. Só quando o repositório atual for o próprio `{GRIMOIRE}` — confirmar pelos
-   topos resolvidos com `git rev-parse --show-toplevel` — executar
-   `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh` antes de propor o
-   commit. Falha bloqueia commit e push; reportar a regra violada e aguardar
-   decisão do dev quando a correção exigir escolha de produto ou padrão.
-   Em qualquer outro projeto, não executar esse validador: usar apenas a
-   validação específica das áreas alteradas no repositório atual.
+4. Validar automaticamente antes de propor commit (falha bloqueia commit e push):
+   * Repositório = `{GRIMOIRE}` → `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh`
+   * Qualquer outro projeto → `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`
+   Reportar a regra violada; aguardar decisão do dev se a correção exigir escolha de produto ou padrão.
 5. Não ler `global.md` nem as rules da stack nesta preparação. A mensagem de
    commit segue a seção Git de `geral.md` (Grep/Read só dessa seção se ainda
    não estiver no contexto). Rules da stack e gate só na resolução de

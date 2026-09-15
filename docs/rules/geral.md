@@ -15,6 +15,22 @@ Se a stack **não** tiver rule nem molde, use mesmo assim a arquitetura dos mold
 
 ---
 
+## Convenções absolutas (bloqueantes)
+
+Violação = **rejeitar diff** (agente executa `agents/scripts/validar-convencoes-diff.sh` automaticamente; dev não roda manualmente).
+
+| Regra | Onde detalhar |
+|---|---|
+| Imports PHP/JS com seções `// CATEGORIA` | § Organização de Imports abaixo + rules da stack |
+| PHP: `$retorno` antes de `response()->json()` | `docs/rules/php.md` § Controllers JSON |
+| Queries principal: só `index/show/store/update/destroy` | § Services e Queries abaixo |
+| Ação específica em subpasta (`Referencia/Queries.*`, método `store`) | `docs/rules/javascript.md` § Queries |
+| JS Queries: `const url` + `const options` + `fetch(url, options)` | `docs/rules/javascript.md` § HTTP |
+
+Checklist e moldes: `agents/fragments/gate-convencoes-codigo.md`.
+
+---
+
 ## Escopo mínimo
 
 **Obrigatório em todo trabalho** — planejamento, revisão, implementação e entrega.
@@ -41,6 +57,8 @@ Se a stack **não** tiver rule nem molde, use mesmo assim a arquitetura dos mold
 * Verificar se existe abordagem mais simples
 * Confirmar que nenhum arquivo não solicitado foi tocado
 * Aplicar `agents/fragments/gate-anti-slop.md` (ritual de saída bloqueante) antes de concluir
+* Executar `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no repositório alterado; falha bloqueia entrega
+* Aplicar `agents/fragments/gate-convencoes-codigo.md` quando o diff incluir PHP ou Queries JS/TS
 * Após alterar código, executar a validação mais específica disponível para a mudança. Se não puder executá-la, informar o motivo e não declarar a tarefa concluída sem registrar essa limitação.
 
 ### Proteção de alterações do desenvolvedor

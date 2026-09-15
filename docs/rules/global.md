@@ -61,6 +61,7 @@ Se o usuário aceitar:
 | Arquivo | Conteúdo |
 |---|---|
 | `{GRIMOIRE}/docs/rules/geral.md` | Escopo mínimo, princípios, nomenclatura, Git, segurança |
+| `{GRIMOIRE}/agents/fragments/gate-convencoes-codigo.md` | Convenções bloqueantes PHP/JS (imports, `$retorno`, Queries, fetch) |
 
 ### Por stack do projeto atual
 
@@ -90,6 +91,7 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 | Criar no projeto | Molde de referência |
 |---|---|
 | `app/Http/Controllers/Web/.../{Entidade}Controller.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php` |
+| `app/Http/Controllers/.../{Entidade}/Referencia/{Entidade}ReferenciaController.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php` |
 | `app/Http/Requests/.../StoreRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/StoreRequest.php` |
 | `app/Http/Requests/.../UpdateRequest.php` | `{GRIMOIRE}/moldes/laravel/app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
 | `app/Models/{Entidade}.php` | `{GRIMOIRE}/moldes/laravel/app/Models/Carro.php` |
@@ -120,6 +122,8 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 | `Components/Forms/{Entidade}/Form.tsx` | `{GRIMOIRE}/moldes/react/Components/Forms/Carro/Form.tsx` |
 | `Components/Forms/CardErros/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Forms/CardErros/Show.tsx` |
 | `Queries/{Entidade}/Queries.tsx` | `{GRIMOIRE}/moldes/react/Queries/Queries.tsx` |
+| `resources/js/Queries/{Entidade}/Referencia/Queries.js` (Laravel+Blade) | `{GRIMOIRE}/moldes/laravel/resources/js/Queries/Carro/Referencia/Queries.js` |
+| `Queries/{Entidade}/Referencia/Queries.tsx` | `{GRIMOIRE}/moldes/react/Queries/Carro/Referencia/Queries.tsx` |
 | `Services/{Entidade}/Service.tsx` | `{GRIMOIRE}/moldes/react/Services/Service.tsx` |
 | `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |
 | `Components/Listagem/Card/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Show.tsx` |

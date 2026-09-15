@@ -43,6 +43,18 @@ ou:
 * ❌ `Queries/Carro/Queries.tsx: ligarCarro`
 * ✅ `Queries/Carro/Ligar/Queries.tsx: store`
 
+### Ação específica — Referencia (exemplo canônico)
+
+Gerar referência **não** fica na Queries principal. Usar subpasta e método REST `store`:
+
+* Laravel + Blade: `resources/js/Queries/{Entidade}/Referencia/Queries.js` → `ReferenciaQueries.store()`
+* React/Inertia: `Queries/{Entidade}/Referencia/Queries.tsx` → `store()`
+
+Moldes:
+
+* `moldes/laravel/resources/js/Queries/Carro/Referencia/Queries.js`
+* `moldes/react/Queries/Carro/Referencia/Queries.tsx`
+
 ## JavaScript (Vanilla)
 - `$(function(){ ... })` como entry point
 - Handlers no fim do arquivo

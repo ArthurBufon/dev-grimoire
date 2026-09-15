@@ -18,7 +18,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
 1. Se `{GRIMOIRE}` já estiver resolvido nesta sessão, não reler `global.md`. Prioridades: Grep da seção **Conflitos de prioridade** só se essa regra ainda não estiver no contexto.
 2. Ler o `AGENTS.md` do projeto atual. Resolver o Grimório só se `{GRIMOIRE}` ainda não estiver definido. Todo patch de código lê `geral.md` + a rule da stack detectada (não a da stack ausente). Spec em `docs/features/<feature>/specs.md` se existir. Molde só se **criar** arquivo.
-3. Gate anti-slop: se `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` já foi lido nesta sessão, execute só o ritual interno. Senão, leia e aplique o fragmento antes do patch. O ritual continua bloqueante — slop no diff impede a entrega.
+3. Gates: anti-slop (`gate-anti-slop.md`) e convenções (`gate-convencoes-codigo.md`) — ler na primeira vez da sessão; ritual bloqueante antes da entrega.
 4. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
 5. Dúvida que muda comportamento → perguntar. Estilo → copiar o arquivo vizinho.
 
@@ -27,7 +27,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes do dev.
 2. Arquivos mínimos do pedido.
 3. Patch no padrão existente.
-4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Se não houver validação aplicável ou ela não puder ser executada, declarar isso na resposta.
+4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Se PHP/JS alterado, executar automaticamente `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`; falha bloqueia entrega.
 5. Checar que o diff não saiu do escopo nem sobrescreveu alterações do dev.
 
 ## Red flags — parar

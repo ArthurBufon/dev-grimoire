@@ -23,6 +23,8 @@ for path in \
   'docs/rules/php.md' \
   'docs/rules/javascript.md' \
   'agents/fragments/gate-anti-slop.md' \
+  'agents/fragments/gate-convencoes-codigo.md' \
+  'agents/scripts/validar-convencoes-diff.sh' \
   'agents/scripts/inicializar-contexto-agentes.sh' \
   'agents/skills/check-slop.md' \
   'agents/skills/executar-plano.md' \
@@ -39,11 +41,14 @@ for path in \
   'moldes/laravel/app/helpers.php' \
   'moldes/laravel/app/Helpers/Paginacao.php' \
   'moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php' \
+  'moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php' \
+  'moldes/laravel/resources/js/Queries/Carro/Referencia/Queries.js' \
   'moldes/react/Pages/Carro/Index.tsx' \
   'moldes/react/Pages/Carro/Create.tsx' \
   'moldes/react/Pages/Carro/Edit.tsx' \
   'moldes/react/Components/Forms/Carro/Form.tsx' \
   'moldes/react/Queries/Queries.tsx' \
+  'moldes/react/Queries/Carro/Referencia/Queries.tsx' \
   'moldes/react/Services/Service.tsx' \
   'moldes/react/types/carro.ts' \
   'moldes/react/types/fabricante.ts' \
@@ -82,5 +87,35 @@ fi
 
 bash "${repo_root}/agents/scripts/validar-handoff.sh" \
   "${repo_root}/agents/scripts/fixtures/handoff-valido.md" >/dev/null
+
+convencoes="${repo_root}/agents/scripts/validar-convencoes-diff.sh"
+fixtures="${repo_root}/agents/scripts/fixtures"
+
+bash "$convencoes" --files \
+  "${fixtures}/convencoes-php-valido.php" \
+  "${fixtures}/convencoes-js-valido.js" \
+  >/dev/null \
+  || falhar 'validar-convencoes-diff.sh rejeitou fixture válido'
+
+if bash "$convencoes" --files "${fixtures}/ConvencoesPhpInvalidoController.php" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar ConvencoesPhpInvalidoController.php'
+fi
+
+if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-inline-fetch.js" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-inline-fetch.js'
+fi
+
+if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries.js" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar Queries principal com gerarReferencia'
+fi
+
+grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/executar-plano.md" \
+  || falhar 'executar-plano não referencia gate-convencoes-codigo.md'
+
+grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/check-slop.md" \
+  || falhar 'check-slop não referencia gate-convencoes-codigo.md'
+
+grep -Fq 'validar-convencoes-diff.sh' "${repo_root}/agents/skills/sync-origin.md" \
+  || falhar 'sync-origin não referencia validar-convencoes-diff.sh'
 
 printf 'grimório válido\n'
