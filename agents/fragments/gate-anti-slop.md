@@ -59,10 +59,11 @@ Antes de entregar **qualquer** artefato ou mensagem substancial, execute interna
 Gate anti-slop:
 - Cortei: [itens removidos ou "nada"]
 - Mantive porque o pedido exige: [lista mínima]
+- Rastreabilidade: [cada arquivo ou trecho mantido → requisito que o justifica]
 - Complexidade rejeitada: [o que quase entrou e por quê não]
 ```
 
-Se "Mantive" tiver item sem ligação clara ao pedido → volte e corte.
+Se "Mantive" tiver item sem ligação clara ao pedido, ou a rastreabilidade deixar arquivo ou trecho sem requisito → volte e corte.
 
 ## Escalonamento
 
