@@ -1,6 +1,6 @@
 ---
 name: check-slop
-description: "Está o mais simples possível? Se não, simplifique. O código é claro para humanos? Se não, melhore. Há overengineering do agente? Corrija de forma minimalista e cirúrgica."
+description: "Revisa código, diffs e artefatos em busca de complexidade desnecessária, falta de clareza e overengineering. Relata por padrão; só corrige quando o usuário pedir explicitamente."
 ---
 
 # Check Slop
@@ -8,6 +8,10 @@ description: "Está o mais simples possível? Se não, simplifique. O código é
 ## Contexto
 
 Leia e aplique `{GRIMOIRE}/agents/fragments/gate-anti-slop.md`. Use como referência o pedido, a modelagem ou o plano aplicável, as instruções locais e os padrões existentes nos arquivos analisados.
+
+## Limite de atuação
+
+Por padrão, apenas relate os achados. Só altere arquivos quando o usuário pedir explicitamente a correção; nesse caso, aplique o menor ajuste suficiente.
 
 ## Fluxo
 
