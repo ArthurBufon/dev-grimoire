@@ -72,9 +72,9 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 ## Dúvidas
 
-* Se surgirem dúvidas, perguntar até todas ficarem esclarecidas antes de planejar, implementar ou revisar
-* Nunca assumir requisitos implícitos quando houver ambiguidade
-* Validar expectativas e critérios de aceite antes de seguir com mudanças que dependam de interpretação
+* Perguntar antes de planejar, implementar ou revisar somente quando a dúvida puder mudar comportamento, escopo, risco ou decisão
+* Não interromper o trabalho por detalhes triviais que possam seguir o padrão existente sem alterar o resultado
+* Nunca assumir requisitos implícitos quando houver ambiguidade relevante
 
 ---
 
@@ -234,5 +234,4 @@ analisar código fonte de variações
 
 ## Regras Gerais
 
-* SEMPRE esclarecer todas dúvidas pendentes com o dev antes de fazer algo.
 * No prompt temos .env para variáveis sensíveis, mas cada projeto/stack pode ter um arquivo diferente, isso deve ser levado em consideração.
