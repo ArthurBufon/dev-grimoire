@@ -31,6 +31,10 @@ Se a stack **não** tiver rule nem molde, use mesmo assim a arquitetura dos mold
 * Não criar helpers genéricos prematuramente
 * Evitar efeitos colaterais fora do escopo da tarefa
 
+### Antes de executar
+
+* Aplicar `agents/fragments/gate-anti-slop.md` para definir o menor escopo capaz de atender aos requisitos antes de implementar ou redigir
+
 ### Antes de entregar
 
 * Confirmar que só alterou o código solicitado
