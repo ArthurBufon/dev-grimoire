@@ -19,3 +19,10 @@ Por padrão, apenas relate os achados. Só altere arquivos quando o usuário ped
 2. Relacione cada arquivo ou trecho ao requisito que o justifica.
 3. Aplique o teste de remoção do gate e compare com a solução direta já usada no módulo.
 4. Identifique como slop todo item sem requisito, benefício verificável ou necessidade concreta.
+
+## Resposta
+
+- Sem achados: `APROVADO — nenhum slop detectado.`
+- Com achados: `BLOQUEADO`, seguido de um bullet por ocorrência no formato `arquivo:linha — excesso — por que não se justifica — corte mínimo`.
+
+Não acrescente elogios, recapitulação do contexto ou melhorias opcionais.
