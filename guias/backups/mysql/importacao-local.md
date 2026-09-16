@@ -1,6 +1,6 @@
 # Importação do Banco de Dados — Produção → Local (Docker/WSL2)
 
-Passo a passo para baixar o dump de produção e importar no container Docker rodando no WSL2, usando as mesmas credenciais do `.env` de produção.
+Passo a passo para baixar o dump de produção e importar no container Docker rodando no WSL2, usando as credenciais do `.env` do projeto local.
 
 ---
 
