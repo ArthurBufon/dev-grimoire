@@ -16,7 +16,7 @@ Passo a passo para baixar o dump de produção e importar no container Docker ro
 
 ### Opção A — SCP via Windows Terminal (recomendado)
 
-Mais rápido e prático, sem necessidade de instalar nada além do PuTTY (já disponível).
+Esta opção usa o cliente OpenSSH (`scp`) do Windows e uma chave privada no formato OpenSSH.
 
 No **Windows Terminal** ou **PowerShell**:
 
