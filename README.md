@@ -85,7 +85,7 @@ Configuração do Cursor, incluindo User Rule global, MCPs e plugin. Veja [`.cur
 **Retorno padronizado** — os fluxos usam o mesmo envelope:
 ```json
 { "sucesso": true,  "dados": {},  "erros": [] }
-{ "sucesso": false, "dados": {}, "erros": ["mensagem"] }
+{ "sucesso": false, "dados": [], "erros": ["mensagem"] }
 ```
 
 **Arquitetura dos moldes** — Queries, Services, envelope e organização de arquivos dos moldes valem como referência em qualquer stack, sem forçar o framework a abrir mão das próprias convenções.
