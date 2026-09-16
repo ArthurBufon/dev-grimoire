@@ -72,7 +72,7 @@ As convenções ficam centralizadas aqui. Os apps as consomem pelo clone local `
 
 ### 📁 `.cursor/`
 
-Configuração do Cursor, incluindo User Rule global, MCPs e plugin. Veja [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
+Guia de configuração do Cursor, com orientações para a User Rule global, MCPs e plugin. Veja [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
 
 ---
 
