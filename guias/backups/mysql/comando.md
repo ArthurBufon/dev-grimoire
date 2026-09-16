@@ -2,7 +2,7 @@
 
 ## 🗄️ Como gerar um dump completo sem bloquear a produção
 
-O comando abaixo realiza um **dump completo** do banco de dados MySQL/MariaDB diretamente no servidor, gerando um arquivo `.sql` com timestamp no nome. É seguro para uso em produção pois não bloqueia tabelas nem interrompe conexões ativas.
+O comando abaixo realiza um **dump completo** do banco de dados MySQL/MariaDB diretamente no servidor, gerando um arquivo `.sql` com timestamp no nome. Para tabelas InnoDB, `--single-transaction` permite obter um dump consistente sem bloquear as operações normais de leitura e escrita.
 
 ```bash
 TIMESTAMP=$(date +"%d%m%y_%H%M%S") && \
