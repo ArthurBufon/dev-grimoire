@@ -145,9 +145,7 @@ Apresentar resumo curto:
 - [itens do app que NÃO entram no molde e por quê]
 
 ### Impacto em rules
-- [ ] nenhum
-- [ ] atualizar mapa em `docs/rules/global.md` (linhas/tipos)
-- [ ] ajustar trecho em `php.md` / `javascript.md` (só se a convenção mudou de verdade)
+- `global.md`, `php.md`, `javascript.md` ou `nenhuma` — indicar somente os arquivos realmente afetados.
 
 ### Próximo passo
 Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
