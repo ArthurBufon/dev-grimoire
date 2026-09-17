@@ -26,13 +26,12 @@ Exemplos: plano vs código; requisito faltando; duas interpretações plausívei
 
 ## Clareza do código (bloqueante)
 
-O código gerado deve ser o mais simples possível e compreensível por uma pessoa na primeira leitura. Clareza para humanos tem prioridade sobre soluções engenhosas, genéricas ou excessivamente compactas.
+Hierarquia de aceite, nesta ordem: **FUNCIONAL > QUALIDADE > FACILMENTE COMPREENSÍVEL PARA SERES HUMANOS > SEM OVERENGINEERING**. Todos os critérios são obrigatórios: passar nos testes ou funcionar não basta para aceitar código difícil de entender. Use a ordem para resolver escolhas entre soluções que atendem aos critérios anteriores, sem sacrificar correção ou qualidade para reduzir linhas ou abstrações.
 
-* Preferir fluxo linear, nomes que expliquem intenção e estruturas já conhecidas no módulo.
-* Não criar abstrações, helpers, camadas, condicionais compactas ou controle de fluxo indireto quando uma solução direta for mais clara.
-* Evitar aninhamento desnecessário, valores implícitos e lógica que exija dedução para ser entendida.
-* Comentários explicam decisões não óbvias; não devem compensar código difícil de ler.
-* Se a implementação nova não puder ser entendida de primeira, simplificá-la dentro do escopo da tarefa antes de aceitá-la.
+* Gerar código cujo propósito, dados e fluxo principal uma pessoa consiga entender na primeira leitura. Preferir nomes claros, fluxo direto e estruturas já conhecidas no módulo.
+* Evitar aninhamento, valores implícitos, condicionais compactas e controle de fluxo indireto quando dificultarem a leitura. Separar passos somente quando isso tornar a lógica mais clara.
+* Usar abstrações e camadas apenas quando necessárias para os requisitos ou a qualidade. Comentários explicam decisões não óbvias; não devem compensar código difícil de ler.
+* Antes de aceitar cada diff, reler o código novo como alguém que não o escreveu. Se for preciso reconstruir mentalmente o fluxo para entendê-lo, devolver para simplificação dentro do escopo e revisar novamente.
 
 ## Gate anti-slop (bloqueante)
 
@@ -205,7 +204,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
-* Implementar a solução mais direta e legível; o fluxo principal deve ser compreensível na primeira leitura, sem abstrações prematuras ou lógica indireta
+* Aplicar a hierarquia de aceite da seção **Clareza do código**; entregar código funcional, de qualidade e facilmente compreensível por pessoas, sem complexidade desnecessária
 * Retorno: status (concluído/bloqueado/precisa contexto), um bullet por arquivo (`path` — o que foi feito), testes, riscos — bullets curtos, sem dump de arquivos
 
 ### Revisor — incluir no prompt
@@ -214,7 +213,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Implementação chutada sob dúvida bloqueante/importante = **crítico** (devolver; o controlador confirma com o dev)
 * Verificar: plano, gate anti-slop, gate convenções, conformidade Dev Grimoire, bugs/regressões, escopo
-* Verificar se o fluxo e a intenção do código novo são compreensíveis na primeira leitura; complexidade ou indireção evitável = **crítico**
+* Aplicar a hierarquia de aceite da seção **Clareza do código**; código funcional mas humanamente difícil de compreender, ou com complexidade evitável, = **crítico**
 * Slop ou não-conformidade com grimório = **crítico**
 * Regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente do dev = **crítico**
 * Classificar: crítico / importante / menor
