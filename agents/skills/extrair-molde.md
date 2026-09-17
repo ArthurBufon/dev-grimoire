@@ -9,10 +9,6 @@ description: >-
 
 # Extrair Molde
 
-## Regra final
-
-NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de prompt/resultado.
-
 Anunciar no início:
 
 ```text
