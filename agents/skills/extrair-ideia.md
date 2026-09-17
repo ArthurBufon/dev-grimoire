@@ -5,7 +5,7 @@ description: Extrai a ideia principal de um texto fornecido ou de arquivos Markd
 
 # Extrair Ideia
 
-Use o texto recebido na invocação ou leia integralmente os arquivos `.md` referenciados pelo usuário. Quando houver mais de uma fonte, considere o conjunto como um único conteúdo, salvo instrução diferente.
+Use o texto recebido na invocação ou leia integralmente os arquivos `.md` referenciados pelo usuário. Quando houver mais de uma fonte, considere o conjunto como um único conteúdo, salvo instrução diferente. Se as fontes acessíveis divergirem sobre a ideia central, informe a divergência no único parágrafo; não invente uma tese comum.
 
 Identifique a mensagem central que organiza o conteúdo. Preserve o sentido original e descarte exemplos, repetições, detalhes secundários e opiniões que não sejam necessárias para explicar essa ideia. Não invente contexto, conclusões ou intenções ausentes.
 
