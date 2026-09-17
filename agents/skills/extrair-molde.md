@@ -100,6 +100,8 @@ Usar o mapa de `{GRIMOIRE}/docs/rules/global.md`. Para cada tipo no escopo:
 
 Marcar: `igual` | `divergente` | `só-no-app` | `só-no-molde`.
 
+Se todos os pares estiverem `igual`, informar que não há divergência consolidada e encerrar sem propor alteração.
+
 Quando o escopo incluir Laravel e React, conferir também se campos, valores de
 enum, nulidade e envelope continuam alinhados ao contrato Carro. Divergência
 intencional deve entrar na proposta com o motivo.
