@@ -11,4 +11,4 @@ Identifique a mensagem central que organiza o conteúdo. Preserve o sentido orig
 
 Responda com exatamente um parágrafo curto, em linguagem humana, simples e direta. Não use título, lista, introdução, citação nem comentário sobre o processo.
 
-Se nenhum texto ou arquivo acessível for informado, peça o conteúdo em uma única frase breve.
+Se nenhum texto ou arquivo acessível for informado, peça o conteúdo em uma única frase breve. Se uma fonte referenciada estiver inacessível, informe brevemente que ela foi desconsiderada.
