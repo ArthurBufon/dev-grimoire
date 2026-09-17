@@ -15,7 +15,7 @@ Antes de analisar ou escrever, siga `{GRIMOIRE}/docs/rules/global.md` para resol
 
 Leia e aplique `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de analisar ou escrever e antes de salvar a spec.
 
-Antes de escrever, leia o molde `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` e a spec existente da entidade, se houver. Espelhe seções e tom do molde (ou da spec do projeto, se já existir); adapte só a entidade e o que o código realmente tem.
+Antes de escrever, leia a spec existente da entidade, se houver. Em projetos Laravel, leia também o molde `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md`. Em projetos React-only sem spec existente, não use o molde Laravel; estruture a spec somente com os fatos identificados no código e contexto.
 
 Antes de salvar, registre `git status` e os diffs relevantes. Preserve integralmente trechos preexistentes ou concorrentes na spec; conflito sem resolução inequívoca → peça instrução ao dev.
 
