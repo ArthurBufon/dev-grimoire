@@ -68,7 +68,7 @@ Ler via Read/Grep:
 
 ## Entrada
 
-Pedir se não estiver claro:
+Perguntar somente pelos campos que não estiverem claros e mudarem o escopo ou a proposta:
 
 | Campo | Exemplo |
 |---|---|
