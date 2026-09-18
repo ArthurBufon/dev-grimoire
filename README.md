@@ -2,146 +2,104 @@
 
 ![Meu grimório](img/1.png)
 
-Este é o meu repositório de referências para o trabalho do dia a dia. Aqui ficam os padrões, prompts, moldes e configurações que fui ajustando em projetos reais.
-
-Não é uma tentativa de reunir “as melhores práticas” universais. É um conjunto opinativo de escolhas que quero repetir quando fazem sentido — e revisar quando deixarem de fazer.
+Aqui ficam os padrões, prompts, moldes e configs que fui ajustando no trabalho. Não é um compilado de “melhores práticas”. É o que eu quero repetir — e o que eu reviso quando deixa de servir.
 
 ---
 
 ## O que tem aqui
 
 ### 📁 `guias/`
-Guias práticos para situações recorrentes: backup MySQL, conexão SSH e deploy Laravel.
+
+Backup MySQL, SSH, deploy Laravel e setup do Cursor.
 
 ### 📁 `agents/`
-Prompts e skills para trabalhar com agentes de IA.
+
+Prompts e skills para os agentes.
 
 | Pasta | Função |
 |---|---|
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
-| [`skills/`](agents/skills/) | Skills personalizadas (planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc.) |
-| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Sincroniza skills e instruções globais (`AGENTS.md` / `CLAUDE.md`) com `agents/skills/` e `docs/rules/global.md` |
-| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` + `CLAUDE.md` no app, a partir dos moldes, sem sobrescrever arquivos existentes |
+| [`skills/`](agents/skills/) | Planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc. |
+| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Espelha skills e a User Rule (`docs/rules/global.md`) nos runtimes |
+| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` e `CLAUDE.md` no app, sem sobrescrever o que já existe |
 
-#### Sincronizar skills globais
-
-Depois de alterar uma skill em `agents/skills/`, rode:
+Depois de mudar uma skill:
 
 ```bash
 agents/scripts/sync-global-skills.sh
 ```
 
-O script atualiza skills nos três runtimes, publica `docs/rules/global.md` em `~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`, e gera a skill `dev-grimoire`. No Cursor, a User Rule continua manual em Settings → Rules → User.
+O script atualiza Cursor, Codex e Claude Code, publica `global.md` em `~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`, e gera a skill `dev-grimoire`. No Cursor, a User Rule ainda é colada em Settings → Rules → User.
 
-#### Inicializar contexto local do app
-
-Em cada repositório de aplicação, mantenha `AGENTS.md` como a fonte única do
-contexto compartilhado pelos agentes. Para o Claude Code, `CLAUDE.md` importa
-esse arquivo e abriga somente regras exclusivas dele.
+Para subir o contexto local de um app, na raiz dele:
 
 ```bash
-bash {GRIMOIRE}/agents/scripts/inicializar-contexto-agentes.sh
+bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
-Os dois arquivos são criados somente se ainda não existirem. Preencha os campos
-entre colchetes de `AGENTS.md` antes de delegar trabalho ao agente.
-
-Ao entrar em um projeto sem esses arquivos, o Dev Grimoire deve avisar que o
-contexto local ainda não está ativo, oferecer o inicializador e, se o dev
-aceitar, sugerir conteúdo enxuto baseado no próprio repositório.
+Ajuste o caminho se o clone não for irmão. Os arquivos só nascem se ainda não existirem. Preencha os colchetes do `AGENTS.md` antes de mandar o agente trabalhar. `CLAUDE.md` só importa o `AGENTS.md` e guarda o que for exclusivo do Claude.
 
 ### 📁 `moldes/`
-Código de referência para Laravel e React/Inertia. O domínio de exemplo é **Carro**, com catálogo **Fabricante** (`belongsTo`), e cobre controller, form requests, modelos, queries, services web/view/API, helpers, migrations, testes e specs.
+
+Referência Laravel e React/Inertia. O exemplo é **Carro**, com catálogo **Fabricante** (`belongsTo`).
 
 ```
 moldes/
-├── contratos/ → Fonte de verdade cross-stack (campos, validações, listagem)
-├── laravel/   → Controllers, Requests, Models, Queries, Services, migration, tests, docs/features/
+├── contratos/ → o que as duas stacks precisam manter igual
+├── laravel/   → Controllers, Requests, Models, Queries, Services, migration, tests, specs
 └── react/     → Pages, Forms, Services, Queries, Components, Utils
 ```
 
-Alterações no domínio **Carro** começam em [`moldes/contratos/carro.md`](moldes/contratos/carro.md); o catálogo **Fabricante** em [`moldes/contratos/fabricante.md`](moldes/contratos/fabricante.md). Os contratos definem o que Laravel, React e as specs compartilham; na mesma mudança, revisar tipos, formulário, queries e testes afetados (ver seção *Manutenção* de cada contrato).
+Muda o domínio pelo contrato: [`carro.md`](moldes/contratos/carro.md) e [`fabricante.md`](moldes/contratos/fabricante.md). Na mesma mudança, olhe tipos, formulário, queries e testes (seção *Manutenção* de cada contrato).
 
 ### 📁 `docs/rules/`
-As convenções ficam centralizadas aqui. Os apps as consomem pelo clone local `dev-grimoire` (irmão, ancestral ou pasta irmã do ancestral), lido pelo agente no filesystem; não é necessário copiar essas rules para cada repositório.
+
+Convenções ficam aqui. Os apps leem o clone local `dev-grimoire` (irmão, ancestral ou pasta irmã). Não copie essas rules para cada repositório.
 
 | Arquivo | Função |
 |---|---|
-| [`global.md`](docs/rules/global.md) | **User Rule global** — clone local + Read/Grep |
-| [`geral.md`](docs/rules/geral.md) | Escopo mínimo, princípios, nomenclatura, Git, segurança |
-| [`php.md`](docs/rules/php.md) | Convenções PHP / Laravel |
-| [`javascript.md`](docs/rules/javascript.md) | Convenções JavaScript / React |
+| [`global.md`](docs/rules/global.md) | User Rule global |
+| [`geral.md`](docs/rules/geral.md) | Escopo, nomenclatura, Git, segurança |
+| [`php.md`](docs/rules/php.md) | PHP / Laravel |
+| [`javascript.md`](docs/rules/javascript.md) | JavaScript / React |
 
 ### 📁 `.cursor/`
 
-Guia de configuração do Cursor, com orientações para a User Rule global, MCPs e plugin. Veja [`.cursor/README.md`](.cursor/README.md) e o [guia de setup local](guias/cursor/setup-grimoire-local.md).
+Setup do Cursor: User Rule, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md) e o [guia de setup](guias/cursor/setup-grimoire-local.md).
 
 ---
 
-## Ideias que seguram a casa
+## O que eu sigo
 
-**SRP** — cada arquivo, função e serviço deve ter um motivo claro para mudar.
+**SRP** — cada arquivo e serviço tem um motivo claro para mudar.
 
-**Queries + Services** — acesso a dados e lógica de caso de uso não ficam misturados. Quando a operação se encaixa, os métodos usam `index`, `show`, `store`, `update` e `destroy`.
+**Queries e Services** — dado de um lado, caso de uso do outro. Quando cabe, os métodos são `index`, `show`, `store`, `update` e `destroy`.
 
-**Retorno padronizado** — os fluxos usam o mesmo envelope:
+**Retorno** — sempre o mesmo envelope:
+
 ```json
 { "sucesso": true,  "dados": {},  "erros": [] }
 { "sucesso": false, "dados": [], "erros": ["mensagem"] }
 ```
 
-**Arquitetura dos moldes** — Queries, Services, envelope e organização de arquivos dos moldes valem como referência em qualquer stack, sem forçar o framework a abrir mão das próprias convenções.
+**Moldes como referência** — essa organização vale em qualquer stack, sem forçar o framework a abrir mão das próprias convenções.
 
-**Docs como contexto para IA** — specs em `docs/features/<feature>/specs.md` registram regras e reduzem ambiguidade na hora de gerar código.
+**Specs** — regras da feature em `docs/features/<feature>/specs.md`, antes de implementar.
 
-**SDD (Specification-Driven Development)** — regras e fronteiras vêm antes da implementação.
-
----
-
-## Por que manter isso?
-
-Com IA participando cada vez mais do código, pequenas convenções bem registradas evitam que cada conversa recomece do zero:
-
-- Prompts rendem melhor quando a arquitetura já tem um padrão reconhecível
-- User Rules do Cursor levam essas escolhas para os projetos
-- O clone local do **Dev Grimoire** (`{GRIMOIRE}/`) dá ao agente uma fonte concreta para consultar via Read/Grep
-- Specs em `docs/features/` funcionam como memória de contexto da feature
-
----
-
-## Como o Grimório evolui
-
-Este repositório muda quando uma situação real revela um padrão reutilizável.
-
-- Registre decisões confirmadas em projeto, implementação ou incidente.
-- Explique o contexto e a decisão tomada; não mantenha um diário de alterações.
-- Não altere regras, moldes ou guias apenas para manter atividade no GitHub.
-- Se não houver aprendizado reutilizável, não há mudança necessária.
+Este repo só muda quando um projeto real deixa um padrão reutilizável. Sem aprendizado novo, não tem o que commitar.
 
 ---
 
 ## Referência rápida
 
-### Nomenclatura REST
- 
-Queries usam somente os cinco métodos abaixo. Quando uma consulta precisar de contexto próprio, ela vai para uma subpasta e mantém o método REST correspondente — por exemplo, `Queries/Carro/Ativos/Queries.tsx: index`.
+Queries usam só estes cinco. Contexto extra vai para subpasta e mantém o verbo REST — ex.: `Queries/Carro/Ativos/Queries.tsx: index`. Services também, quando a operação se encaixa. Nome em português, simples.
 
-Services também usam esses verbos quando a operação se encaixa. Regras de negócio específicas continuam nos services, com nomes em português, simples e objetivos.
- 
-| Método | HTTP | Descrição |
+| Método | HTTP | O que faz |
 |---|---|---|
 | `index` | `GET /recursos` | Lista |
 | `show` | `GET /recursos/{id}` | Um registro |
 | `store` | `POST /recursos` | Cria |
 | `update` | `PUT/PATCH /recursos/{id}` | Atualiza |
 | `destroy` | `DELETE /recursos/{id}` | Remove |
- 
-> Se surgir um método chamado `buscar`, `listar`, `salvar` ou `deletar`, vale conferir antes se ele não é um desses cinco com outro nome.
 
-### Princípios
-
-```
-SRP  → um motivo de mudar por unidade
-OCP  → aberto para extensão, fechado para modificação
-DIP  → dependa de abstrações, não implementações
-```
+Se aparecer `buscar`, `listar`, `salvar` ou `deletar`, quase sempre é um desses cinco com outro nome.
