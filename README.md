@@ -20,16 +20,23 @@ Prompts e skills para os agentes.
 |---|---|
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc. |
+| [`sync.sh`](agents/scripts/sync.sh) | `git pull` neste repo + sync das skills globais |
 | [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Espelha skills e a User Rule (`docs/rules/global.md`) nos runtimes |
 | [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` e `CLAUDE.md` no app, sem sobrescrever o que já existe |
 
-Depois de mudar uma skill:
+No `~/.zshrc` (ou `~/.bashrc`):
 
 ```bash
-agents/scripts/sync-global-skills.sh
+alias grimoire-sync="$HOME/projects/dev-grimoire/agents/scripts/sync.sh"
 ```
 
-O script atualiza Cursor, Codex e Claude Code, publica `global.md` em `~/.codex/AGENTS.md` e `~/.claude/CLAUDE.md`, e gera a skill `dev-grimoire`. No Cursor, a User Rule ainda é colada em Settings → Rules → User.
+Depois de um `source ~/.zshrc`, para atualizar o grimório e as skills é só:
+
+```bash
+grimoire-sync
+```
+
+Isso puxa o repo e roda o `sync-global-skills.sh`. No Cursor, a User Rule ainda é colada em Settings → Rules → User.
 
 Para subir o contexto local de um app, na raiz dele:
 
