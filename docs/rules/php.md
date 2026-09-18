@@ -49,6 +49,8 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 - `formatarMensagemErro(\Throwable $th)` — helper global em `app/helpers.php`
 - Em `logarErro`, enviar apenas o contexto mínimo necessário, como o identificador do registro quando disponível; não repassar o payload inteiro. Seguir `docs/rules/geral.md` § Segurança.
 
+Nas operações com transação, verificar `sucesso` no envelope retornado pela Query antes do commit. Se for `false`, executar rollback e propagar a falha, mesmo sem exceção; manter também o rollback no caminho de exceção. Referência: `store` e `update` em `moldes/laravel/app/Services/Carro/Service.php`.
+
 ## Estrutura
 *Módulos possíveis: Web ou Api
 - Controllers: `app/Http/Controllers/[Modulo]/[Entidade]/[Entidade]Controller.php` (molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php`)
