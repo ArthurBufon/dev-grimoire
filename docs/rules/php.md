@@ -118,7 +118,8 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
 ## Nomenclatura
 - `PascalCase` para classes, controllers, models, enums
 - `camelCase` para métodos e variáveis
-- `snake_case` para colunas de banco e arquivos
+- `snake_case` para colunas de banco e arquivos que seguem essa convenção, como migrations
+- Arquivos de classes acompanham o nome da classe em `PascalCase`, conforme os moldes: `Service.php`, `Queries.php`, `StoreRequest.php`
 - `UPPER_SNAKE_CASE` para constantes
 
 ## Migrations
