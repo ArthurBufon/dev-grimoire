@@ -31,8 +31,8 @@ Nos Services de negócio, métodos que executam operações usam `try/catch` com
 public function store(array $dados): array
 {
     try {
-        $model = Model::create($dados);
-        return ['sucesso' => true, 'dados' => ['model' => $model], 'erros' => []];
+        $dadosDatabase = $this->formatarDatabase($dados);
+        return $this->queries->store($dadosDatabase);
     } catch (\Throwable $th) {
         $this->logarErro($dados, 'criar', formatarMensagemErro($th));
         return ['sucesso' => false, 'dados' => [], 'erros' => [formatarMensagemErro($th)]];
