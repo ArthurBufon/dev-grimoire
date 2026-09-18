@@ -1,5 +1,7 @@
 # 🔮 Meu Grimório
 
+![Meu grimório](img/1.png)
+
 Este é o meu repositório de referências para o trabalho do dia a dia. Aqui ficam os padrões, prompts, moldes e configurações que fui ajustando em projetos reais.
 
 Não é uma tentativa de reunir “as melhores práticas” universais. É um conjunto opinativo de escolhas que quero repetir quando fazem sentido — e revisar quando deixarem de fazer.
