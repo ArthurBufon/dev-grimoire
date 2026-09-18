@@ -34,7 +34,7 @@ public function store(array $dados): array
         $dadosDatabase = $this->formatarDatabase($dados);
         return $this->queries->store($dadosDatabase);
     } catch (\Throwable $th) {
-        $this->logarErro($dados, 'criar', formatarMensagemErro($th));
+        $this->logarErro([], 'criar', formatarMensagemErro($th));
         return ['sucesso' => false, 'dados' => [], 'erros' => [formatarMensagemErro($th)]];
     }
 }
@@ -47,6 +47,7 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 ```
 - `update` retorna `$model->fresh()`
 - `formatarMensagemErro(\Throwable $th)` — helper global em `app/helpers.php`
+- Em `logarErro`, enviar apenas o contexto mínimo necessário, como o identificador do registro quando disponível; não repassar o payload inteiro. Seguir `docs/rules/geral.md` § Segurança.
 
 ## Estrutura
 *Módulos possíveis: Web ou Api
