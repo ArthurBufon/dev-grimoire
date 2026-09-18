@@ -81,6 +81,8 @@ public function destroy(string|int $id): array
 
 `$filtros` só em `index` e `show`. `update` e `destroy` **não** recebem `$filtros`.
 
+No molde, `show` sem registro retorna `sucesso: true`, `dados.model: null` e `erros: []`. Falha na consulta retorna `sucesso: false`; cabe ao consumidor tratar a ausência conforme o fluxo da feature.
+
 Caso alguma query específica seja necessária, use uma subpasta de contexto em `app/Queries/[Entidade]/[Contexto]/Queries.php` e mantenha um método REST correspondente. Regras de negócio permanecem no `Service`.
 
 - Sem lógica de negócio — apenas SQL/Eloquent
