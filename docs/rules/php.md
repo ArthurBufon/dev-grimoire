@@ -60,6 +60,7 @@ Nas operações com transação, verificar `sucesso` no envelope retornado pela 
 - Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php (moldes: `moldes/laravel/app/Http/Requests/Web/Admin/Carro/`)
 - URLs: sempre rotas nomeadas com `route()`
 - Controllers chamam Services e View Services; validação HTTP fica nos Form Requests; resposta Inertia/redirect no Controller
+- Nas mutações com Form Request, passar `$request->validated()` ao Service, conforme `store` e `update` do molde; não encaminhar o payload completo com `$request->all()`.
 
 ## Queries (`app/Queries/`)
 
