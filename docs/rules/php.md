@@ -25,7 +25,7 @@ return response()->json($retorno, 200);
 Molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php`.
 
 ## Tratamento de erros em Services
-Todo método público usa `try/catch` com `logarErro` e `formatarMensagemErro`:
+Nos Services de negócio, métodos que executam operações usam `try/catch` com `logarErro` e `formatarMensagemErro`. Métodos de simples repasse, como `index` e `show` nos moldes, devolvem diretamente o envelope da Query, que já trata os erros da consulta:
 
 ```php
 public function store(array $dados): array
