@@ -60,7 +60,7 @@ private function logarErro(array $dados, string $acao, string $mensagemErro): vo
 
 ## Queries (`app/Queries/`)
 
-Queries nunca devem conter métodos além de:
+Os métodos públicos de operação das Queries ficam limitados à lista abaixo. Auxiliares privados, como `aplicarFiltros`, `aplicarOrdenacao` e `carregarRelacionamentos`, são permitidos conforme o molde:
 
 * `index`
 * `show`
