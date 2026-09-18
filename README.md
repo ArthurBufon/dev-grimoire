@@ -2,7 +2,7 @@
 
 ![Meu grimório](img/1.png)
 
-Aqui ficam os padrões, prompts, moldes e configs que fui ajustando no trabalho. Não é um compilado de “melhores práticas”. É o que eu quero repetir — e o que eu reviso quando deixa de servir.
+Padrões, prompts, moldes e configs que fui ajustando ao longo do tempo...
 
 ---
 
