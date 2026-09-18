@@ -62,6 +62,8 @@ Nas operações com transação, verificar `sucesso` no envelope retornado pela 
 - Controllers chamam Services e View Services; validação HTTP fica nos Form Requests; resposta Inertia/redirect no Controller
 - Nas mutações com Form Request, passar `$request->validated()` ao Service, conforme `store` e `update` do molde; não encaminhar o payload completo com `$request->all()`.
 
+Quando a normalização influencia a validação HTTP, aplicá-la em `prepareForValidation()` antes das regras, mantendo a preparação existente no Service antes de persistir. Exemplo dos moldes `StoreRequest` e `UpdateRequest` de Carro: normalizar a placa antes de verificar sua unicidade, usando o mesmo formato na persistência.
+
 ## Queries (`app/Queries/`)
 
 Os métodos públicos de operação das Queries ficam limitados à lista abaixo. Auxiliares privados, como `aplicarFiltros`, `aplicarOrdenacao` e `carregarRelacionamentos`, são permitidos conforme o molde:
