@@ -1,7 +1,7 @@
 # PHP / Laravel
 
 ## Retorno padronizado
-Todo método de service e controller retorna:
+Services de negócio e Queries retornam o envelope abaixo. Controllers JSON o enviam com `response()->json()`, conforme a seção seguinte. Controllers Inertia retornam a resposta da tela ou redirect; View Services retornam os dados da tela.
 ```php
 return ['sucesso' => true, 'dados' => ['model' => $model], 'erros' => []];
 ```
