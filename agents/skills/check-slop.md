@@ -18,9 +18,10 @@ Por padrão, apenas relate os achados. Só altere arquivos quando o usuário ped
 ## Fluxo
 
 1. Se houver conteúdo após a invocação, trate-o como o alvo completo e prioritário, inclusive quando for um prompt ou texto copiado e colado. Caso contrário, analise somente o artefato ou diff indicado; sem alvo explícito, use as alterações atuais do repositório.
-2. Relacione cada arquivo, seção ou trecho ao requisito que o justifica.
-3. Aplique o teste de remoção do gate. Quando o alvo for código, compare também com a solução direta já usada no módulo.
-4. Indique como AI slop todo item sem requisito, benefício verificável ou necessidade concreta, explicando objetivamente por que ele não faz sentido.
+2. Relacione cada arquivo, seção ou trecho ao requisito ou à necessidade de clareza que o justifica.
+3. Aplique a prioridade do gate a todo artefato: funcionalidade, qualidade, facilidade de compreensão por pessoas e ausência de overengineering, nessa ordem. A clareza para pessoas é obrigatória mesmo quando o artefato funciona e pode ser encurtado.
+4. Aplique o teste de remoção do gate sem cortar o que permite compreender o artefato facilmente. Quando o alvo for código, compare também com a solução direta já usada no módulo.
+5. Indique como AI slop todo item sem requisito, benefício verificável ou necessidade concreta, explicando objetivamente por que ele não faz sentido.
 
 ## Resposta
 

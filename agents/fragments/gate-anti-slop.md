@@ -8,11 +8,13 @@ LLMs tendem ao caminho mais complexo: camadas extras, abstrações prematuras, d
 
 ## Regra-mãe
 
-**Se não está ligado a um requisito verificável do pedido, da modelagem ou do plano, não entra.**
+Em todo artefato gerado — código, plano, documentação, prompt ou resposta — aplique esta prioridade: **FUNCIONAL > QUALIDADE > FACILMENTE COMPREENSÍVEL PARA SERES HUMANOS > SEM OVERENGINEERING**. Todos os critérios são obrigatórios. Preserve o texto, a estrutura ou a explicação necessários para uma pessoa entender o propósito e o fluxo com facilidade; reduzir tamanho ou abstrações não justifica perder clareza.
 
-Na dúvida: **corte**. Pergunte ao dev só se cortar mudar comportamento ou decisão real.
+**Se não está ligado a um requisito verificável do pedido, da modelagem ou do plano, nem ajuda uma pessoa a compreender o artefato com facilidade, não entra.**
 
-**Teste de remoção:** se este arquivo, camada, teste, seção ou trecho for removido, algum requisito ou critério de aceite deixa de ser atendido? Se não, corte.
+Na dúvida: **corte apenas se a remoção preservar funcionalidade, qualidade e compreensão humana**. Pergunte ao dev só se cortar mudar comportamento ou decisão real.
+
+**Teste de remoção:** se este arquivo, camada, teste, seção ou trecho for removido, algum requisito, critério de aceite ou a facilidade de compreensão por pessoas deixa de ser atendida? Se não, corte.
 
 ## Red flags — bloquear imediatamente
 
@@ -60,12 +62,12 @@ Antes de entregar **qualquer** artefato ou mensagem substancial, execute interna
 ```text
 Gate anti-slop:
 - Cortei: [itens removidos ou "nada"]
-- Mantive porque o pedido exige: [lista mínima]
-- Rastreabilidade: [cada arquivo ou trecho mantido → requisito que o justifica]
+- Mantive por requisito ou clareza: [lista mínima]
+- Rastreabilidade: [cada arquivo ou trecho mantido → requisito ou necessidade de clareza que o justifica]
 - Complexidade rejeitada: [o que quase entrou e por quê não]
 ```
 
-Se "Mantive" tiver item sem ligação clara ao pedido, ou a rastreabilidade deixar arquivo ou trecho sem requisito → volte e corte.
+Se "Mantive" tiver item sem ligação clara ao pedido ou à compreensão humana, ou a rastreabilidade deixar arquivo ou trecho sem justificativa → volte e corte.
 
 ## Escalonamento
 
