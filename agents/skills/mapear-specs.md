@@ -22,9 +22,7 @@ Antes de salvar, registre `git status` e os diffs relevantes. Preserve integralm
 REGRAS:
 
 Documente somente fatos confirmados no código e contexto; não invente regras, fluxos, campos ou comportamentos.
-Traduzir regras técnicas para linguagem simples e objetiva.
-Manter o arquivo breve, claro e direto.
+Escreva em linguagem simples, breve e informativa, sem tom de changelog.
 Seguir o padrão Markdown das specs já existentes no projeto; se não houver, seguir o molde.
 Em specs existentes, preserve trechos não confirmados pelo material disponível; informe a incerteza ao usuário em vez de removê-los ou reescrevê-los como fato.
-O `specs.md` deve ser 100% informativo (explicar a feature e decisões — sem tom de changelog).
 Na entrega, informe o path salvo, os arquivos consultados e as incertezas preservadas, se houver.
