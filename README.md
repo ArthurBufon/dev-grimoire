@@ -4,6 +4,8 @@
 
 Padrões, prompts, moldes e configs que fui ajustando ao longo do tempo...
 
+Para clonar o repositório, configurar `grimoire-sync` e usar com Cursor, Codex ou Claude Code, siga o [guia de instalação](INSTALACAO.md).
+
 ---
 
 ## O que tem aqui
