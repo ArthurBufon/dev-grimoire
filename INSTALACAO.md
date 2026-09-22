@@ -1,10 +1,10 @@
 # Instalação do Dev Grimoire
 
-Este guia usa um único clone local para compartilhar regras, moldes e skills entre projetos no Cursor, Codex e Claude Code. Tenha Git e o runtime que pretende usar instalados.
+Você precisa clonar o Dev Grimoire uma só vez para usar suas regras, moldes e skills em vários projetos. Antes de começar, instale o Git e as ferramentas que pretende usar: Cursor, Codex ou Claude Code.
 
 ## 1. Clonar o repositório
 
-Escolha uma pasta que contenha seus projetos ou seja irmã da pasta que os contém. Por exemplo, para apps em `~/projects/`:
+Escolha uma pasta perto dos seus projetos. Se eles ficam em `~/projects/`, rode:
 
 ```bash
 mkdir -p "$HOME/projects"
@@ -12,34 +12,38 @@ cd "$HOME/projects"
 git clone https://github.com/ArthurBufon/dev-grimoire.git dev-grimoire
 ```
 
-O nome `dev-grimoire` é necessário para que os agentes encontrem o clone. Ele pode ficar ao lado dos apps (`projects/dev-grimoire` e `projects/meu-app`), no ancestral deles (`projects/dev-grimoire` e `projects/laravel/meu-app`) ou numa pasta irmã do ancestral (`projects/dev-grimoire` e `projects-flutter/meu-app`). Não clone uma cópia para cada app.
+A pasta do clone deve se chamar `dev-grimoire`; é por esse nome que os agentes a encontram. Um único clone funciona nestes casos:
+
+- Ao lado do app: `projects/dev-grimoire` e `projects/meu-app`.
+- Acima da pasta do app: `projects/dev-grimoire` e `projects/laravel/meu-app`.
+- Em uma pasta irmã: `projects/dev-grimoire` e `projects-flutter/meu-app`.
 
 ## 2. Criar o alias `grimoire-sync`
 
-Abra o arquivo de configuração do seu shell: `~/.bashrc` para Bash ou `~/.zshrc` para Zsh. Adicione esta linha, ajustando o caminho caso tenha clonado em outro lugar:
+Abra `~/.bashrc` se usa Bash ou `~/.zshrc` se usa Zsh. Adicione a linha abaixo. Se clonou em outro lugar, ajuste o caminho:
 
 ```bash
 alias grimoire-sync="$HOME/projects/dev-grimoire/agents/scripts/sync.sh"
 ```
 
-Recarregue o arquivo que editou:
+Para ativar o alias no terminal atual, recarregue o arquivo que editou:
 
 ```bash
 source ~/.bashrc  # ou: source ~/.zshrc
 ```
 
-O alias pode ser executado de qualquer diretório. Ele faz `git pull origin main` no clone e depois executa `sync-global-skills.sh`, que valida o Grimório e publica as instruções e skills globais. Se preferir sincronizar sem atualizar o Git, rode `bash "$HOME/projects/dev-grimoire/agents/scripts/sync-global-skills.sh"`.
+Agora você pode rodar `grimoire-sync` de qualquer pasta. Ele atualiza o clone com `git pull origin main`, valida o Grimório e copia as instruções e skills globais para as ferramentas disponíveis. Para copiar sem atualizar o clone, rode `bash "$HOME/projects/dev-grimoire/agents/scripts/sync-global-skills.sh"`.
 
-## 3. Configurar o runtime
+## 3. Configurar Cursor, Codex e Claude Code
 
-O script só instala skills em diretórios `skills/` que já existam. Execute os passos dos runtimes que usa e rode `grimoire-sync` depois de preparar esses diretórios. Cada execução sincroniza todos os destinos disponíveis.
+Siga apenas as seções das ferramentas que você usa. O script só copia skills para pastas `skills/` que já existem. Por isso, crie a pasta indicada antes de rodar `grimoire-sync`. Uma execução atualiza todas as ferramentas cujas pastas já estiverem prontas.
 
 ### Cursor
 
 1. Crie o diretório de skills: `mkdir -p "$HOME/.cursor/skills"`.
 2. Rode `grimoire-sync`.
-3. Copie todo o conteúdo de [`docs/rules/global.md`](docs/rules/global.md) para **Settings → Rules → User** no Cursor. O script não configura essa User Rule pela interface.
-4. Abra um app no Cursor e peça ao agente para localizar `{GRIMOIRE}` e ler `{GRIMOIRE}/README.md`. A leitura deve funcionar pelo filesystem.
+3. No Cursor, abra **Settings → Rules → User** e cole todo o conteúdo de [`docs/rules/global.md`](docs/rules/global.md). O script não preenche essa tela.
+4. Abra um app no Cursor e peça ao agente para encontrar `{GRIMOIRE}` e ler `{GRIMOIRE}/README.md`. Ele deve conseguir ler o arquivo local.
 
 Para detalhes de layout e solução de problemas, consulte o [guia do Cursor](guias/cursor/setup-grimoire-local.md).
 
@@ -47,30 +51,30 @@ Para detalhes de layout e solução de problemas, consulte o [guia do Cursor](gu
 
 1. Crie o diretório de skills: `mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"`.
 2. Rode `grimoire-sync`.
-3. Confira se `${CODEX_HOME:-$HOME/.codex}/AGENTS.md` foi criado e contém a User Rule. O script também publica as skills em `${CODEX_HOME:-$HOME/.codex}/skills/`.
-4. Inicie uma nova sessão do Codex na raiz de um app e peça para identificar as instruções carregadas e localizar `{GRIMOIRE}`.
+3. Confira se `${CODEX_HOME:-$HOME/.codex}/AGENTS.md` foi criado com as instruções globais. As skills devem estar em `${CODEX_HOME:-$HOME/.codex}/skills/`.
+4. Abra uma nova sessão do Codex na raiz de um app. Peça ao agente para dizer quais instruções carregou e onde encontrou `{GRIMOIRE}`.
 
-Se existir `AGENTS.override.md` no diretório do Codex, ele tem prioridade sobre `AGENTS.md` e o script pula a atualização deste arquivo. Veja também o [guia do Codex](guias/codex/setup-grimoire-local.md).
+Se houver um `AGENTS.override.md` no diretório do Codex, o Codex usa esse arquivo no lugar de `AGENTS.md`, e o script não atualiza `AGENTS.md`. Veja também o [guia do Codex](guias/codex/setup-grimoire-local.md).
 
 ### Claude Code
 
 1. Crie o diretório de skills: `mkdir -p "$HOME/.claude/skills"`.
 2. Rode `grimoire-sync`.
-3. Confira se `~/.claude/CLAUDE.md` foi criado e contém a User Rule. O script publica as skills em `~/.claude/skills/`.
-4. Inicie uma nova sessão do Claude Code na raiz de um app e peça para localizar `{GRIMOIRE}` e ler `{GRIMOIRE}/README.md`.
+3. Confira se `~/.claude/CLAUDE.md` foi criado com as instruções globais. As skills devem estar em `~/.claude/skills/`.
+4. Abra uma nova sessão do Claude Code na raiz de um app. Peça ao agente para encontrar `{GRIMOIRE}` e ler `{GRIMOIRE}/README.md`.
 
 Veja também o [guia do Claude Code](guias/claude/setup-grimoire-local.md).
 
 ## 4. Preparar o contexto local de cada app
 
-Na raiz de cada app, mantenha um `AGENTS.md` com apenas o contexto daquele projeto. Para usar Claude Code, mantenha também um `CLAUDE.md` local que importe `@AGENTS.md`. Se os arquivos ainda não existirem, execute o inicializador a partir da raiz do app:
+Na raiz de cada app, mantenha um `AGENTS.md` com as informações próprias do projeto. Se usar Claude Code, mantenha também um `CLAUDE.md` local com `@AGENTS.md`, para que ele leia esse contexto. Se algum desses arquivos ainda não existe, rode este comando na raiz do app:
 
 ```bash
 bash "$HOME/projects/dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh"
 ```
 
-Ajuste o caminho ao local do clone. O inicializador não sobrescreve arquivos existentes; revise e preencha o contexto local criado antes de usar o agente no app.
+Se clonou o Grimório em outro lugar, ajuste o caminho. O inicializador não sobrescreve arquivos existentes. Revise e preencha os arquivos criados antes de usar o agente no app.
 
 ## Atualizações
 
-Execute `grimoire-sync` depois de mudanças no repositório para atualizar o clone, as instruções globais do Codex e Claude Code e as skills dos runtimes disponíveis. Se `docs/rules/global.md` mudar, copie novamente seu conteúdo para **Settings → Rules → User** no Cursor.
+Rode `grimoire-sync` para trazer as mudanças do repositório e atualizar as instruções globais do Codex e Claude Code e as skills das ferramentas disponíveis. Se [`docs/rules/global.md`](docs/rules/global.md) mudar, copie o conteúdo atualizado para **Settings → Rules → User** no Cursor.
