@@ -83,7 +83,14 @@ Se algum desses arquivos ainda não existe, rode este comando na raiz do app:
 bash "$HOME/projects/dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh"
 ```
 
-Se clonou o Grimório em outro lugar, ajuste o caminho. O inicializador não sobrescreve arquivos existentes. Revise e preencha os arquivos criados antes de usar o agente no app.
+Se clonou o Grimório em outro lugar, ajuste o caminho. O inicializador cria os dois arquivos a partir dos moldes e preserva os que já existem. Ele deixa campos para você preencher; não descobre o contexto do app sozinho.
+
+Depois de rodar o comando:
+
+1. Leia o README, os arquivos que identificam as tecnologias usadas (como `composer.json` ou `package.json`), a documentação e os módulos principais do app.
+2. Preencha `AGENTS.md` com o que encontrou: objetivo, tecnologias, organização do código, comandos reais de validação e limites próprios do projeto. Não copie regras globais nem invente comandos. Se um agente sugerir o conteúdo, revise e aprove antes de ele editar o arquivo.
+3. Confira se `CLAUDE.md` mantém `@AGENTS.md`. Acrescente algo nele apenas se for uma instrução exclusiva do Claude Code.
+4. Versione os arquivos na raiz do app. Cada um deve ter no máximo 50 linhas; detalhes maiores podem ficar no README, em uma spec ou em um ADR.
 
 ## Atualizações
 
