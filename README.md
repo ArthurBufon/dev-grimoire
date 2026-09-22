@@ -2,9 +2,9 @@
 
 ![Meu grimório](img/1.png)
 
-Padrões, prompts, moldes e configs que fui ajustando ao longo do tempo...
+Aqui guardo regras, exemplos de código, prompts e guias que uso em vários projetos.
 
-Para clonar o repositório, configurar `grimoire-sync` e usar com Cursor, Codex ou Claude Code, siga o [guia de instalação](INSTALACAO.md).
+O [guia de instalação](INSTALACAO.md) mostra como clonar o repositório, configurar `grimoire-sync` e usar o Grimório no Cursor, Codex e Claude Code.
 
 ---
 
@@ -12,45 +12,45 @@ Para clonar o repositório, configurar `grimoire-sync` e usar com Cursor, Codex 
 
 ### 📁 `guias/`
 
-Backup MySQL, SSH, deploy Laravel e setup do Cursor.
+Guias de backup MySQL, SSH, deploy Laravel e configuração do Cursor.
 
 ### 📁 `agents/`
 
-Prompts e skills para os agentes.
+Prompts, skills e scripts para os agentes.
 
 | Pasta | Função |
 |---|---|
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc. |
-| [`sync.sh`](agents/scripts/sync.sh) | `git pull` neste repo + sync das skills globais |
-| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Espelha skills e a User Rule (`docs/rules/global.md`) nos runtimes |
+| [`sync.sh`](agents/scripts/sync.sh) | Atualiza este repositório e sincroniza as skills globais |
+| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Copia as skills e a User Rule (`docs/rules/global.md`) para as ferramentas disponíveis |
 | [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` e `CLAUDE.md` no app, sem sobrescrever o que já existe |
 
-No `~/.zshrc` (ou `~/.bashrc`):
+Para atualizar tudo com um comando, adicione este alias ao `~/.zshrc` ou `~/.bashrc`. Ajuste o caminho se clonou em outra pasta:
 
 ```bash
 alias grimoire-sync="$HOME/projects/dev-grimoire/agents/scripts/sync.sh"
 ```
 
-Depois de um `source ~/.zshrc`, para atualizar o grimório e as skills é só:
+Depois de recarregar o arquivo com `source ~/.zshrc` ou `source ~/.bashrc`, rode:
 
 ```bash
 grimoire-sync
 ```
 
-Isso puxa o repo e roda o `sync-global-skills.sh`. No Cursor, a User Rule ainda é colada em Settings → Rules → User.
+Esse comando atualiza o repositório e sincroniza as skills. No Cursor, você ainda precisa colar a User Rule em **Settings → Rules → User**.
 
-Para subir o contexto local de um app, na raiz dele:
+Para criar os arquivos de contexto de um app, rode na raiz dele:
 
 ```bash
 bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
-Ajuste o caminho se o clone não for irmão. Os arquivos só nascem se ainda não existirem. Preencha os colchetes do `AGENTS.md` antes de mandar o agente trabalhar. `CLAUDE.md` só importa o `AGENTS.md` e guarda o que for exclusivo do Claude.
+Ajuste o caminho se o clone estiver em outro lugar. O script não sobrescreve arquivos existentes. Preencha as informações pedidas no `AGENTS.md` antes de usar o agente. O `CLAUDE.md` importa esse arquivo e guarda apenas instruções exclusivas do Claude.
 
 ### 📁 `moldes/`
 
-Referência Laravel e React/Inertia. O exemplo é **Carro**, com catálogo **Fabricante** (`belongsTo`).
+Exemplos para Laravel e React/Inertia. A entidade de exemplo é **Carro**, ligada ao catálogo **Fabricante** por `belongsTo`.
 
 ```
 moldes/
@@ -59,11 +59,11 @@ moldes/
 └── react/     → Pages, Forms, Services, Queries, Components, Utils
 ```
 
-Muda o domínio pelo contrato: [`carro.md`](moldes/contratos/carro.md) e [`fabricante.md`](moldes/contratos/fabricante.md). Na mesma mudança, olhe tipos, formulário, queries e testes (seção *Manutenção* de cada contrato).
+Os contratos de [`carro.md`](moldes/contratos/carro.md) e [`fabricante.md`](moldes/contratos/fabricante.md) mostram quais dados devem combinar nas duas stacks. Ao adaptar um molde, consulte a seção *Manutenção* do contrato para conferir tipos, formulário, queries e testes.
 
 ### 📁 `docs/rules/`
 
-Convenções ficam aqui. Os apps leem o clone local `dev-grimoire` (irmão, ancestral ou pasta irmã). Não copie essas rules para cada repositório.
+As regras ficam nesta pasta. Cada app lê o clone local `dev-grimoire`, que pode estar ao lado dele, em uma pasta acima ou em uma pasta irmã. Não é preciso copiar as regras para cada app.
 
 | Arquivo | Função |
 |---|---|
@@ -74,34 +74,34 @@ Convenções ficam aqui. Os apps leem o clone local `dev-grimoire` (irmão, ance
 
 ### 📁 `.cursor/`
 
-Setup do Cursor: User Rule, MCPs e plugin. Ver [`.cursor/README.md`](.cursor/README.md) e o [guia de setup](guias/cursor/setup-grimoire-local.md).
+Configuração do Cursor, incluindo User Rule, MCPs e plugin. Consulte [`.cursor/README.md`](.cursor/README.md) e o [guia do Cursor](guias/cursor/setup-grimoire-local.md).
 
 ---
 
 ## O que eu sigo
 
-**SRP** — cada arquivo e serviço tem um motivo claro para mudar.
+**Uma responsabilidade por arquivo ou serviço (SRP)** — cada um tem um motivo claro para mudar.
 
-**Queries e Services** — dado de um lado, caso de uso do outro. Quando cabe, os métodos são `index`, `show`, `store`, `update` e `destroy`.
+**Queries e Services** — Queries cuidam do acesso aos dados; Services cuidam das regras de negócio. Quando a operação se encaixa, uso os métodos `index`, `show`, `store`, `update` e `destroy`.
 
-**Retorno** — sempre o mesmo envelope:
+**Retorno** — uso sempre os campos `sucesso`, `dados` e `erros`:
 
 ```json
 { "sucesso": true,  "dados": {},  "erros": [] }
 { "sucesso": false, "dados": [], "erros": ["mensagem"] }
 ```
 
-**Moldes como referência** — essa organização vale em qualquer stack, sem forçar o framework a abrir mão das próprias convenções.
+**Moldes como referência** — adapto a organização à stack sem contrariar as convenções do framework.
 
-**Specs** — regras da feature em `docs/features/<feature>/specs.md`, antes de implementar.
+**Specs** — registro as regras de cada funcionalidade em `docs/features/<feature>/specs.md` antes de implementar.
 
-Este repo só muda quando um projeto real deixa um padrão reutilizável. Sem aprendizado novo, não tem o que commitar.
+Atualizo este repositório quando um projeto real traz um padrão que vale a pena reutilizar. Sem um aprendizado novo, não há mudança para commitar.
 
 ---
 
 ## Referência rápida
 
-Queries usam só estes cinco. Contexto extra vai para subpasta e mantém o verbo REST — ex.: `Queries/Carro/Ativos/Queries.tsx: index`. Services também, quando a operação se encaixa. Nome em português, simples.
+Queries usam estes cinco métodos. Para uma operação mais específica, crio uma subpasta e mantenho o método REST correspondente. Por exemplo: `Queries/Carro/Ativos/Queries.tsx: index`. Faço o mesmo em Services quando a operação se encaixa. Os nomes são simples e em português.
 
 | Método | HTTP | O que faz |
 |---|---|---|
@@ -111,4 +111,4 @@ Queries usam só estes cinco. Contexto extra vai para subpasta e mantém o verbo
 | `update` | `PUT/PATCH /recursos/{id}` | Atualiza |
 | `destroy` | `DELETE /recursos/{id}` | Remove |
 
-Se aparecer `buscar`, `listar`, `salvar` ou `deletar`, quase sempre é um desses cinco com outro nome.
+Nomes como `buscar`, `listar`, `salvar` ou `deletar` geralmente correspondem a um dos cinco métodos acima.
