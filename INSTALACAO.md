@@ -67,7 +67,17 @@ Veja também o [guia do Claude Code](guias/claude/setup-grimoire-local.md).
 
 ## 4. Preparar o contexto local de cada app
 
-Na raiz de cada app, mantenha um `AGENTS.md` com as informações próprias do projeto. Se usar Claude Code, mantenha também um `CLAUDE.md` local com `@AGENTS.md`, para que ele leia esse contexto. Se algum desses arquivos ainda não existe, rode este comando na raiz do app:
+As instruções globais e as skills servem a todos os projetos. Os arquivos na raiz de cada app explicam aquele repositório:
+
+| Onde fica | Para que serve |
+|---|---|
+| Configuração global do Cursor, Codex ou Claude Code | Carrega a User Rule e as skills compartilhadas pelo Grimório. |
+| `AGENTS.md` na raiz do app | Registra objetivo, stack, arquitetura, comandos e limites próprios do app. |
+| `CLAUDE.md` na raiz do app | Faz o Claude Code ler `AGENTS.md` com `@AGENTS.md` e guarda apenas instruções exclusivas dele. |
+
+`grimoire-sync` atualiza a configuração global. Ele não cria nem preenche os arquivos locais dos apps.
+
+Se algum desses arquivos ainda não existe, rode este comando na raiz do app:
 
 ```bash
 bash "$HOME/projects/dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh"
