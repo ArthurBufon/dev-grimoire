@@ -1,9 +1,9 @@
 ---
-name: extrair-ideia
-description: Extrai a ideia principal de um texto fornecido ou de arquivos Markdown referenciados e a explica em um único parágrafo, com linguagem humana, simples e breve.
+name: explicar-ideia
+description: Explica a ideia principal de um texto fornecido ou de arquivos Markdown referenciados em um único parágrafo, com linguagem humana, simples e breve.
 ---
 
-# Extrair Ideia
+# Explicar Ideia
 
 Use o texto recebido na invocação ou leia integralmente os arquivos `.md` referenciados pelo usuário. Quando houver mais de uma fonte, considere o conjunto como um único conteúdo, salvo instrução diferente. Se as fontes acessíveis divergirem sobre a ideia central, informe a divergência no único parágrafo; não invente uma tese comum.
 
