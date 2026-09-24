@@ -29,6 +29,8 @@ declare -A TARGETS=(
   [claude]="${HOME}/.claude/skills"
 )
 
+RETIRED_SKILLS=(check-overengineering)
+
 declare -A GLOBAL_INSTRUCTION_TARGETS=(
   [codex]="${CODEX_HOME}/AGENTS.md"
   [claude]="${HOME}/.claude/CLAUDE.md"
@@ -190,6 +192,14 @@ for label in cursor codex claude; do
   fi
 
   log "target: ${label} (${root})"
+
+  for name in "${RETIRED_SKILLS[@]}"; do
+    retired_dir="${root}/${name}"
+    if [[ -e "$retired_dir" || -L "$retired_dir" ]]; then
+      rm -rf -- "$retired_dir"
+      log "removed: retired ${name} from ${label}"
+    fi
+  done
 
   for f in "${SKILLS_SRC}"/*.md; do
     sync_repo_skill "$(basename "$f" .md)" "$f" "$root" "$label"

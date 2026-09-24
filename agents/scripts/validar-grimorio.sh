@@ -69,6 +69,11 @@ done
 grep -Fq '{GRIMOIRE}/agents/fragments/gate-anti-slop.md' "${repo_root}/agents/skills/check-slop.md" \
   || falhar 'check-slop não referencia o gate anti-slop'
 
+linhas_check_slop="$(wc -l <"${repo_root}/agents/skills/check-slop.md")"
+(( linhas_check_slop <= 20 )) || falhar "check-slop excede o limite de 20 linhas (${linhas_check_slop})"
+[[ ! -f "${repo_root}/agents/skills/check-overengineering.md" ]] \
+  || falhar 'check-overengineering deve permanecer unificada em check-slop'
+
 grep -Fq 'fabricante_id' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
   || falhar 'model Carro sem relacionamento fabricante_id'
 grep -Fq 'belongsTo(Fabricante::class)' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
