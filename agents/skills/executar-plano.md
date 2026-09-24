@@ -7,6 +7,18 @@ description: >-
 
 # Executar Plano
 
+## Proteção de diffs fora do plano (bloqueante)
+
+O plano define **o que o executor pode alterar**; não define o estado completo que o worktree deve ter. Todo diff que não seja comprovadamente produzido pelo controlador ou por seus subagents durante a tarefa atual pertence ao dev e deve permanecer intacto — mesmo que surja depois de uma task concluída, entre checkpoints ou no mesmo arquivo alterado pelo executor.
+
+* Vale para alterações staged, unstaged e untracked, anteriores ou concorrentes à execução.
+* Diff fora do plano não é erro, sujeira nem regressão. Nunca o remova para “voltar ao plano”, limpar o worktree, facilitar revisão/testes ou encerrar a execução.
+* É proibido apagar, reverter, sobrescrever ou neutralizar esse diff, inclusive por patch inverso, reescrita do arquivo, `git restore`, `git checkout --`, `git reset`, `git clean`, stash ou exclusão.
+* Antes de cada task, registrar o estado atual; depois dela, atribuir ao executor somente os hunks que ele comprovadamente criou. Revisões e correções podem modificar apenas esses hunks e os novos hunks estritamente exigidos pela tarefa.
+* Se um hunk misturar mudança da task com mudança paralela do dev e não houver separação inequívoca, parar e pedir instrução. Nunca escolher apagar a parte fora do plano.
+
+Esta proteção prevalece sobre escopo mínimo, fidelidade ao plano, correções de revisão e limpeza de encerramento.
+
 ## Velocidade e tokens (bloqueante)
 
 Vale para o controlador e para **todo** subagent. Pular qualidade para ir mais rápido é proibido: se o atalho piora o código, os testes ou a revisão, não usar.
@@ -51,6 +63,7 @@ Hard gate desta skill — **não avance** se:
 
 * implementador ou revisor entregar arquivos, abstrações ou refatorações além do plano;
 * o diff incluir formatação, "limpeza" ou código não ligado à tarefa;
+* implementador ou revisor apagar, reverter, sobrescrever ou neutralizar diff que não tenha sido produzido pelo executor, ainda que esse diff esteja fora do plano;
 * o código novo exigir interpretação, rastreamento indireto ou conhecimento implícito para entender seu fluxo básico;
 * testes, factories ou mocks forem desproporcionais ao código alterado;
 * o subagent propor "melhorias" fora do escopo — rejeite e peça diff mínimo;
@@ -107,7 +120,7 @@ Antes da primeira tarefa:
 4. Criar ou atualizar o handoff automaticamente. Nunca pedir essa ação ao dev.
 5. Registrar tarefas já concluídas.
 
-Antes de cada tarefa, de aplicar qualquer correção de subagent e de cada checkpoint, comparar o worktree com o baseline para identificar alterações concorrentes do dev. Nunca as reverta, sobrescreva, descarte ou exclua. Se a tarefa tocar o mesmo arquivo, integre somente o trecho necessário e preserve o restante; conflito sem resolução inequívoca → parar e pedir instrução explícita ao dev.
+Antes de cada tarefa, registrar também um baseline daquela tarefa. Antes de aplicar qualquer correção de subagent e antes de cada checkpoint, comparar o worktree com o baseline inicial e o da tarefa para separar os hunks exigidos pelo plano dos diffs feitos separadamente pelo dev. Nunca reverta, sobrescreva, descarte, neutralize ou exclua os diffs do dev. Se a tarefa tocar o mesmo arquivo, integre somente o trecho necessário e preserve o restante; conflito sem resolução inequívoca → parar e pedir instrução explícita ao dev.
 
 Dúvida bloqueante/importante (incl. plano vs código) → parar e confirmar com o dev; não implementar chute.
 
@@ -203,7 +216,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Ler: `gate-anti-slop.md`, `gate-convencoes-codigo.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo ou se o plano ancora no molde)
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
-* Proibido: commit, branch, formatadores, escopo extra e desfazer/sobrescrever/descartar alterações preexistentes ou concorrentes do dev
+* Proibido: commit, branch, formatadores, escopo extra e apagar/reverter/sobrescrever/neutralizar qualquer diff que o implementador não tenha produzido; o plano não autoriza limpar mudanças paralelas do dev, mesmo no mesmo arquivo ou feitas após uma task concluída
 * Aplicar a hierarquia de aceite da seção **Clareza do código**; entregar código funcional, de qualidade e facilmente compreensível por pessoas, sem complexidade desnecessária
 * Retorno: status (concluído/bloqueado/precisa contexto), um bullet por arquivo (`path` — o que foi feito), testes, riscos — bullets curtos, sem dump de arquivos
 
@@ -215,7 +228,7 @@ Aguardando confirmação explícita do dev para avançar.
 * Verificar: plano, gate anti-slop, gate convenções, conformidade Dev Grimoire, bugs/regressões, escopo
 * Aplicar a hierarquia de aceite da seção **Clareza do código**; código funcional mas humanamente difícil de compreender, ou com complexidade evitável, = **crítico**
 * Slop ou não-conformidade com grimório = **crítico**
-* Regressão, remoção ou sobrescrita não autorizada de alteração preexistente ou concorrente do dev = **crítico**
+* Apagar, reverter, sobrescrever ou neutralizar diff não produzido pelo executor = **crítico**, mesmo que o resultado fique mais fiel ao plano; revisar o contexto completo sem propor correção fora dos hunks do executor e dos novos hunks estritamente exigidos pela tarefa
 * Classificar: crítico / importante / menor
 * Sem melhorias, refatorações ou preferência pessoal fora do escopo
 
@@ -242,7 +255,7 @@ Após todas as tarefas aprovadas:
 5. Se houver erro real, local e recorrente, sugerir no máximo uma `Lição ativa` no relatório. **Nunca** alterar `AGENTS.md` sem aprovação explícita do dev.
 6. Executar a suíte de testes aplicável e revisar o diff completo.
 7. Atualizar e validar o handoff final.
-8. Excluir `docs/modelagem/{feature}/` por completo.
+8. Excluir `docs/modelagem/{feature}/` por completo somente se o diretório contiver apenas os artefatos temporários cobertos pela execução. Se houver diff paralelo do dev nele, preservar e pedir instrução antes de qualquer exclusão.
 9. Entregar o relatório final no formato abaixo. Usar linguagem simples, direta e fácil de entender, sem termos técnicos desnecessários. Em cada item de mudança, explicar claramente **como era antes** e **como é agora**.
 
 Não afirmar conclusão sem verificar testes, diff final e exclusão dos artefatos temporários.
