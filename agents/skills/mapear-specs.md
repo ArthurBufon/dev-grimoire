@@ -3,7 +3,7 @@ name: mapear-specs
 description: Mapear regras de negócio e código em linguagem compreensível entre humanos e IAs
 ---
 
-Use os anexos e o contexto para gerar `docs/features/{entidade}/specs.md`. Se forem insuficientes, leia módulos, rotas e testes ligados à feature antes de inferir regras.
+Use os anexos e o contexto para gerar `docs/features/{entidade}/specs.md`. Se forem insuficientes, leia módulos, rotas e testes ligados à feature. Documente somente o que puder ser confirmado; para as lacunas restantes, siga as regras de preservação e entrega abaixo.
 
 Antes de analisar ou escrever, siga `{GRIMOIRE}/docs/rules/global.md` para resolver o Grimório e ler `geral.md` e as rules da stack do projeto via Read/Grep.
 
