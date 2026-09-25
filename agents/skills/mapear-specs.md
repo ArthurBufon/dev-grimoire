@@ -1,6 +1,10 @@
 ---
 name: mapear-specs
-description: Mapear regras de negócio e código em linguagem compreensível entre humanos e IAs
+description: >-
+  Cria ou atualiza `docs/features/{entidade}/specs.md` com regras de negócio e
+  comportamento existentes confirmados no código e contexto. Use ao mapear,
+  documentar ou atualizar a spec de uma feature. Não use para projetar
+  comportamento futuro nem produzir changelog.
 ---
 
 Use os anexos e o contexto para gerar `docs/features/{entidade}/specs.md`. Se forem insuficientes, leia módulos, rotas e testes ligados à feature. Documente somente o que puder ser confirmado; para as lacunas restantes, siga as regras de preservação e entrega abaixo.
