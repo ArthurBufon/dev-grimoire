@@ -13,7 +13,7 @@ Antes de analisar ou escrever, siga `{GRIMOIRE}/docs/rules/global.md` para resol
 
 Leia e aplique `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` antes de analisar ou escrever e antes de salvar a spec.
 
-Antes de escrever, leia a spec existente. Sem ela, use o molde aplicável à stack; o molde Laravel só vale para Laravel.
+Antes de escrever, leia a spec existente. Sem ela, use o molde de spec aplicável à stack. Se não houver, estruture somente as seções sustentadas pelos fatos confirmados e pelo padrão Markdown das outras specs do projeto. O molde Laravel só vale para Laravel.
 
 Antes de salvar, preserve alterações existentes conforme a regra global; em conflito ambíguo, peça instrução.
 
