@@ -1,6 +1,9 @@
 ---
 name: validar-abordagem
-description: Analisa modelagem ou plano referenciado e verifica na internet se a abordagem é padrão e usada na prática. Exige arquivo acessível.
+description: >-
+  Verifica se uma abordagem descrita em modelagem, plano, spec ou outro artefato
+  acessível é padrão do ecossistema ou adotada na prática. Use para validar uma
+  decisão técnica documentada antes de implementá-la.
 ---
 
 # Validar Abordagem
@@ -14,7 +17,7 @@ Verificar se decisões de arquitetura, modelagem ou implementação têm respald
 A invocação deve referenciar arquivo acessível de modelagem, plano, spec ou artefato que descreva a abordagem. Sem arquivo, ou se um indicado não puder ser lido, não faça análise nem pesquisa parcial. Responda:
 
 ```text
-Análise bloqueada: informe ao menos um arquivo acessível de modelagem ou plano para eu avaliar.
+Análise bloqueada: informe um arquivo acessível de modelagem, plano, spec ou outro artefato que descreva a abordagem.
 ```
 
 ## Análise
