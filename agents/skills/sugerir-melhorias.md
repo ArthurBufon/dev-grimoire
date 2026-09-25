@@ -1,10 +1,10 @@
 ---
 name: sugerir-melhorias
 description: >-
-  Analisa o repositório atual e sugere melhorias pequenas, reais e
-  independentes, adequadas a commits curtos. Use com "sugerir melhorias",
-  "melhorias simples", "commit diário" ou "/sugerir-melhorias". Não implementa,
-  não commita e não propõe mudanças de arquitetura ou workflow.
+  Analisa o repositório atual e seleciona poucas melhorias pequenas com impacto
+  concreto e evidência verificável. Use com "sugerir melhorias", "melhorias
+  simples" ou "/sugerir-melhorias". Não implementa, não commita e não propõe
+  mudanças de arquitetura ou workflow.
 ---
 
 # Sugerir Melhorias
@@ -12,19 +12,20 @@ description: >-
 Anunciar no início:
 
 ```text
-Usando sugerir-melhorias para analisar o repositório e propor {quantidade} ajustes pequenos.
+Usando sugerir-melhorias para procurar ajustes pequenos que realmente justifiquem um commit.
 ```
 
 ## Quantidade
 
-Produza **5** sugestões por padrão. Se o usuário pedir uma quantidade explícita,
-produza exatamente essa quantidade, sem completar a lista com trabalho artificial.
+Produza **até 3** sugestões por padrão. Se o usuário pedir uma quantidade
+explícita, trate-a como limite máximo, nunca como meta. Entregar uma lista menor
+ou nenhuma sugestão é um resultado válido.
 
 ## Objetivo
 
-Encontrar exatamente **{quantidade} melhorias legítimas**, baseadas em evidências do
-repositório atual. Cada sugestão deve poder virar um commit pequeno e útil, sem
-criar trabalho artificial apenas para movimentar o histórico do GitHub.
+Selecionar somente melhorias baseadas em problemas atuais do repositório e cujo
+impacto justifique o custo de um commit. O tamanho pequeno, isoladamente, não
+torna uma alteração útil.
 
 Esta skill somente sugere. Não alterar arquivos, criar commits, fazer push ou
 reescrever datas/histórico durante este fluxo.
@@ -49,7 +50,19 @@ candidato.
 
 ## Filtro de escopo
 
-Cada sugestão deve:
+Antes de aceitar um candidato, identificar:
+
+- qual problema existe hoje;
+- qual evidência demonstra o problema e que o caminho afetado é relevante;
+- quem ou o que é afetado;
+- qual consequência permanece se nada for alterado;
+- por que o benefício esperado compensa a mudança.
+
+Descartar o candidato se alguma resposta depender de suposição ou se o benefício
+só puder ser descrito como "melhorar qualidade", "facilitar manutenção",
+"aumentar consistência" ou outra justificativa genérica.
+
+Cada sugestão aceita deve:
 
 - preservar o comportamento e a arquitetura existentes, salvo correção local e
   evidente de um bug;
@@ -59,9 +72,11 @@ Cada sugestão deve:
 - seguir primeiro o padrão do módulo atual e depois o Dev Grimoire;
 - evitar repetir trabalho presente nos commits recentes.
 
-Candidatos adequados incluem correção localizada de texto, validação ausente,
-tipo impreciso, teste focado de comportamento existente, acessibilidade pontual,
-documentação desatualizada ou remoção comprovadamente segura de código morto.
+Candidatos adequados incluem bug localizado, validação que permite dado
+inválido, texto que induz o usuário ao erro, barreira pontual de acessibilidade,
+documentação que orienta uso incorreto ou código morto com custo atual
+comprovado. Ausência de teste, diferença de estilo, nome melhorável, tipo mais
+específico ou possibilidade de limpeza não constituem problema por si só.
 
 Descartar qualquer candidato que envolva:
 
@@ -76,14 +91,14 @@ Descartar qualquer candidato que envolva:
 
 Priorizar as opções por esta ordem:
 
-1. baixo risco;
-2. benefício claro;
-3. menor diff estimado;
-4. validação simples;
-5. variedade entre as sugestões selecionadas.
+1. maior impacto concreto;
+2. evidência mais forte;
+3. melhor relação entre benefício e custo;
+4. menor risco;
+5. menor diff e validação mais simples.
 
-Se não houver sugestões honestas suficientes após inspeção suficiente, declarar
-quantas foram encontradas e não completar a lista com trabalho artificial.
+Não buscar variedade sacrificando qualidade. Se não houver sugestão que passe
+pelo filtro, informar isso diretamente e encerrar sem produzir uma lista.
 
 ## Resposta
 
@@ -93,13 +108,12 @@ Apresentar as sugestões numeradas, da mais recomendada para a menos recomendada
 ## 1. [título objetivo]
 
 - **Evidência:** `caminho/arquivo:linha` — o que foi observado
+- **Impacto atual:** quem ou o que é afetado e qual é a consequência concreta
 - **Melhoria:** alteração exata proposta
-- **Benefício:** resultado concreto
 - **Escopo:** arquivos previstos
 - **Validação:** teste ou verificação proporcional
 - **Esforço/risco:** baixo | muito baixo — justificativa curta
-- **Commit sugerido:** mensagem conforme a regra Git do Dev Grimoire
 ```
 
-Finalizar pedindo que o usuário escolha uma opção pelo número. Não iniciar a
-implementação sem pedido explícito.
+Quando houver sugestões, finalizar pedindo que o usuário escolha uma opção pelo
+número. Não iniciar a implementação sem pedido explícito.
