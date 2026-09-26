@@ -27,7 +27,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes do dev.
 2. Arquivos mínimos do pedido.
 3. Patch no padrão existente.
-4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Se PHP/JS alterado, executar automaticamente `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`; falha bloqueia entrega.
+4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Executar sempre `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`; sem PHP/JS/TS alterado, o próprio script informa que não há arquivos para validar. Falha bloqueia entrega.
 5. Checar que o diff não saiu do escopo nem sobrescreveu alterações do dev.
 
 ## Red flags — parar
