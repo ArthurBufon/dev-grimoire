@@ -123,4 +123,10 @@ grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/check-slop.md" 
 grep -Fq 'validar-convencoes-diff.sh' "${repo_root}/agents/skills/sync-origin.md" \
   || falhar 'sync-origin não referencia validar-convencoes-diff.sh'
 
+quick_fix="${repo_root}/agents/skills/quick-fix.md"
+[[ -f "$quick_fix" ]] || falhar 'quick-fix.md ausente'
+for contrato in 'gate-anti-slop.md' 'gate-convencoes-codigo.md' 'validar-convencoes-diff.sh'; do
+  grep -Fq "$contrato" "$quick_fix" || falhar "quick-fix.md não referencia ${contrato}"
+done
+
 printf 'grimório válido\n'
