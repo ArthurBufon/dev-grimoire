@@ -22,6 +22,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 4. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
 5. Dúvida que muda comportamento → perguntar. Estilo → copiar o arquivo vizinho.
 6. Antes de editar, informar resumidamente os arquivos do Dev Grimoire e do projeto consultados.
+7. Ler o arquivo-alvo e, quando ele não bastar para confirmar o padrão, o arquivo análogo mais próximo do mesmo módulo.
 
 ## Fluxo
 
