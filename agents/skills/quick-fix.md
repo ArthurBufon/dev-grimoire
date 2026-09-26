@@ -21,6 +21,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 3. Gates: anti-slop (`gate-anti-slop.md`) e convenções (`gate-convencoes-codigo.md`) — ler na primeira vez da sessão; ritual bloqueante antes da entrega.
 4. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
 5. Dúvida que muda comportamento → perguntar. Estilo → copiar o arquivo vizinho.
+6. Antes de editar, informar resumidamente os arquivos do Dev Grimoire e do projeto consultados.
 
 ## Fluxo
 
