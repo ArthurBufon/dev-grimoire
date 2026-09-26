@@ -37,7 +37,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 - “já que estou aqui…”
 - helper/abstração genérica
 - plano ou subagent
-- mais de um módulo sem o dev ter pedido
+- mudança que afeta mais de um módulo
 - a mudança revelou regra de negócio, risco ou escopo maior que um ajuste local
 
 ## Resposta
