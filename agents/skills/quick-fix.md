@@ -17,7 +17,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 ## Contrato
 
 1. Se `{GRIMOIRE}` já estiver resolvido nesta sessão, não reler `global.md`. Prioridades: Grep da seção **Conflitos de prioridade** só se essa regra ainda não estiver no contexto.
-2. Ler o `AGENTS.md` do projeto atual. Resolver o Grimório só se `{GRIMOIRE}` ainda não estiver definido. Todo patch de código lê `geral.md` + a rule da stack detectada (não a da stack ausente). Spec em `docs/features/<feature>/specs.md` se existir. Molde só se **criar** arquivo.
+2. Ler o `AGENTS.md` do projeto atual. Resolver o Grimório só se `{GRIMOIRE}` ainda não estiver definido. Toda alteração lê `geral.md`; patch de código também lê a rule da stack detectada (não a da stack ausente). Spec em `docs/features/<feature>/specs.md` se existir. Molde só se **criar** arquivo.
 3. Gates: anti-slop (`gate-anti-slop.md`) e convenções (`gate-convencoes-codigo.md`) — ler na primeira vez da sessão; ritual bloqueante antes da entrega.
 4. Não expandir escopo, não “melhorar” o resto, não dependência nova, não arquivo fora do pedido.
 5. Dúvida que muda comportamento → perguntar. Estilo → copiar o arquivo vizinho.
