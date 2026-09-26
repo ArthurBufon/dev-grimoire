@@ -43,7 +43,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 ## Resposta
 
 ```markdown
-## Quick fix concluído
+## Quick fix [concluído | concluído com limitação]
 
 ### Alterações
 - arquivo: o que mudou
@@ -52,7 +52,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 - arquivos lidos para definir o patch
 
 ### Verificações
-- comando: resultado | não executado: motivo
+- comando: resultado | não executado: motivo e limitação; se uma validação relevante não puder ser executada, não declarar simplesmente “concluído”.
 
 ### Observações
 - Nenhuma | risco/limitação em uma linha
