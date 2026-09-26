@@ -24,7 +24,7 @@ Ajuste **exato** do pedido, no menor diff seguro. Sem plano, sem subagents.
 
 ## Fluxo
 
-1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes do dev.
+1. Registrar baseline (`git status`, diffs staged e unstaged e snapshot do conteúdo de arquivos untracked relevantes) e preservar alterações preexistentes ou concorrentes do dev.
 2. Arquivos mínimos do pedido.
 3. Patch no padrão existente.
 4. Verificação proporcional (teste/lint/typecheck do que mudou; sem suíte pesada). Executar sempre `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh`; sem PHP/JS/TS alterado, o próprio script informa que não há arquivos para validar. Falha bloqueia entrega.
