@@ -96,7 +96,9 @@ class Queries
                     break;
 
                 case 'busca_geral':
-                    if (empty($valor)) continue;
+                    if (empty($valor)) {
+                        continue 2;
+                    }
 
                     $this->aplicarBuscaGeral($query, $valor);
                     break;
