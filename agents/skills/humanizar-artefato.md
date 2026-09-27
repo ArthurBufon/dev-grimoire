@@ -1,34 +1,32 @@
 ---
 name: humanizar-artefato
-description: Humaniza texto de uma modelagem ou plano Markdown referenciado, preservando integralmente a ideia central.
+description: Reescreve uma modelagem ou plano Markdown para deixá-lo mais claro e natural, sem perder informação.
 ---
 
 # Humanizar Artefato
 
-## Pré-condição bloqueante
+## Entrada
 
-A invocação deve referenciar um arquivo `.md` acessível de modelagem ou plano.
-Sem esse alvo, não analise nem altere arquivos. Responda:
+Exige um arquivo `.md` acessível de modelagem ou plano. Sem esse alvo, não
+analise nem altere arquivos. Responda:
 
 ```text
 Humanização bloqueada: informe um arquivo .md acessível de modelagem ou plano.
 ```
 
-## Trabalho
+## Ação
 
-1. Leia o artefato inteiro para identificar sua ideia central, decisões, regras,
-   limites e critérios verificáveis.
-2. Edite somente o texto do arquivo para facilitar a leitura humana: prefira
-   frases curtas, linguagem direta, ordem lógica e termos concretos.
-3. Remova repetição, jargão desnecessário, abstração vaga e detalhe que não
-   acrescente significado. Preserve títulos, estrutura útil, requisitos,
-   decisões, nomes técnicos indispensáveis e 100% da ideia central.
-4. Não acrescente requisitos, mude comportamento, tome decisões técnicas,
-   altere escopo ou transforme o artefato em resumo superficial.
-5. Releia o resultado e confirme que uma pessoa entende o que será feito, por
-   que e quais limites permanecem, sem perder informação relevante.
+1. Leia o arquivo inteiro antes de editar.
+2. Reescreva somente esse arquivo com frases curtas, linguagem direta, ordem
+   lógica e termos concretos.
+3. Corte repetição, jargão desnecessário e detalhes sem significado.
+4. Preserve títulos e estrutura úteis, requisitos, decisões, limites, critérios
+   verificáveis, nomes técnicos necessários e toda a ideia central.
+5. Não acrescente requisitos, altere comportamento ou escopo, tome decisões
+   técnicas nem transforme o conteúdo em resumo.
+6. Releia e confirme que o texto ficou natural e completo.
 
 ## Entrega
 
-Informe o arquivo humanizado e resuma em uma frase os ganhos de clareza. Não
-faça outras alterações nem crie arquivos novos.
+Informe o arquivo editado e, em uma frase, o que ficou mais claro. Não altere
+outros arquivos nem crie novos.
