@@ -12,11 +12,12 @@ type Props = {
     onCheckedChange: (checked: boolean) => void;
     disabled?: boolean;
     className?: string;
-} & Omit<React.ComponentProps<'button'>, 'onChange' | 'checked'>;
+} & Omit<React.ComponentProps<'button'>, 'onChange' | 'checked' | 'onClick' | 'type'>;
 
 const Switch = ({ checked, onCheckedChange, disabled, className, ...props }: Props) => {
     return (
         <button
+            {...props}
             type="button"
             role="switch"
             aria-checked={checked}
@@ -25,7 +26,6 @@ const Switch = ({ checked, onCheckedChange, disabled, className, ...props }: Pro
             disabled={disabled}
             onClick={() => onCheckedChange(!checked)}
             className={cn(switchVariants(), className)}
-            {...props}
         >
             <span
                 data-state={checked ? 'checked' : 'unchecked'}
