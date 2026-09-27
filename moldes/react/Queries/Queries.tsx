@@ -1,13 +1,24 @@
 // TIPOS
+import type { Carro, DadosFormulario } from '@/types/carro';
 import type { RetornoPadronizado } from '@/types/retorno';
+
+type FiltrosIndex = Record<string, string | number | boolean>;
+
+type FiltrosShow = {
+  id: string | number;
+};
 
 const csrfToken = (): string =>
   document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
 export default class Queries {
-  async index(filtros = {}) {
+  async index(filtros: FiltrosIndex = {}): Promise<RetornoPadronizado<{ lista: Carro[] }>> {
     try {
-      const parametros = new URLSearchParams(filtros).toString();
+      const parametros = new URLSearchParams(
+        Object.entries(filtros).map(
+          ([chave, valor]): [string, string] => [chave, String(valor)],
+        ),
+      ).toString();
 
       const url = parametros ? `/carros?${parametros}` : "/carros";
 
@@ -23,7 +34,7 @@ export default class Queries {
 
       const retorno = await fetch(url, options);
 
-      const dados = (await retorno.json()) as RetornoPadronizado;
+      const dados = (await retorno.json()) as RetornoPadronizado<{ lista: Carro[] }>;
 
       return dados;
     } catch (error) {
@@ -39,7 +50,7 @@ export default class Queries {
     }
   }
 
-  async show(filtros = {}) {
+  async show(filtros: FiltrosShow): Promise<RetornoPadronizado<{ model: Carro | null }>> {
     try {
       const id = filtros.id;
 
@@ -57,7 +68,7 @@ export default class Queries {
 
       const retorno = await fetch(url, options);
 
-      const dados = (await retorno.json()) as RetornoPadronizado;
+      const dados = (await retorno.json()) as RetornoPadronizado<{ model: Carro | null }>;
 
       return dados;
     } catch (error) {
@@ -73,7 +84,7 @@ export default class Queries {
     }
   }
 
-  async store(dados) {
+  async store(dados: DadosFormulario): Promise<RetornoPadronizado> {
     try {
       const url = "/carros";
 
@@ -104,7 +115,7 @@ export default class Queries {
     }
   }
 
-  async update(id: string | number, dados) {
+  async update(id: string | number, dados: Partial<DadosFormulario>): Promise<RetornoPadronizado> {
     try {
       const url = `/carros/${id}`;
 
@@ -135,7 +146,7 @@ export default class Queries {
     }
   }
 
-  async destroy(id: string | number) {
+  async destroy(id: string | number): Promise<RetornoPadronizado> {
     try {
       const url = `/carros/${id}`;
 
