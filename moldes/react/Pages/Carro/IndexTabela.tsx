@@ -31,9 +31,22 @@ type Props = {
     filtros: FiltrosListagem;
 };
 
+const normalizarFabricanteId = (
+    valor: FiltrosListagem['fabricante_id'],
+): number | '' => {
+    if (valor === undefined || valor === null || valor === '') {
+        return '';
+    }
+
+    const id = Number(valor);
+
+    return Number.isFinite(id) ? id : '';
+};
+
 const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
     const [filtros, setFiltros] = useState({
         busca_geral: filtrosIniciais.busca_geral ?? '',
+        fabricante_id: normalizarFabricanteId(filtrosIniciais.fabricante_id),
         data_lancamento_inicio: filtrosIniciais.data_lancamento_inicio ?? '',
         data_lancamento_fim: filtrosIniciais.data_lancamento_fim ?? '',
     });
@@ -41,16 +54,26 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
     const numerosPagina = Array.from({ length: 10 }, (_, i) => i + 1);
     const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas, 10);
 
+    const montarParametrosListagem = (pagina: number) => {
+        const parametros: Record<string, string | number> = {
+            busca_geral: filtros.busca_geral,
+            data_lancamento_inicio: filtros.data_lancamento_inicio,
+            data_lancamento_fim: filtros.data_lancamento_fim,
+            quantidade: 10,
+            pagina,
+        };
+
+        if (filtros.fabricante_id !== '') {
+            parametros.fabricante_id = filtros.fabricante_id;
+        }
+
+        return parametros;
+    };
+
     const handlePesquisar = () => {
         router.get(
             carrosIndex(),
-            {
-                busca_geral: filtros.busca_geral,
-                data_lancamento_inicio: filtros.data_lancamento_inicio,
-                data_lancamento_fim: filtros.data_lancamento_fim,
-                quantidade: 10,
-                pagina: 1,
-            },
+            montarParametrosListagem(1),
             { preserveState: true, replace: true },
         );
     };
@@ -58,6 +81,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
     const handleLimpar = () => {
         setFiltros({
             busca_geral: '',
+            fabricante_id: '',
             data_lancamento_inicio: '',
             data_lancamento_fim: '',
         });
@@ -67,13 +91,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
     const irParaPagina = (pagina: number) => {
         router.get(
             carrosIndex(),
-            {
-                busca_geral: filtros.busca_geral ?? '',
-                data_lancamento_inicio: filtros.data_lancamento_inicio,
-                data_lancamento_fim: filtros.data_lancamento_fim,
-                quantidade: 10,
-                pagina,
-            },
+            montarParametrosListagem(pagina),
             { preserveState: true, replace: true },
         );
     };
@@ -82,6 +100,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
     const paginaVazia = paginacao.total > 0 && lista.length === 0;
     const temBusca = Boolean(
         filtros.busca_geral ||
+            filtros.fabricante_id !== '' ||
             filtros.data_lancamento_inicio ||
             filtros.data_lancamento_fim,
     );
