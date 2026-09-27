@@ -1,7 +1,7 @@
 ---
 name: sugerir-melhorias
 description: >-
-  Analisa o repositório atual e seleciona poucas melhorias pequenas com impacto
+  Analisa o repositório atual e seleciona melhorias pequenas com impacto
   concreto e evidência verificável. Use com "sugerir melhorias", "melhorias
   simples" ou "/sugerir-melhorias". Não implementa, não commita e não propõe
   mudanças de arquitetura ou workflow.
@@ -17,7 +17,7 @@ Usando sugerir-melhorias para procurar ajustes pequenos que realmente justifique
 
 ## Quantidade
 
-Produza **até 3** sugestões por padrão. Se o usuário pedir uma quantidade
+Produza **até 5** sugestões por padrão. Se o usuário pedir uma quantidade
 explícita, trate-a como limite máximo, nunca como meta. Entregar uma lista menor
 ou nenhuma sugestão é um resultado válido.
 
@@ -58,25 +58,33 @@ Antes de aceitar um candidato, identificar:
 - qual consequência permanece se nada for alterado;
 - por que o benefício esperado compensa a mudança.
 
-Descartar o candidato se alguma resposta depender de suposição ou se o benefício
-só puder ser descrito como "melhorar qualidade", "facilitar manutenção",
-"aumentar consistência" ou outra justificativa genérica.
+Aplicar um filtro moderado: aceitar o candidato quando pelo menos 3 dos 5 pontos
+acima tiverem suporte concreto. O problema atual e a evidência continuam
+obrigatórios; impacto, consequência e custo-benefício podem incluir inferência
+razoável, desde que ela seja identificada na sugestão.
+Descartar somente quando a justificativa depender principalmente de suposição ou
+se limitar a "melhorar qualidade", "facilitar manutenção", "aumentar
+consistência" ou outro benefício genérico.
 
 Cada sugestão aceita deve:
 
 - preservar o comportamento e a arquitetura existentes, salvo correção local e
   evidente de um bug;
-- ter escopo pequeno, preferencialmente em 1 arquivo e no máximo em 3;
-- ser independente das demais;
-- ter benefício verificável e validação proporcional;
+- ter escopo pequeno, preferencialmente em 1 arquivo e normalmente em até 3;
+  aceitar até 5 quando a mudança continuar localizada e verificável;
+- ser executável independentemente das demais, ainda que trate área relacionada;
+- ter benefício verificável ou fortemente sustentado pela evidência, com
+  validação proporcional;
 - seguir primeiro o padrão do módulo atual e depois o Dev Grimoire;
-- evitar repetir trabalho presente nos commits recentes.
+- não repetir trabalho já concluído nos commits recentes.
 
 Candidatos adequados incluem bug localizado, validação que permite dado
 inválido, texto que induz o usuário ao erro, barreira pontual de acessibilidade,
 documentação que orienta uso incorreto ou código morto com custo atual
-comprovado. Ausência de teste, diferença de estilo, nome melhorável, tipo mais
-específico ou possibilidade de limpeza não constituem problema por si só.
+comprovado. Também podem entrar ausência de teste para comportamento relevante,
+inconsistência de documentação ou tipo impreciso quando houver risco concreto
+demonstrado. Diferença de estilo, nome melhorável ou possibilidade de limpeza,
+isoladamente, continuam insuficientes.
 
 Descartar qualquer candidato que envolva:
 
