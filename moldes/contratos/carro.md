@@ -20,8 +20,9 @@ React e a spec de Carro. Não substitui regras de implementação de cada stack.
 
 - Entrada: `busca_geral`, `fabricante_id`, `data_lancamento_inicio`,
   `data_lancamento_fim`, `quantidade` e `pagina`.
-- Saída: `lista` de carros (com `fabricante` carregado) e `paginacao` com `total`,
-  `total_retornado`, `pagina`, `limite` e `total_paginas`.
+- Saída: `lista` de carros (com `fabricante` carregado) e `paginacao` com `total`
+  e `total_retornado`. Quando a paginação estiver ativa, inclui também `pagina`,
+  `limite` e `total_paginas`.
 
 ## Retornos e fluxos
 

@@ -54,7 +54,7 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }
     });
 
     const numerosPagina = Array.from({ length: 10 }, (_, i) => i + 1);
-    const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas, 10);
+    const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas ?? 0, 10);
 
     const montarParametrosListagem = (pagina: number) => {
         const parametros: Record<string, string | number> = {
