@@ -47,7 +47,7 @@ class UpdateRequest extends FormRequest
                 Rule::unique('carros', 'placa')->ignore($carro?->id),
             ],
             'km'              => ['required', 'integer', 'min:0'],
-            'valor'           => ['required', 'numeric', 'min:0'],
+            'valor'           => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             'data_lancamento' => ['nullable', 'date'],
         ];
     }
