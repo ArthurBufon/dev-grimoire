@@ -108,7 +108,7 @@ Em geral:
 
 ## 5. View Service (`App\Services\Carro\View\Service`)
 
-- **`index`**: repassa filtros à query com `carregarRelacionamentos: ['fabricante']`.
+- **`index`**: repassa filtros à query com `carregarRelacionamentos: ['fabricante']` e inclui `fabricantes` ativos para o filtro da listagem.
 - **`create` / `edit`**: inclui `fabricantes` (catálogo ativo) para o select do formulário.
 - **`edit`**: carrega `carro` com relação `fabricante`.
 

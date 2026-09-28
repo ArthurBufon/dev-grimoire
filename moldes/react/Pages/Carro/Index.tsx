@@ -15,6 +15,7 @@ import { Label } from '@/Components/Ui/Label';
 
 // TIPOS
 import type { Carro } from '@/types/carro';
+import type { OpcaoVinculo } from '@/types/fabricante';
 import type { FiltrosListagem, PaginacaoListagem } from '@/types/paginacao';
 
 // ROTAS
@@ -26,6 +27,7 @@ type Props = {
     lista: Carro[];
     paginacao: PaginacaoListagem;
     filtros: FiltrosListagem;
+    fabricantes: OpcaoVinculo[];
 };
 
 const normalizarFabricanteId = (
@@ -40,7 +42,7 @@ const normalizarFabricanteId = (
     return Number.isFinite(id) ? id : '';
 };
 
-const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
+const Index = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Props) => {
     const [filtros, setFiltros] = useState({
         busca_geral: filtrosIniciais.busca_geral ?? '',
         fabricante_id: normalizarFabricanteId(filtrosIniciais.fabricante_id),
@@ -124,6 +126,29 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais }: Props) => {
                         onPesquisar={handlePesquisar}
                         filtrosExtras={
                             <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="fabricante_id">Fabricante</Label>
+                                    <select
+                                        id="fabricante_id"
+                                        value={filtros.fabricante_id}
+                                        onChange={(evento) =>
+                                            setFiltros((atual) => ({
+                                                ...atual,
+                                                fabricante_id: evento.target.value === ''
+                                                    ? ''
+                                                    : Number(evento.target.value),
+                                            }))
+                                        }
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
+                                    >
+                                        <option value="">Todos os fabricantes</option>
+                                        {fabricantes.map((fabricante) => (
+                                            <option key={fabricante.id} value={fabricante.id}>
+                                                {fabricante.nome}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="data_lancamento_inicio">Lançamento (início)</Label>
                                     <Input

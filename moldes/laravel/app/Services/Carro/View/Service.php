@@ -49,11 +49,11 @@ class Service
 
         $retorno = $this->queries->index($filtros)['dados'];
 
-        return [
+        return array_merge([
             'lista'     => $retorno['lista'],
             'paginacao' => $retorno['paginacao'],
             'filtros'   => $filtros,
-        ];
+        ], $this->dadosCatalogos());
     }
 
     private function dadosShow(array $parametros): array

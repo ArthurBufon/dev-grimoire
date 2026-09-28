@@ -8,7 +8,7 @@ export type PaginacaoListagem = {
 
 export type FiltrosListagem = {
     busca_geral: string;
-    fabricante_id?: number | '';
+    fabricante_id?: number | string;
     data_lancamento_inicio?: string;
     data_lancamento_fim?: string;
 };
