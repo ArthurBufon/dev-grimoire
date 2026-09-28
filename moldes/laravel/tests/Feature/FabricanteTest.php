@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 // MODELS
+use App\Models\Carro;
 use App\Models\Fabricante;
 // SERVICES
 use App\Services\Fabricante\Service;
@@ -109,5 +110,26 @@ class FabricanteTest extends TestCase
         $this->assertTrue($retorno['sucesso']);
         $this->assertEmpty($retorno['erros']);
         $this->assertDatabaseMissing('fabricantes', ['id' => $fabricante->id]);
+    }
+
+    public function test_destroy_falha_quando_fabricante_possui_carros(): void
+    {
+        $fabricante = Fabricante::create($this->dadosFabricante());
+
+        Carro::create([
+            'fabricante_id' => $fabricante->id,
+            'modelo'        => 'Corolla',
+            'ano'           => 2020,
+            'placa'         => 'ABC1D23',
+            'km'            => 10000,
+            'valor'         => 80000.00,
+        ]);
+
+        $retorno = $this->service->destroy($fabricante);
+
+        $this->assertFalse($retorno['sucesso']);
+        $this->assertNotEmpty($retorno['erros']);
+        $this->assertDatabaseHas('fabricantes', ['id' => $fabricante->id]);
+        $this->assertDatabaseHas('carros', ['fabricante_id' => $fabricante->id]);
     }
 }
