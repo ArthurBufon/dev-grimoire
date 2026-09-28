@@ -1,5 +1,5 @@
 // REACT
-import type { SubmitEvent } from 'react';
+import type { FormEvent } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
 // UI
@@ -41,7 +41,7 @@ const Create = ({ fabricantes }: CreateProps) => {
         }));
     };
 
-    const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
         post(CarroController.store.url());

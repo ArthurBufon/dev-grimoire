@@ -1,5 +1,5 @@
 // REACT
-import type { SubmitEvent } from 'react';
+import type { FormEvent } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
 // UI
@@ -55,7 +55,7 @@ const Edit = ({ carro, fabricantes }: EditProps) => {
         }));
     };
 
-    const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
 
         put(CarroController.update.url(carro.id));

@@ -1,5 +1,5 @@
 // REACT
-import type { SubmitEvent } from 'react';
+import type { FormEvent } from 'react';
 import { Link } from '@inertiajs/react';
 
 // UI
@@ -35,7 +35,7 @@ type FormProps = {
         campo: K,
         valor: DadosFormulario[K],
     ) => void;
-    onSubmit: (evento: SubmitEvent<HTMLFormElement>) => void;
+    onSubmit: (evento: FormEvent<HTMLFormElement>) => void;
     processing: boolean;
 };
 
