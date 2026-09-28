@@ -79,6 +79,7 @@ const Form = ({
                 <Label htmlFor="modelo">Modelo</Label>
                 <Input
                     id="modelo"
+                    maxLength={120}
                     value={data.modelo}
                     onChange={(evento) =>
                         onCampoChange('modelo', evento.target.value)
@@ -113,6 +114,7 @@ const Form = ({
                 <Label htmlFor="cor">Cor</Label>
                 <Input
                     id="cor"
+                    maxLength={40}
                     value={data.cor}
                     onChange={(evento) =>
                         onCampoChange('cor', evento.target.value)
@@ -125,6 +127,7 @@ const Form = ({
                 <Label htmlFor="placa">Placa</Label>
                 <Input
                     id="placa"
+                    maxLength={10}
                     value={data.placa}
                     onChange={(evento) =>
                         onCampoChange(
