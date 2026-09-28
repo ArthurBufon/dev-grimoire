@@ -19,10 +19,10 @@ export type Carro = {
 export type DadosFormulario = {
     fabricante_id: number | '';
     modelo: string;
-    ano: number;
+    ano: number | '';
     cor: string;
     placa: string;
-    km: number;
+    km: number | '';
     valor: string;
     data_lancamento: string;
 };

@@ -97,7 +97,12 @@ const Form = ({
                     max={2100}
                     value={data.ano}
                     onChange={(evento) =>
-                        onCampoChange('ano', Number(evento.target.value))
+                        onCampoChange(
+                            'ano',
+                            evento.target.value === ''
+                                ? ''
+                                : Number(evento.target.value),
+                        )
                     }
                     required
                 />
@@ -140,7 +145,12 @@ const Form = ({
                     min={0}
                     value={data.km}
                     onChange={(evento) =>
-                        onCampoChange('km', Number(evento.target.value))
+                        onCampoChange(
+                            'km',
+                            evento.target.value === ''
+                                ? ''
+                                : Number(evento.target.value),
+                        )
                     }
                     required
                 />
