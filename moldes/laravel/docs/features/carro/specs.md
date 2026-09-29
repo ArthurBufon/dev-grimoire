@@ -102,14 +102,15 @@ Em geral:
 - **`store` / `update`**: transação DB; monta payload com **`formatarDatabase`**: só inclui chaves **presentes** no array de entrada.
 - Campos mapeados: `fabricante_id`, `modelo`, `ano`, `cor`, `placa`, `km`, `valor`, `data_lancamento`.
 - **`normalizarPlaca`**: trim, remove espaços internos, converte para maiúsculas.
+- Falhas retornadas pelas Queries e exceções são registradas por `App\Helpers\LogHelper`.
 - **`destroy(Carro $carro)`**: transação; feedback de sucesso/erro fica no controller (`Inertia::flash`).
 
 ---
 
 ## 5. View Service (`App\Services\Carro\View\Service`)
 
-- **`index`**: repassa filtros à query com `carregarRelacionamentos: ['fabricante']` e inclui `fabricantes` ativos para o filtro da listagem.
-- **`create` / `edit`**: inclui `fabricantes` (catálogo ativo) para o select do formulário.
+- **`index`**: repassa filtros à query com `carregarRelacionamentos: ['fabricante']` e inclui até 100 `fabricantes` ativos para o filtro da listagem.
+- **`create` / `edit`**: inclui até 100 `fabricantes` ativos para o select do formulário.
 - **`edit`**: carrega `carro` com relação `fabricante`.
 
 ---
@@ -117,6 +118,7 @@ Em geral:
 ## 6. Service API (`App\Services\Api\Carro\Service`)
 
 - Mesma injeção de `Queries` e o mesmo contrato de métodos **index / show / store / update / destroy**.
+- Falhas retornadas pelas Queries e exceções também são registradas por `App\Helpers\LogHelper`.
 - Diferença em relação ao web: **sem** `session()->flash` no fluxo de exclusão.
 
 ---
@@ -139,6 +141,7 @@ Em geral:
 | `app/Http/Requests/Web/Admin/Carro/UpdateRequest.php` |
 | `app/Models/Carro.php` |
 | `app/Models/Fabricante.php` |
+| `app/Helpers/LogHelper.php` |
 | `app/Queries/Carro/Queries.php` |
 | `app/Services/Carro/Service.php` |
 | `app/Services/Api/Carro/Service.php` |

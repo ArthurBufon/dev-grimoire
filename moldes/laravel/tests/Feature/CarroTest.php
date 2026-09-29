@@ -7,6 +7,8 @@ namespace Tests\Feature;
 // MODELS
 use App\Models\Carro;
 use App\Models\Fabricante;
+// FACADES
+use Illuminate\Support\Facades\Log;
 // SERVICES
 use App\Services\Carro\Service;
 use App\Services\Carro\View\Service as ViewService;
@@ -173,6 +175,36 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_mantem_paginacao_quando_parametro_booleano_e_invalido(): void
+    {
+        Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));
+        Carro::create($this->dadosCarro(['placa' => 'BBB2B22']));
+
+        $retorno = $this->service->index([
+            'aplicar_paginacao' => 'valor-invalido',
+            'quantidade'        => 1,
+        ]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertCount(1, $retorno['dados']['lista']);
+        $this->assertSame(1, $retorno['dados']['paginacao']['pagina']);
+        $this->assertSame(2, $retorno['dados']['paginacao']['total_paginas']);
+    }
+
+    public function test_view_service_limita_catalogo_a_cem_fabricantes(): void
+    {
+        for ($indice = 1; $indice <= 100; $indice++) {
+            Fabricante::create([
+                'nome'  => "Fabricante {$indice}",
+                'ativo' => true,
+            ]);
+        }
+
+        $dadosView = app(ViewService::class)->index(['view' => 'create']);
+
+        $this->assertCount(100, $dadosView['fabricantes']);
+    }
+
     // STORE
 
     public function test_store_cria_carro_com_sucesso(): void
@@ -190,6 +222,8 @@ class CarroTest extends TestCase
 
     public function test_store_falha_com_placa_duplicada(): void
     {
+        Log::spy();
+
         $this->service->store($this->dadosCarro());
 
         $retorno = $this->service->store($this->dadosCarro());
@@ -198,6 +232,7 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['dados']);
         $this->assertNotEmpty($retorno['erros']);
         $this->assertDatabaseCount('carros', 1);
+        Log::shouldHaveReceived('error')->once();
     }
 
     // UPDATE

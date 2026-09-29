@@ -41,9 +41,7 @@ export default class Queries {
     } catch (error) {
       return {
         sucesso: false,
-        dados: {
-          lista: [],
-        },
+        dados: [],
         erros: [
           error instanceof Error ? error.message : "Erro ao listar carros!",
         ],
@@ -75,9 +73,7 @@ export default class Queries {
     } catch (error) {
       return {
         sucesso: false,
-        dados: {
-          model: null,
-        },
+        dados: [],
         erros: [
           error instanceof Error ? error.message : "Erro ao buscar carro!",
         ],
@@ -108,7 +104,7 @@ export default class Queries {
     } catch (error) {
       return {
         sucesso: false,
-        dados: {},
+        dados: [],
         erros: [
           error instanceof Error ? error.message : "Erro ao salvar carro!",
         ],
@@ -139,7 +135,7 @@ export default class Queries {
     } catch (error) {
       return {
         sucesso: false,
-        dados: {},
+        dados: [],
         erros: [
           error instanceof Error ? error.message : "Erro ao atualizar carro!",
         ],
@@ -169,7 +165,7 @@ export default class Queries {
     } catch (error) {
       return {
         sucesso: false,
-        dados: {},
+        dados: [],
         erros: [
           error instanceof Error ? error.message : "Erro ao excluir carro!",
         ],

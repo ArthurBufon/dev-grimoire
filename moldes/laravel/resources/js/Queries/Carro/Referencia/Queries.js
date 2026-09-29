@@ -22,7 +22,7 @@ export const Queries = {
 
             return {
                 sucesso: false,
-                dados: {},
+                dados: [],
                 erros: ["Erro ao gerar referência!"],
             };
         }
