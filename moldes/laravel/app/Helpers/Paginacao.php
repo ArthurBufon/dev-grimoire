@@ -106,6 +106,12 @@ class Paginacao
             return true;
         }
 
-        return filter_var($filtros['aplicar_paginacao'], FILTER_VALIDATE_BOOLEAN);
+        $aplicarPaginacao = filter_var(
+            $filtros['aplicar_paginacao'],
+            FILTER_VALIDATE_BOOLEAN,
+            FILTER_NULL_ON_FAILURE
+        );
+
+        return $aplicarPaginacao ?? true;
     }
 }
