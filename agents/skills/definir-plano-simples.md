@@ -127,7 +127,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 ## Execução
 
 - Branch: `[branch atual identificada]`
-- Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + molde citado por passo
+- Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + arquivo análogo do módulo; citar molde somente no passo que criar arquivo
 - Alterações do dev: registrar baseline e preservar alterações preexistentes ou concorrentes; nunca desfazer mudanças fora do escopo
 - Pós: atualizar `docs/features/{entidade}/specs.md` quando relevante; revisor novo confere plano, spec e diff final e invoca `$check-slop`; achado crítico/importante ou slop bloqueia o encerramento até correção dentro do escopo
 - Só então: o executor cria e valida o handoff; excluir `docs/modelagem/{feature}/`
