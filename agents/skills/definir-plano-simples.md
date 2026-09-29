@@ -142,7 +142,7 @@ Não incluir: matriz de edge cases, duplicar níveis (unit+feature), cobertura %
 
 ## Critério de conclusão
 
-A skill termina quando o plano estiver salvo em `docs/modelagem/{feature}/plano/{feature}.md`.
+A skill termina quando o plano estiver salvo em `docs/modelagem/{feature}/plano/{feature}.md`, sem placeholders pendentes, com paths e comandos aplicáveis verificados e após o ritual anti-slop.
 
 Encerrar com:
 
