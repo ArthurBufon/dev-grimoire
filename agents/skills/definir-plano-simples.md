@@ -19,7 +19,7 @@ NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de p
 Hard gate desta skill — **não avance** se:
 
 * o plano tiver mais passos de implementação do que a tarefa simples exige (prefira 1–3 passos diretos);
-* a seção de testes/validação listar mais itens do que passos de implementação;
+* a seção de testes listar mais de dois cenários essenciais ou incluir casos que não protegem o comportamento pedido;
 * surgirem arquivos, camadas, refatorações ou explorações não pedidas;
 * código de exemplo, assinaturas ou diagramas duplicarem o que o molde/padrão do módulo já define;
 * restrições globais ou checklist repetirem o fragmento em prosa longa.
@@ -121,7 +121,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 
 - Comando: `[teste/build/lint real do projeto]`
 - Manual: …
-- Testes (mínimo): [≤ nº de passos; ver gate anti-slop]
+- Testes (mínimo): [1 fluxo feliz e, se aplicável, 1 regra crítica ou erro relevante]
 
 ## Execução
 
@@ -135,9 +135,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 
 ## Testes (mínimo)
 
-Regras detalhadas: gate anti-slop. No plano, listar **no máximo** tantos itens quanto passos de implementação.
-
-Incluir só: 1 fluxo feliz + 1 regra crítica ou erro relevante (se aplicável).
+Regras detalhadas: gate anti-slop. Incluir somente 1 fluxo feliz e, se aplicável, 1 regra crítica ou erro relevante.
 
 Não incluir: matriz de edge cases, duplicar níveis (unit+feature), cobertura %, mocks/scaffolding maiores que o ajuste.
 
