@@ -45,7 +45,7 @@ class Service
                 DB::rollBack();
 
                 $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao salvar carro.';
-                LogHelper::registrarErro([], $mensagemErro, 'Erro API carro');
+                LogHelper::logarErro([], 'Erro API carro', $mensagemErro);
 
                 return [
                     'sucesso' => false,
@@ -65,7 +65,7 @@ class Service
 
             DB::rollBack();
 
-            LogHelper::registrarErro([], formatarMensagemErro($th), 'Erro API carro');
+            LogHelper::logarErro([], 'Erro API carro', formatarMensagemErro($th));
 
             return [
                 'sucesso' => false,
@@ -90,7 +90,7 @@ class Service
                 DB::rollBack();
 
                 $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao atualizar carro.';
-                LogHelper::registrarErro(['id' => $id], $mensagemErro, 'Erro API carro');
+                LogHelper::logarErro(['id' => $id], 'Erro API carro', $mensagemErro);
 
                 return [
                     'sucesso' => false,
@@ -110,7 +110,7 @@ class Service
 
             DB::rollBack();
 
-            LogHelper::registrarErro(['id' => $id], formatarMensagemErro($th), 'Erro API carro');
+            LogHelper::logarErro(['id' => $id], 'Erro API carro', formatarMensagemErro($th));
 
             return [
                 'sucesso' => false,
@@ -142,7 +142,7 @@ class Service
             ];
         } catch (\Throwable $th) {
 
-            LogHelper::registrarErro(['id' => $carro->id], formatarMensagemErro($th), 'Erro API carro');
+            LogHelper::logarErro(['id' => $carro->id], 'Erro API carro', formatarMensagemErro($th));
 
             DB::rollBack();
 

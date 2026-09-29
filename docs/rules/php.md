@@ -25,7 +25,7 @@ return response()->json($retorno, 200);
 Molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php`.
 
 ## Tratamento de erros em Services
-Nos Services de negócio, métodos que executam operações usam `try/catch` com `LogHelper::registrarErro` e `formatarMensagemErro`. Falhas devolvidas pelas Queries também devem ser registradas antes do retorno. Métodos de simples repasse, como `index` e `show` nos moldes, devolvem diretamente o envelope da Query, que já trata os erros da consulta:
+Nos Services de negócio, métodos que executam operações usam `try/catch` com `LogHelper::logarErro` e `formatarMensagemErro`. Falhas devolvidas pelas Queries também devem ser registradas antes do retorno. Métodos de simples repasse, como `index` e `show` nos moldes, devolvem diretamente o envelope da Query, que já trata os erros da consulta:
 
 ```php
 public function store(array $dados): array
@@ -36,19 +36,19 @@ public function store(array $dados): array
 
         if (!$retorno['sucesso']) {
             $mensagemErro = $retorno['erros'][0] ?? 'Erro ao salvar registro.';
-            LogHelper::registrarErro([], $mensagemErro, 'Erro ao processar registro');
+            LogHelper::logarErro([], 'Erro ao processar registro', $mensagemErro);
         }
 
         return $retorno;
     } catch (\Throwable $th) {
-        LogHelper::registrarErro([], formatarMensagemErro($th), 'Erro ao processar registro');
+        LogHelper::logarErro([], 'Erro ao processar registro', formatarMensagemErro($th));
         return ['sucesso' => false, 'dados' => [], 'erros' => [formatarMensagemErro($th)]];
     }
 }
 ```
 - `update` retorna `$model->fresh()`
 - `formatarMensagemErro(\Throwable $th)` — helper global em `app/helpers.php`
-- `LogHelper::registrarErro(array $dados, string $mensagemErro, string $contexto)` — helper estático em `app/Helpers/LogHelper.php`
+- `LogHelper::logarErro(array $dados, string $mensagemAmigavel, string $mensagemErro)` — helper estático em `app/Helpers/LogHelper.php`
 - Em `LogHelper`, enviar apenas o contexto mínimo necessário, como o identificador do registro quando disponível; não repassar o payload inteiro. Seguir `docs/rules/geral.md` § Segurança.
 
 Nas operações com transação, verificar `sucesso` no envelope retornado pela Query antes do commit. Se for `false`, executar rollback e propagar a falha, mesmo sem exceção; manter também o rollback no caminho de exceção. Referência: `store` e `update` em `moldes/laravel/app/Services/Carro/Service.php`.

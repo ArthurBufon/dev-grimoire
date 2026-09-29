@@ -84,7 +84,7 @@ for service in \
   'moldes/laravel/app/Services/Carro/Service.php' \
   'moldes/laravel/app/Services/Api/Carro/Service.php' \
   'moldes/laravel/app/Services/Fabricante/Service.php'; do
-  grep -Fq 'LogHelper::registrarErro' "${repo_root}/${service}" \
+  grep -Fq 'LogHelper::logarErro' "${repo_root}/${service}" \
     || falhar "service sem LogHelper: ${service}"
 done
 

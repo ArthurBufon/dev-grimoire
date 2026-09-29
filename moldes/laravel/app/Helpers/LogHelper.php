@@ -9,17 +9,14 @@ use Illuminate\Support\Facades\Log;
 
 class LogHelper
 {
-    public static function registrarErro(array $dados, string $mensagemErro, string $contexto): void
+    public static function logarErro(array $dados, string $mensagemAmigavel, string $mensagemErro): void
     {
-        $mensagem = "{$contexto}: {$mensagemErro}";
+        $contexto = [
+            'sucesso' => 'false',
+            'dados'   => $dados,
+            'erros'   => ["{$mensagemAmigavel}: {$mensagemErro}"],
+        ];
 
-        Log::error(
-            $mensagem,
-            [
-                'sucesso' => false,
-                'dados'   => $dados,
-                'erros'   => [$mensagem],
-            ]
-        );
+        Log::error($mensagemAmigavel, $contexto);
     }
 }

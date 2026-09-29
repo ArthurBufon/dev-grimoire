@@ -45,7 +45,7 @@ class Service
                 DB::rollBack();
 
                 $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao salvar fabricante.';
-                LogHelper::registrarErro([], $mensagemErro, 'Erro ao processar fabricante');
+                LogHelper::logarErro([], 'Erro ao processar fabricante', $mensagemErro);
 
                 return [
                     'sucesso' => false,
@@ -65,7 +65,7 @@ class Service
 
             DB::rollBack();
 
-            LogHelper::registrarErro([], formatarMensagemErro($th), 'Erro ao processar fabricante');
+            LogHelper::logarErro([], 'Erro ao processar fabricante', formatarMensagemErro($th));
 
             return [
                 'sucesso' => false,
@@ -90,7 +90,7 @@ class Service
                 DB::rollBack();
 
                 $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao atualizar fabricante.';
-                LogHelper::registrarErro(['id' => $id], $mensagemErro, 'Erro ao processar fabricante');
+                LogHelper::logarErro(['id' => $id], 'Erro ao processar fabricante', $mensagemErro);
 
                 return [
                     'sucesso' => false,
@@ -110,7 +110,7 @@ class Service
 
             DB::rollBack();
 
-            LogHelper::registrarErro(['id' => $id], formatarMensagemErro($th), 'Erro ao processar fabricante');
+            LogHelper::logarErro(['id' => $id], 'Erro ao processar fabricante', formatarMensagemErro($th));
 
             return [
                 'sucesso' => false,
@@ -146,7 +146,7 @@ class Service
 
             session()->flash('mensagem_erro', 'Erro ao excluir fabricante!');
 
-            LogHelper::registrarErro(['id' => $fabricante->id], formatarMensagemErro($th), 'Erro ao processar fabricante');
+            LogHelper::logarErro(['id' => $fabricante->id], 'Erro ao processar fabricante', formatarMensagemErro($th));
 
             DB::rollBack();
 
