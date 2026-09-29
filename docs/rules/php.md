@@ -25,29 +25,31 @@ return response()->json($retorno, 200);
 Molde: `moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php`.
 
 ## Tratamento de erros em Services
-Nos Services de negócio, métodos que executam operações usam `try/catch` com `logarErro` e `formatarMensagemErro`. Métodos de simples repasse, como `index` e `show` nos moldes, devolvem diretamente o envelope da Query, que já trata os erros da consulta:
+Nos Services de negócio, métodos que executam operações usam `try/catch` com `LogHelper::registrarErro` e `formatarMensagemErro`. Falhas devolvidas pelas Queries também devem ser registradas antes do retorno. Métodos de simples repasse, como `index` e `show` nos moldes, devolvem diretamente o envelope da Query, que já trata os erros da consulta:
 
 ```php
 public function store(array $dados): array
 {
     try {
         $dadosDatabase = $this->formatarDatabase($dados);
-        return $this->queries->store($dadosDatabase);
+        $retorno = $this->queries->store($dadosDatabase);
+
+        if (!$retorno['sucesso']) {
+            $mensagemErro = $retorno['erros'][0] ?? 'Erro ao salvar registro.';
+            LogHelper::registrarErro([], $mensagemErro, 'Erro ao processar registro');
+        }
+
+        return $retorno;
     } catch (\Throwable $th) {
-        $this->logarErro([], 'criar', formatarMensagemErro($th));
+        LogHelper::registrarErro([], formatarMensagemErro($th), 'Erro ao processar registro');
         return ['sucesso' => false, 'dados' => [], 'erros' => [formatarMensagemErro($th)]];
     }
-}
-
-private function logarErro(array $dados, string $acao, string $mensagemErro): void
-{
-    $mensagem = "Erro ao {$acao} {entidade}!";
-    Log::error($mensagem, ['sucesso' => false, 'dados' => $dados, 'erros' => ["{$mensagem}: {$mensagemErro}"]]);
 }
 ```
 - `update` retorna `$model->fresh()`
 - `formatarMensagemErro(\Throwable $th)` — helper global em `app/helpers.php`
-- Em `logarErro`, enviar apenas o contexto mínimo necessário, como o identificador do registro quando disponível; não repassar o payload inteiro. Seguir `docs/rules/geral.md` § Segurança.
+- `LogHelper::registrarErro(array $dados, string $mensagemErro, string $contexto)` — helper estático em `app/Helpers/LogHelper.php`
+- Em `LogHelper`, enviar apenas o contexto mínimo necessário, como o identificador do registro quando disponível; não repassar o payload inteiro. Seguir `docs/rules/geral.md` § Segurança.
 
 Nas operações com transação, verificar `sucesso` no envelope retornado pela Query antes do commit. Se for `false`, executar rollback e propagar a falha, mesmo sem exceção; manter também o rollback no caminho de exceção. Referência: `store` e `update` em `moldes/laravel/app/Services/Carro/Service.php`.
 
@@ -57,6 +59,7 @@ Nas operações com transação, verificar `sucesso` no envelope retornado pela 
 - Queries: `app/Queries/[Entidade]/Queries.php`
 - Services web/catálogo: `app/Services/[Entidade]/Service.php` (molde: `moldes/laravel/app/Services/Carro/Service.php`)
 - Services API: `app/Services/Api/[Entidade]/Service.php` (molde: `moldes/laravel/app/Services/Api/Carro/Service.php`)
+- Logs de falha: `app/Helpers/LogHelper.php` (molde: `moldes/laravel/app/Helpers/LogHelper.php`)
 - Form Requests: `app/Http/Requests/[Modulo]/[Entidade]/[Acao]Request.php`. EX: StoreRequest.php + UpdateRequest.php (moldes: `moldes/laravel/app/Http/Requests/Web/Admin/Carro/`)
 - URLs: sempre rotas nomeadas com `route()`
 - Controllers chamam Services e View Services; validação HTTP fica nos Form Requests; resposta Inertia/redirect no Controller
@@ -106,7 +109,7 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
   - `quantidade` — com `aplicar_paginacao` omitido/`true`: itens por página (teto default 100 via `$tetoQuantidade`; quem chama pode elevar o teto, ex.: listagens sem paginação que precisam de mais itens). Se ausente ou inválida, usa `$porPagina` do método. Com `aplicar_paginacao: false`: limita o retorno sem paginar
   - `sem_limite_paginas` — omitido ou `false`: teto de páginas = `$maximoPaginas`; `true`: sem esse teto
 - `paginacao.total` **sempre** reflete o total real de registros filtrados, independente do corte de `quantidade` — inclusive no modo sem paginação (`aplicar_paginacao: false`)
-- Recomendação padrão: repassar os filtros do request/controller e deixar a helper decidir — **não** forçar default de `quantidade` em Service ou View Service. Exceção aceitável: listagens desenhadas para **sempre** operar sem paginação com limite alto e sensato (não o comportamento default de 10/página) podem fixar `aplicar_paginacao` e um default de `quantidade` na View Service, elevando o teto via `$tetoQuantidade` — documentar no código/specs da feature (molde: `moldes/laravel/app/Services/Carro/View/Service.php`)
+- Recomendação padrão: repassar os filtros do request/controller e deixar a helper decidir — **não** forçar default de `quantidade` em Service ou View Service. Exceção aceitável: catálogos desenhados para operar sem paginação podem fixar `aplicar_paginacao` e uma `quantidade` sensata na View Service, respeitando o teto padrão de 100. Se precisarem ultrapassá-lo, a Query deve elevar `$tetoQuantidade` explicitamente. Documentar a decisão no código/specs da feature (molde: `moldes/laravel/app/Services/Carro/View/Service.php`)
 - Chaves de paginação (`pagina`, `quantidade`, `aplicar_paginacao`, `ordenacao`) **não** entram em `aplicarFiltros` da Query — são consumidas só pela helper
 - Queries com `index` paginado delegam à helper; fallback de erro com estrutura completa de `paginacao` (ver molde Carro)
 

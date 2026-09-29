@@ -7,6 +7,8 @@ namespace Tests\Feature;
 // MODELS
 use App\Models\Carro;
 use App\Models\Fabricante;
+// FACADES
+use Illuminate\Support\Facades\Log;
 // SERVICES
 use App\Services\Fabricante\Service;
 // TESTING
@@ -74,6 +76,8 @@ class FabricanteTest extends TestCase
 
     public function test_store_falha_com_nome_duplicado(): void
     {
+        Log::spy();
+
         $this->service->store($this->dadosFabricante());
 
         $retorno = $this->service->store($this->dadosFabricante());
@@ -82,6 +86,7 @@ class FabricanteTest extends TestCase
         $this->assertEmpty($retorno['dados']);
         $this->assertNotEmpty($retorno['erros']);
         $this->assertDatabaseCount('fabricantes', 1);
+        Log::shouldHaveReceived('error')->once();
     }
 
     public function test_update_atualiza_fabricante_com_sucesso(): void

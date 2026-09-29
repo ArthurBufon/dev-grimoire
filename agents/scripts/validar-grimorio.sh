@@ -39,6 +39,7 @@ for path in \
   'moldes/laravel/app/Queries/Carro/Queries.php' \
   'moldes/laravel/app/Services/Carro/Service.php' \
   'moldes/laravel/app/helpers.php' \
+  'moldes/laravel/app/Helpers/LogHelper.php' \
   'moldes/laravel/app/Helpers/Paginacao.php' \
   'moldes/laravel/app/Http/Controllers/Web/Admin/Carro/CarroController.php' \
   'moldes/laravel/app/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController.php' \
@@ -78,6 +79,14 @@ grep -Fq 'fabricante_id' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
   || falhar 'model Carro sem relacionamento fabricante_id'
 grep -Fq 'belongsTo(Fabricante::class)' "${repo_root}/moldes/laravel/app/Models/Carro.php" \
   || falhar 'model Carro sem belongsTo Fabricante'
+
+for service in \
+  'moldes/laravel/app/Services/Carro/Service.php' \
+  'moldes/laravel/app/Services/Api/Carro/Service.php' \
+  'moldes/laravel/app/Services/Fabricante/Service.php'; do
+  grep -Fq 'LogHelper::registrarErro' "${repo_root}/${service}" \
+    || falhar "service sem LogHelper: ${service}"
+done
 
 for campo in fabricante_id modelo ano cor placa km valor data_lancamento; do
   grep -Fq "${campo}" "${repo_root}/moldes/react/types/carro.ts" || falhar "tipo React sem campo: ${campo}"

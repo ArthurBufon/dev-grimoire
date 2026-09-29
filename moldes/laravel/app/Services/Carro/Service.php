@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\Carro;
 
+// HELPERS
+use App\Helpers\LogHelper;
 // MODELS
 use App\Models\Carro;
 // QUERIES
 use App\Queries\Carro\Queries;
 // FACADES
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class Service
 {
@@ -43,10 +44,13 @@ class Service
 
                 DB::rollBack();
 
+                $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao salvar carro.';
+                LogHelper::registrarErro([], $mensagemErro, 'Erro ao processar carro');
+
                 return [
                     'sucesso' => false,
                     'dados'   => [],
-                    'erros'   => [$retornoDatabase['erros'][0] ?? 'Erro ao salvar carro.'],
+                    'erros'   => [$mensagemErro],
                 ];
             }
 
@@ -61,7 +65,7 @@ class Service
 
             DB::rollBack();
 
-            $this->logarErro([], formatarMensagemErro($th));
+            LogHelper::registrarErro([], formatarMensagemErro($th), 'Erro ao processar carro');
 
             return [
                 'sucesso' => false,
@@ -85,10 +89,13 @@ class Service
 
                 DB::rollBack();
 
+                $mensagemErro = $retornoDatabase['erros'][0] ?? 'Erro ao atualizar carro.';
+                LogHelper::registrarErro(['id' => $id], $mensagemErro, 'Erro ao processar carro');
+
                 return [
                     'sucesso' => false,
                     'dados'   => [],
-                    'erros'   => [$retornoDatabase['erros'][0] ?? 'Erro ao atualizar carro.'],
+                    'erros'   => [$mensagemErro],
                 ];
             }
 
@@ -103,7 +110,7 @@ class Service
 
             DB::rollBack();
 
-            $this->logarErro(['id' => $id], formatarMensagemErro($th));
+            LogHelper::registrarErro(['id' => $id], formatarMensagemErro($th), 'Erro ao processar carro');
 
             return [
                 'sucesso' => false,
@@ -135,7 +142,7 @@ class Service
             ];
         } catch (\Throwable $th) {
 
-            $this->logarErro(['id' => $carro->id], formatarMensagemErro($th));
+            LogHelper::registrarErro(['id' => $carro->id], formatarMensagemErro($th), 'Erro ao processar carro');
 
             DB::rollBack();
 
@@ -199,18 +206,4 @@ class Service
         return strtoupper($semEspacos ?? '');
     }
 
-    private function logarErro(array $dados, string $mensagemErro): void
-    {
-        $id = $dados['id'] ?? '?';
-        $mensagemFormatada = "Erro ao processar carro (id {$id}): {$mensagemErro}";
-
-        Log::error(
-            $mensagemFormatada,
-            [
-                'sucesso' => false,
-                'dados'   => $dados,
-                'erros'   => [$mensagemFormatada],
-            ]
-        );
-    }
 }

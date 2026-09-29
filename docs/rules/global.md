@@ -107,6 +107,7 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 | `app/Services/{Entidade}/View/Service.php` | `{GRIMOIRE}/moldes/laravel/app/Services/Carro/View/Service.php` |
 | `database/migrations/*_create_{entidades}_table.php` | `{GRIMOIRE}/moldes/laravel/database/migrations/2026_05_08_000001_create_carros_table.php` |
 | `app/helpers.php` (funções globais) | `{GRIMOIRE}/moldes/laravel/app/helpers.php` |
+| `app/Helpers/LogHelper.php` | `{GRIMOIRE}/moldes/laravel/app/Helpers/LogHelper.php` |
 | `app/Helpers/Paginacao.php` | `{GRIMOIRE}/moldes/laravel/app/Helpers/Paginacao.php` |
 | `tests/Feature/{Entidade}Test.php` | `{GRIMOIRE}/moldes/laravel/tests/Feature/CarroTest.php` |
 | `docs/features/{entidade}/specs.md` | `{GRIMOIRE}/moldes/laravel/docs/features/carro/specs.md` |

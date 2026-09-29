@@ -57,6 +57,7 @@ Seguem o contrato padrão `{ sucesso, dados, erros }` do grimório.
 ## 4. Service (`App\Services\Fabricante\Service`)
 
 - `store` / `update`: transação DB; `formatarDatabase` só inclui chaves presentes.
+- Falhas retornadas pelas Queries e exceções são registradas por `App\Helpers\LogHelper`.
 - `destroy`: transação; flash de sucesso/erro na sessão web.
 
 ---
@@ -66,6 +67,7 @@ Seguem o contrato padrão `{ sucesso, dados, erros }` do grimório.
 | Caminho |
 |---|
 | `app/Models/Fabricante.php` |
+| `app/Helpers/LogHelper.php` |
 | `app/Queries/Fabricante/Queries.php` |
 | `app/Services/Fabricante/Service.php` |
 | `database/migrations/2026_05_08_000000_create_fabricantes_table.php` |
