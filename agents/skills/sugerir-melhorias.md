@@ -30,6 +30,15 @@ torna uma alteração útil.
 Esta skill somente sugere. Não alterar arquivos, criar commits, fazer push ou
 reescrever datas/histórico durante este fluxo.
 
+## Histórico de decisões
+
+As decisões abaixo devem ser preservadas e não podem ser reapresentadas como
+melhorias:
+
+- `formatarMensagemErro` pode ser enviado ao frontend e registrado em logs.
+  Manter esse comportamento e não sugerir omitir, mascarar ou sanitizar seu
+  conteúdo como melhoria.
+
 ## Contexto obrigatório
 
 Antes de sugerir:
