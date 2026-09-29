@@ -82,8 +82,8 @@ Artefatos em `docs/modelagem/{feature}/` são **temporários** — atualizar `do
 
 ## Política Git
 
-* Branch de dev existente (`dev`, `desenvolvimento`, `develop` ou equivalente).
-* Proibido: `feature/*`, `fix/*`, commits e push durante implementação.
+* Detectar a branch atual e as branches existentes; manter a atual, salvo instrução explícita. Não criar nem trocar de branch automaticamente.
+* Proibido criar `feature/*` ou `fix/*`; commits e push durante implementação também são proibidos.
 * Final: `git status` + revisão individual de cada arquivo.
 * Commits, push ou alteração de histórico só com autorização explícita.
 * Registrar baseline do worktree antes da execução e preservar qualquer alteração preexistente ou concorrente do dev, mesmo fora do escopo. Nunca reverter, sobrescrever ou descartar essas alterações; conflito sem resolução inequívoca → parar e pedir instrução.
@@ -125,7 +125,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 
 ## Execução
 
-- Branch: `[dev/desenvolvimento/develop/etc.]`
+- Branch: `[branch atual identificada]`
 - Convenções: seguir `{GRIMOIRE}/docs/rules/global.md` + molde citado por passo
 - Alterações do dev: registrar baseline e preservar alterações preexistentes ou concorrentes; nunca desfazer mudanças fora do escopo
 - Pós: atualizar `docs/features/{entidade}/specs.md` quando relevante; revisor novo confere plano, spec e diff final e invoca `$check-slop`; achado crítico/importante ou slop bloqueia o encerramento até correção dentro do escopo
@@ -149,7 +149,7 @@ Encerrar com:
 ## Plano concluído
 
 - **Plano temporário:** `docs/modelagem/{feature}/plano/{feature}.md`
-- **Branch de execução:** [dev/desenvolvimento/develop/etc.]
+- **Branch de execução:** [branch atual identificada]
 - **Spec pós-implementação:** `docs/features/{entidade}/specs.md`
 - **Próximo passo:** executar o plano em etapa separada
 ```
