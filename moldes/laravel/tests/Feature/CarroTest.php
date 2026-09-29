@@ -9,6 +9,7 @@ use App\Models\Carro;
 use App\Models\Fabricante;
 // SERVICES
 use App\Services\Carro\Service;
+use App\Services\Carro\View\Service as ViewService;
 // TESTING
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

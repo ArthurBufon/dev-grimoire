@@ -31,7 +31,7 @@ React e a spec de Carro. Não substitui regras de implementação de cada stack.
   carro existente.
 - A validação HTTP é a autoridade para entrada. Validação React só existe para
   regra de negócio que precise ser verificada antes do envio.
-- Telas de criação e edição recebem `fabricantes` (lista de opções ativas) via
+- Telas de listagem, criação e edição recebem até 100 `fabricantes` ativos via
   View Service.
 
 ## Manutenção

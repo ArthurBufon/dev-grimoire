@@ -80,7 +80,7 @@ class Service
         $retorno = $this->fabricanteQueries->index([
             'ativo'               => true,
             'aplicar_paginacao'   => false,
-            'quantidade'          => 200,
+            'quantidade'          => 100,
             'ordenacao'           => ['coluna' => 'nome', 'ordem' => 'asc'],
         ]);
 
