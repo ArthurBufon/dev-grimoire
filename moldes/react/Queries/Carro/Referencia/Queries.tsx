@@ -1,8 +1,15 @@
+// TIPOS
+import type { RetornoPadronizado } from '@/types/retorno';
+
+type DadosReferencia = {
+  referencia: string;
+};
+
 const csrfToken = (): string =>
   document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ?? "";
 
 export default class Queries {
-  async store() {
+  async store(): Promise<RetornoPadronizado<DadosReferencia>> {
     try {
       const url = "/carros/referencia";
 
@@ -18,13 +25,15 @@ export default class Queries {
 
       const retorno = await fetch(url, options);
 
-      return await retorno.json();
+      const dados = (await retorno.json()) as RetornoPadronizado<DadosReferencia>;
+
+      return dados;
     } catch (error) {
       console.error(error);
 
       return {
         sucesso: false,
-        dados: {},
+        dados: [],
         erros: ["Erro ao gerar referência!"],
       };
     }

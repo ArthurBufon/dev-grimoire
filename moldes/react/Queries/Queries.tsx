@@ -1,5 +1,6 @@
 // TIPOS
 import type { Carro, DadosFormulario } from '@/types/carro';
+import type { PaginacaoListagem } from '@/types/paginacao';
 import type { RetornoPadronizado } from '@/types/retorno';
 
 type FiltrosIndex = Record<string, string | number | boolean>;
@@ -12,7 +13,7 @@ const csrfToken = (): string =>
   document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
 export default class Queries {
-  async index(filtros: FiltrosIndex = {}): Promise<RetornoPadronizado<{ lista: Carro[] }>> {
+  async index(filtros: FiltrosIndex = {}): Promise<RetornoPadronizado<{ lista: Carro[]; paginacao: PaginacaoListagem }>> {
     try {
       const parametros = new URLSearchParams(
         Object.entries(filtros).map(
@@ -34,7 +35,7 @@ export default class Queries {
 
       const retorno = await fetch(url, options);
 
-      const dados = (await retorno.json()) as RetornoPadronizado<{ lista: Carro[] }>;
+      const dados = (await retorno.json()) as RetornoPadronizado<{ lista: Carro[]; paginacao: PaginacaoListagem }>;
 
       return dados;
     } catch (error) {
