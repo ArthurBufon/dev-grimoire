@@ -63,6 +63,7 @@ Antes de escrever o plano, inspecione:
 2. **Dev Grimoire**: `{GRIMOIRE}/docs/rules/global.md` e rules da stack — leitura via Read/Grep; nunca assumir conteúdo sem ler o filesystem.
 3. Specs permanentes em `docs/features/{entidade}/specs.md`, se existirem.
 4. Codebase: estrutura, padrões reais e arquivos semelhantes ao que será alterado.
+5. Git e artefato: registrar o baseline do worktree antes de redigir. Se o plano já existir, lê-lo e preservar alterações preexistentes ou concorrentes; conflito sem resolução inequívoca → parar e pedir instrução.
 
 Priorize: (1) arquivo mais parecido no módulo alterado; (2) molde em `{GRIMOIRE}/moldes/` se arquivo novo — cite path do molde no plano.
 
