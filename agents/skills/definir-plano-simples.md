@@ -18,7 +18,7 @@ NUNCA desperdiçar tokens — sempre visar economia, mas mantendo qualidade de p
 
 Hard gate desta skill — **não avance** se:
 
-* o plano tiver mais passos de implementação do que a tarefa simples exige (prefira 1–3 passos diretos);
+* o plano tiver mais passos do que a tarefa exige (prefira 1–3; aceite mais somente quando cada passo representar uma entrega necessária e o escopo continuar pontual);
 * a seção de testes listar mais de dois cenários essenciais ou incluir casos que não protegem o comportamento pedido;
 * surgirem arquivos, camadas, refatorações ou explorações não pedidas;
 * código de exemplo, assinaturas ou diagramas duplicarem o que o molde/padrão do módulo já define;
@@ -110,7 +110,7 @@ Resumo do que já foi decidido na conversa ou na spec existente.
 - Implementar: …
 - Não fazer: …
 
-## Passos (1–3)
+## Passos (1–3 por padrão)
 
 ### 1. [verbo + entrega]
 
