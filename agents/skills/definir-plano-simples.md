@@ -151,6 +151,6 @@ Encerrar com:
 
 - **Plano temporário:** `docs/modelagem/{feature}/plano/{feature}.md`
 - **Branch de execução:** [branch atual identificada]
-- **Spec pós-implementação:** `docs/features/{entidade}/specs.md`
+- **Spec pós-implementação:** `docs/features/{entidade}/specs.md` (omitir quando não aplicável)
 - **Próximo passo:** executar o plano em etapa separada
 ```
