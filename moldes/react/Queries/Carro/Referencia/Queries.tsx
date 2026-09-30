@@ -1,6 +1,9 @@
 // TIPOS
 import type { RetornoPadronizado } from '@/types/retorno';
 
+// CONTROLLERS
+import CarroReferenciaController from '@/actions/App/Http/Controllers/Web/Admin/Carro/Referencia/CarroReferenciaController';
+
 type DadosReferencia = {
   referencia: string;
 };
@@ -11,7 +14,7 @@ const csrfToken = (): string =>
 export default class Queries {
   async store(): Promise<RetornoPadronizado<DadosReferencia>> {
     try {
-      const url = "/carros/referencia";
+      const url = CarroReferenciaController.__invoke.url();
 
       const options = {
         method: "POST",

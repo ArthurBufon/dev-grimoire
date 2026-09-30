@@ -3,6 +3,9 @@ import type { Carro, DadosFormulario } from '@/types/carro';
 import type { PaginacaoListagem } from '@/types/paginacao';
 import type { RetornoPadronizado } from '@/types/retorno';
 
+// CONTROLLERS
+import CarroController from '@/actions/App/Http/Controllers/Web/Admin/Carro/CarroController';
+
 type FiltrosIndex = Record<string, string | number | boolean>;
 
 type FiltrosShow = {
@@ -15,13 +18,7 @@ const csrfToken = (): string =>
 export default class Queries {
   async index(filtros: FiltrosIndex = {}): Promise<RetornoPadronizado<{ lista: Carro[]; paginacao: PaginacaoListagem }>> {
     try {
-      const parametros = new URLSearchParams(
-        Object.entries(filtros).map(
-          ([chave, valor]): [string, string] => [chave, String(valor)],
-        ),
-      ).toString();
-
-      const url = parametros ? `/carros?${parametros}` : "/carros";
+      const url = CarroController.index.url({ query: filtros });
 
       const options = {
         method: "GET",
@@ -83,7 +80,7 @@ export default class Queries {
 
   async store(dados: DadosFormulario): Promise<RetornoPadronizado> {
     try {
-      const url = "/carros";
+      const url = CarroController.store.url();
 
       const options = {
         method: "POST",
@@ -114,7 +111,7 @@ export default class Queries {
 
   async update(id: string | number, dados: Partial<DadosFormulario>): Promise<RetornoPadronizado> {
     try {
-      const url = `/carros/${id}`;
+      const url = CarroController.update.url({ carro: id });
 
       const options = {
         method: "PUT",
@@ -145,7 +142,7 @@ export default class Queries {
 
   async destroy(id: string | number): Promise<RetornoPadronizado> {
     try {
-      const url = `/carros/${id}`;
+      const url = CarroController.destroy.url({ carro: id });
 
       const options = {
         method: "DELETE",
