@@ -205,6 +205,29 @@ class CarroTest extends TestCase
         $this->assertCount(100, $dadosView['fabricantes']);
     }
 
+    // HTTP
+
+    public function test_store_web_normaliza_placa_antes_de_validar(): void
+    {
+        Carro::create($this->dadosCarro());
+
+        $this->post(route('admin.carros.store'), $this->dadosCarro([
+            'placa' => ' abc 1d23 ',
+        ]))->assertSessionHasErrors('placa');
+
+        $this->assertDatabaseCount('carros', 1);
+    }
+
+    public function test_store_web_rejeita_ano_invalido(): void
+    {
+        $this->post(route('admin.carros.store'), $this->dadosCarro([
+            'ano'   => 1899,
+            'placa' => 'DEF4G56',
+        ]))->assertSessionHasErrors('ano');
+
+        $this->assertDatabaseMissing('carros', ['placa' => 'DEF4G56']);
+    }
+
     // STORE
 
     public function test_store_cria_carro_com_sucesso(): void
