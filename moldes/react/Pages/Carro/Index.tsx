@@ -99,10 +99,10 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Prop
     const semResultados = paginacao.total === 0;
     const paginaVazia = paginacao.total > 0 && lista.length === 0;
     const temBusca = Boolean(
-        filtros.busca_geral ||
-            filtros.fabricante_id !== '' ||
-            filtros.data_lancamento_inicio ||
-            filtros.data_lancamento_fim,
+        filtrosAplicados.busca_geral ||
+            filtrosAplicados.fabricante_id !== '' ||
+            filtrosAplicados.data_lancamento_inicio ||
+            filtrosAplicados.data_lancamento_fim,
     );
 
     return (
