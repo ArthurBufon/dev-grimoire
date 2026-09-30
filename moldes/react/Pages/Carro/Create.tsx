@@ -1,5 +1,7 @@
 // REACT
 import type { FormEvent } from 'react';
+
+// INERTIA
 import { Head, useForm } from '@inertiajs/react';
 
 // UI

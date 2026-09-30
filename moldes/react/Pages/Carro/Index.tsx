@@ -1,5 +1,7 @@
 // REACT
 import { useState } from 'react';
+
+// INERTIA
 import { Head, Link, router } from '@inertiajs/react';
 
 // UI
