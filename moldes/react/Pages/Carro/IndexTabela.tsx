@@ -45,7 +45,7 @@ const normalizarFabricanteId = (
     return Number.isFinite(id) ? id : '';
 };
 
-const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Props) => {
+const Index = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Props) => {
     const filtrosAplicados = {
         busca_geral: filtrosIniciais.busca_geral ?? '',
         fabricante_id: normalizarFabricanteId(filtrosIniciais.fabricante_id),
@@ -286,11 +286,11 @@ const IndexTabela = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }
     );
 };
 
-IndexTabela.layout = {
+Index.layout = {
     breadcrumbs: [
         { title: 'Painel Admin', href: adminIndex() },
         { title: 'Carros', href: carrosIndex() },
     ],
 };
 
-export default IndexTabela;
+export default Index;
