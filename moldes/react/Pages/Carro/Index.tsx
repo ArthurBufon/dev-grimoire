@@ -43,27 +43,28 @@ const normalizarFabricanteId = (
 };
 
 const Index = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Props) => {
-    const [filtros, setFiltros] = useState({
+    const filtrosAplicados = {
         busca_geral: filtrosIniciais.busca_geral ?? '',
         fabricante_id: normalizarFabricanteId(filtrosIniciais.fabricante_id),
         data_lancamento_inicio: filtrosIniciais.data_lancamento_inicio ?? '',
         data_lancamento_fim: filtrosIniciais.data_lancamento_fim ?? '',
-    });
+    };
+    const [filtros, setFiltros] = useState(filtrosAplicados);
 
     const numerosPagina = Array.from({ length: 10 }, (_, i) => i + 1);
     const ultimaPaginaDisponivel = Math.min(paginacao.total_paginas ?? 0, 10);
 
-    const montarParametrosListagem = (pagina: number) => {
+    const montarParametrosListagem = (pagina: number, filtrosConsulta = filtros) => {
         const parametros: Record<string, string | number> = {
-            busca_geral: filtros.busca_geral,
-            data_lancamento_inicio: filtros.data_lancamento_inicio,
-            data_lancamento_fim: filtros.data_lancamento_fim,
+            busca_geral: filtrosConsulta.busca_geral,
+            data_lancamento_inicio: filtrosConsulta.data_lancamento_inicio,
+            data_lancamento_fim: filtrosConsulta.data_lancamento_fim,
             quantidade: 10,
             pagina,
         };
 
-        if (filtros.fabricante_id !== '') {
-            parametros.fabricante_id = filtros.fabricante_id;
+        if (filtrosConsulta.fabricante_id !== '') {
+            parametros.fabricante_id = filtrosConsulta.fabricante_id;
         }
 
         return parametros;
@@ -90,7 +91,7 @@ const Index = ({ lista, paginacao, filtros: filtrosIniciais, fabricantes }: Prop
     const irParaPagina = (pagina: number) => {
         router.get(
             carrosIndex(),
-            montarParametrosListagem(pagina),
+            montarParametrosListagem(pagina, filtrosAplicados),
             { preserveState: true, replace: true },
         );
     };
