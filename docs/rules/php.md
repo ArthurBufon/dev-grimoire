@@ -93,6 +93,23 @@ No molde, `show` sem registro retorna `sucesso: true`, `dados.model: null` e `er
 
 Caso alguma query específica seja necessária, use uma subpasta de contexto em `app/Queries/[Entidade]/[Contexto]/Queries.php` e mantenha um método REST correspondente. Regras de negócio permanecem no `Service`.
 
+**Query principal** (`app/Queries/{Entidade}/Queries.php` — um nível; não confundir com subpastas de contexto):
+
+- Apenas SQL/Eloquent: montar `Builder`, `get`/`first`/`create`/`update`/`delete`, envelope de retorno.
+- **Proibido** injetar `App\Queries\*`, `App\Services\*` ou outro orquestrador no construtor.
+- **Proibido** enriquecer models após a consulta (`setRelation`, segunda query em outra tabela para “montar” tela/API, batch por servidor, etc.). Isso fica no `App\Services\{Entidade}\Service` (ex.: `anexarVendedores` após `$this->queries->index()`).
+- Métodos `private` limitados a filtros/ordenação/eager load da **mesma** query (`aplicarFiltros`, `aplicarOrdenacao`, `carregarRelacionamentos`, `aplicarFiltro*`, `aplicarSelect`, `aplicarLimite`, `filtrar*`, …). Molde: `moldes/laravel/app/Queries/Carro/Queries.php`.
+
+**Leitura (`index` / `show`) — quem chama:**
+
+| Camada | Regra |
+|---|---|
+| `App\Services\{Entidade}\Service` | Chama a Query, aplica regra de negócio/enriquecimento, devolve envelope. |
+| `App\Http\Controllers\Painel\Json\{Entidade}\*Controller` | **Não** chamar `$this->queries->index()` / `show()`; delegar a `App\Services\{Entidade}\Service`. Subpastas (`Referencia`, `ProdutoVinculado`, …) podem usar Query própria do contexto. |
+| `App\Services\{Entidade}\View\Service` | Montagem de listagem/detalhe da entidade via `App\Services\{Entidade}\Service`, não via Query principal. Queries auxiliares (grupo, filtro, …) continuam permitidas. |
+
+Mutations (`store`/`update`/`destroy`) nos JSON controllers seguem chamando o Service de domínio (já padrão nos moldes).
+
 - Sem lógica de negócio — apenas SQL/Eloquent
 - Services chamam Queries; Controllers chamam Services
 - Listagens paginadas: `Paginacao::aplicarPaginacao($query, $filtros)` (molde: `moldes/laravel/app/Helpers/Paginacao.php`); **não** duplicar paginação na Query nem usar função global

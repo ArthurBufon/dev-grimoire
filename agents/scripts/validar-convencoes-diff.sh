@@ -16,6 +16,74 @@ eh_queries_principal() {
   return 0
 }
 
+eh_queries_principal_php() {
+  local file="$1"
+  [[ "$file" =~ app/Queries/[^/]+/Queries\.php$ ]] || return 1
+  return 0
+}
+
+eh_json_entidade_controller() {
+  local file="$1"
+  [[ "$file" =~ app/Http/Controllers/Painel/Json/[^/]+/[^/]+Controller\.php$ ]] || return 1
+  [[ "$file" =~ /Referencia/ ]] && return 1
+  [[ "$file" =~ /ProdutoVinculado/ ]] && return 1
+  return 0
+}
+
+eh_view_entidade_service() {
+  local file="$1"
+  [[ "$file" =~ app/Services/[^/]+/View/Service\.php$ ]] || return 1
+  return 0
+}
+
+metodo_privado_queries_permitido() {
+  local metodo="$1"
+  [[ "$metodo" =~ ^(aplicar|carregar|filtrar|extrair) ]] && return 0
+  return 1
+}
+
+validar_queries_principal_php() {
+  local file="$1"
+
+  eh_queries_principal_php "$file" || return 0
+
+  if grep -qE 'use App\\Queries\\' "$file"; then
+    falhar "${file}: Query principal não importa App\\Queries\\* (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'use App\\Services\\' "$file"; then
+    falhar "${file}: Query principal não importa App\\Services\\* (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -q 'setRelation' "$file"; then
+    falhar "${file}: enriquecimento pós-consulta (setRelation) pertence ao Service (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'function __construct\s*\(' "$file"; then
+    falhar "${file}: Query principal sem construtor com dependências; use subpasta de contexto se precisar (docs/rules/php.md § Queries)"
+  fi
+
+  local metodo
+  while IFS= read -r metodo; do
+    [[ -z "$metodo" ]] && continue
+    if ! metodo_privado_queries_permitido "$metodo"; then
+      falhar "${file}: método privado '${metodo}' não permitido na Query principal (docs/rules/php.md § Queries)"
+    fi
+  done < <(grep -oE 'private function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/private function //' || true)
+}
+
+validar_leitura_via_service() {
+  local file="$1"
+
+  if ! eh_json_entidade_controller "$file" && ! eh_view_entidade_service "$file"; then
+    return 0
+  fi
+
+  if grep -qE '\$this->queries->(index|show)\(' "$file"; then
+    falhar "${file}: index/show delegam a App\\Services\\{Entidade}\\Service, não a Queries (docs/rules/php.md § Queries)"
+  fi
+}
+
 exige_imports_por_secao() {
   local file="$1"
 
@@ -43,6 +111,9 @@ validar_arquivo() {
         falhar "${file}: imports sem seções // CATEGORIA (≥3 use)"
       fi
     fi
+
+    validar_queries_principal_php "$file"
+    validar_leitura_via_service "$file"
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then

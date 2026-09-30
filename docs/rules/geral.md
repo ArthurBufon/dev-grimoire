@@ -23,7 +23,9 @@ Violação = **rejeitar diff** (agente executa `agents/scripts/validar-convencoe
 |---|---|
 | Imports PHP/JS com seções `// CATEGORIA` | § Organização de Imports abaixo + rules da stack |
 | PHP: `$retorno` antes de `response()->json()` | `docs/rules/php.md` § Controllers JSON |
-| Queries principal: só `index/show/store/update/destroy` | § Services e Queries abaixo |
+| Queries principal: só `index/show/store/update/destroy` | `docs/rules/php.md` § Queries |
+| Query principal PHP: sem injeção de Query/Service; sem enriquecimento pós-`get` | `docs/rules/php.md` § Queries |
+| JSON / View Service: `index`/`show` da entidade via `App\Services\{Entidade}\Service` | `docs/rules/php.md` § Queries |
 | Ação específica em subpasta (`Referencia/Queries.*`, método `store`) | `docs/rules/javascript.md` § Queries |
 | JS Queries: `const url` + `const options` + `fetch(url, options)` | `docs/rules/javascript.md` § HTTP |
 
