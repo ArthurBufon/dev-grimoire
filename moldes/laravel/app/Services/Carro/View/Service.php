@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Services\Carro\View;
 
 // QUERIES
-use App\Queries\Carro\Queries as CarroQueries;
 use App\Queries\Fabricante\Queries as FabricanteQueries;
+// SERVICES
+use App\Services\Carro\Service as CarroService;
 
 class Service
 {
     public function __construct(
-        private CarroQueries $queries,
+        private CarroService $service,
         private FabricanteQueries $fabricanteQueries,
     ) {
         //
@@ -47,7 +48,7 @@ class Service
         $filtros = $parametros['filtros'] ?? [];
         $filtros['carregarRelacionamentos'] = ['fabricante'];
 
-        $retorno = $this->queries->index($filtros)['dados'];
+        $retorno = $this->service->index($filtros)['dados'];
 
         return array_merge([
             'lista'     => $retorno['lista'],
