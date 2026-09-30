@@ -6,6 +6,17 @@
 
 import { somenteNumerosString } from "./index";
 
+export const normalizarTelefoneColado = (valor: string): string => {
+  let numeros = somenteNumerosString(valor) ?? '';
+  const possuiCodigoPais = /^\s*\+55/.test(valor) || numeros.length > 11;
+
+  if (possuiCodigoPais && numeros.startsWith('55')) {
+    numeros = numeros.slice(2);
+  }
+
+  return aplicarMascaraTelefone(numeros);
+};
+
 /**
  * Aplica máscara de telefone brasileiro conforme a quantidade de dígitos.
  *
