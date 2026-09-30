@@ -10,7 +10,9 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/Componen
 type Props = {
     children: ReactNode;
     filtrosExtras?: ReactNode;
+    mostrarExtras?: boolean;
     onLimpar: () => void;
+    onMostrarExtrasChange?: (mostrar: boolean) => void;
     onPesquisar: () => void;
     pesquisarDesabilitado?: boolean;
 };
@@ -18,11 +20,32 @@ type Props = {
 const Show = ({
     children,
     filtrosExtras,
+    mostrarExtras: mostrarExtrasProp,
     onLimpar,
+    onMostrarExtrasChange,
     onPesquisar,
     pesquisarDesabilitado = false,
 }: Props) => {
-    const [mostrarExtras, setMostrarExtras] = useState(false);
+    const [mostrarExtrasInterno, setMostrarExtrasInterno] = useState(false);
+    const controleExterno = onMostrarExtrasChange !== undefined;
+    const mostrarExtras = controleExterno
+        ? (mostrarExtrasProp ?? false)
+        : mostrarExtrasInterno;
+
+    const alterarMostrarExtras = (mostrar: boolean) => {
+        if (controleExterno) {
+            onMostrarExtrasChange(mostrar);
+
+            return;
+        }
+
+        setMostrarExtrasInterno(mostrar);
+    };
+
+    const handlePesquisar = () => {
+        alterarMostrarExtras(false);
+        onPesquisar();
+    };
 
     return (
         <Card className="gap-0 overflow-hidden py-0 shadow-sm">
@@ -42,7 +65,7 @@ const Show = ({
                             type="button"
                             variant="ghost"
                             className="w-fit gap-2 px-0 text-muted-foreground hover:text-foreground"
-                            onClick={() => setMostrarExtras((anterior) => !anterior)}
+                            onClick={() => alterarMostrarExtras(!mostrarExtras)}
                         >
                             <Filter className="size-4" />
                             {mostrarExtras ? 'Ocultar filtros' : '+ Filtros'}
@@ -72,7 +95,7 @@ const Show = ({
 
                 <Button
                     type="button"
-                    onClick={onPesquisar}
+                    onClick={handlePesquisar}
                     disabled={pesquisarDesabilitado}
                 >
                     <Search />
