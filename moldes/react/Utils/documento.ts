@@ -87,6 +87,47 @@ export function normalizarCpf(cpf: string): string {
   return cpf.replace(/\D/g, '');
 }
 
+export type TipoDocumento = 'cpf' | 'cnpj';
+
+export function aplicarMascaraCpf(valor: string): string {
+  const digitos = normalizarCpf(valor).slice(0, 11);
+
+  return digitos
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+}
+
+export function aplicarMascaraCnpj(valor: string): string {
+  const caracteres = normalizarCnpj(valor).slice(0, 14);
+
+  if (caracteres.length <= 2) {
+    return caracteres;
+  }
+
+  if (caracteres.length <= 5) {
+    return `${caracteres.slice(0, 2)}.${caracteres.slice(2)}`;
+  }
+
+  if (caracteres.length <= 8) {
+    return `${caracteres.slice(0, 2)}.${caracteres.slice(2, 5)}.${caracteres.slice(5)}`;
+  }
+
+  if (caracteres.length <= 12) {
+    return `${caracteres.slice(0, 2)}.${caracteres.slice(2, 5)}.${caracteres.slice(5, 8)}/${caracteres.slice(8)}`;
+  }
+
+  return `${caracteres.slice(0, 2)}.${caracteres.slice(2, 5)}.${caracteres.slice(5, 8)}/${caracteres.slice(8, 12)}-${caracteres.slice(12)}`;
+}
+
+export function aplicarMascaraDocumento(valor: string, tipo: TipoDocumento): string {
+  return tipo === 'cpf' ? aplicarMascaraCpf(valor) : aplicarMascaraCnpj(valor);
+}
+
+export function normalizarDocumento(documento: string, tipo: TipoDocumento): string {
+  return tipo === 'cpf' ? normalizarCpf(documento) : normalizarCnpj(documento);
+}
+
 // ==========================
 // Utilitário genérico (opcional)
 // ==========================
