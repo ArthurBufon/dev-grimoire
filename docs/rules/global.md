@@ -129,6 +129,8 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 | `Components/Listagem/Card/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Index.tsx` |
 | `Components/Listagem/Card/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Show.tsx` |
 | `Components/Listagem/Card/Filtro/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Card/Filtro/Show.tsx` |
+| `Components/Listagem/Cabecalho/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Cabecalho/Show.tsx` |
+| `Components/Listagem/Conteudo/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Conteudo/Show.tsx` |
 | `Components/Ui/Switch.tsx` | `{GRIMOIRE}/moldes/react/Components/Ui/Switch.tsx` |
 | `Components/Listagem/Tabela/Index.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Tabela/Index.tsx` |
 | `Components/Listagem/Tabela/Show.tsx` | `{GRIMOIRE}/moldes/react/Components/Listagem/Tabela/Show.tsx` |
