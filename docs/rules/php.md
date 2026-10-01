@@ -198,6 +198,37 @@ Molde com imports por seção: `moldes/laravel/app/Queries/Carro/Queries.php`.
 
 **Escopo do validador automático:** arquivos **novos** ou em pasta `Referencia/` exigem seções; legado tocado incidentalmente não é reformatado só para passar no script.
 
+## SQL puro em PHP (bloqueante)
+
+Vale para heredoc/nowdoc (`<<<'SQL'`), strings multilinha, `DB::raw()`, `whereRaw()`, `orderByRaw()`, `selectRaw()`, `DB::statement()` e SQL dinâmico equivalente.
+
+- **Proibido** deixar o SQL “colado” na coluna zero ou desalinhado do PHP (ex.: nowdoc abrindo na chain sem parênteses e fechamento `SQL)` na mesma linha do último termo).
+- Nowdoc/heredoc multilinha: envolver o argumento em **parênteses** quando estiver em method chain ou chamada.
+- **Indentar** cada linha do SQL dentro do nowdoc/heredoc, alinhada ao bloco PHP (mesmo nível relativo do corpo da função/método).
+- Delimitador de fechamento (`SQL`) na indentação coerente com o bloco (nowdoc indentável, PHP 7.3+).
+- SQL **curto** em uma única linha pode permanecer em string simples: `->orderByRaw('COLUNA ASC')`.
+
+```php
+$query->orderByRaw(
+    <<<'SQL'
+        NIVEL ASC,
+        (ORDEM IS NULL OR ORDEM = '') ASC,
+        ORDEM ASC,
+        DESCRICAO ASC
+    SQL
+);
+
+$hierarquias = DB::table('HIERARQUIA')
+    ->where('COD_EMPRESA', $empresaId)
+    ->orderByRaw(
+        <<<'SQL'
+            NIVEL ASC,
+            DESCRICAO ASC
+        SQL
+    )
+    ->get();
+```
+
 ## Formatação e legibilidade (preservar; não “normalizar”)
 
 Ao editar qualquer arquivo, **o diff deve mudar só o necessário** para a tarefa. É proibido “limpar” ou padronizar estilo de propósito.
