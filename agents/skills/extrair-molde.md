@@ -104,6 +104,8 @@ No modo `camada-nova`, se o tipo ainda não estiver no mapa, derivar o destino a
 
 Marcar: `igual` | `divergente` | `só-no-app` | `só-no-molde`.
 
+`só-no-molde` não autoriza remoção por si só. Propor `remover` somente quando a obsolescência também estiver comprovada nas rules e no padrão consolidado do app; sem essa evidência, manter o arquivo e registrá-lo fora do escopo.
+
 Se todos os pares estiverem `igual`, informar que não há divergência consolidada e encerrar sem propor alteração.
 
 Quando o escopo incluir Laravel e React, conferir também se campos, valores de
