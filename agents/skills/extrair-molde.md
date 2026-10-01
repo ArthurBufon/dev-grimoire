@@ -88,6 +88,8 @@ Preferir entidade que:
 * Tem cobertura razoável (CRUD ou fluxo completo da camada)
 * É citada pelo time como “faça igual a X”
 
+Antes de aceitar a âncora, registrar a evidência de que o padrão está consolidado: indicação explícita do time, repetição em outro módulo, cobertura por teste/spec ou histórico estável. Inspecionar `git status` e os diffs da entidade-fonte; alteração local não confirmada pelo dev não pode, sozinha, virar referência global.
+
 Se houver mais de uma candidata, apresentar 2–3 opções com um motivo cada e recomendar.
 
 ### 2. Inventariar pares fonte → molde
