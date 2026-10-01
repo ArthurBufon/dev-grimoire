@@ -153,7 +153,7 @@ Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
 
 ### 5. Aplicar (só após confirmação)
 
-1. Registrar baseline (`git status` + diffs relevantes) e preservar alterações preexistentes ou concorrentes no Grimório.
+1. Registrar baseline do Grimório com `git status --short`, diffs staged e unstaged e snapshot do conteúdo de arquivos untracked relevantes; preservar integralmente alterações preexistentes ou concorrentes.
 2. Atualizar/criar arquivos em `{GRIMOIRE}/moldes/...` com domínio Carro.
 3. Se o mapa ou a convenção mudou, atualizar `docs/rules/global.md` e, se necessário, a rule da stack — alteração mínima.
 4. Manter specs do molde (`moldes/laravel/docs/features/carro/specs.md`) alinhadas à estrutura (sem regras do app-fonte).
