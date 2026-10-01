@@ -100,6 +100,8 @@ Usar o mapa de `{GRIMOIRE}/docs/rules/global.md`. Para cada tipo no escopo:
 |---|---|---|
 | … | caminho real | caminho Carro correspondente |
 
+No modo `camada-nova`, se o tipo ainda não estiver no mapa, derivar o destino a partir de tipos equivalentes da mesma stack e das convenções do framework. Incluir a nova entrada de `docs/rules/global.md` na proposta; sem âncora suficiente para definir o path, perguntar ao dev.
+
 Marcar: `igual` | `divergente` | `só-no-app` | `só-no-molde`.
 
 Se todos os pares estiverem `igual`, informar que não há divergência consolidada e encerrar sem propor alteração.
