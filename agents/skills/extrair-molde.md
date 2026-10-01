@@ -143,9 +143,9 @@ Apresentar resumo curto:
 **GRIMOIRE:** `{GRIMOIRE}/`
 
 ### Divergências
-| Arquivo molde | Fonte no app | Evidência | Mudança | Motivo (estrutura) |
-|---|---|---|---|---|
-| `moldes/laravel/...` | `app/...:linha` | assinatura ou padrão observado | criar / atualizar / remover | … |
+| Arquivo molde | Fonte no app | Evidência | Mudança | Motivo (estrutura) | Dependências |
+|---|---|---|---|---|---|
+| `moldes/laravel/...` | `app/...:linha` | assinatura ou padrão observado | criar / atualizar / remover | … | `global.md` ou nenhuma |
 
 ### Fora de escopo
 - [itens do app que NÃO entram no molde e por quê]
@@ -154,7 +154,7 @@ Apresentar resumo curto:
 - `global.md`, `php.md`, `javascript.md` ou `nenhuma` — indicar somente os arquivos realmente afetados.
 
 ### Próximo passo
-Confirme o que aplicar (tudo / subset por path). Nada será gravado sem isso.
+Confirme o que aplicar (tudo / subset por path). Paths dependentes formam uma unidade e não podem ser aplicados separadamente. Nada será gravado sem isso.
 ```
 
 ### 5. Aplicar (só após confirmação)
