@@ -139,9 +139,9 @@ Apresentar resumo curto:
 **GRIMOIRE:** `{GRIMOIRE}/`
 
 ### Divergências
-| Arquivo molde | Mudança | Motivo (estrutura) |
-|---|---|---|
-| `moldes/laravel/...` | criar / atualizar / remover | … |
+| Arquivo molde | Fonte no app | Evidência | Mudança | Motivo (estrutura) |
+|---|---|---|---|---|
+| `moldes/laravel/...` | `app/...:linha` | assinatura ou padrão observado | criar / atualizar / remover | … |
 
 ### Fora de escopo
 - [itens do app que NÃO entram no molde e por quê]
