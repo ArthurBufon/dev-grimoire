@@ -37,7 +37,7 @@ const Show = ({ erros, titulo = 'Corrija os erros abaixo' }: ShowProps) => {
     if (errosFormatados.length === 0) return null;
 
     return (
-        <Card className="mb-4 border-destructive/40 py-4">
+        <Card role="alert" className="mb-4 border-destructive/40 py-4">
             <CardHeader className="px-4 pb-2">
                 <CardTitle className="flex items-center gap-2 text-destructive">
                     <AlertCircleIcon className="size-4 shrink-0" />

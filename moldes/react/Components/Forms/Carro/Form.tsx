@@ -63,6 +63,7 @@ const Form = ({
                         )
                     }
                     required
+                    aria-invalid={!!erros.fabricante_id}
                     className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
                 >
                     <option value="">Selecione um fabricante</option>
@@ -85,6 +86,7 @@ const Form = ({
                         onCampoChange('modelo', evento.target.value)
                     }
                     required
+                    aria-invalid={!!erros.modelo}
                 />
                 <InputError message={erros.modelo} />
             </div>
@@ -106,6 +108,7 @@ const Form = ({
                         )
                     }
                     required
+                    aria-invalid={!!erros.ano}
                 />
                 <InputError message={erros.ano} />
             </div>
@@ -119,6 +122,7 @@ const Form = ({
                     onChange={(evento) =>
                         onCampoChange('cor', evento.target.value)
                     }
+                    aria-invalid={!!erros.cor}
                 />
                 <InputError message={erros.cor} />
             </div>
@@ -136,6 +140,7 @@ const Form = ({
                         )
                     }
                     required
+                    aria-invalid={!!erros.placa}
                 />
                 <InputError message={erros.placa} />
             </div>
@@ -156,6 +161,7 @@ const Form = ({
                         )
                     }
                     required
+                    aria-invalid={!!erros.km}
                 />
                 <InputError message={erros.km} />
             </div>
@@ -174,6 +180,7 @@ const Form = ({
                         )
                     }
                     required
+                    aria-invalid={!!erros.valor}
                 />
                 <InputError message={erros.valor} />
             </div>
@@ -187,6 +194,7 @@ const Form = ({
                     onChange={(evento) =>
                         onCampoChange('data_lancamento', evento.target.value)
                     }
+                    aria-invalid={!!erros.data_lancamento}
                 />
                 <InputError message={erros.data_lancamento} />
             </div>
