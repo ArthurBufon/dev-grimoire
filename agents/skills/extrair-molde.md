@@ -160,14 +160,15 @@ Confirme o que aplicar (tudo / subset por path). Paths dependentes formam uma un
 ### 5. Aplicar (só após confirmação)
 
 1. Registrar baseline do Grimório com `git status --short`, diffs staged e unstaged e snapshot do conteúdo de arquivos untracked relevantes; preservar integralmente alterações preexistentes ou concorrentes.
-2. Atualizar/criar arquivos em `{GRIMOIRE}/moldes/...` com domínio Carro.
-3. Se o mapa ou a convenção mudou, atualizar `docs/rules/global.md` e, se necessário, a rule da stack — alteração mínima.
-4. Manter specs do molde (`moldes/laravel/docs/features/carro/specs.md`) alinhadas à estrutura (sem regras do app-fonte).
-5. Não rodar formatadores automáticos; seguir estilo dos moldes existentes.
-6. Executar `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh`; falha bloqueia o encerramento.
-7. Executar `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no Grimório; falha bloqueia o encerramento.
-8. Antes de encerrar, comparar o worktree com o baseline e confirmar que nenhuma alteração preexistente ou concorrente foi sobrescrita.
-9. Não commitar sem pedido explícito do dev.
+2. Recomparar os paths da fonte e do molde com o estado usado na proposta. Se houver mudança material, atualizar a proposta e obter nova confirmação antes de escrever.
+3. Atualizar/criar arquivos em `{GRIMOIRE}/moldes/...` com domínio Carro.
+4. Se o mapa ou a convenção mudou, atualizar `docs/rules/global.md` e, se necessário, a rule da stack — alteração mínima.
+5. Manter specs do molde (`moldes/laravel/docs/features/carro/specs.md`) alinhadas à estrutura (sem regras do app-fonte).
+6. Não rodar formatadores automáticos; seguir estilo dos moldes existentes.
+7. Executar `bash {GRIMOIRE}/agents/scripts/validar-grimorio.sh`; falha bloqueia o encerramento.
+8. Executar `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` no Grimório; falha bloqueia o encerramento.
+9. Antes de encerrar, comparar o worktree com o baseline e confirmar que nenhuma alteração preexistente ou concorrente foi sobrescrita.
+10. Não commitar sem pedido explícito do dev.
 
 ### 6. Encerrar
 
