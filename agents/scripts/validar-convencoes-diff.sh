@@ -42,6 +42,15 @@ metodo_privado_queries_permitido() {
   return 1
 }
 
+metodo_publico_queries_permitido() {
+  local metodo="$1"
+
+  case "$metodo" in
+    index|show|store|update|destroy) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 validar_queries_principal_php() {
   local file="$1"
 
@@ -66,10 +75,27 @@ validar_queries_principal_php() {
   local metodo
   while IFS= read -r metodo; do
     [[ -z "$metodo" ]] && continue
+    if ! metodo_publico_queries_permitido "$metodo"; then
+      falhar "${file}: método público '${metodo}' não permitido na Query principal; use subpasta de contexto (docs/rules/php.md § Queries)"
+    fi
+  done < <(grep -oE 'public function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/public function //' || true)
+
+  while IFS= read -r metodo; do
+    [[ -z "$metodo" ]] && continue
     if ! metodo_privado_queries_permitido "$metodo"; then
       falhar "${file}: método privado '${metodo}' não permitido na Query principal (docs/rules/php.md § Queries)"
     fi
   done < <(grep -oE 'private function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/private function //' || true)
+}
+
+extrair_metodos_queries_js() {
+  local file="$1"
+
+  sed -n -E \
+    -e 's/^[[:space:]]*([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*:[[:space:]]*async[[:space:]]+function.*/\1/p' \
+    -e 's/^[[:space:]]*([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*:[[:space:]]*async[[:space:]]*(\([^)]*\)|[a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*=>.*/\1/p' \
+    -e 's/^[[:space:]]*async[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*\(.*/\1/p' \
+    "$file"
 }
 
 validar_leitura_via_service() {
@@ -125,6 +151,11 @@ validar_arquivo() {
       falhar "${file}: use const url antes de fetch() (docs/rules/javascript.md)"
     fi
 
+    if grep -qE '(await[[:space:]]+)?fetch\(' "$file" \
+      && ! grep -qE 'const (retorno|resposta)[[:space:]]*=[[:space:]]*await[[:space:]]+fetch\([[:space:]]*url[[:space:]]*,[[:space:]]*options[[:space:]]*\)' "$file"; then
+      falhar "${file}: use const retorno/resposta = await fetch(url, options) (docs/rules/javascript.md)"
+    fi
+
     if eh_queries_principal "$file"; then
       local metodo
       while IFS= read -r metodo; do
@@ -133,7 +164,7 @@ validar_arquivo() {
           index|show|store|update|destroy) ;;
           *) falhar "${file}: Queries principal só index/show/store/update/destroy; use subpasta (ex.: Referencia/Queries.js) para '${metodo}'" ;;
         esac
-      done < <(grep -oE '^\s{4}[a-zA-Z_][a-zA-Z0-9_]*:\s*async function' "$file" 2>/dev/null | sed -E 's/^\s+([a-zA-Z_][a-zA-Z0-9_]*):.*/\1/' || true)
+      done < <(extrair_metodos_queries_js "$file")
     fi
   fi
 }
