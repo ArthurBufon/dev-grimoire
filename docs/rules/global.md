@@ -74,6 +74,14 @@ Identifique a stack pelo repositório aberto (`composer.json` + `artisan` → La
 
 Leia a regra de cada stack em uso. Em projetos full stack (ex.: Laravel + React), leia as duas. Não misture convenções de stacks diferentes no mesmo arquivo gerado.
 
+### Gate de conformidade de código (bloqueante)
+
+Para todo diff PHP, JavaScript ou TypeScript, antes de editar identifique a stack e
+leia sua rule, o arquivo alvo e o análogo mais próximo do mesmo módulo. Antes de
+entregar, execute `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff.sh` na
+raiz do projeto alterado. Falha bloqueia a entrega; não a substitua por revisão
+manual.
+
 ### Arquitetura dos moldes (qualquer stack)
 
 Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura preferida: pasta de contexto, arquivo pelo tipo (`Service`, `Queries`), envelope `sucesso` / `dados` / `erros`, métodos REST e specs em `docs/features/`. Detalhes em `{GRIMOIRE}/docs/rules/geral.md`.
