@@ -104,7 +104,7 @@ Artefatos em `docs/modelagem/{feature}/` são **temporários** — excluir por c
 Implementador e revisor devem **ler via Read/Grep** antes de codar ou revisar:
 
 * `{GRIMOIRE}/docs/rules/global.md` + rule da stack (`geral.md`, `php.md`, `javascript.md`)
-* molde em `{GRIMOIRE}/moldes/` quando a tarefa cria arquivo novo (mapa em `global.md`)
+* molde em `{GRIMOIRE}/moldes/` quando a tarefa cria arquivo ou altera método público, dependência injetada, contrato de retorno ou responsabilidade de `Service`, `Queries`, Controller, Request, Page ou Form (mapa em `global.md`)
 
 Na revisão: validar conformidade contra esses artefatos — slop ou não-conformidade = **crítico**. Padrões consolidados no módulo alterado têm prioridade sobre molde.
 
@@ -213,7 +213,7 @@ Aguardando confirmação explícita do dev para avançar.
 ### Implementador — incluir no prompt
 
 * Tarefa completa + arquivos + decisões anteriores + comandos de teste
-* Ler: `gate-anti-slop.md`, `gate-convencoes-codigo.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo ou se o plano ancora no molde)
+* Ler: `gate-anti-slop.md`, `gate-convencoes-codigo.md`, `global.md`, rule da stack, e todo molde citado na tarefa (obrigatório se cria arquivo, se altera a estrutura de camada ou se o plano ancora no molde)
 * Caminho mais curto + tokens só no que muda o resultado (regras do topo desta skill)
 * Dúvida bloqueante/importante → parar, status `precisa contexto`; não chutar
 * Proibido: commit, branch, formatadores, escopo extra e apagar/reverter/sobrescrever/neutralizar qualquer diff que o implementador não tenha produzido; o plano não autoriza limpar mudanças paralelas do dev, mesmo no mesmo arquivo ou feitas após uma task concluída

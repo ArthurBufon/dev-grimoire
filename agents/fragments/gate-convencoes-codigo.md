@@ -8,6 +8,8 @@ Validação automática: `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff
 
 ## Checklist (bloqueante)
 
+- [ ] **Referência estrutural:** ao criar arquivo ou alterar método público, dependência injetada, contrato de retorno ou responsabilidade de `Service`, `Queries`, Controller, Request, Page ou Form, ler o molde mapeado e o análogo do módulo; divergência só com padrão consolidado ou instrução explícita do dev.
+
 ### PHP — todo arquivo `.php` alterado
 
 - [ ] **Imports:** com 3+ linhas `use`, agrupar com comentários `// CATEGORIA` (ver `docs/rules/php.md`).

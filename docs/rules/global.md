@@ -90,9 +90,13 @@ Os moldes em `{GRIMOIRE}/moldes/` (hoje Laravel e React) são a arquitetura pref
 - Stack **sem** molde: reproduzir o máximo possível essa organização de arquivos e responsabilidades, mapeando para paths e idioms do framework em uso.
 - **Nunca** abandonar convenções do próprio framework só para copiar um path literal do grimório.
 
-### Ao criar arquivos novos
+### Ao criar arquivos novos ou alterar estrutura de camada
 
-**Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `{GRIMOIRE}/moldes/`. O código gerado deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
+**Obrigatório:** antes de gerar qualquer arquivo novo, localize e leia o molde correspondente em `{GRIMOIRE}/moldes/`. A mesma leitura é obrigatória ao alterar a estrutura de um `Service`, `Queries`, Controller, Request, Page ou Form: método público, dependência injetada, contrato de retorno ou responsabilidade da camada. O código deve seguir estrutura, nomenclatura, imports e padrões do molde — adaptando apenas entidade, namespace e paths do projeto.
+
+Depois, confronte o molde com o análogo mais próximo do módulo. Divergência só é
+aceitável quando já for padrão consolidado no projeto atual ou houver instrução
+explícita do dev; registre o motivo na entrega.
 
 #### Laravel (`{GRIMOIRE}/moldes/laravel/`)
 
