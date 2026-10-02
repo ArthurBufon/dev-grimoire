@@ -58,6 +58,37 @@ force_copy() {
   cp --remove-destination "$src" "$dest"
 }
 
+hash_global() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$GLOBAL_MD" | awk '{print $1}'
+    return
+  fi
+
+  shasum -a 256 "$GLOBAL_MD" | awk '{print $1}'
+}
+
+referencia_global() {
+  git -C "$REPO_ROOT" rev-parse --short HEAD 2>/dev/null || printf 'local'
+}
+
+publicar_global() {
+  local dest="$1"
+  local hash
+  local referencia
+
+  hash="$(hash_global)"
+  referencia="$(referencia_global)"
+
+  if [[ -L "$dest" ]]; then
+    rm -f "$dest"
+  fi
+
+  {
+    printf '<!-- Dev Grimoire: origem %s | sha256 %s -->\n' "$referencia" "$hash"
+    cat "$GLOBAL_MD"
+  } >"$dest"
+}
+
 build_dev_grimoire_skill() {
   local out="$1"
   if [[ -L "$out" ]]; then
@@ -120,8 +151,8 @@ sync_global_instructions() {
   fi
 
   mkdir -p "$parent_dir"
-  force_copy "$GLOBAL_MD" "$dest"
-  log "synced: global.md → ${label} (${dest})"
+  publicar_global "$dest"
+  log "synced: global.md → ${label} (${dest}; com selo de origem)"
 
   return 0
 }

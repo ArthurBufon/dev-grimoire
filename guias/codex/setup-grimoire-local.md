@@ -16,6 +16,7 @@ bash agents/scripts/sync-global-skills.sh
 Destino: `$CODEX_HOME/AGENTS.md` (default `~/.codex/AGENTS.md`).
 
 O Codex carrega esse arquivo no início de cada sessão, antes do trabalho no repositório.
+O arquivo publicado começa com um selo de origem (commit e hash de `global.md`).
 
 ## Skills de workflow
 

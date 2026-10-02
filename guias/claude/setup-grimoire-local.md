@@ -15,6 +15,8 @@ bash agents/scripts/sync-global-skills.sh
 
 Destino: `~/.claude/CLAUDE.md`.
 
+O arquivo publicado começa com um selo de origem (commit e hash de `global.md`).
+
 ## Skills de workflow
 
 O mesmo script publica skills em `~/.claude/skills/`, incluindo `dev-grimoire`.
