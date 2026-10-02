@@ -36,6 +36,18 @@ declare -A GLOBAL_INSTRUCTION_TARGETS=(
   [claude]="${HOME}/.claude/CLAUDE.md"
 )
 
+declare -A GLOBAL_STATUS=(
+  [cursor]='manual — Rules → User'
+  [codex]='não verificado'
+  [claude]='não verificado'
+)
+
+declare -A SKILLS_STATUS=(
+  [cursor]='não verificado'
+  [codex]='não verificado'
+  [claude]='não verificado'
+)
+
 log() { printf '%s\n' "$*"; }
 skip() { log "skip: $*"; }
 
@@ -194,11 +206,15 @@ log "---"
 for label in codex claude; do
   if sync_global_instructions "$label" "${GLOBAL_INSTRUCTION_TARGETS[$label]}"; then
     synced_instructions=$((synced_instructions + 1))
+    GLOBAL_STATUS[$label]='sincronizado'
   else
     skipped_instructions=$((skipped_instructions + 1))
 
     if [[ "$label" == "codex" && -s "${CODEX_HOME}/AGENTS.override.md" ]]; then
       codex_override_detectado=1
+      GLOBAL_STATUS[$label]='bloqueado por override'
+    else
+      GLOBAL_STATUS[$label]='ausente'
     fi
   fi
 done
@@ -218,12 +234,14 @@ for label in cursor codex claude; do
   if [[ ! -e "$root" ]]; then
     skip "${label}: directory does not exist (${root})"
     skipped_targets=$((skipped_targets + 1))
+    SKILLS_STATUS[$label]='ausente'
     continue
   fi
 
   if [[ ! -d "$root" ]]; then
     skip "${label}: path exists but is not a directory (${root})"
     skipped_targets=$((skipped_targets + 1))
+    SKILLS_STATUS[$label]='path inválido'
     continue
   fi
 
@@ -243,12 +261,20 @@ for label in cursor codex claude; do
 
   sync_dev_grimoire_skill "$root" "$label"
   synced_targets=$((synced_targets + 1))
+  SKILLS_STATUS[$label]='sincronizadas (incl. dev-grimoire)'
   log ""
 done
 
 log "---"
 log "done: ${synced_instructions} global instruction(s) synced, ${skipped_instructions} skipped"
 log "done: ${synced_targets} skill target(s) synced, ${skipped_targets} skipped"
+
+log ""
+log "resumo por runtime"
+printf '%-8s %-28s %s\n' 'runtime' 'instrução global' 'skills'
+for label in cursor codex claude; do
+  printf '%-8s %-28s %s\n' "$label" "${GLOBAL_STATUS[$label]}" "${SKILLS_STATUS[$label]}"
+done
 
 if (( codex_override_detectado )); then
   log "ATENÇÃO: Codex usa ${CODEX_HOME}/AGENTS.override.md; global.md não foi publicado."
