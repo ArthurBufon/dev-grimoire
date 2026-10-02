@@ -25,6 +25,7 @@ for path in \
   'agents/fragments/gate-anti-slop.md' \
   'agents/fragments/gate-convencoes-codigo.md' \
   'agents/scripts/validar-convencoes-diff.sh' \
+  'agents/scripts/verificar-instalacao-grimorio.sh' \
   'agents/scripts/inicializar-contexto-agentes.sh' \
   'agents/skills/check-slop.md' \
   'agents/skills/executar-plano.md' \

@@ -34,6 +34,14 @@ source ~/.bashrc  # ou: source ~/.zshrc
 
 Agora você pode rodar `grimoire-sync` de qualquer pasta. Ele atualiza o clone com `git pull origin main`, valida o Grimório e copia as instruções e skills globais para as ferramentas disponíveis. Para copiar sem atualizar o clone, rode `bash "$HOME/projects/dev-grimoire/agents/scripts/sync-global-skills.sh"`.
 
+Para conferir se Codex e Claude Code usam a mesma regra global da fonte, rode:
+
+```bash
+bash "$HOME/projects/dev-grimoire/agents/scripts/verificar-instalacao-grimorio.sh"
+```
+
+No Cursor, a regra continua manual: compare o hash exibido com o conteúdo em **Settings → Rules → User**.
+
 ## 3. Configurar Cursor, Codex e Claude Code
 
 Siga apenas as seções das ferramentas que você usa. O script só copia skills para pastas `skills/` que já existem. Por isso, crie a pasta indicada antes de rodar `grimoire-sync`. Uma execução atualiza todas as ferramentas cujas pastas já estiverem prontas.
