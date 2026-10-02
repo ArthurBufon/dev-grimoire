@@ -155,6 +155,7 @@ log "---"
 
 synced_instructions=0
 skipped_instructions=0
+codex_override_detectado=0
 
 log "global instructions: ${GLOBAL_MD}"
 log "---"
@@ -164,6 +165,10 @@ for label in codex claude; do
     synced_instructions=$((synced_instructions + 1))
   else
     skipped_instructions=$((skipped_instructions + 1))
+
+    if [[ "$label" == "codex" && -s "${CODEX_HOME}/AGENTS.override.md" ]]; then
+      codex_override_detectado=1
+    fi
   fi
 done
 
@@ -213,6 +218,11 @@ done
 log "---"
 log "done: ${synced_instructions} global instruction(s) synced, ${skipped_instructions} skipped"
 log "done: ${synced_targets} skill target(s) synced, ${skipped_targets} skipped"
+
+if (( codex_override_detectado )); then
+  log "ATENÇÃO: Codex usa ${CODEX_HOME}/AGENTS.override.md; global.md não foi publicado."
+  log "Atualize ou remova o override antes de usar o Codex com as regras do Grimório."
+fi
 
 if [[ "$synced_targets" -eq 0 && "$synced_instructions" -eq 0 ]]; then
   log "warning: no global runtime directory found — install Cursor, Codex or Claude first"

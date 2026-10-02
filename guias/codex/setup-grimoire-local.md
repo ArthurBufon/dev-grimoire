@@ -35,4 +35,4 @@ Resultado esperado: menção à resolução de `{GRIMOIRE}` (clone `dev-grimoire
 
 Após `git pull` no grimório, rode novamente `bash agents/scripts/sync-global-skills.sh`.
 
-Se você usa `AGENTS.override.md` em `~/.codex/`, o script **não** altera `AGENTS.md` — remova o override para voltar ao fluxo do grimório.
+Se você usa `AGENTS.override.md` em `~/.codex/`, o script **não** altera `AGENTS.md` e encerra com um alerta destacado. Atualize ou remova o override antes de usar o Codex com as regras do Grimório; confirme o estado com `bash agents/scripts/verificar-instalacao-grimorio.sh`.
