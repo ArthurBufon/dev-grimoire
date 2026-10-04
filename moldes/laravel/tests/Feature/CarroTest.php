@@ -61,6 +61,16 @@ class CarroTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_paginado_vazio_retorna_primeira_pagina(): void
+    {
+        $retorno = $this->service->index([]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertSame(1, $retorno['dados']['paginacao']['pagina']);
+        $this->assertSame(1, $retorno['dados']['paginacao']['total_paginas']);
+        $this->assertEmpty($retorno['erros']);
+    }
+
     public function test_index_ordena_por_id_quando_nao_recebe_ordenacao(): void
     {
         $primeiroCarro = Carro::create($this->dadosCarro(['placa' => 'AAA1A11']));

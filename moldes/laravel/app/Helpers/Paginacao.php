@@ -53,7 +53,7 @@ class Paginacao
         $porPagina = self::resolverPorPagina($filtros, $porPagina, $tetoQuantidade);
 
         $totalRegistrosFiltrados = (clone $query)->count();
-        $totalPaginas            = (int) ceil($totalRegistrosFiltrados / $porPagina);
+        $totalPaginas            = max(1, (int) ceil($totalRegistrosFiltrados / $porPagina));
 
         if (! filter_var($filtros['sem_limite_paginas'] ?? false, FILTER_VALIDATE_BOOLEAN)) {
             $totalPaginas = min($totalPaginas, $maximoPaginas);
