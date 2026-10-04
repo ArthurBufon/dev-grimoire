@@ -62,6 +62,21 @@ class FabricanteTest extends TestCase
         $this->assertEmpty($retorno['erros']);
     }
 
+    public function test_index_ignora_filtro_ativo_invalido(): void
+    {
+        Fabricante::create($this->dadosFabricante(['nome' => 'Toyota', 'ativo' => true]));
+        Fabricante::create($this->dadosFabricante(['nome' => 'Honda', 'ativo' => false]));
+
+        $retorno = $this->service->index([
+            'ativo'             => 'valor-invalido',
+            'aplicar_paginacao' => false,
+        ]);
+
+        $this->assertTrue($retorno['sucesso']);
+        $this->assertCount(2, $retorno['dados']['lista']);
+        $this->assertEmpty($retorno['erros']);
+    }
+
     public function test_store_cria_fabricante_com_sucesso(): void
     {
         $retorno = $this->service->store($this->dadosFabricante());

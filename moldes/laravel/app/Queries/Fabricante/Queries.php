@@ -99,7 +99,11 @@ class Queries
                     break;
 
                 case 'ativo':
-                    $query->where('ativo', filter_var($valor, FILTER_VALIDATE_BOOLEAN));
+                    $ativo = filter_var($valor, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+                    if ($ativo !== null) {
+                        $query->where('ativo', $ativo);
+                    }
                     break;
             }
         }
