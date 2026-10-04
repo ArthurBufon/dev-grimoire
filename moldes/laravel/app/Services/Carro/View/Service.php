@@ -21,7 +21,7 @@ class Service
     public function index(array $parametros): array
     {
         try {
-            $view = $parametros['view'];
+            $view = $parametros['view'] ?? '';
 
             switch ($view) {
                 case 'index':
@@ -39,8 +39,28 @@ class Service
 
             return [];
         } catch (\Throwable $th) {
+            if ($view === 'index') {
+                return $this->dadosIndexVazio($parametros['filtros'] ?? []);
+            }
+
             return [];
         }
+    }
+
+    private function dadosIndexVazio(array $filtros): array
+    {
+        return [
+            'lista'     => collect(),
+            'paginacao' => [
+                'total'           => 0,
+                'total_retornado' => 0,
+                'pagina'          => 1,
+                'limite'          => 0,
+                'total_paginas'   => 0,
+            ],
+            'filtros'   => $filtros,
+            'fabricantes' => collect(),
+        ];
     }
 
     private function dadosIndex(array $parametros): array
