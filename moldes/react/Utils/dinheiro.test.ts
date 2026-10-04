@@ -25,3 +25,9 @@ test('soma valores monetários em centavos sem erro de ponto flutuante', () => {
   assert.equal(centavosParaDecimal(total), '30.30');
   assert.equal(formatarCentavos(total), 'R$ 30,30');
 });
+
+test('preserva o sinal em conversões monetárias', () => {
+  assert.equal(valorParaCentavos('-10.10'), -1010);
+  assert.equal(centavosParaDecimal(-3030), '-30.30');
+  assert.equal(formatarCentavos(-3030), '-R$ 30,30');
+});

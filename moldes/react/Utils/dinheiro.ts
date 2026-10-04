@@ -10,21 +10,26 @@ export const formatarDinheiroParaReal = (
 };
 
 export const valorParaCentavos = (valor: string): number => {
-  const partes = valor.split('.');
+  const negativo = valor.trim().startsWith('-');
+  const partes = valor.replace('-', '').split('.');
   const reais = Number.parseInt(partes[0] || '0', 10);
   const centavos = Number.parseInt(
     (partes[1] || '00').padEnd(2, '0').slice(0, 2),
     10,
   );
 
-  return reais * 100 + centavos;
+  const total = reais * 100 + centavos;
+
+  return negativo ? -total : total;
 };
 
 export const centavosParaDecimal = (totalCentavos: number): string => {
-  const reais = Math.floor(totalCentavos / 100);
-  const resto = totalCentavos % 100;
+  const sinal = totalCentavos < 0 ? '-' : '';
+  const valorAbsoluto = Math.abs(totalCentavos);
+  const reais = Math.floor(valorAbsoluto / 100);
+  const resto = valorAbsoluto % 100;
 
-  return `${reais}.${String(resto).padStart(2, '0')}`;
+  return `${sinal}${reais}.${String(resto).padStart(2, '0')}`;
 };
 
 export const formatarCentavos = (totalCentavos: number): string => {
