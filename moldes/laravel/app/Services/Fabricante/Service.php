@@ -133,8 +133,6 @@ class Service
                 throw new \Exception($retornoDatabase['erros'][0] ?? 'Erro não identificado!');
             }
 
-            session()->flash('mensagem_sucesso', 'Fabricante excluído com sucesso!');
-
             DB::commit();
 
             return [
@@ -143,8 +141,6 @@ class Service
                 'erros'   => [],
             ];
         } catch (\Throwable $th) {
-
-            session()->flash('mensagem_erro', 'Erro ao excluir fabricante!');
 
             LogHelper::logarErro(['id' => $fabricante->id], 'Erro ao processar fabricante', formatarMensagemErro($th));
 

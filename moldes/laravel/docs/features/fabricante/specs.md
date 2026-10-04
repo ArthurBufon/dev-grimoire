@@ -58,7 +58,7 @@ Seguem o contrato padrão `{ sucesso, dados, erros }` do grimório.
 
 - `store` / `update`: transação DB; `formatarDatabase` só inclui chaves presentes.
 - Falhas retornadas pelas Queries e exceções são registradas por `App\Helpers\LogHelper`.
-- `destroy`: transação; flash de sucesso/erro na sessão web.
+- `destroy`: transação; feedback HTTP de sucesso ou erro fica no controller consumidor.
 
 ---
 
