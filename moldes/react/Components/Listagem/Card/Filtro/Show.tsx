@@ -1,5 +1,5 @@
 // REACT
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { ReactNode } from 'react';
 
 // UI
@@ -27,6 +27,7 @@ const Show = ({
     pesquisarDesabilitado = false,
 }: Props) => {
     const [mostrarExtrasInterno, setMostrarExtrasInterno] = useState(false);
+    const idFiltrosExtras = useId();
     const controleExterno = onMostrarExtrasChange !== undefined;
     const mostrarExtras = controleExterno
         ? (mostrarExtrasProp ?? false)
@@ -66,6 +67,8 @@ const Show = ({
                             variant="ghost"
                             className="w-fit gap-2 px-0 text-muted-foreground hover:text-foreground"
                             onClick={() => alterarMostrarExtras(!mostrarExtras)}
+                            aria-controls={idFiltrosExtras}
+                            aria-expanded={mostrarExtras}
                         >
                             <Filter className="size-4" />
                             {mostrarExtras ? 'Ocultar filtros' : '+ Filtros'}
@@ -75,6 +78,7 @@ const Show = ({
                         </Button>
 
                         <div
+                            id={idFiltrosExtras}
                             className={`grid transition-[grid-template-rows] duration-400 ease-in-out ${
                                 mostrarExtras ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                             }`}
