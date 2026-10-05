@@ -78,7 +78,7 @@ validar_queries_principal_php() {
     if ! metodo_publico_queries_permitido "$metodo"; then
       falhar "${file}: método público '${metodo}' não permitido na Query principal; use subpasta de contexto (docs/rules/php.md § Queries)"
     fi
-  done < <(grep -oE 'public function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/public function //' || true)
+  done < <(grep -oE 'public( static)? function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/public( static)? function //' || true)
 
   while IFS= read -r metodo; do
     [[ -z "$metodo" ]] && continue

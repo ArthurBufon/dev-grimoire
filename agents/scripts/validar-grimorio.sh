@@ -128,6 +128,10 @@ if bash "$convencoes" --files "${fixtures}/Queries/ChaveComAspas/Queries.js" >/d
   falhar 'validar-convencoes-diff.sh deveria rejeitar chave entre aspas em Query principal'
 fi
 
+if bash "$convencoes" --files "${fixtures}/app/Queries/StaticInvalida/Queries.php" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar método estático em Query principal'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/ClasseInvalida/Queries.ts" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar método público extra em Query TypeScript'
 fi
