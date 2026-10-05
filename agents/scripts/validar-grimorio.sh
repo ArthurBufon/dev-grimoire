@@ -116,6 +116,10 @@ if bash "$convencoes" --files "${fixtures}/ConvencoesPhpInvalidoController.php" 
   falhar 'validar-convencoes-diff.sh deveria rejeitar ConvencoesPhpInvalidoController.php'
 fi
 
+if bash "$convencoes" --files "${fixtures}/ConvencoesPhpComEspacoController.php" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar response JSON inline com espaço'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-inline-fetch.js" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-inline-fetch.js'
 fi

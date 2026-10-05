@@ -140,7 +140,7 @@ validar_arquivo() {
   [[ -f "$file" ]] || return 0
 
   if [[ "$file" == *.php ]]; then
-    if [[ "$file" == *Controller.php ]] && grep -q 'return response()->json(\[' "$file"; then
+    if [[ "$file" == *Controller.php ]] && grep -qE 'return[[:space:]]+response\(\)->json\([[:space:]]*\[' "$file"; then
       falhar "${file}: declare \$retorno antes de response()->json() (docs/rules/php.md)"
     fi
 
