@@ -133,7 +133,7 @@ Classe estática em `app/Helpers/Paginacao.php` (PSR-4). Molde: `moldes/laravel/
 ## PHP (estilo)
 - Chaves em todos os control structures
 - Constructor property promotion (PHP 8)
-- Return types e type hints explícitos em todos os métodos
+- Return types e type hints explícitos em todos os métodos, exceto construtores e métodos mágicos que a linguagem não permite tipar
 - Enum keys em TitleCase; values em `snake_case` / minúsculas quando o projeto usar enums backed
 - Cast no Model com a classe do enum; validação HTTP com `Rule::enum(...)`
 - PHPDoc com array shapes; comentários inline só em lógica complexa
