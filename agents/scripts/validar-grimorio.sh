@@ -124,6 +124,10 @@ if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries.js" >/dev/nu
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries principal com gerarReferencia'
 fi
 
+if bash "$convencoes" --files "${fixtures}/Queries/ChaveComAspas/Queries.js" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar chave entre aspas em Query principal'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/ClasseInvalida/Queries.ts" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar método público extra em Query TypeScript'
 fi
