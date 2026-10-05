@@ -110,6 +110,17 @@ validar_leitura_via_service() {
   fi
 }
 
+validar_http_fora_queries() {
+  local file="$1"
+
+  [[ "$file" == *Queries/* ]] && return 0
+
+  if grep -qE '(^|[^[:alnum:]_])(fetch|XMLHttpRequest)[[:space:]]*\(' "$file" \
+    || grep -qE '(axios\.|\$\.ajax|jQuery\.(get|post))' "$file"; then
+    falhar "${file}: chamadas HTTP brutas pertencem a Queries (docs/rules/javascript.md § HTTP)"
+  fi
+}
+
 exige_imports_por_secao() {
   local file="$1"
 
@@ -151,6 +162,8 @@ validar_arquivo() {
         falhar "${file}: imports sem seções // CATEGORIA (≥3 import)"
       fi
     fi
+
+    validar_http_fora_queries "$file"
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then

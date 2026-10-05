@@ -108,7 +108,7 @@ fixtures="${repo_root}/agents/scripts/fixtures"
 
 bash "$convencoes" --files \
   "${fixtures}/convencoes-php-valido.php" \
-  "${fixtures}/convencoes-js-valido.js" \
+  "${fixtures}/Queries/Entidade/Queries-valido.js" \
   >/dev/null \
   || falhar 'validar-convencoes-diff.sh rejeitou fixture válido'
 
@@ -130,6 +130,10 @@ fi
 
 if bash "$convencoes" --files "${fixtures}/ImportacoesSemSecao.ts" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar imports JS/TS sem seção'
+fi
+
+if bash "$convencoes" --files "${fixtures}/Pages/Entidade/Index.tsx" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar HTTP fora de Queries'
 fi
 
 grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/executar-plano.md" \

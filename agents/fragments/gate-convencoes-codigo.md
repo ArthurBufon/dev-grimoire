@@ -20,6 +20,7 @@ Validação automática: `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff
 ### JavaScript/TypeScript — todo arquivo `.js`, `.ts` ou `.tsx` alterado
 
 - [ ] **Imports:** com 3+ linhas `import`, agrupar com comentários `// CATEGORIA` (ver `docs/rules/javascript.md`).
+- [ ] **HTTP:** chamadas HTTP brutas (`fetch`, `axios`, `XMLHttpRequest`, jQuery) ficam apenas em `Queries/**`; `router.get` e `useForm` Inertia continuam exceções documentadas.
 
 ### JavaScript/TypeScript — arquivos em `Queries/**`
 
