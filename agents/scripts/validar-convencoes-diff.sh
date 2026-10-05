@@ -94,7 +94,7 @@ extrair_metodos_queries_js() {
   sed -n -E \
     -e 's/^[[:space:]]*([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*:[[:space:]]*async[[:space:]]+function.*/\1/p' \
     -e 's/^[[:space:]]*([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*:[[:space:]]*async[[:space:]]*(\([^)]*\)|[a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*=>.*/\1/p' \
-    -e 's/^[[:space:]]*async[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*\(.*/\1/p' \
+    -e 's/^[[:space:]]*(public[[:space:]]+)?async[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*)[[:space:]]*\(.*/\2/p' \
     "$file"
 }
 
