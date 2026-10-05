@@ -113,6 +113,7 @@ validar_leitura_via_service() {
 exige_imports_por_secao() {
   local file="$1"
 
+  (( modo_teste )) && return 0
   [[ "$file" == *Referencia* ]] && return 0
   git diff --name-only --diff-filter=A HEAD -- "$file" 2>/dev/null | grep -qxF "$file" && return 0
   git diff --name-only --diff-filter=A --cached HEAD -- "$file" 2>/dev/null | grep -qxF "$file" && return 0
@@ -140,6 +141,16 @@ validar_arquivo() {
 
     validar_queries_principal_php "$file"
     validar_leitura_via_service "$file"
+  fi
+
+  if [[ "$file" =~ \.(js|ts|tsx)$ ]]; then
+    local import_count
+    import_count="$(grep -cE '^[[:space:]]*import ' "$file" || true)"
+    if (( import_count >= 3 )) && ! grep -qE '^[[:space:]]*// [A-Z]' "$file"; then
+      if exige_imports_por_secao "$file"; then
+        falhar "${file}: imports sem seções // CATEGORIA (≥3 import)"
+      fi
+    fi
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then
@@ -170,8 +181,10 @@ validar_arquivo() {
 }
 
 arquivos=()
+modo_teste=0
 
 if [[ "${1:-}" == "--files" ]]; then
+  modo_teste=1
   shift
   while [[ $# -gt 0 ]]; do
     arquivos+=("$1")

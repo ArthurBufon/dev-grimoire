@@ -17,6 +17,10 @@ Validação automática: `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff
 - [ ] **Query principal** (`app/Queries/{Entidade}/Queries.php`): somente `index`, `show`, `store`, `update`, `destroy`; sem `App\Queries\*` / `App\Services\*` injetados; sem `setRelation` ou enriquecimento pós-consulta (→ `Service`).
 - [ ] **JSON controller** (`Painel/Json/{Entidade}/…`) e **View Service** (`Services/{Entidade}/View/Service.php`): `index`/`show` da entidade via `App\Services\{Entidade}\Service`, não `$this->queries->index|show`.
 
+### JavaScript/TypeScript — todo arquivo `.js`, `.ts` ou `.tsx` alterado
+
+- [ ] **Imports:** com 3+ linhas `import`, agrupar com comentários `// CATEGORIA` (ver `docs/rules/javascript.md`).
+
 ### JavaScript/TypeScript — arquivos em `Queries/**`
 
 - [ ] **Queries principal** (`Queries/{Entidade}/Queries.*`): somente `index`, `show`, `store`, `update`, `destroy`, em objeto, arrow function ou classe TypeScript.

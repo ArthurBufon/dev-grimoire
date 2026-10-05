@@ -196,6 +196,8 @@ Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quan
 * `import type` na mesma categoria dos imports de valor correspondentes (ex.: tipos em `// TIPOS`, ou junto de `// REACT` quando for type-only de React)
 * Exports sempre devem seguir o nome do arquivo: Create.tsx exporta Create, Index.tsx exporta Index
 
+**Escopo do validador automático:** arquivos novos ou em pasta `Referencia/` com 3+ imports exigem seções; legado tocado incidentalmente não é reformatado só para passar no script.
+
 ## Formatação e legibilidade (preservar; não “normalizar”)
 
 Ao editar qualquer arquivo, **o diff deve mudar só o necessário** para a tarefa. É proibido “limpar” ou padronizar estilo de propósito.

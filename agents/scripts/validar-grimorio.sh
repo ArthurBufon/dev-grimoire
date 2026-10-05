@@ -128,6 +128,10 @@ if bash "$convencoes" --files "${fixtures}/Queries/ClasseInvalida/Queries.ts" >/
   falhar 'validar-convencoes-diff.sh deveria rejeitar método público extra em Query TypeScript'
 fi
 
+if bash "$convencoes" --files "${fixtures}/ImportacoesSemSecao.ts" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar imports JS/TS sem seção'
+fi
+
 grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/executar-plano.md" \
   || falhar 'executar-plano não referencia gate-convencoes-codigo.md'
 
