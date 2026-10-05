@@ -165,8 +165,10 @@ index: async function (filtros) {
 - `camelCase` — variáveis e funções
 - `PascalCase` — classes e componentes React
 - `UPPER_SNAKE_CASE` — constantes
-- `kebab-case` — arquivos não-componentes
+- `kebab-case` — arquivos auxiliares sem convenção arquitetural própria, seguindo o padrão do módulo
 - `PascalCase` — arquivos de componentes React (`.tsx`)
+
+Nomes definidos pela estrutura ou pelos moldes têm prioridade: `Queries.tsx`, `Service.tsx`, `Index.tsx`, `Create.tsx`, `Edit.tsx` e `Form.tsx` não seguem a regra de `kebab-case`.
 
 ## Organização de Imports
 
