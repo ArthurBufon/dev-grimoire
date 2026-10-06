@@ -146,7 +146,7 @@ O contexto deve estar no namespace/diretório.
 
 ## Retornos
 
-Prioridade máxima: sempre usar o padrão `sucesso` / `dados` / `erros`, independente da stack.
+Queries, Services de negócio e endpoints JSON usam o padrão `sucesso` / `dados` / `erros`, independente da stack. Controllers Inertia e View Services devolvem o contrato da tela ou redirect, conforme a rule da stack.
 
 ```txt
 { sucesso, dados, erros }
