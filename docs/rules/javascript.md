@@ -113,7 +113,7 @@ const handleCampoChange = <K extends keyof DadosFormulario>(
     }));
 };
 
-const handleSubmit = (evento: SubmitEvent<HTMLFormElement>) => {
+const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
 
     post(CarroController.store.url()); // Edit usa put(...)
