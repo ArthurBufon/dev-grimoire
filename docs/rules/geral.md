@@ -153,7 +153,7 @@ Queries, Services de negócio e endpoints JSON usam o padrão `sucesso` / `dados
 ```
 
 * Sucesso: `{ sucesso: true, dados: {...}, erros: [] }`
-* Falha: `{ sucesso: false, dados: [], erros: ['...'] }`
+* Falha: `{ sucesso: false, dados: [], erros: ['...'] }`; em leituras cuja tela depende de uma estrutura fixa, `dados` pode conter o fallback vazio desse contrato (ex.: `lista` e `paginacao`).
 
 Detalhes de sintaxe e uso por stack ficam em `docs/rules/php.md` e `docs/rules/javascript.md`. Não inventar outro formato de retorno quando esse padrão se aplicar.
 
