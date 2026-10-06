@@ -96,7 +96,7 @@ Páginas `Create` e `Edit` com formulário seguem o padrão de `moldes/react/Pag
 | Arquivo | Responsabilidade |
 |---|---|
 | `Create.tsx` / `Edit.tsx` | `useForm`, valores iniciais, `handleCampoChange`, `handleSubmit`, layout da página; validação pré-submit quando necessária |
-| `Forms/{Entidade}/Form.tsx` | markup dos campos, `InputError`, botões, props controladas (`data`, `onCampoChange`, `onSubmit`, `processing`) |
+| `Forms/{Entidade}/Form.tsx` | markup dos campos, `InputError`, botões, props controladas (`data`, `erros`, opções vinculadas quando existirem, `onCampoChange`, `onSubmit`, `processing`) |
 
 #### Exemplo (Page)
 
@@ -125,6 +125,8 @@ const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
 ```tsx
 <Form
     data={data}
+    erros={errors}
+    fabricantes={fabricantes}
     onCampoChange={handleCampoChange}
     onSubmit={handleSubmit}
     processing={processing}
