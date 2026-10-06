@@ -62,7 +62,7 @@ Moldes:
 - Arrow functions
 
 ## React
-- COMPONENTES - REGRAS OBRIGATÓRIAS: `PascalCase` SEMPRE + Formato Arrow function (RAFCE) + export exato do nome do arquivo (Create.tsx exporta Create)
+- Componentes: `PascalCase`, arrow function nomeada e export com o nome exato do arquivo (`Create.tsx` exporta `Create`)
 - Um componente por arquivo
 - Hooks customizados em `use[Nome]` — lógica reutilizável fora dos componentes
 - Estado local: `useState`; efeitos: `useEffect`; contexto global: `useContext` ou lib de estado
