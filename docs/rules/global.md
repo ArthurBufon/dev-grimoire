@@ -61,6 +61,7 @@ Se o usuário aceitar:
 | Arquivo | Conteúdo |
 |---|---|
 | `{GRIMOIRE}/docs/rules/geral.md` | Escopo mínimo, princípios, nomenclatura, Git, segurança |
+| `{GRIMOIRE}/agents/fragments/gate-anti-slop.md` | Critérios bloqueantes de escopo, clareza e simplicidade |
 | `{GRIMOIRE}/agents/fragments/gate-convencoes-codigo.md` | Convenções bloqueantes PHP/JS (imports, `$retorno`, Queries, fetch) |
 
 ### Por stack do projeto atual
