@@ -183,6 +183,10 @@ validar_arquivo() {
     fi
 
     if eh_queries_principal "$file"; then
+      if grep -qE "^[[:space:]]*['\"][a-zA-Z_][a-zA-Z0-9_]*['\"][[:space:]]*:[[:space:]]*async" "$file"; then
+        falhar "${file}: métodos da Queries principal não usam chaves entre aspas (docs/rules/javascript.md § Queries)"
+      fi
+
       local metodo
       while IFS= read -r metodo; do
         [[ -z "$metodo" ]] && continue

@@ -1,5 +1,5 @@
 export const Queries = {
-    'gerarReferencia': async function () {
+    'index': async function () {
         return {};
     },
 };

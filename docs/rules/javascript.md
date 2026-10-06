@@ -24,6 +24,8 @@ Queries devem ser compostas somente por:
 * `update`
 * `destroy`
 
+Na Queries principal, os nomes desses métodos são identificadores sem aspas.
+
 Caso alguma query específica seja necessária, deve ser usado um diretório específico para o contexto da query.
 
 Padrão:
