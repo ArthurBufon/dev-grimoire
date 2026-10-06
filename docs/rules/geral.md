@@ -161,7 +161,7 @@ Detalhes de sintaxe e uso por stack ficam em `docs/rules/php.md` e `docs/rules/j
 
 ## Organização de Imports
 
-Obrigatório em PHP e JavaScript/React: agrupar imports por categoria lógica, cada grupo com comentário de seção em maiúsculas. Nunca misturar categorias no mesmo bloco.
+Em arquivos novos ou em pasta `Referencia/`, com 3+ imports em PHP ou JavaScript/React, agrupar imports por categoria lógica, cada grupo com comentário de seção em maiúsculas. Nunca misturar categorias no mesmo bloco. Legado tocado incidentalmente não é reformatado só para aplicar esta regra.
 
 ```txt
 // CATEGORIA
