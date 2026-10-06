@@ -136,7 +136,7 @@ const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
 ## HTTP (obrigatório)
 - **`fetch` em Queries** — proibido `$.ajax`, `jQuery.get/post`, `axios`, `XMLHttpRequest`
 - Requests HTTP apenas em Queries, nunca em Pages ou componentes. Exceções: `router.get` para navegações com filtros/paginações em listagens e `post` / `put` do `useForm` em formulários Inertia
-- Cada método assíncrono — em objeto, arrow function ou classe TypeScript — usa `try/catch` e headers (`Accept`, `Content-type`, `X-CSRF-Token`)
+- Cada método assíncrono — em objeto, arrow function ou classe TypeScript — usa `try/catch` e headers (`Accept`, `Content-Type`, `X-CSRF-Token`)
 - Catch retorna `{ sucesso: false, dados: [], erros: ['...'] }`
 - **`const url` obrigatório** — declarar a URL em variável separada **antes** do `fetch`. Proibido passar a URL inline no primeiro argumento de `fetch(...)`.
 - **`const options` obrigatório** — declarar method, headers, credentials, body etc. em objeto `options` separado **antes** do `fetch`. Proibido passar o objeto de opções inline no segundo argumento de `fetch(...)`.
@@ -150,7 +150,7 @@ index: async function (filtros) {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                "Content-type": "application/json",
+                "Content-Type": "application/json",
                 "X-CSRF-Token": csrfToken,
             },
         };

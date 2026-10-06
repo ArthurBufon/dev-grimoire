@@ -9,7 +9,7 @@ export const Queries = {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
-                    "Content-type": "application/json",
+                    "Content-Type": "application/json",
                     "X-CSRF-Token": csrfToken,
                 },
             };
