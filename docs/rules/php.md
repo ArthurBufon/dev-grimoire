@@ -8,7 +8,7 @@ return ['sucesso' => true, 'dados' => ['model' => $model], 'erros' => []];
 
 ## Controllers JSON (bloqueante)
 
-Em controllers que respondem JSON, **proibido** `return response()->json([...])` inline.
+Em qualquer arquivo `*Controller.php` que responda JSON, **proibido** `return response()->json([...])` inline.
 
 Montar o envelope em `$retorno` e só então retornar:
 
