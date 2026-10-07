@@ -31,10 +31,11 @@ O mais próximo do app vence. Um único clone serve apps no mesmo ancestral, em 
 
 ### Contexto local de agentes
 
-Antes de começar o trabalho, verificar se `AGENTS.md` e `CLAUDE.md` existem na
-raiz do projeto atual.
+Antes de começar o trabalho, verificar se `AGENTS.md` existe na raiz do projeto
+atual. Quando o projeto usar Claude Code, verificar também `CLAUDE.md`.
 
-Se um deles estiver ausente, o contexto local de agentes **ainda não está ativo**.
+Se `AGENTS.md` — ou, em projeto com Claude Code, `CLAUDE.md` — estiver ausente,
+o contexto local de agentes **ainda não está ativo**.
 Na primeira resposta, informar quais arquivos faltam e oferecer a inicialização:
 
 ```text
