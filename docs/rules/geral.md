@@ -118,7 +118,7 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 ## Services e Queries
 
-O padrão deve ser adotado globalmente, independente da linguagem. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`). Sem rule própria, mantenha essa organização de arquivos e responsabilidades no idioma do framework — sem criar camadas que o framework já resolve de outro jeito.
+Em stacks com rule ou molde, adote o padrão. Para detalhes de implementação, consulte a rule da stack em uso (`docs/rules/php.md` ou `docs/rules/javascript.md`). Sem rule própria, preserve a separação de responsabilidades no idioma do framework, sem criar Services, Queries ou paths que o framework já resolve de outro jeito.
 
 O nome do arquivo deve representar apenas o tipo (Service.* ou Queries.*).
 
