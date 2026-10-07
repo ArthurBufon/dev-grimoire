@@ -176,7 +176,7 @@ Nomes definidos pela estrutura ou pelos moldes têm prioridade: `Queries.tsx`, `
 
 ## Organização de Imports
 
-Todo import deve ser agrupado por categoria lógica, com comentário de seção em maiúsculas. Referência: `moldes/react/Pages/Carro/Index.tsx`, `moldes/react/Pages/Carro/Create.tsx` e `moldes/react/Queries/Queries.tsx`.
+Em arquivos novos ou em pasta `Referencia/`, com 3+ imports, agrupar imports por categoria lógica, com comentário de seção em maiúsculas. Referência: `moldes/react/Pages/Carro/Index.tsx`, `moldes/react/Pages/Carro/Create.tsx` e `moldes/react/Queries/Queries.tsx`.
 
 ### Ordem padrão (Pages e componentes)
 
