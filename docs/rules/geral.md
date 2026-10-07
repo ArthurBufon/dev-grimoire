@@ -67,7 +67,7 @@ Checklist e moldes: `agents/fragments/gate-convencoes-codigo.md`.
 
 **É proibido desfazer, sobrescrever, apagar, restaurar ou descartar alterações que já existiam no worktree ou que surgirem durante a execução.** Elas devem ser tratadas como alterações do desenvolvedor, mesmo que estejam fora do escopo do plano, staged, unstaged ou untracked.
 
-* Antes de planejar, implementar, delegar ou revisar, registrar um baseline com `git status`, os diffs staged/unstaged e um snapshot do conteúdo de arquivos untracked relevantes.
+* Antes de planejar, implementar, delegar ou revisar, registrar um baseline com `git status`, os diffs staged/unstaged e um snapshot do conteúdo de arquivos untracked relevantes. Para arquivos sensíveis, ignorados ou de configuração local, registrar apenas path e hash; nunca copiar credenciais ou dados sensíveis.
 * Durante a execução, detectar alterações concorrentes antes de iniciar cada tarefa, antes de aplicar correções de subagents e antes da entrega.
 * Em arquivo compartilhado, preservar integralmente os trechos concorrentes e integrar apenas a mudança necessária para a tarefa.
 * Se preservar uma alteração impedir a implementação, gerar conflito sem resolução inequívoca ou exigir modificar/remover aquele trecho, parar e pedir instrução explícita ao desenvolvedor.
