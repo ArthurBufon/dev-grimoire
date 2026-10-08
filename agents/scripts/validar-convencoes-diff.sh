@@ -134,6 +134,18 @@ validar_tratamento_erro_http() {
   fi
 }
 
+validar_headers_http() {
+  local file="$1"
+
+  grep -qE '(await[[:space:]]+)?fetch\(' "$file" || return 0
+
+  for header in 'Accept' 'Content-Type' 'X-CSRF-Token'; do
+    if ! grep -qE "[\"']?${header}[\"']?[[:space:]]*:" "$file"; then
+      falhar "${file}: fetch em Queries exige header ${header} (docs/rules/javascript.md § HTTP)"
+    fi
+  done
+}
+
 exige_imports_por_secao() {
   local file="$1"
 
@@ -181,6 +193,7 @@ validar_arquivo() {
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then
     validar_tratamento_erro_http "$file"
+    validar_headers_http "$file"
 
     if grep -qE 'fetch\([^,)]+,\s*\{' "$file"; then
       falhar "${file}: use const options antes de fetch() (docs/rules/javascript.md)"
