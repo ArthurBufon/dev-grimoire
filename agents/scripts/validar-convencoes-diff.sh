@@ -107,7 +107,7 @@ validar_leitura_via_service() {
     return 0
   fi
 
-  if grep -qE '\$this->queries->(index|show)\(' "$file"; then
+  if grep -qE '(\$this->queries|\$queries)->(index|show)\(|Queries::(index|show)\(' "$file"; then
     falhar "${file}: index/show delegam a App\\Services\\{Entidade}\\Service, não a Queries (docs/rules/php.md § Queries)"
   fi
 }

@@ -164,6 +164,10 @@ if bash "$convencoes" --files "${fixtures}/Pages/Entidade/Index.tsx" >/dev/null 
   falhar 'validar-convencoes-diff.sh deveria rejeitar HTTP fora de Queries'
 fi
 
+if bash "$convencoes" --files "${fixtures}/app/Http/Controllers/Painel/Json/Entidade/EntidadeController.php" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar leitura por alias de Query'
+fi
+
 grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/executar-plano.md" \
   || falhar 'executar-plano não referencia gate-convencoes-codigo.md'
 
