@@ -123,6 +123,16 @@ validar_http_fora_queries() {
   fi
 }
 
+validar_cliente_http_queries() {
+  local file="$1"
+
+  [[ "$file" == *Queries/* ]] || return 0
+
+  if grep -qE '(axios\.|\$\.ajax|jQuery\.(get|post)|XMLHttpRequest)' "$file"; then
+    falhar "${file}: Queries usam fetch; axios, jQuery e XMLHttpRequest são proibidos (docs/rules/javascript.md § HTTP)"
+  fi
+}
+
 validar_tratamento_erro_http() {
   local file="$1"
 
@@ -189,6 +199,7 @@ validar_arquivo() {
     fi
 
     validar_http_fora_queries "$file"
+    validar_cliente_http_queries "$file"
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then

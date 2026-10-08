@@ -132,6 +132,10 @@ if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-sem-headers.
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-sem-headers.js'
 fi
 
+if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-axios.js" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-axios.js'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries.js" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries principal com gerarReferencia'
 fi
