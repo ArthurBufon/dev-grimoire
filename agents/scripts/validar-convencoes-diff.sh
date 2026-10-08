@@ -137,6 +137,17 @@ validar_leitura_via_service() {
   fi
 }
 
+validar_request_validated() {
+  local file="$1"
+
+  [[ "$file" == *Controller.php ]] || return 0
+
+  if grep -qE 'use App\\Http\\Requests\\.*(Store|Update)Request;' "$file" \
+    && grep -qE '\$request->all\(\)' "$file"; then
+    falhar "${file}: Controller com Form Request encaminha \$request->validated(), não \$request->all() (docs/rules/php.md § Estrutura)"
+  fi
+}
+
 validar_http_fora_queries() {
   local file="$1"
 
@@ -222,6 +233,7 @@ validar_arquivo() {
 
     validar_queries_principal_php "$file"
     validar_leitura_via_service "$file"
+    validar_request_validated "$file"
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]]; then
