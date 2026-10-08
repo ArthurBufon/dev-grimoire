@@ -124,6 +124,10 @@ if bash "$convencoes" --files "${fixtures}/RequestAllInvalidoController.php" >/d
   falhar 'validar-convencoes-diff.sh deveria rejeitar request all em Controller com Form Request'
 fi
 
+if bash "$convencoes" --files "${fixtures}/SqlInterpoladoInvalido.php" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar SQL interpolado'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-inline-fetch.js" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-inline-fetch.js'
 fi

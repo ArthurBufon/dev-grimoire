@@ -148,6 +148,15 @@ validar_request_validated() {
   fi
 }
 
+validar_sql_parametrizado() {
+  local file="$1"
+
+  if grep -qE '(DB::raw|whereRaw|orderByRaw|selectRaw|DB::statement)\([[:space:]]*"[^"]*\$' "$file" \
+    || grep -qE '(DB::raw|whereRaw|orderByRaw|selectRaw|DB::statement)\([^;]*\.[[:space:]]*\$' "$file"; then
+    falhar "${file}: SQL bruto não interpola nem concatena valores externos; use bindings (docs/rules/php.md § SQL puro em PHP)"
+  fi
+}
+
 validar_http_fora_queries() {
   local file="$1"
 
@@ -234,6 +243,7 @@ validar_arquivo() {
     validar_queries_principal_php "$file"
     validar_leitura_via_service "$file"
     validar_request_validated "$file"
+    validar_sql_parametrizado "$file"
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]]; then
