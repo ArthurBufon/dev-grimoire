@@ -14,7 +14,7 @@ Validação automática: `bash {GRIMOIRE}/agents/scripts/validar-convencoes-diff
 
 - [ ] **Imports:** com 3+ linhas `use`, agrupar com comentários `// CATEGORIA` (ver `docs/rules/php.md`).
 - [ ] **Controller JSON:** proibido `return response()->json([...])` inline. Montar `$retorno = [...]` e só então `return response()->json($retorno, $status)`.
-- [ ] **Query principal** (`app/Queries/{Entidade}/Queries.php`): somente `index`, `show`, `store`, `update`, `destroy`; sem `App\Queries\*` / `App\Services\*` injetados; sem `setRelation` ou enriquecimento pós-consulta (→ `Service`).
+- [ ] **Query principal** (`app/Queries/{Entidade}/Queries.php`): somente `index`, `show`, `store`, `update`, `destroy`; `index`/`show` recebem apenas `$filtros`, enquanto `update` recebe `int $id, array $dados` e `destroy` recebe apenas `$id`; sem `App\Queries\*` / `App\Services\*` injetados; sem `setRelation` ou enriquecimento pós-consulta (→ `Service`).
 - [ ] **JSON controller** (`Painel/Json/{Entidade}/…`) e **View Service** (`Services/{Entidade}/View/Service.php`): `index`/`show` da entidade via `App\Services\{Entidade}\Service`, não `$this->queries->index|show`.
 
 ### JavaScript/TypeScript — todo arquivo `.js`, `.ts` ou `.tsx` alterado
