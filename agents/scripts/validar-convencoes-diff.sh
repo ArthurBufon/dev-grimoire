@@ -86,6 +86,31 @@ validar_queries_principal_php() {
       falhar "${file}: método privado '${metodo}' não permitido na Query principal (docs/rules/php.md § Queries)"
     fi
   done < <(grep -oE 'private function [a-zA-Z0-9_]+' "$file" 2>/dev/null | sed -E 's/private function //' || true)
+
+  if grep -qE 'public function index\(' "$file" \
+    && ! grep -qE 'public function index\(array \$filtros\): array' "$file"; then
+    falhar "${file}: index recebe array \$filtros e retorna array (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'public function show\(' "$file" \
+    && ! grep -qE 'public function show\(array \$filtros\): array' "$file"; then
+    falhar "${file}: show recebe array \$filtros e retorna array (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'public function store\(' "$file" \
+    && ! grep -qE 'public function store\(array \$dados\): array' "$file"; then
+    falhar "${file}: store recebe array \$dados e retorna array (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'public function update\(' "$file" \
+    && ! grep -qE 'public function update\(int \$id, array \$dados\): array' "$file"; then
+    falhar "${file}: update recebe int \$id e array \$dados (docs/rules/php.md § Queries)"
+  fi
+
+  if grep -qE 'public function destroy\(' "$file" \
+    && ! grep -qE 'public function destroy\(string\|int \$id\): array' "$file"; then
+    falhar "${file}: destroy recebe string|int \$id e retorna array (docs/rules/php.md § Queries)"
+  fi
 }
 
 extrair_metodos_queries_js() {
