@@ -160,7 +160,9 @@ class Queries
     {
         $carregarRelacionamentos = $filtros['carregarRelacionamentos'] ?? [];
 
-        if (empty($carregarRelacionamentos)) return;
+        if (empty($carregarRelacionamentos)) {
+            return;
+        }
 
         $query->with($carregarRelacionamentos);
     }
