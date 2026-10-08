@@ -123,6 +123,17 @@ validar_http_fora_queries() {
   fi
 }
 
+validar_tratamento_erro_http() {
+  local file="$1"
+
+  grep -qE '(await[[:space:]]+)?fetch\(' "$file" || return 0
+
+  if ! grep -qE '^[[:space:]]*try[[:space:]]*\{' "$file" \
+    || ! grep -qE '^[[:space:]]*\}[[:space:]]*catch[[:space:]]*\(' "$file"; then
+    falhar "${file}: fetch em Queries exige try/catch (docs/rules/javascript.md § HTTP)"
+  fi
+}
+
 exige_imports_por_secao() {
   local file="$1"
 
@@ -169,6 +180,8 @@ validar_arquivo() {
   fi
 
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then
+    validar_tratamento_erro_http "$file"
+
     if grep -qE 'fetch\([^,)]+,\s*\{' "$file"; then
       falhar "${file}: use const options antes de fetch() (docs/rules/javascript.md)"
     fi

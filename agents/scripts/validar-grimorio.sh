@@ -124,6 +124,10 @@ if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-inline-fetch
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-inline-fetch.js'
 fi
 
+if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries-sem-tratamento.js" >/dev/null 2>&1; then
+  falhar 'validar-convencoes-diff.sh deveria rejeitar Queries-sem-tratamento.js'
+fi
+
 if bash "$convencoes" --files "${fixtures}/Queries/Entidade/Queries.js" >/dev/null 2>&1; then
   falhar 'validar-convencoes-diff.sh deveria rejeitar Queries principal com gerarReferencia'
 fi
