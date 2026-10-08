@@ -156,6 +156,16 @@ validar_headers_http() {
   done
 }
 
+validar_chamada_fetch() {
+  local file="$1"
+
+  grep -qE '(await[[:space:]]+)?fetch\(' "$file" || return 0
+
+  if grep -nE 'fetch\(' "$file" | grep -vqE 'await[[:space:]]+fetch\([[:space:]]*url[[:space:]]*,[[:space:]]*options[[:space:]]*\)'; then
+    falhar "${file}: cada fetch usa await fetch(url, options) (docs/rules/javascript.md § HTTP)"
+  fi
+}
+
 exige_imports_por_secao() {
   local file="$1"
 
@@ -205,6 +215,7 @@ validar_arquivo() {
   if [[ "$file" =~ \.(js|ts|tsx)$ ]] && [[ "$file" == *Queries/* ]]; then
     validar_tratamento_erro_http "$file"
     validar_headers_http "$file"
+    validar_chamada_fetch "$file"
 
     if grep -qE 'fetch\([^,)]+,\s*\{' "$file"; then
       falhar "${file}: use const options antes de fetch() (docs/rules/javascript.md)"
