@@ -93,7 +93,7 @@ Em React sem Inertia, seguir o padrão consolidado do projeto para estado e subm
 * **`handleCampoChange`** — helper privado na Page, wrapper tipado de `setData`. Previne erros de tipagem e deixa o código mais idiomático e legível em pt-BR.
 * **`handleSubmit`** — helper privado na Page com `evento.preventDefault()` e chamada a `post` / `put` do `useForm`.
 * **Validação pré-submit** — usar `validarFormulario` e estado de erros cliente somente quando houver uma regra de negócio real que precise ser validada antes do envio.
-* **Componente `Form` compartilhado** — campos comuns de `Create` e `Edit` extraídos para `[js_components_path]/Forms/{Entidade}/Form.tsx` (ex.: `resources/js/Components/Forms/Carro/Form.tsx`).
+* **Componente `Form` compartilhado** — quando `Create` e `Edit` coexistirem e compartilharem campos, extraí-los para `[js_components_path]/Forms/{Entidade}/Form.tsx` (ex.: `resources/js/Components/Forms/Carro/Form.tsx`).
 
 #### Responsabilidades
 
