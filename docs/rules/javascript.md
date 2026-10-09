@@ -144,6 +144,7 @@ const handleSubmit = (evento: FormEvent<HTMLFormElement>) => {
 - Catch retorna `{ sucesso: false, dados: [], erros: ['...'] }`
 - **`const url` obrigatório** — declarar a URL em variável separada **antes** do `fetch`. Proibido passar a URL inline no primeiro argumento de `fetch(...)`.
 - **`const options` obrigatório** — declarar method, headers, credentials, body etc. em objeto `options` separado **antes** do `fetch`. Proibido passar o objeto de opções inline no segundo argumento de `fetch(...)`.
+- Quando houver payload JSON, declarar `"Content-Type": "application/json"` e usar `body: JSON.stringify(dados)` em `options`.
 - Chamada final sempre na forma `const retorno = await fetch(url, options)` (ou `const resposta = await fetch(url, options)` quando o projeto usar esse nome).
 
 ```js
