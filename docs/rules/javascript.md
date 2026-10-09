@@ -81,9 +81,11 @@ Páginas `Index` com filtros seguem o padrão de `moldes/react/Pages/Carro/Index
 * `onLimpar` reseta o objeto `filtros` inteiro (todas as chaves em branco) e navega para a rota base.
 * `onPesquisar` monta os parâmetros de busca a partir de `filtros` e usa `router.get` com `preserveState: true`.
 
-### Forms
+### Forms (React com Inertia)
 
 Páginas `Create` e `Edit` com formulário seguem o padrão de `moldes/react/Pages/Carro/Create.tsx`, `moldes/react/Pages/Carro/Edit.tsx` e `moldes/react/Components/Forms/Carro/Form.tsx`.
+
+Em React sem Inertia, seguir o padrão consolidado do projeto para estado e submissão de formulários.
 
 #### Obrigatório
 
