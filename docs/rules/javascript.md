@@ -64,7 +64,7 @@ Moldes:
 - Arrow functions
 
 ## React
-- Componentes: `PascalCase`, arrow function nomeada e export com o nome exato do arquivo (`Create.tsx` exporta `Create`)
+- Componentes: `PascalCase`, arrow function nomeada e `export default` com o nome exato do arquivo (`Create.tsx` exporta `Create`)
 - Um componente por arquivo
 - Hooks customizados em `use[Nome]` — lógica reutilizável fora dos componentes
 - Estado local: `useState`; efeitos: `useEffect`; contexto global: `useContext` ou lib de estado
@@ -208,7 +208,7 @@ Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quan
 * Remover imports não utilizados
 * Priorizar clareza sobre quantidade de linhas
 * `import type` na mesma categoria dos imports de valor correspondentes (ex.: tipos em `// TIPOS`, ou junto de `// REACT` quando for type-only de React)
-* Exports sempre devem seguir o nome do arquivo: Create.tsx exporta Create, Index.tsx exporta Index
+* Componentes usam `export default` com o nome do arquivo: Create.tsx exporta Create, Index.tsx exporta Index. Exports nomeados só quando o componente expõe uma API própria, como `Switch`.
 
 **Escopo do validador automático:** arquivos novos ou em pasta `Referencia/` com 3+ imports exigem seções; legado tocado incidentalmente não é reformatado só para passar no script.
 
