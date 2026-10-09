@@ -192,6 +192,13 @@ Em arquivos novos ou em pasta `Referencia/`, com 3+ imports, agrupar imports por
 // ROTAS
 ```
 
+### Ordem padrão (Queries)
+
+```tsx
+// TIPOS
+// CONTROLLERS
+```
+
 Seções ausentes no arquivo de referência do módulo (ex.: sem `// TIPOS` quando não há types) são aceitáveis — seguir o padrão do arquivo ou módulo alterado.
 
 ### Regras
