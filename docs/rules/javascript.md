@@ -185,6 +185,7 @@ Em arquivos novos ou em pasta `Referencia/`, com 3+ imports, agrupar imports por
 // INERTIA
 // UI
 // TIPOS
+// UTILS
 // CONTROLLERS
 // QUERIES
 // SERVICES
