@@ -78,7 +78,7 @@ Páginas `Index` com filtros seguem o padrão de `moldes/react/Pages/Carro/Index
 
 * **Um único `useState` agrupando todos os filtros** (`const [filtros, setFiltros] = useState({ ... })`) — proibido `useState` separado por campo de filtro.
 * Cada campo atualiza o estado com o padrão `setFiltros((atual) => ({ ...atual, campo: valor }))`.
-* `onLimpar` reseta o objeto `filtros` inteiro (todas as chaves em branco) e navega para a rota base.
+* `onLimpar` reseta o objeto `filtros` inteiro, com valores vazios compatíveis com o tipo de cada campo, e navega para a rota base.
 * `onPesquisar` monta os parâmetros de busca a partir de `filtros` e usa `router.get` com `preserveState: true`.
 
 ### Forms (React com Inertia)
