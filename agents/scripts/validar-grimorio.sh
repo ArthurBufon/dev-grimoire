@@ -63,9 +63,9 @@ for claude_file in 'CLAUDE.md' 'moldes/agents/CLAUDE.md'; do
   grep -Fq '@AGENTS.md' "${repo_root}/${claude_file}" || falhar "${claude_file} não importa AGENTS.md"
 done
 
-for agent_file in 'AGENTS.md' 'CLAUDE.md' 'moldes/agents/AGENTS.md' 'moldes/agents/CLAUDE.md'; do
-  linhas="$(wc -l <"${repo_root}/${agent_file}")"
-  (( linhas <= 50 )) || falhar "${agent_file} excede o limite de 50 linhas (${linhas})"
+for claude_file in 'CLAUDE.md' 'moldes/agents/CLAUDE.md'; do
+  linhas="$(wc -l <"${repo_root}/${claude_file}")"
+  (( linhas <= 50 )) || falhar "${claude_file} excede o limite de 50 linhas (${linhas})"
 done
 
 grep -Fq '{GRIMOIRE}/agents/fragments/gate-anti-slop.md' "${repo_root}/agents/skills/check-slop.md" \

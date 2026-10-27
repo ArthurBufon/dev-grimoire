@@ -7,6 +7,11 @@
 > Ele pode ser irmão do app, ancestral, ou estar numa pasta irmã do ancestral
 > (ex.: app em `projetos-flutter/projeto-1` e grimório em `projetos/dev-grimoire`).
 
+**Prioridade global:** em qualquer projeto, stack ou contexto local, responda
+perguntas e gere código da forma mais simples, compreensível e humanizada possível.
+Use linguagem natural e código legível, preservando a correção e os requisitos
+do pedido. Evite jargão, formalidade e complexidade desnecessários.
+
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
 ## 1. Onde está o Dev Grimoire
@@ -186,10 +191,9 @@ Projetos que usam Claude Code devem também versionar `CLAUDE.md` na raiz com
 `@AGENTS.md`. Instruções exclusivas do Claude ficam nele; todo contexto comum
 permanece em `AGENTS.md`. Ele não recebe regras de projeto compartilhadas.
 
-**Limite anti-slop (obrigatório):** `AGENTS.md` e `CLAUDE.md` podem ter, cada
-um, no máximo **50 linhas**, inclusive linhas em branco. Se precisar de mais
-detalhes, registre-os na spec, README ou ADR apropriado e deixe somente o link
-e o contexto indispensável nesses arquivos.
+`AGENTS.md` não tem limite de linhas. Mantenha nele apenas o contexto local
+necessário; detalhes extensos podem ficar na spec, README ou ADR apropriado.
+`CLAUDE.md` pode ter no máximo **50 linhas**, inclusive linhas em branco.
 
 ### Lições ativas
 

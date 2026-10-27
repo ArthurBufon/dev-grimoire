@@ -39,6 +39,4 @@ for file in AGENTS.md CLAUDE.md; do
   printf 'criado: %s\n' "$target"
 done
 
-for file in AGENTS.md CLAUDE.md; do
-  validar_limite_linhas "${target_dir}/${file}"
-done
+validar_limite_linhas "${target_dir}/CLAUDE.md"
