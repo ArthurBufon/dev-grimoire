@@ -22,10 +22,12 @@ fi
 
 log "repo: ${REPO_ROOT}"
 log "pull: ${REMOTE}/${BRANCH}"
+log "commit antes: $(git -C "$REPO_ROOT" rev-parse HEAD)"
 log "---"
 
 git -C "$REPO_ROOT" pull "$REMOTE" "$BRANCH"
 
+log "commit depois: $(git -C "$REPO_ROOT" rev-parse HEAD)"
 log "---"
 log "syncing global skills..."
 bash "$SKILLS_SYNC"
