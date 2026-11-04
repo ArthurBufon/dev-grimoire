@@ -18,12 +18,14 @@ echo ""
 
 # Salvar commit anterior para rollback
 COMMIT_ANTERIOR=$(git rev-parse HEAD)
+echo "📌 Commit anterior: $COMMIT_ANTERIOR"
 
 echo "📥 Atualizando código..."
 git fetch origin "$BRANCH_ATUAL"
 
 echo "🧹 Limpando repositório (reset + clean)..."
 git reset --hard "origin/$BRANCH_ATUAL"
+echo "📌 Novo commit: $(git rev-parse HEAD)"
 git clean -fd
 
 echo "🧹 Limpando caches..."
