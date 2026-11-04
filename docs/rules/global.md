@@ -222,6 +222,11 @@ Informe resumidamente quais arquivos do **Dev Grimoire** e do **projeto atual** 
 
 Nunca invente regras ausentes nem assuma convenções que não estejam no Dev Grimoire ou no código do projeto.
 
+### Resposta após alterar arquivos
+
+Na resposta final de toda sessão em que alterar arquivos, liste **cada arquivo alterado**
+e explique brevemente o que mudou, como estava antes e como ficou depois.
+
 ## 6. Referência para skills de agente
 
 Skills de planejamento, execução e revisão devem **apontar a este arquivo** e às rules da stack — não repetir convenções (imports, assinaturas de Queries, etc.) em cada skill.
