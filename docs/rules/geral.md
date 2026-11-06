@@ -204,7 +204,7 @@ Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascrip
 ### Commits
 
 * Commits em português
-* Sempre no imperativo
+* Descrever as alterações com substantivos; não usar verbos no imperativo
 * Todos os commits devem seguir o seguinte padrão:
 ```
 {TAREFA}: descrição objetiva e breve
@@ -218,13 +218,14 @@ Correto:
 
 ```
 PRODUTOS: ajuste de regra de estoque
-CARROS: adicionar filtro por placa
+CARROS: inclusão de filtro por placa
 ```
 
 Incorreto:
 
 ```
 CHORE: atualizar dependências
+CARROS: adicione filtro por placa
 ajustar validação do formulário de produtos
 analisar código fonte de variações
 ```

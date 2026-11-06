@@ -16,6 +16,10 @@ do pedido. Evite jargão, formalidade e complexidade desnecessários.
 humanizada, para que a ideia seja fácil de compreender. Evite slop, texto inútil,
 repetições e detalhes desnecessários, preservando as informações que o pedido exige.
 
+**Commits:** descreva as alterações com substantivos, sem verbos no imperativo.
+Exemplo: `FRETES: integração da cotação e remoção do frete por estado`.
+Siga também o padrão de commits em `docs/rules/geral.md` do Dev Grimoire.
+
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
 ## 1. Onde está o Dev Grimoire
