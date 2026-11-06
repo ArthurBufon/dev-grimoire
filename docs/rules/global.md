@@ -12,6 +12,10 @@ perguntas e gere código da forma mais simples, compreensível e humanizada poss
 Use linguagem natural e código legível, preservando a correção e os requisitos
 do pedido. Evite jargão, formalidade e complexidade desnecessários.
 
+**Respostas:** em qualquer situação, escreva de forma direta, simples e
+humanizada, para que a ideia seja fácil de compreender. Evite slop, texto inútil,
+repetições e detalhes desnecessários, preservando as informações que o pedido exige.
+
 Antes de planejar, revisar, gerar código ou modificar qualquer arquivo:
 
 ## 1. Onde está o Dev Grimoire
