@@ -16,6 +16,8 @@ do pedido. Evite jargão, formalidade e complexidade desnecessários.
 humanizada, para que a ideia seja fácil de compreender. Evite slop, texto inútil,
 repetições e detalhes desnecessários, preservando as informações que o pedido exige.
 
+**Legibilidade de código:** calcular resultados de funções, métodos e construções de objetos em variáveis com nomes claros antes de usá-los em argumentos, arrays/objetos de retorno ou propriedades JSX. Seguir `docs/rules/geral.md` § Legibilidade — valores explícitos, preservando condições e momento da execução.
+
 **Commits:** descreva as alterações com substantivos, sem verbos no imperativo.
 Exemplo: `FRETES: integração da cotação e remoção do frete por estado`.
 Siga também o padrão de commits em `docs/rules/geral.md` do Dev Grimoire.

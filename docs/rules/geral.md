@@ -90,6 +90,14 @@ Não modernizar, refatorar ou substituir padrões existentes fora do escopo soli
 
 ---
 
+## Legibilidade — valores explícitos
+
+* Armazenar o resultado de funções, métodos e construções de objetos em variáveis com nomes claros antes de passá-lo como argumento de outra chamada ou usá-lo como valor de um array/objeto, inclusive em retornos e propriedades JSX. Separar o cálculo do valor de seu uso; não aninhar chamadas nesses pontos.
+* Literais e acessos simples a variáveis, propriedades ou índices podem ser usados diretamente.
+* Calcular valores dentro do callback, condição ou bloco em que serão usados, preservando o momento da execução, a ordem das operações e os bloqueios existentes. Não antecipar avaliações que antes dependiam de uma condição.
+
+---
+
 ## Dúvidas
 
 * Perguntar antes de planejar, implementar ou revisar somente quando a dúvida puder mudar comportamento, escopo, risco ou decisão
