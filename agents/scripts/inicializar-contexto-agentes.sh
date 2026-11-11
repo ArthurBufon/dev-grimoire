@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cria AGENTS.md e CLAUDE.md a partir dos moldes do Dev Grimoire, sem sobrescrever arquivos existentes.
+# Cria os arquivos de contexto e sincroniza a seção compartilhada de AGENTS.md.
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "$0")" && pwd)"
@@ -40,3 +40,7 @@ for file in AGENTS.md CLAUDE.md; do
 done
 
 validar_limite_linhas "${target_dir}/CLAUDE.md"
+(
+  cd "$target_dir"
+  bash "${script_dir}/sync-preferencias-codigo.sh"
+)

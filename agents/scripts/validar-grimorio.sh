@@ -27,6 +27,7 @@ for path in \
   'agents/scripts/validar-convencoes-diff.sh' \
   'agents/scripts/verificar-instalacao-grimorio.sh' \
   'agents/scripts/inicializar-contexto-agentes.sh' \
+  'agents/scripts/sync-preferencias-codigo.sh' \
   'agents/skills/check-slop.md' \
   'agents/skills/executar-plano.md' \
   'agents/scripts/validar-handoff.sh' \

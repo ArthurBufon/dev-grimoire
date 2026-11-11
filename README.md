@@ -23,8 +23,8 @@ Prompts, skills e scripts para os agentes.
 | [`prompts/`](agents/prompts/) | Prompts pontuais (refactor, troubleshoot, MVP) |
 | [`skills/`](agents/skills/) | Planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc. |
 | [`sync.sh`](agents/scripts/sync.sh) | Atualiza este repositório e sincroniza as skills globais |
-| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Copia as skills e a User Rule (`docs/rules/global.md`) para as ferramentas disponíveis |
-| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria `AGENTS.md` e `CLAUDE.md` no app, sem sobrescrever o que já existe |
+| [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Publica as skills e a User Rule para as ferramentas disponíveis |
+| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria os arquivos de contexto do app e sincroniza as Preferências de Código |
 
 Para atualizar tudo com um comando, adicione este alias ao `~/.zshrc` ou `~/.bashrc`. Ajuste o caminho se clonou em outra pasta:
 
@@ -38,7 +38,7 @@ Depois de recarregar o arquivo com `source ~/.zshrc` ou `source ~/.bashrc`, rode
 grimoire-sync
 ```
 
-Esse comando atualiza o repositório e sincroniza as skills. No Cursor, você ainda precisa colar a User Rule em **Settings → Rules → User**.
+Esse comando atualiza o Grimório e sincroniza as skills e a User Rule. No Cursor, você ainda precisa colar a User Rule em **Settings → Rules → User**.
 
 Para criar os arquivos de contexto de um app, rode na raiz dele:
 
@@ -46,7 +46,13 @@ Para criar os arquivos de contexto de um app, rode na raiz dele:
 bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
-Ajuste o caminho se o clone estiver em outro lugar. O script não sobrescreve arquivos existentes. Preencha as informações pedidas no `AGENTS.md` antes de usar o agente. O `CLAUDE.md` importa esse arquivo e guarda apenas instruções exclusivas do Claude.
+Ajuste o caminho se o clone estiver em outro lugar. Nos arquivos existentes, o script atualiza apenas a seção **Preferências de Código**. Preencha as informações pedidas no `AGENTS.md` antes de usar o agente. O `CLAUDE.md` importa esse arquivo e guarda apenas instruções exclusivas do Claude.
+
+A seção **Preferências de Código** tem fonte única no [molde de AGENTS.md](moldes/agents/AGENTS.md). A User Rule orienta o agente a aplicar a versão atual antes de trabalhar no projeto consumidor. Para fazer a mesma atualização manualmente, execute na raiz do projeto:
+
+```bash
+bash <caminho-do-grimório>/agents/scripts/sync-preferencias-codigo.sh
+```
 
 ### 📁 `moldes/`
 
