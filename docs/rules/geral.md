@@ -202,7 +202,8 @@ Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascrip
 ## Planos
 
 * Planos de implementação devem ser salvos em `docs/modelagem/{feature}/plano/{feature}.md`
-* Artefatos em `docs/modelagem/{feature}/` (modelagem, plano) são temporários — não documentação permanente do repositório
+* Todo plano, simples ou com modelagem, deve gerar junto um resumo em `docs/modelagem/{feature}/resumo.md`: o que é a feature, como é hoje e como vai ficar (formato em `agents/fragments/escrita-humanizada.md`)
+* Artefatos em `docs/modelagem/{feature}/` (modelagem, plano, resumo) são temporários — não documentação permanente do repositório
 * Após a feature estar implementada e entregue, excluir por completo os artefatos temporários gerados em `docs/modelagem/{feature}/`; se houver conteúdo preexistente ou de autoria incerta, pedir instrução ao desenvolvedor
 
 ---

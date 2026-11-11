@@ -27,6 +27,10 @@ Hard gate desta skill — **não avance** se:
 
 Ritual obrigatório antes de gravar: executar o ritual de saída do fragmento. Se "Mantive" tiver item sem requisito verificável → corte antes de pedir confirmação ao dev.
 
+## Escrita humanizada (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+
 ## Objetivo
 
 Em um único fluxo: fechar **o quê** (comportamento) e, só se houver sinal, **como** (design técnico).
@@ -123,13 +127,16 @@ Checklist interno (não entrevistar): lacuna? contradição? requisito que é im
 **Modo:** L | M | H
 **Design:** gerado | pulado ([motivo / âncora])
 
+## Em poucas palavras
+(2–4 frases sem termos técnicos)
+
 ## Comportamento
 - Contexto e objetivo
 - Atores e permissões
 - Requisitos e regras (numerados, atômicos, testáveis)
 - Estados, validações e fluxos relevantes
 - NFR / integrações (ou N/A)
-- Critérios de aceite (L: bullets verificáveis; M/H: Given/When/Then)
+- Critérios de aceite (frases "Quando…, então…" com exemplos concretos)
 - Fora de escopo
 
 ## Design técnico

@@ -95,6 +95,7 @@ Executar um plano tarefa por tarefa, delegando para subagents e validando cada e
 
 * Plano (obrigatório): `docs/modelagem/{feature}/plano/{feature}.md`
 * Modelagem (se existir): `docs/modelagem/{feature}/modelagem/{feature}.md`
+* Resumo: `docs/modelagem/{feature}/resumo.md`
 * Handoff (automático): `docs/modelagem/{feature}/handoff/{feature}.md`
 
 Artefatos em `docs/modelagem/{feature}/` são **temporários** — excluir por completo ao concluir; transferir o permanente para `docs/features/`.

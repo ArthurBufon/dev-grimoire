@@ -25,6 +25,10 @@ Hard gate desta skill — **não avance** se:
 
 Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento para o plano inteiro e, mentalmente, por tarefa.
 
+## Escrita humanizada (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+
 Crie somente o plano. Não implemente código durante este fluxo.
 
 ## Contexto obrigatório
@@ -85,6 +89,8 @@ Salve o plano em:
 
 `docs/modelagem/{feature}/plano/{feature}.md`
 
+Junto com o plano, salve o resumo obrigatório em `docs/modelagem/{feature}/resumo.md`, no formato da seção **Resumo da feature** de `escrita-humanizada.md`.
+
 ## Política de exclusão
 
 Os arquivos em `docs/modelagem/{feature}/` são **artefatos temporários** de modelagem — não documentação permanente do projeto.
@@ -117,6 +123,8 @@ O plano deve assumir que o worktree pode conter alterações preexistentes ou re
 # Plano de Implementação: [Feature]
 
 **Objetivo:** [resultado em uma frase]
+
+**Em poucas palavras:** [2–4 frases sem termos técnicos]
 
 **Arquitetura:** [abordagem resumida]
 
@@ -154,7 +162,7 @@ Para cada tarefa:
 - Alterar: `caminho/exato`
 - Testar: `caminho/exato`
 
-**Responsabilidade:** [resultado produzido]
+**Responsabilidade:** [o que muda para quem usa, em linguagem simples]
 
 **Interfaces:**
 - Consome: [path do molde ou do arquivo vizinho; só detalhar o que diverge]
@@ -247,7 +255,7 @@ Não use:
 
 Antes de concluir:
 
-0. Reaplique o gate anti-slop (ritual de saída); corte slop antes de entregar.
+0. Reaplique o gate anti-slop (ritual de saída) e o teste final da escrita humanizada; corte slop antes de entregar.
 1. Confirme que todos os requisitos possuem uma tarefa.
 2. Verifique paths, nomes, tipos e assinaturas.
 3. Remova placeholders, duplicações e tarefas pequenas demais.
@@ -255,5 +263,6 @@ Antes de concluir:
 5. Confirme que nenhum commit ou branch será criado sem permissão.
 6. Inclua uma etapa final com `git status` e revisão individual dos arquivos.
 7. Confirme que o plano referencia a exclusão futura de `docs/modelagem/{feature}/`.
+8. Confirme que `docs/modelagem/{feature}/resumo.md` foi salvo.
 
-Ao terminar, informe onde o plano foi salvo (`docs/modelagem/{feature}/plano/{feature}.md`) e um resumo breve da modelagem.
+Ao terminar, informe onde o plano (`docs/modelagem/{feature}/plano/{feature}.md`) e o resumo (`docs/modelagem/{feature}/resumo.md`) foram salvos.

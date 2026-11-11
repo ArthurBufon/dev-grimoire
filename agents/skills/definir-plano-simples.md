@@ -26,6 +26,10 @@ Hard gate desta skill — **não avance** se:
 
 Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento; confirmar escopo ↔ passos, paths reais, Git e exclusão de `docs/modelagem/{feature}/`. Plano simples = plano **curto**; se o documento parecer "feature completa", corte até caber em tarefa pontual.
 
+## Escrita humanizada (bloqueante)
+
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+
 Além do fragmento: não implementar código; não expandir escopo; dúvida bloqueante → ver seção abaixo.
 
 Anunciar no início:
@@ -76,6 +80,8 @@ Salve o plano em:
 `docs/modelagem/{feature}/plano/{feature}.md`
 
 Use slug `{feature}` em kebab-case. Se o diretório não existir, crie antes de salvar.
+
+Junto com o plano, salve o resumo obrigatório em `docs/modelagem/{feature}/resumo.md`, no formato da seção **Resumo da feature** de `escrita-humanizada.md`.
 
 **Paths proibidos:** `docs/superpowers/`, `docs/plans/` ou qualquer local fora de `docs/modelagem/{feature}/plano/`.
 
@@ -142,7 +148,7 @@ Não incluir: matriz de edge cases, duplicar níveis (unit+feature), cobertura %
 
 ## Critério de conclusão
 
-A skill termina quando o plano estiver salvo em `docs/modelagem/{feature}/plano/{feature}.md`, sem placeholders pendentes, com paths e comandos aplicáveis verificados e após o ritual anti-slop.
+A skill termina quando o plano estiver salvo em `docs/modelagem/{feature}/plano/{feature}.md`, o resumo em `docs/modelagem/{feature}/resumo.md`, sem placeholders pendentes, com paths e comandos aplicáveis verificados e após o ritual anti-slop.
 
 Encerrar com:
 
@@ -150,6 +156,7 @@ Encerrar com:
 ## Plano concluído
 
 - **Plano temporário:** `docs/modelagem/{feature}/plano/{feature}.md`
+- **Resumo:** `docs/modelagem/{feature}/resumo.md`
 - **Branch de execução:** [branch atual identificada]
 - **Spec pós-implementação:** `docs/features/{entidade}/specs.md` (omitir quando não aplicável)
 - **Próximo passo:** executar o plano em etapa separada

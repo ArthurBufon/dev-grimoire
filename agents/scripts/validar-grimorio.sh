@@ -24,6 +24,7 @@ for path in \
   'docs/rules/javascript.md' \
   'agents/fragments/gate-anti-slop.md' \
   'agents/fragments/gate-convencoes-codigo.md' \
+  'agents/fragments/escrita-humanizada.md' \
   'agents/scripts/validar-convencoes-diff.sh' \
   'agents/scripts/verificar-instalacao-grimorio.sh' \
   'agents/scripts/inicializar-contexto-agentes.sh' \
@@ -189,6 +190,16 @@ grep -Fq 'gate-convencoes-codigo.md' "${repo_root}/agents/skills/check-slop.md" 
 
 grep -Fq 'validar-convencoes-diff.sh' "${repo_root}/agents/skills/sync-origin.md" \
   || falhar 'sync-origin não referencia validar-convencoes-diff.sh'
+
+for skill in definir-modelagem definir-plano definir-plano-simples humanizar-artefato; do
+  grep -Fq 'escrita-humanizada.md' "${repo_root}/agents/skills/${skill}.md" \
+    || falhar "${skill} não referencia escrita-humanizada.md"
+done
+
+for skill in definir-plano definir-plano-simples; do
+  grep -Fq 'docs/modelagem/{feature}/resumo.md' "${repo_root}/agents/skills/${skill}.md" \
+    || falhar "${skill} não exige o resumo da feature"
+done
 
 quick_fix="${repo_root}/agents/skills/quick-fix.md"
 [[ -f "$quick_fix" ]] || falhar 'quick-fix.md ausente'

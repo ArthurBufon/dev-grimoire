@@ -17,8 +17,9 @@ Humanização bloqueada: informe um arquivo .md acessível de modelagem ou plano
 ## Ação
 
 1. Leia o arquivo inteiro antes de editar.
-2. Reescreva somente esse arquivo com frases curtas, linguagem direta, ordem
-   lógica e termos concretos.
+2. Reescreva somente esse arquivo aplicando
+   `{GRIMOIRE}/agents/fragments/escrita-humanizada.md`: frases curtas,
+   linguagem direta, ordem lógica e termos concretos.
 3. Corte repetição, jargão desnecessário e detalhes sem significado.
 4. Preserve títulos e estrutura úteis, requisitos, decisões, limites, critérios
    verificáveis, nomes técnicos necessários e toda a ideia central.
