@@ -31,23 +31,48 @@ quem e por quê lendo o artefato uma única vez? Se não, reescreva antes de sal
 ## Resumo da feature (obrigatório em todo plano)
 
 Ao terminar qualquer plano, simples ou vindo de modelagem, salve junto
-`docs/modelagem/{feature}/resumo.md`. É um resumo simples e enxuto para o dev
-entender a feature em um minuto. Ele não substitui o plano nem repete os passos.
+`docs/modelagem/{feature}/resumo.md`. É a explicação da feature para o dev ler
+**uma vez** e conseguir validar o comportamento sem abrir a modelagem nem o
+plano. Escreva do ponto de vista de quem usa, sem paths, classes ou passos de
+implementação.
+
+Não confunda resumo com versão curta. O resumo cobre **todo** o comportamento
+que o dev precisa validar, em linguagem simples. Uma lista de 3 bullets não basta.
 
 ```markdown
-# Resumo: {feature}
+# {Feature}: como vai funcionar
 
-**O que é:** [1–2 frases sem termos técnicos]
+## A ideia
+[2–4 frases: o problema, o que a feature faz e com que se parece]
+
+## Quem faz o quê
+- **[Perfil]:** [o que pode fazer; quem não pode]
 
 ## Como é hoje
-- [comportamento atual, do ponto de vista de quem usa]
+[1–3 frases sobre o comportamento atual ou o que a pessoa faz sem a feature]
 
-## Como vai ficar
-- [comportamento depois da entrega]
+## Como funciona
+[o fluxo principal em passos numerados, do ponto de vista de quem usa;
+tabela só para campos ou opções que a pessoa preenche]
+
+## Regras e exemplos
+[cada cálculo, limite ou condição com um exemplo em números reais]
+
+## Quando algo dá errado
+[mensagens que a pessoa vê e o que acontece em cada caso]
+
+## O que muda no resto do sistema
+[onde o resultado aparece: telas, mensagens, e-mails, integrações]
+
+## O que fica de fora
+- [itens adiados]
+
+## Pontos de atenção
+- [riscos e pendências externas, ditos em linguagem simples]
 ```
 
-Use no máximo 3 bullets por seção. Se a feature for nova, em "Como é hoje"
-diga em uma frase o que a pessoa faz hoje sem ela.
+Omita as seções que não se aplicam. Em mudança pequena, o resumo fica pequeno,
+mas cada regra que o dev precisa validar continua com o seu exemplo.
 
 ## O que não muda
 
