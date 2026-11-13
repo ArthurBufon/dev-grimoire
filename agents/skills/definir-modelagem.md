@@ -29,7 +29,7 @@ Ritual obrigatório antes de gravar: executar o ritual de saída do fragmento. S
 
 ## Escrita humanizada (bloqueante)
 
-**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de perguntar ou redigir, incluindo a seção **Perguntas e dúvidas bloqueantes**. Valide a clareza de cada pergunta e, antes de salvar, faça o teste final do fragmento.
 
 ## Objetivo
 
@@ -68,7 +68,7 @@ Antes do interrogatório, inspecione código/docs existentes. Anuncie o modo e o
 
 | Modo | Quando | Ritual | Design no artefato? |
 |---|---|---|---|
-| **L** | CRUD/ajuste em padrão; comportamento claro ou inferível | 3–5 perguntas (até 3 agrupadas/msg); saída curta | **Não** — âncora em padrão/molde existente |
+| **L** | CRUD/ajuste em padrão; comportamento decidido e poucas lacunas | Rodadas curtas (até 3 perguntas/msg), até resolver as lacunas; saída curta | **Não** — âncora em padrão/molde existente |
 | **M** | Regra de negócio nova; stack/padrão do projeto óbvios | Blocos 1–3; bloco 4 só com sinal; até 2 perguntas/msg | **Só se** trade-off real (modelo novo, contrato externo, integração) |
 | **H** | Domínio novo, compliance, multi-ator, integração crítica ou muita ambiguidade | Completo; uma pergunta por vez | **Sim** |
 
@@ -82,13 +82,14 @@ Use **H** quando faltar ator, resultado, fluxo principal ou critério de aceite;
 * Reaproveite termos e padrões válidos; aponte inconsistências para o usuário decidir.
 * Na fase de comportamento: descreva **o que** acontece — não invente arquitetura. Âncora (“igual à feature Y / molde do módulo”) é permitida.
 * Na fase de design: só decisões que o plano **não** deriva sozinho de moldes/padrões.
-* Em cada pergunta: alternativas concretas + recomendação + motivo.
-* Pressione o vago até ficar verificável (comportamento) / implementável (design).
+* A quantidade de perguntas depende das decisões abertas, não do tamanho esperado do artefato. Economia de texto não justifica encerrar a investigação cedo.
+* Em cada pergunta, siga o fragmento de escrita humanizada: situação concreta, decisão clara e consequências práticas; opções e recomendação quando houver base.
+* Aprofunde respostas vagas com exemplos até o comportamento ficar verificável ou o design implementável. Não preencha lacunas de intenção com o padrão do código.
 * Pesquise práticas do domínio/stack quando houver sinal; cite fontes só se forem decisivas.
 
 ## Fase 1 — Comportamento (sempre)
 
-Percorra nesta ordem; aprofunde só com sinal do modo:
+Confira todos os pontos aplicáveis nesta ordem; use as fontes para evitar repetir perguntas já respondidas e aprofunde toda lacuna que possa mudar a entrega, em qualquer modo:
 
 1. **Problema e escopo** — que problema resolve, para quem, o que fica de fora.
 2. **Atores e fluxo** — perfis/permissões; evento que inicia; caminho principal; erros, cancelamentos e retomadas **relevantes**.
@@ -115,7 +116,7 @@ Antes de gravar, apresente **Entendimento compartilhado**:
 
 Só produza o artefato após confirmação explícita. Se algo mudar, retome o bloco afetado.
 
-No modo H, antes da confirmação, liste somente as decisões críticas como `confirmada pelo usuário`, `verificada em caminho:linha` ou `pendente bloqueante`. Não salve enquanto uma pendência puder mudar comportamento ou critério de aceite.
+Em todos os modos, antes da confirmação, confira as decisões que mudam a entrega e sua origem: resposta do usuário ou fonte consultada. No entendimento compartilhado, deixe claro o que entra, o que fica de fora e exemplos do resultado esperado. Se houver pendência que possa mudar comportamento, escopo ou critério de aceite, pergunte em linguagem simples e aguarde a resposta antes de pedir confirmação ou salvar.
 
 Checklist interno (não entrevistar): lacuna? contradição? requisito que é implementação? decisão técnica sem design quando deveria ter?
 

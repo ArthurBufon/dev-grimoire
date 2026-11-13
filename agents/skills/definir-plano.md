@@ -27,7 +27,7 @@ Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento pa
 
 ## Escrita humanizada (bloqueante)
 
-**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de perguntar ou redigir, incluindo a seção **Perguntas e dúvidas bloqueantes**. Valide a clareza de cada pergunta e, antes de salvar, faça o teste final do fragmento.
 
 Crie somente o plano. Não implemente código durante este fluxo.
 
@@ -52,6 +52,25 @@ Alinhe-se ao modo L/M/H e ao campo **Design** do artefato:
 * Se **Design: pulado** → derive a abordagem de moldes do Dev Grimoire, padrões do módulo e âncoras registradas (“igual à feature Y”). Não invente arquitetura nova; se surgir decisão técnica não óbvia, pare e sugira retomar `definir-modelagem` (Fase 2) antes de continuar.
 
 Regras do projeto e do usuário têm precedência sobre esta skill. Não invente convenções; quando algo não estiver documentado, siga os padrões existentes no código e no Dev Grimoire.
+
+### Conferência de dúvidas antes de planejar
+
+Uma modelagem existente não garante que todas as decisões estejam fechadas.
+Confira o resultado esperado, o escopo incluído/excluído e os critérios de aceite
+contra a conversa e o código. Preserve respostas já confirmadas, sem repetir a
+entrevista inteira.
+
+Se encontrar lacuna ou contradição que possa mudar a entrega, descreva uma
+situação concreta e pergunte o que deve acontecer, seguindo o fragmento de
+escrita humanizada. Faça novas rodadas enquanto houver dúvidas relevantes;
+não decida comportamento por conta própria para conseguir terminar o plano.
+Mudança de escopo ou design exige retomar o trecho afetado da modelagem e
+confirmá-lo com o usuário antes de continuar.
+
+Antes de concluir, apresente em linguagem simples o que será feito, o que fica
+de fora e exemplos do resultado. Não salve o plano e o resumo como concluídos
+com dúvida bloqueante, nem inclua tarefas para decidir o comportamento durante
+a implementação.
 
 ## Padrões do Dev Grimoire (obrigatório)
 

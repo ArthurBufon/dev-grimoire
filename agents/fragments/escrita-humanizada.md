@@ -28,6 +28,49 @@ quem e por quê lendo o artefato uma única vez? Se não, reescreva antes de sal
 - Termine com **o que fica de fora** e com os **pontos de atenção** (riscos,
   pendências externas). Nada de "TBD".
 
+## Perguntas e dúvidas bloqueantes (modelagem, plano e plano simples)
+
+Antes de fechar o escopo, confira o que já foi decidido na conversa e o que o
+código/spec comprova sobre o funcionamento atual. O comportamento atual não
+prova, sozinho, o que o usuário quer mudar. Pergunte sobre as lacunas que podem
+mudar a entrega; não transforme uma interpretação provável em requisito.
+
+- Confira, conforme o pedido: problema e resultado esperado; quem usa; caminho
+  principal; regras e exceções relevantes; o que entra e o que fica de fora;
+  efeitos em outras telas ou processos; exemplos que comprovem o resultado.
+  Isso orienta a investigação, sem virar um questionário fixo.
+- Faça rodadas curtas, com uma decisão por pergunta. Uma resposta vaga,
+  incompleta ou contraditória exige aprofundar o ponto antes de seguir.
+  Não limite o total de perguntas se ainda houver uma decisão relevante aberta.
+- Descreva uma situação real, pergunte o que deve acontecer e explique o que a
+  resposta muda para quem usa. Evite perguntas genéricas como “qual o fluxo?”
+  ou “como tratar erros?”.
+- Use palavras comuns. Não exija que o usuário conheça arquitetura, siglas,
+  nomes de classes ou tabelas para responder. Se uma decisão técnica precisar
+  dele, traduza as opções em consequências práticas; explique qualquer termo
+  técnico indispensável na própria pergunta.
+- Quando houver alternativas, apresente opções concretas, com o efeito de cada
+  uma, e recomende uma com motivo simples quando houver base para isso.
+  Deixe espaço para uma resposta diferente; recomendação não é decisão aceita.
+- Se o usuário não entender, reformule com um exemplo do pedido e escolhas mais
+  claras. Não repita o jargão nem trate a dificuldade como resposta.
+
+Exemplo: em vez de “o cancelamento deve ser idempotente?”, pergunte:
+“Se a pessoa clicar em cancelar duas vezes, na segunda tentativa deve aparecer
+‘Pedido já cancelado’ ou apenas continuar mostrando o pedido cancelado?
+Recomendo só manter o estado cancelado, para evitar um aviso desnecessário.”
+
+Antes de concluir, confira as decisões que mudam comportamento, escopo ou
+aceite: cada uma precisa estar respondida pelo usuário ou apoiada em uma fonte
+que realmente a defina. Mostre em linguagem simples o que será feito, o que fica
+de fora e exemplos do resultado. Não salve como concluído nem avance para a
+execução com dúvida bloqueante. Silêncio, passagem do tempo e recomendação do
+agente não resolvem uma pendência. Preserve decisões já confirmadas; reabra
+somente o ponto afetado por uma lacuna ou contradição nova.
+
+**Teste da pergunta:** a pessoa consegue entender a situação e escolher o
+resultado sem pedir uma tradução técnica? Se não, reescreva antes de enviar.
+
 ## Resumo da feature (obrigatório em todo plano)
 
 Ao terminar qualquer plano, simples ou vindo de modelagem, salve junto

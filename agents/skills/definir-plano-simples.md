@@ -28,7 +28,7 @@ Ritual obrigatório antes de salvar: executar o ritual de saída do fragmento; c
 
 ## Escrita humanizada (bloqueante)
 
-**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de redigir o artefato. Antes de salvar, faça o teste final do fragmento.
+**Leia e aplique** `{GRIMOIRE}/agents/fragments/escrita-humanizada.md` antes de perguntar ou redigir, incluindo a seção **Perguntas e dúvidas bloqueantes**. Valide a clareza de cada pergunta e, antes de salvar, faça o teste final do fragmento.
 
 Além do fragmento: não implementar código; não expandir escopo; dúvida bloqueante → ver seção abaixo.
 
@@ -55,9 +55,11 @@ Esta skill cobre ajustes, correções, extensões e tarefas objetivas com escopo
 ## Antes do plano
 
 * Escopo 100% claro somente quando ator, resultado esperado, critério de aceite e limite de escopo estiverem decididos na conversa ou verificados no código/spec → plano direto.
-* Dúvida **bloqueante** de escopo pontual → `grill-me` ou **uma** pergunta objetiva.
-* Dúvida de comportamento, domínio, impacto ou arquitetura → parar e sugerir `definir-modelagem`.
+* Dúvida **bloqueante** pontual → perguntas em rodadas curtas, seguindo o fragmento de escrita humanizada. Pergunte novamente se a resposta não resolver a decisão; não há limite de uma pergunta para fechar o escopo.
+* Se as respostas revelarem feature inteira, ambiguidade ampla de comportamento/domínio, alto risco ou decisão de arquitetura → parar e sugerir `definir-modelagem`.
 * Premissa só para fato técnico verificável no código; dúvida de comportamento → perguntar.
+* Confira também exceções e efeitos em outras partes do sistema quando houver sinal no pedido/código. O padrão atual não substitui a intenção do usuário para a mudança.
+* Antes de concluir, apresente em linguagem simples o que será feito, o que fica de fora e exemplos do resultado. Não finalize plano/resumo com dúvidas que mudem comportamento, escopo ou aceite, nem transfira essas decisões para a implementação.
 
 ## Contexto obrigatório
 
