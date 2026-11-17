@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sincroniza a seção Preferências de Código a partir da raiz do projeto consumidor.
+# Sincroniza as preferências de código e trabalho na raiz do projeto consumidor.
 set -euo pipefail
 
 if (($#)); then
@@ -10,16 +10,24 @@ fi
 script_dir="$(cd "$(dirname "$0")" && pwd)"
 grimoire="$(cd "${script_dir}/../.." && pwd)"
 molde="${grimoire}/moldes/agents/AGENTS.md"
-titulo='## Preferências de Código'
+extrair_secao() {
+  local titulo="$1"
+  local secao
+  secao="$(awk -v titulo="$titulo" '
+    /^##?[[:space:]]/ { copiar = ($0 == titulo) }
+    $0 == titulo { encontrados++ }
+    copiar { print }
+    END { if (encontrados != 1) exit 1 }
+  ' "$molde")" || return 1
+  if [[ "$secao" != "$titulo"$'\n\n- '* ]]; then
+    printf 'erro: seção ausente ou inválida: %s em %s\n' "$titulo" "$molde" >&2
+    return 1
+  fi
+  printf '%s\n' "$secao"
+}
 
-secao="$(awk -v titulo="$titulo" '
-  $0 == titulo { copiar = 1 }
-  copiar { print }
-' "$molde")"
-if [[ "$secao" != "$titulo"$'\n\n- '* ]] || grep -Eq '^#{1,2} ' <<<"${secao#*$'\n'}"; then
-  printf 'erro: mantenha %s como última seção do molde %s\n' "$titulo" "$molde" >&2
-  exit 1
-fi
+preferencias_codigo="$(extrair_secao '## Preferências de Código')"
+preferencias_trabalho="$(extrair_secao '## Preferências de Trabalho')"
 
 sincronizar() (
   local arquivo="$1"
@@ -34,12 +42,18 @@ sincronizar() (
   trap 'rm -f -- "$temporario"' EXIT
   cp -p -- "$arquivo" "$temporario"
 
-  if ! PREFERENCIAS_CODIGO="$secao" awk -v titulo="$titulo" '
-    BEGIN { secao = ENVIRON["PREFERENCIAS_CODIGO"] }
+  if ! PREFERENCIAS_CODIGO="$preferencias_codigo" PREFERENCIAS_TRABALHO="$preferencias_trabalho" awk '
+    BEGIN {
+      codigo = "## Preferências de Código"
+      trabalho = "## Preferências de Trabalho"
+      secoes[codigo] = ENVIRON["PREFERENCIAS_CODIGO"]
+      secoes[trabalho] = ENVIRON["PREFERENCIAS_TRABALHO"]
+    }
     /^ ? ? ?(```|~~~)/ { cercado = !cercado }
-    !cercado && $0 == titulo {
-      if (encontrado++) exit 1
-      print secao
+    !cercado && ($0 in secoes) {
+      if (encontrados[$0]++) { duplicada = 1; exit 1 }
+      if (substituindo) print ""
+      print secoes[$0]
       substituindo = 1
       next
     }
@@ -49,9 +63,14 @@ sincronizar() (
     }
     !substituindo { print }
     END {
-      if (!encontrado) {
+      if (duplicada) exit 1
+      if (!encontrados[codigo]) {
         if (NR && $0 != "") print ""
-        print secao
+        print secoes[codigo]
+      }
+      if (!encontrados[trabalho]) {
+        if (NR || !encontrados[codigo]) print ""
+        print secoes[trabalho]
       }
     }
   ' "$arquivo" > "$temporario"; then

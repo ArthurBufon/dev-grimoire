@@ -192,16 +192,16 @@ Projetos **não** devem ter `docs/rules/`. Specs de feature sim.
 
 Todo projeto deve versionar `AGENTS.md` na raiz como fonte de verdade do contexto
 local: objetivo, stack, arquitetura, comandos de validação e limites específicos.
-Inclua também a seção obrigatória **Preferências de Código**, com o mesmo
-texto de `{GRIMOIRE}/moldes/agents/AGENTS.md` em todos os projetos. O molde
-é a fonte única. Cada projeto consumidor aplica a seção ao próprio arquivo.
+Inclua também as seções obrigatórias **Preferências de Código** e
+**Preferências de Trabalho**, com o mesmo texto de `{GRIMOIRE}/moldes/agents/AGENTS.md` em todos os projetos. O molde
+é a fonte única. Cada projeto consumidor aplica as duas seções ao próprio arquivo.
 O Grimório mantém essa fonte sem descobrir, listar ou manter referências a
 repositórios consumidores.
 
-Na inicialização, o script de contexto aplica a seção. Em projetos com
+Na inicialização, o script de contexto aplica as duas seções. Em projetos com
 `AGENTS.md` existente, antes de planejar, revisar ou editar, rode
 `bash {GRIMOIRE}/agents/scripts/sync-preferencias-codigo.sh` a partir da raiz
-do projeto e leia a seção atualizada. O comando preserva o restante do arquivo.
+do projeto e leia as seções atualizadas. O comando preserva o restante do arquivo.
 
 Use as demais seções para fatos e decisões locais, como regras internas,
 módulos sensíveis, integrações, comandos e decisões arquiteturais.

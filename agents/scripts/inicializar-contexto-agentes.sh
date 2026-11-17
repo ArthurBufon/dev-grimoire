@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cria os arquivos de contexto e sincroniza a seção compartilhada de AGENTS.md.
+# Cria os arquivos de contexto e sincroniza as seções compartilhadas de AGENTS.md.
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "$0")" && pwd)"

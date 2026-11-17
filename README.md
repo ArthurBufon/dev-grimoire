@@ -24,7 +24,7 @@ Prompts, skills e scripts para os agentes.
 | [`skills/`](agents/skills/) | Planejamento, quick-fix, extrair-molde, mapear specs, grill-me, etc. |
 | [`sync.sh`](agents/scripts/sync.sh) | Atualiza este repositório e sincroniza as skills globais |
 | [`sync-global-skills.sh`](agents/scripts/sync-global-skills.sh) | Publica as skills e a User Rule para as ferramentas disponíveis |
-| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria os arquivos de contexto do app e sincroniza as Preferências de Código |
+| [`inicializar-contexto-agentes.sh`](agents/scripts/inicializar-contexto-agentes.sh) | Cria os arquivos de contexto do app e sincroniza as preferências de código e trabalho |
 
 Para atualizar tudo com um comando, adicione este alias ao `~/.zshrc` ou `~/.bashrc`. Ajuste o caminho se clonou em outra pasta:
 
@@ -46,9 +46,9 @@ Para criar os arquivos de contexto de um app, rode na raiz dele:
 bash ../dev-grimoire/agents/scripts/inicializar-contexto-agentes.sh
 ```
 
-Ajuste o caminho se o clone estiver em outro lugar. Nos arquivos existentes, o script atualiza apenas a seção **Preferências de Código**. Preencha as informações pedidas no `AGENTS.md` antes de usar o agente. O `CLAUDE.md` importa esse arquivo e guarda apenas instruções exclusivas do Claude.
+Ajuste o caminho se o clone estiver em outro lugar. Nos arquivos existentes, o script atualiza apenas as seções **Preferências de Código** e **Preferências de Trabalho**. Preencha as informações pedidas no `AGENTS.md` antes de usar o agente. O `CLAUDE.md` importa esse arquivo e guarda apenas instruções exclusivas do Claude.
 
-A seção **Preferências de Código** tem fonte única no [molde de AGENTS.md](moldes/agents/AGENTS.md). A User Rule orienta o agente a aplicar a versão atual antes de trabalhar no projeto consumidor. Para fazer a mesma atualização manualmente, execute na raiz do projeto:
+As seções **Preferências de Código** e **Preferências de Trabalho** têm fonte única no [molde de AGENTS.md](moldes/agents/AGENTS.md). A User Rule orienta o agente a aplicar as versões atuais antes de trabalhar no projeto consumidor. Para fazer a mesma atualização manualmente, execute na raiz do projeto:
 
 ```bash
 bash <caminho-do-grimório>/agents/scripts/sync-preferencias-codigo.sh
