@@ -197,6 +197,13 @@ Lista de seções e ordem por stack: `docs/rules/php.md` e `docs/rules/javascrip
 * Specs e planos gerados por frameworks devem ser descartados após implementação
 * O `specs.md` deve ser 100% informativo, com o único intuito de explicar a feature e decisões (evitar tom de changelog. 100% informativo)
 
+### Geração e atualização de specs
+
+* Specs devem ser sempre simples, humanizadas e diretas, com palavras comuns e apenas as seções necessárias para entender a feature.
+* Priorize propósito, comportamento, regras de negócio e decisões relevantes. Inclua detalhes técnicos e referências ao código somente quando ajudarem a esclarecer esses pontos; não transforme a spec em um inventário de métodos, campos ou arquivos.
+* O tamanho deve acompanhar a necessidade real da feature. Não copie a extensão ou todas as seções do molde ou de specs existentes, nem repita convenções já documentadas no Grimório.
+* Antes de salvar, aplique o gate bloqueante `agents/fragments/gate-anti-slop.md`: remova repetições, jargão, seções vazias e detalhes sem utilidade, preservando as informações necessárias para compreender o comportamento.
+
 ---
 
 ## Planos

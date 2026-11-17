@@ -20,7 +20,7 @@ Antes de salvar, preserve alterações existentes conforme a regra global; em co
 REGRAS:
 
 Documente somente fatos confirmados no código e contexto; não invente regras, fluxos, campos ou comportamentos.
-Escreva em linguagem simples, breve e informativa, sem tom de changelog.
-Seguir o padrão Markdown das specs já existentes no projeto; se não houver, seguir o molde.
+Siga `docs/rules/geral.md` § Geração e atualização de specs: escrita simples, humanizada e direta, com aprovação no gate anti-slop antes de salvar.
+Use o padrão Markdown do projeto ou o molde como referência, incluindo somente as seções necessárias; não reproduza a extensão ou a complexidade dos exemplos.
 Em specs existentes, preserve trechos não confirmados pelo material disponível; informe a incerteza ao usuário em vez de removê-los ou reescrevê-los como fato.
 Na entrega, informe o path salvo, os arquivos consultados e as incertezas preservadas, se houver.
